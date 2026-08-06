@@ -35,16 +35,6 @@ export const HeroSection: React.FC<HeroSectionProps> = ({
               <strong className="font-medium text-[#1F2421]">Chen Family Taijiquan</strong>—a northern Chinese martial art.
             </p>
 
-            {/* Philosophy quote callout */}
-            <div className="p-4 sm:p-5 rounded-2xl bg-[#F3EFEA]/80 border border-[#E4DED5] border-l-4 border-l-[#4A6B5D] space-y-1">
-              <p className="font-serif italic text-base sm:text-lg text-[#1F2421]">
-                &ldquo;{TAIJI_DATA.hero.philosophyQuote}&rdquo;
-              </p>
-              <p className="text-xs text-[#808B84] font-medium tracking-wide uppercase">
-                Core Chen Family Principle
-              </p>
-            </div>
-
             {/* CTA Action Buttons */}
             <div className="pt-2 flex flex-col sm:flex-row items-stretch sm:items-center space-y-3 sm:space-y-0 sm:space-x-4">
               <button

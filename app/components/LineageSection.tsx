@@ -2,7 +2,7 @@
 
 import React from "react";
 import { TAIJI_DATA } from "../data/taijiData";
-import { UserCheck, Award, GitCommit, Heart, CheckCircle2, Info } from "lucide-react";
+import { UserCheck, Award, GitCommit, Heart, CheckCircle2, Info, ExternalLink } from "lucide-react";
 
 export const LineageSection: React.FC = () => {
   const { lineageInfo, lineageTree } = TAIJI_DATA;
@@ -42,15 +42,50 @@ export const LineageSection: React.FC = () => {
                 </div>
               </div>
 
-              {/* Editable Placeholder Note */}
-              <div className="p-4 rounded-xl bg-[#FBF9F5] border border-[#E8E2D9] space-y-2">
-                <div className="flex items-center space-x-2 text-xs font-semibold text-[#9E7B56] uppercase tracking-wider">
-                  <Info className="w-4 h-4" />
-                  <span>Instructor Bio</span>
+              {/* Bio Note */}
+              <div className="p-4 rounded-2xl bg-[#4A6B5D]/10 border border-[#4A6B5D]/25 space-y-2">
+                <div className="flex items-center justify-between">
+                  <span className="text-xs font-semibold text-[#4A6B5D] uppercase tracking-wider">
+                    Instructor Bio
+                  </span>
+                  <ExternalLink className="w-4 h-4 text-[#4A6B5D]" />
                 </div>
-                <p className="text-sm text-[#57625B] leading-relaxed font-light italic">
-                  {lineageInfo.bio}
+                <p className="text-xs text-[#57625B] leading-relaxed">
+                  I trained under <strong className="text-[#1F2421]">Marin Spivack</strong>, senior disciple of Chen Yu.
                 </p>
+                <a
+                  href="https://molingtaiji.com/"
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  className="inline-flex items-center space-x-1.5 text-xs font-semibold text-[#4A6B5D] hover:text-[#3B574B] hover:underline pt-1"
+                >
+                  <span>Visit Mo Ling Taiji Official Website (molingtaiji.com)</span>
+                  <ExternalLink className="w-3 h-3" />
+                </a>
+              </div>
+            </div>
+
+            {/* Images Running Parallel to Lineage Tree Visualizer */}
+            <div className="space-y-3">
+              <h4 className="text-xs font-semibold text-[#808B84] uppercase tracking-wider px-1">
+                Marin Spivack and Robin Wu
+              </h4>
+              <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
+                <div className="rounded-2xl overflow-hidden border border-[#E4DED5] bg-[#F3EFEA] shadow-xs group">
+                  <img
+                    src="/IMG_2499.jpg"
+                    alt="Chen Family Taijiquan Form Alignment - IMG_2499.jpg"
+                    className="w-full h-52 object-cover group-hover:scale-103 transition-transform duration-300"
+                  />
+                </div>
+
+                <div className="rounded-2xl overflow-hidden border border-[#E4DED5] bg-[#F3EFEA] shadow-xs group">
+                  <img
+                    src="/IMG_2503.jpg"
+                    alt="Chen Family Taijiquan Silk Reeling - IMB_2503.jpg"
+                    className="w-full h-52 object-cover group-hover:scale-103 transition-transform duration-300"
+                  />
+                </div>
               </div>
             </div>
           </div>

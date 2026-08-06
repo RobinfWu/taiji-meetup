@@ -28,7 +28,6 @@ export const TAIJI_DATA = {
   tagline: "Gongfu Jia",
 
   hero: {
-    philosophyQuote: "Movement born from quietude, power yielded through stillness.",
     subText: "Explore authentic traditional martial art traditions designed to balance body, mind, and spirit. Guided by structured biomechanics and internal harmony.",
     ctaPrimary: "RSVP For Next Free Class",
     ctaSecondary: "Explore What is Taiji",
@@ -44,7 +43,6 @@ export const TAIJI_DATA = {
     {
       id: "chansi",
       title: "Silk Reeling (Chan Si Gong)",
-      chinese: "纏絲功",
       accentColor: "#4A6B5D",
       summary: "Continuous, spiral rotational movements that gently open joints, release muscular tension, and harmonize total body effort.",
       description: "Silk Reeling is the core kinetic foundation of Chen Taijiquan. Like drawing out delicate silk threads from a cocoon, every movement requires unbroken focus, uniform speed, and seamless whole-body coordination."
@@ -52,7 +50,6 @@ export const TAIJI_DATA = {
     {
       id: "song",
       title: "Active Relaxation (Song)",
-      chinese: "鬆",
       accentColor: "#4C6275",
       summary: "Releasing unnecessary muscular tension while maintaining upright structural alignment and internal integrity.",
       description: "Song is not passive limpness, but mindful release. By relaxing deep postural muscles and trusting gravity, weight sinks naturally to the feet, enabling quiet presence and fluid energy flow."
@@ -60,7 +57,6 @@ export const TAIJI_DATA = {
     {
       id: "yinyang",
       title: "Yin-Yang Equilibrium",
-      chinese: "陰陽平衡",
       accentColor: "#9E7B56",
       summary: "Dynamic harmony between light and heavy, fast and slow, internal stillness and external expression.",
       description: "Every motion contains its complement: yield to overcome force, root deep to reach upward. Taiji practice cultivates mental adaptability and balance both on the mat and in daily living."
@@ -68,7 +64,6 @@ export const TAIJI_DATA = {
     {
       id: "neigong",
       title: "Internal Cultivation (Neigong)",
-      chinese: "內功",
       accentColor: "#57625B",
       summary: "Breathing, posture alignment, and intention-guided energy work for vitality, longevity, and calm focus.",
       description: "Through Standing Meditation (Zhan Zhuang) and synchronized abdominal breathing, practice calms the central nervous system, boosts internal circulation, and builds rooted strength."
@@ -102,6 +97,9 @@ export const TAIJI_DATA = {
     instructorName: "Robin Wu",
     title: "Chen Family Taijiquan Practitioner",
     bio: "Trained directly under Marin Spivack as an indoor student/disciple since the year 2020.",
+    teacherName: "Marin Spivack",
+    teacherWebsite: "https://molingtaiji.com/",
+    teacherSiteName: "Mo Ling Taiji",
   },
   lineageTree: [
     {
@@ -138,7 +136,7 @@ export const TAIJI_DATA = {
       generation: "20th Generation",
       era: "Modern Grandmasters",
       figures: ["Marin Spivack"],
-      description: "A senior disciple of Chen Yu."
+      description: "A senior disciple of Chen Yu. Founder of Mo Ling Taiji (https://molingtaiji.com/)."
     },
     {
       generation: "Current Local Teaching",
@@ -154,7 +152,7 @@ export const TAIJI_DATA = {
       title: "Chen Style Gongfu Jia Yilu (First Road)",
       day: "Saturdays",
       time: "10:00 AM - 11:30 AM",
-      location: "[Placeholder: City Park Rose Garden Lawn / Indoor Studio]",
+      location: "[Placeholder: City Park Rose Garden Lawn]",
       level: "Beginner",
       description: "Detailed instruction in the classic 74-movement routine. Step-by-step posture breakdowns, weight shifting, and application awareness.",
       openSpots: 4,
@@ -165,7 +163,7 @@ export const TAIJI_DATA = {
       title: "Push Hands (Tui Shou)",
       day: "Sundays",
       time: "6:30 PM - 7:45 PM",
-      location: "[Placeholder: Community Martial Arts Studio / Civic Room]",
+      location: "[Placeholder: Community Park Lawn / Outdoor Grounds]",
       level: "Intermediate / Advanced",
       description: "Exploring structure, yielding, sensitivity drills, and cooperative partner work to test and deepen internal balance.",
       openSpots: 5,
@@ -175,16 +173,10 @@ export const TAIJI_DATA = {
 
   locations: [
     {
-      name: "Outdoor Morning Park Location",
+      name: "Outdoor Park Location",
       address: "[Placeholder: Central Park North Lawn, Gate 4 entrance]",
-      scheduleNote: "Saturdays 8:30 AM - 11:30 AM (Weather Permitting)",
+      scheduleNote: "Saturdays 10:00 AM - 11:30 AM & Sundays 6:30 PM (Weather Permitting)",
       tips: "Bring water, wear comfortable flat-soled shoes, and dress in light layers."
-    },
-    {
-      name: "Indoor Evening Studio",
-      address: "[Placeholder: 123 Harmony Way, Suite 2B, Local City]",
-      scheduleNote: "Wednesdays 6:30 PM - 7:45 PM",
-      tips: "Shoe-free wood floor. Soft socks or clean indoor martial arts shoes requested."
     }
   ],
 

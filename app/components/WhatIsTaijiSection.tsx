@@ -38,7 +38,7 @@ export const WhatIsTaijiSection: React.FC = () => {
           </p>
         </div>
 
-        {/* 4 Pillars of Differences to Mainstream Tai Chi */}
+        {/* 4 Differences to Mainstream Tai Chi */}
         <div className="mb-20">
           <h3 className="font-serif text-2xl text-[#1F2421] font-normal mb-8 text-center sm:text-left flex items-center justify-center sm:justify-start space-x-3">
             <span className="w-8 h-px bg-[#9E7B56]" />
@@ -64,9 +64,6 @@ export const WhatIsTaijiSection: React.FC = () => {
                       <span className="font-serif text-lg font-semibold text-[#1F2421]">
                         {differences.title}
                       </span>
-                      <span className="font-serif text-sm font-semibold text-[#4A6B5D] px-2 py-0.5 rounded bg-[#4A6B5D]/10">
-                        {differences.chinese}
-                      </span>
                     </div>
                     <p className="text-xs text-[#57625B] line-clamp-2">
                       {differences.summary}
@@ -87,7 +84,7 @@ export const WhatIsTaijiSection: React.FC = () => {
                 </div>
                 <div>
                   <h4 className="font-serif text-2xl font-semibold text-[#1F2421]">
-                    {activeDifference.title} ({activeDifference.chinese})
+                    {activeDifference.title}
                   </h4>
                   <p className="text-xs text-[#808B84] uppercase tracking-wider font-semibold">
                     Kinetic & Internal Concept

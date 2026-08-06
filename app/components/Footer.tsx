@@ -113,7 +113,14 @@ export const Footer: React.FC<FooterProps> = ({ onNavigateTab, onOpenRSVP }) => 
         <div className="pt-8 flex flex-col sm:flex-row items-center justify-between text-xs text-[#808B84] gap-4">
           <p>© {new Date().getFullYear()} {TAIJI_DATA.groupName}. Built with Next.js & Tailwind CSS.</p>
           <div className="flex items-center space-x-4">
-            <span className="hover:text-[#D5CDC2] cursor-pointer">Chen Zhaokui Association</span>
+            <a
+              href="https://molingtaiji.com/"
+              target="_blank"
+              rel="noopener noreferrer"
+              className="text-[#8DA399] hover:text-white transition-colors underline"
+            >
+              Mo Ling Taiji (Teacher&apos;s Website)
+            </a>
             <span>•</span>
             <span className="hover:text-[#D5CDC2] cursor-pointer">Traditional Internal Arts</span>
           </div>

@@ -17,9 +17,9 @@ const jakarta = Plus_Jakarta_Sans({
 });
 
 export const metadata: Metadata = {
-  title: "Chen Family Taijiquan | Mindful Movement & Internal Arts",
-  description: "Experience the serenity, strength, and internal balance of traditional Chen Style Taijiquan. Weekly community classes, silk reeling, and authentic lineage instruction.",
-  keywords: ["Taijiquan", "Chen Style Tai Chi", "Internal Martial Arts", "Mindfulness", "Qigong", "Silk Reeling", "Push Hands"],
+  title: "Chen Family Taijiquan | Gongfu Jia",
+  description: "Experience traditional Chen Style Taijiquan.",
+  keywords: ["Taijiquan", "Chen Style Tai Chi", "Internal Martial Arts", "Push Hands"],
 };
 
 export default function RootLayout({

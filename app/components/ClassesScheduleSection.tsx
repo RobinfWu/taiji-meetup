@@ -157,185 +157,59 @@ export const ClassesScheduleSection: React.FC<ClassesScheduleSectionProps> = ({
           </div>
         </div>
 
-        {/* Functional RSVP & Contact Form + FAQ */}
-        <div className="grid grid-cols-1 lg:grid-cols-12 gap-12 items-start">
-          {/* Form Column */}
-          <div className="lg:col-span-7 bg-[#FBF9F5] p-6 sm:p-8 rounded-3xl border border-[#E8E2D9] shadow-xs space-y-6">
+        {/* Frequently Asked Questions Section */}
+        <div className="bg-[#FBF9F5] p-6 sm:p-10 rounded-3xl border border-[#E8E2D9] shadow-xs space-y-8">
+          <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-4 border-b border-[#E8E2D9] pb-6">
             <div>
-              <div className="inline-flex items-center space-x-2 px-2.5 py-0.5 rounded bg-[#4A6B5D]/10 text-[#4A6B5D] text-xs font-semibold uppercase mb-2">
-                <span>Free Trial Class RSVP</span>
-              </div>
-              <h3 className="font-serif text-2xl font-semibold text-[#1F2421]">
-                Reserve Your Spot or Ask a Question
-              </h3>
-              <p className="text-xs text-[#57625B] mt-1">
-                Your first introductory session is free. Please submit your details below to confirm class availability.
-              </p>
-            </div>
-
-            {formSubmitted ? (
-              <div className="p-8 rounded-2xl bg-[#4A6B5D]/10 border border-[#4A6B5D]/30 text-center space-y-4 animate-in fade-in duration-300">
-                <div className="w-12 h-12 rounded-full bg-[#4A6B5D] text-white flex items-center justify-center mx-auto">
-                  <CheckCircle className="w-6 h-6" />
-                </div>
-                <h4 className="font-serif text-2xl font-semibold text-[#1F2421]">
-                  RSVP Received!
-                </h4>
-                <p className="text-sm text-[#57625B] max-w-md mx-auto">
-                  Thank you, <strong className="text-[#1F2421]">{formData.name}</strong>. We look forward to seeing you at practice! A confirmation details note has been saved.
-                </p>
-                <button
-                  onClick={() => setFormSubmitted(false)}
-                  className="px-5 py-2 bg-[#1F2421] text-white rounded-full text-xs font-medium cursor-pointer"
-                >
-                  Submit Another Inquiry
-                </button>
-              </div>
-            ) : (
-              <form onSubmit={handleSubmitRSVP} className="space-y-4">
-                <div>
-                  <label className="block text-xs font-medium text-[#1F2421] mb-1">
-                    Select Class Session *
-                  </label>
-                  <select
-                    value={selectedClassId}
-                    onChange={(e) => setSelectedClassId(e.target.value)}
-                    className="w-full px-4 py-2.5 rounded-xl bg-[#F3EFEA] border border-[#E4DED5] text-sm text-[#1F2421] focus:outline-none focus:border-[#4A6B5D]"
-                  >
-                    {TAIJI_DATA.classes.map((cls) => (
-                      <option key={cls.id} value={cls.id}>
-                        {cls.title} ({cls.day} - {cls.time})
-                      </option>
-                    ))}
-                  </select>
-                </div>
-
-                <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
-                  <div>
-                    <label className="block text-xs font-medium text-[#1F2421] mb-1">
-                      Full Name *
-                    </label>
-                    <input
-                      type="text"
-                      required
-                      placeholder="Your name"
-                      value={formData.name}
-                      onChange={(e) => setFormData({ ...formData, name: e.target.value })}
-                      className="w-full px-4 py-2.5 rounded-xl bg-[#F3EFEA] border border-[#E4DED5] text-sm text-[#1F2421] focus:outline-none focus:border-[#4A6B5D]"
-                    />
-                  </div>
-
-                  <div>
-                    <label className="block text-xs font-medium text-[#1F2421] mb-1">
-                      Email Address *
-                    </label>
-                    <input
-                      type="email"
-                      required
-                      placeholder="you@example.com"
-                      value={formData.email}
-                      onChange={(e) => setFormData({ ...formData, email: e.target.value })}
-                      className="w-full px-4 py-2.5 rounded-xl bg-[#F3EFEA] border border-[#E4DED5] text-sm text-[#1F2421] focus:outline-none focus:border-[#4A6B5D]"
-                    />
-                  </div>
-                </div>
-
-                <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
-                  <div>
-                    <label className="block text-xs font-medium text-[#1F2421] mb-1">
-                      Phone Number (Optional)
-                    </label>
-                    <input
-                      type="tel"
-                      placeholder="(555) 000-0000"
-                      value={formData.phone}
-                      onChange={(e) => setFormData({ ...formData, phone: e.target.value })}
-                      className="w-full px-4 py-2.5 rounded-xl bg-[#F3EFEA] border border-[#E4DED5] text-sm text-[#1F2421] focus:outline-none focus:border-[#4A6B5D]"
-                    />
-                  </div>
-
-                  <div>
-                    <label className="block text-xs font-medium text-[#1F2421] mb-1">
-                      Experience Level
-                    </label>
-                    <select
-                      value={formData.experience}
-                      onChange={(e) => setFormData({ ...formData, experience: e.target.value })}
-                      className="w-full px-4 py-2.5 rounded-xl bg-[#F3EFEA] border border-[#E4DED5] text-sm text-[#1F2421] focus:outline-none focus:border-[#4A6B5D]"
-                    >
-                      <option value="Beginner (No prior experience)">Beginner (First Time)</option>
-                      <option value="Some Qigong/Taiji experience">Some Qigong / Taiji Experience</option>
-                      <option value="Experienced practitioner">Experienced Practitioner</option>
-                    </select>
-                  </div>
-                </div>
-
-                <div>
-                  <label className="block text-xs font-medium text-[#1F2421] mb-1">
-                    Notes or Questions for Instructor
-                  </label>
-                  <textarea
-                    rows={3}
-                    placeholder="Mention any physical considerations, questions, or preferences..."
-                    value={formData.message}
-                    onChange={(e) => setFormData({ ...formData, message: e.target.value })}
-                    className="w-full px-4 py-2.5 rounded-xl bg-[#F3EFEA] border border-[#E4DED5] text-sm text-[#1F2421] focus:outline-none focus:border-[#4A6B5D]"
-                  />
-                </div>
-
-                <button
-                  type="submit"
-                  className="w-full py-3.5 bg-[#4A6B5D] hover:bg-[#3B574B] text-white rounded-xl font-medium text-sm transition-colors flex items-center justify-center space-x-2 cursor-pointer shadow-sm active:scale-98"
-                >
-                  <Send className="w-4 h-4" />
-                  <span>Submit Free Trial RSVP</span>
-                </button>
-              </form>
-            )}
-          </div>
-
-          {/* FAQ Column */}
-          <div className="lg:col-span-5 space-y-6">
-            <div>
-              <h3 className="font-serif text-2xl font-semibold text-[#1F2421]">
+              <h3 className="font-serif text-2xl sm:text-3xl font-semibold text-[#1F2421]">
                 Frequently Asked Questions
               </h3>
-              <p className="text-xs text-[#57625B] mt-1">
+              <p className="text-xs sm:text-sm text-[#57625B] mt-1">
                 Common questions for new prospective students.
               </p>
             </div>
 
-            <div className="space-y-3">
-              {TAIJI_DATA.faqs.map((faq, idx) => {
-                const isOpen = openFaqIndex === idx;
-                return (
-                  <div
-                    key={idx}
-                    className="bg-[#FBF9F5] rounded-2xl border border-[#E8E2D9] overflow-hidden transition-all duration-200"
-                  >
-                    <button
-                      onClick={() => setOpenFaqIndex(isOpen ? null : idx)}
-                      className="w-full text-left p-4.5 flex items-center justify-between space-x-3 cursor-pointer hover:bg-[#F3EFEA]/50"
-                    >
-                      <span className="font-serif text-base font-semibold text-[#1F2421]">
-                        {faq.question}
-                      </span>
-                      {isOpen ? (
-                        <ChevronUp className="w-4 h-4 text-[#4A6B5D] shrink-0" />
-                      ) : (
-                        <ChevronDown className="w-4 h-4 text-[#808B84] shrink-0" />
-                      )}
-                    </button>
+            <a
+              href="https://molingtaiji.com/"
+              target="_blank"
+              rel="noopener noreferrer"
+              className="inline-flex items-center space-x-2 bg-[#4A6B5D]/10 hover:bg-[#4A6B5D]/20 text-[#4A6B5D] px-4 py-2.5 rounded-xl text-xs font-semibold border border-[#4A6B5D]/20 transition-colors self-start sm:self-auto"
+            >
+              <span>Explore Teacher&apos;s Website (molingtaiji.com)</span>
+              <Info className="w-4 h-4" />
+            </a>
+          </div>
 
-                    {isOpen && (
-                      <div className="px-4.5 pb-4 pt-1 text-xs text-[#57625B] leading-relaxed border-t border-[#E8E2D9]/60">
-                        {faq.answer}
-                      </div>
+          <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
+            {TAIJI_DATA.faqs.map((faq, idx) => {
+              const isOpen = openFaqIndex === idx;
+              return (
+                <div
+                  key={idx}
+                  className="bg-[#F3EFEA]/60 rounded-2xl border border-[#E8E2D9] overflow-hidden transition-all duration-200 self-start"
+                >
+                  <button
+                    onClick={() => setOpenFaqIndex(isOpen ? null : idx)}
+                    className="w-full text-left p-4.5 flex items-center justify-between space-x-3 cursor-pointer hover:bg-[#F3EFEA]"
+                  >
+                    <span className="font-serif text-base font-semibold text-[#1F2421]">
+                      {faq.question}
+                    </span>
+                    {isOpen ? (
+                      <ChevronUp className="w-4 h-4 text-[#4A6B5D] shrink-0" />
+                    ) : (
+                      <ChevronDown className="w-4 h-4 text-[#808B84] shrink-0" />
                     )}
-                  </div>
-                );
-              })}
-            </div>
+                  </button>
+
+                  {isOpen && (
+                    <div className="px-4.5 pb-4 pt-1 text-xs text-[#57625B] leading-relaxed border-t border-[#E8E2D9]/60">
+                      {faq.answer}
+                    </div>
+                  )}
+                </div>
+              );
+            })}
           </div>
         </div>
 
