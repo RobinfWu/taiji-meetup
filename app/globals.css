@@ -5,19 +5,18 @@
     --font-sans: var(--font-sans), system-ui, -apple-system, sans-serif;
     --font-serif: var(--font-serif), Georgia, serif;
 
-    --bg-canvas: #FBF9F5;
-    --bg-card: #F3EFEA;
-    --bg-card-hover: #EBE5DD;
+    /* Martial Ink & Bone Palette */
+    --bg-canvas: #E8E4DA;       /* Aged paper / Bone */
+    --bg-card: #DFD9CC;         /* Deeper bone / aged parchment */
+    --bg-card-hover: #D5CEBF;   /* Muted aged wood tint */
     
-    --text-main: #1F2421;
-    --text-muted: #57625B;
-    --text-light: #808B84;
+    --text-main: #171918;       /* Ink black */
+    --text-muted: #303331;      /* Charcoal */
+    --text-light: #5A5E5B;      /* Slate grey */
     
-    --accent-jade: #4A6B5D;
-    --accent-jade-hover: #3B574B;
-    --accent-slate: #4C6275;
-    --accent-bronze: #9E7B56;
-    --accent-sage: #8DA399;
+    --accent-iron: #243B45;     /* Deep blue-black / iron */
+    --accent-vermilion: #9B3D2E;/* Muted cinnabar / vermilion (SPARINGLY USED) */
+    --accent-bronze: #8A7250;   /* Old bronze */
   }
 }
 
@@ -29,52 +28,27 @@
   font-family: var(--font-sans);
 }
 
-/* Custom scrollbar for serene look */
+/* Custom scrollbar matching aged paper and ink */
 ::-webkit-scrollbar {
   width: 8px;
 }
 ::-webkit-scrollbar-track {
-  background: #F5F1EB;
+  background: #E0DACE;
 }
 ::-webkit-scrollbar-thumb {
-  background: #D5CDC2;
+  background: #B8B0A0;
   border-radius: 4px;
 }
 ::-webkit-scrollbar-thumb:hover {
-  background: #B5ABA0;
+  background: #8A7250;
 }
 
-/* Breathing animation for interactive mindfulness widget */
-@keyframes breathe {
-  0%, 100% {
-    transform: scale(1);
-    opacity: 0.6;
-    border-color: rgba(74, 107, 93, 0.4);
-    box-shadow: 0 0 20px rgba(74, 107, 93, 0.1);
-  }
-  50% {
-    transform: scale(1.4);
-    opacity: 0.9;
-    border-color: rgba(74, 107, 93, 0.8);
-    box-shadow: 0 0 45px rgba(74, 107, 93, 0.35);
-  }
+/* Subtle ink stroke border glow */
+.border-ink {
+  border-color: rgba(23, 25, 24, 0.18);
 }
 
-.animate-breathe {
-  animation: breathe 8s ease-in-out infinite;
+/* Martial Vermilion accent border */
+.border-vermilion-subtle {
+  border-color: rgba(155, 61, 46, 0.3);
 }
-
-/* Smooth ambient pulse */
-@keyframes subtlePulse {
-  0%, 100% {
-    opacity: 0.4;
-  }
-  50% {
-    opacity: 0.75;
-  }
-}
-
-.animate-subtle-pulse {
-  animation: subtlePulse 4s ease-in-out infinite;
-}
-

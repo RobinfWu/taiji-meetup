@@ -6,7 +6,6 @@ export interface ClassSession {
   location: string;
   level: "All Levels" | "Beginner" | "Intermediate / Advanced";
   description: string;
-  openSpots: number;
   instructor: string;
 }
 
@@ -25,71 +24,79 @@ export interface FAQItem {
 export const TAIJI_DATA = {
   groupName: "Chen Family Taijiquan Group",
   chineseTitle: "陳氏太極拳",
-  tagline: "Gongfu Jia",
+  tagline: "Traditional Gongfu Jia",
+  subtitle: "Authentic Chen Style Taijiquan focused on internal mechanics, spiral energy (Chan Si Jin), structural power, and traditional form practice.",
+  
+  announcement: {
+    badge: "Traditional Training",
+    message: "Outdoor group practice & form refinement sessions forming.",
+    linkText: "View Schedule & Inquire"
+  },
 
   hero: {
-    subText: "Explore authentic traditional martial art traditions designed to balance body, mind, and spirit. Guided by structured biomechanics and internal harmony.",
-    ctaPrimary: "RSVP For Next Free Class",
-    ctaSecondary: "Explore What is Taiji",
+    philosophyQuote: "Rooted in structure, expressed through spiraling force.",
+    subText: "Traditional Chen Style Taijiquan Gongfu Jia—an internal martial discipline combining precise biomechanics, structural integrity (Peng Jin), and spiraling energy.",
+    ctaPrimary: "Inquire via Email",
+    ctaSecondary: "Explore Lineage & Art",
     quickStats: [
-      { label: "Lineage Tradition", value: "Traditional Chen" },
-      { label: "Weekly Sessions", value: "1 Class" },
-      { label: "Class Environment", value: "Outdoor" },
-      { label: "Community Size", value: "Small" }
+      { label: "Tradition", value: "Chen Family Gongfu" },
+      { label: "System", value: "Gongfu Jia (First Road)" },
+      { label: "Focus", value: "Internal Mechanics" },
+      { label: "Teaching", value: "Direct Lineage" }
     ]
   },
 
   differences: [
     {
       id: "chansi",
-      title: "Silk Reeling (Chan Si Gong)",
-      accentColor: "#4A6B5D",
-      summary: "Continuous, spiral rotational movements that gently open joints, release muscular tension, and harmonize total body effort.",
-      description: "Silk Reeling is the core kinetic foundation of Chen Taijiquan. Like drawing out delicate silk threads from a cocoon, every movement requires unbroken focus, uniform speed, and seamless whole-body coordination."
+      title: "Spiral Energy (Chan Si Jin)",
+      accentColor: "#243B45",
+      summary: "Continuous whole-body spiral rotations connecting feet, legs, waist, and arms into unified kinetic energy.",
+      description: "Chan Si Jin is the core kinetic foundation of Chen Taijiquan. Through spiraling movement, force travels unbroken through the body structure like twisted silk thread, generating resilient internal elasticity."
+    },
+    {
+      id: "pengjin",
+      title: "Structural Elasticity (Peng Jin)",
+      accentColor: "#8A7250",
+      summary: "An expansive, outward-supporting internal framework that maintains balance and deflects incoming force.",
+      description: "Peng Jin is the fundamental quality present in all Taiji movements. Like a fully inflated ball that yields under pressure without collapsing, it provides structural resilience without muscular tension."
     },
     {
       id: "song",
-      title: "Active Relaxation (Song)",
-      accentColor: "#4C6275",
-      summary: "Releasing unnecessary muscular tension while maintaining upright structural alignment and internal integrity.",
-      description: "Song is not passive limpness, but mindful release. By relaxing deep postural muscles and trusting gravity, weight sinks naturally to the feet, enabling quiet presence and fluid energy flow."
+      title: "Sinking & Grounding (Song & Root)",
+      accentColor: "#303331",
+      summary: "Releasing unnecessary muscular tension so body weight sinks directly into the ground through the feet.",
+      description: "Song is active release. By sinking the hips (Kua) and relaxing postural tension, weight roots deeply into the earth, enabling quiet physical presence and explosive power transmission."
     },
     {
-      id: "yinyang",
-      title: "Yin-Yang Equilibrium",
-      accentColor: "#9E7B56",
-      summary: "Dynamic harmony between light and heavy, fast and slow, internal stillness and external expression.",
-      description: "Every motion contains its complement: yield to overcome force, root deep to reach upward. Taiji practice cultivates mental adaptability and balance both on the mat and in daily living."
-    },
-    {
-      id: "neigong",
-      title: "Internal Cultivation (Neigong)",
-      accentColor: "#57625B",
-      summary: "Breathing, posture alignment, and intention-guided energy work for vitality, longevity, and calm focus.",
-      description: "Through Standing Meditation (Zhan Zhuang) and synchronized abdominal breathing, practice calms the central nervous system, boosts internal circulation, and builds rooted strength."
+      id: "fajin",
+      title: "Explosive Force (Fajin)",
+      accentColor: "#9B3D2E",
+      summary: "Coordinated, lightning-fast release of internal power originating from the heels, guided by the waist, and expressed through the limbs.",
+      description: "Fajin distinguishes Chen Style gongfu. Born from deep relaxation and total body unification, force is released instantly with crisp, whipped momentum."
     }
   ],
 
   benefits: [
     {
       icon: "Shield",
-      title: "Joint Health & Mobility",
-      text: "Gentle low-impact weight transfers strengthen ankles, knees, hips, and spinal rotation without strain."
+      title: "Joint Fortification & Alignment",
+      text: "Deep weight-shifting and waist-driven rotation strengthen tendons, open joints, and correct postural imbalances."
     },
     {
       icon: "Feather",
-      title: "Stress Reduction & Mind Clarity",
-      text: "Meditative focus on breath and movement lowers cortisol, calms anxiety, and improves restful sleep."
+      title: "Calm Intent & Nervous System Balance",
+      text: "Rigorous focus on internal mechanics quietens the active mind, sharpening focus and physical awareness."
     },
     {
       icon: "Activity",
-      title: "Balance & Core Stability",
-      text: "Deepens proprioception and single-leg grounding to improve posture, coordination, and physical confidence."
+      title: "Rooted Core Strength",
+      text: "Builds deep leg stamina, hip mobility (Kua opening), and resilient core stability."
     },
     {
       icon: "Sun",
-      title: "Vitality & Internal Energy",
-      text: "Encourages smooth microcirculation and breath flow, enhancing daily stamina and natural resilience."
+      title: "Internal Vitality & Circulation",
+      text: "Encourages deep abdominal breath (Dantian breathing) and smooth vascular microcirculation."
     }
   ],
 
@@ -101,48 +108,49 @@ export const TAIJI_DATA = {
     teacherWebsite: "https://molingtaiji.com/",
     teacherSiteName: "Mo Ling Taiji",
   },
+
   lineageTree: [
     {
-      generation: "Originator (17th Century)",
-      era: "Chenjiagou Village, Henan",
-      figures: ["Chen Wangting (陳王廷)"],
+      generation: "Founder",
+      era: "1580–1660",
+      figures: ["Chen Wangting"],
       description: "Accredited as the founder of Chen Family Taijiquan."
     },
     {
       generation: "14th Generation",
-      era: "19th - 20th Century Masters",
+      era: "1771–1853",
       figures: ["Chen Changxing"],
-      description: "Teacher of Yang Luchan (Founder of Yang Family Taijiquan)"
+      description: "Teacher of Yang Luchan (Founder of Yang Family Taijiquan)."
     },
     {
       generation: "17th Generation",
-      era: "19th - 20th Century Masters",
+      era: "1887–1957",
       figures: ["Chen Fake"],
-      description: "Publicized Chen Family Taijiquan in the year 1928."
+      description: "Publicized Chen Family Taijiquan in Beijing in the year 1928."
     },
     {
       generation: "18th Generation",
-      era: "19th - 20th Century Masters",
+      era: "1928–1981",
       figures: ["Chen Zhaokui"],
-      description: "Younger son of Chen Fake."
+      description: "Younger son of Chen Fake; preserved traditional Gongfu Jia."
     },
     {
       generation: "19th Generation",
-      era: "19th - 20th Century",
+      era: "1962–Present",
       figures: ["Chen Yu"],
-      description: "Only son of Chen Zhaokui."
+      description: "Only son of Chen Zhaokui; leading master of traditional Gongfu Jia."
     },
     {
       generation: "20th Generation",
-      era: "Modern Grandmasters",
+      era: "1971–Present",
       figures: ["Marin Spivack"],
       description: "A senior disciple of Chen Yu. Founder of Mo Ling Taiji (https://molingtaiji.com/)."
     },
     {
       generation: "Current Local Teaching",
-      era: "Present Community",
+      era: "Present",
       figures: ["Robin Wu"],
-      description: "Disciple of Marin Spivack"
+      description: "Disciple of Marin Spivack."
     }
   ] as LineageGeneration[],
 
@@ -152,21 +160,19 @@ export const TAIJI_DATA = {
       title: "Chen Style Gongfu Jia Yilu (First Road)",
       day: "Saturdays",
       time: "10:00 AM - 11:30 AM",
-      location: "[Placeholder: City Park Rose Garden Lawn]",
+      location: "[Placeholder: City Park Lawn / Outdoor Training Grounds]",
       level: "Beginner",
-      description: "Detailed instruction in the classic 74-movement routine. Step-by-step posture breakdowns, weight shifting, and application awareness.",
-      openSpots: 4,
+      description: "Detailed instruction in the classic 89-movement routine. Step-by-step posture breakdowns, weight shifting, body mechanics, and application awareness.",
       instructor: "Robin Wu"
     },
     {
       id: "class-2",
-      title: "Push Hands (Tui Shou)",
+      title: "Push Hands (Tui Shou) & Structure Drills",
       day: "Sundays",
       time: "6:30 PM - 7:45 PM",
       location: "[Placeholder: Community Park Lawn / Outdoor Grounds]",
       level: "Intermediate / Advanced",
       description: "Exploring structure, yielding, sensitivity drills, and cooperative partner work to test and deepen internal balance.",
-      openSpots: 5,
       instructor: "Robin Wu"
     }
   ] as ClassSession[],
@@ -176,32 +182,35 @@ export const TAIJI_DATA = {
       name: "Outdoor Park Location",
       address: "[Placeholder: Central Park North Lawn, Gate 4 entrance]",
       scheduleNote: "Saturdays 10:00 AM - 11:30 AM & Sundays 6:30 PM (Weather Permitting)",
-      tips: "Bring water, wear comfortable flat-soled shoes, and dress in light layers."
+      tips: "Wear flat-soled shoes (ideally thin and hard-soled), comfortable pants, and dress in weather-appropriate layers."
     }
   ],
 
   faqs: [
     {
-      question: "Is Tai Chi for the elderly?",
-      answer: "Contrary to the stereotype, Taijiquan was traditionally taught to children in the family lines. Chen Yu, for example, started when he was 7 years old. However, the practice is scalable for all ages."
+      question: "Is Tai Chi only for the elderly?",
+      answer: "Contrary to modern stereotypes, traditional Taijiquan is a rigorous martial art. Chen Yu, for example, started training at 7 years old. However, the internal principles are scalable for practitioners of all ages and fitness levels."
     },
     {
-      question: "What should I wear?",
-      answer: "It is highly advised to wear flat-soled shoes, ideally on the thin and harder side."
+      question: "What footwear and attire should I wear?",
+      answer: "It is highly advised to wear flat-soled shoes, ideally on the thin and hard side. Wear loose, comfortable clothing allowing unhindered hip and shoulder movement."
     },
     {
-      question: "Can I try a drop-in trial class before committing?",
-      answer: "Yes! Your first class is completely free to RSVP. Come experience the atmosphere, meet the instructor, and see if our teaching approach fits your goals."
+      question: "How do I inquire about joining or asking questions?",
+      answer: "Send an email directly to our instructor at [Placeholder: contact@chen-taiji-local.com]. We welcome serious inquiries regarding training focus, locations, and schedule."
     },
     {
-      question: "What if it rains during an outdoor park class?",
-      answer: "In case of rain, outdoor sessions move to our indoor backup studio space or are rescheduled. Group members receive notification 2 hours prior to class."
+      question: "What if weather is unfavorable during outdoor sessions?",
+      answer: "In case of heavy rain or extreme cold, outdoor sessions are rescheduled or moved to a covered area. Inquirers receive direct email notifications beforehand."
     }
   ] as FAQItem[],
 
   contact: {
     email: "[Placeholder: contact@chen-taiji-local.com]",
     phone: "[Placeholder: (555) 019-2831]",
+    note: "For questions about class structure, location details, or joining practice sessions, please send an email directly to the address above.",
+    teacherWebsite: "https://molingtaiji.com/",
+    teacherSiteName: "Mo Ling Taiji (Marin Spivack)",
     social: {
       instagram: "[Placeholder: @chen_taiji_community]",
       youtube: "[Placeholder: ChenTaijiLocal]"

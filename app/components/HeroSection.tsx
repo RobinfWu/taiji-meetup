@@ -2,66 +2,87 @@
 
 import React from "react";
 import { TAIJI_DATA, ClassSession } from "../data/taijiData";
-import { ArrowRight, Calendar, MapPin, Sparkles, Users, Compass, Award } from "lucide-react";
+import { ArrowRight, Mail, Compass, Shield, Flame, BookOpen } from "lucide-react";
 
 interface HeroSectionProps {
-  onOpenRSVP: (classId?: string) => void;
   onNavigateTab: (tabId: string) => void;
 }
 
 export const HeroSection: React.FC<HeroSectionProps> = ({
-  onOpenRSVP,
   onNavigateTab,
 }) => {
-  const nextClass: ClassSession = TAIJI_DATA.classes[0];
+  const primaryClass: ClassSession = TAIJI_DATA.classes[0];
 
   return (
-    <section id="home" className="relative pt-28 pb-16 md:pt-36 md:pb-24 overflow-hidden">
-      {/* Serene organic background accent shapes */}
-      <div className="absolute top-12 right-[-5%] w-96 h-96 rounded-full bg-[#4A6B5D]/5 blur-3xl pointer-events-none" />
-      <div className="absolute bottom-10 left-[-8%] w-80 h-80 rounded-full bg-[#9E7B56]/5 blur-3xl pointer-events-none" />
+    <section id="home" className="relative pt-28 pb-16 md:pt-36 md:pb-24 overflow-hidden bg-[#E8E4DA]">
+      {/* Ink & Iron ambient subtle background shapes */}
+      <div className="absolute top-10 right-[-5%] w-96 h-96 rounded-full bg-[#243B45]/5 blur-3xl pointer-events-none" />
+      <div className="absolute bottom-10 left-[-8%] w-80 h-80 rounded-full bg-[#8A7250]/5 blur-3xl pointer-events-none" />
 
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 relative">
+        {/* Top Announcement Tag */}
+        <div 
+          className="inline-flex items-center space-x-2 bg-[#DFD9CC] border border-[#D5CEBF] rounded-full px-3.5 py-1.5 text-xs text-[#303331] mb-8 hover:bg-[#D5CEBF] transition-colors cursor-pointer"
+          onClick={() => onNavigateTab("classes")}
+        >
+          <span className="bg-[#171918] text-[#E8E4DA] text-[10px] uppercase font-bold tracking-wider px-2 py-0.5 rounded-full">
+            {TAIJI_DATA.announcement.badge}
+          </span>
+          <span className="font-semibold text-[#171918]">
+            {TAIJI_DATA.announcement.message}
+          </span>
+          <ArrowRight className="w-3.5 h-3.5 text-[#9B3D2E]" />
+        </div>
+
         <div className="grid grid-cols-1 lg:grid-cols-12 gap-12 lg:gap-8 items-center">
           {/* Main Hero Text */}
           <div className="lg:col-span-7 space-y-6">
-            <h1 className="font-serif text-4xl sm:text-5xl md:text-6xl font-light tracking-tight text-[#1F2421] leading-[1.15]">
-              Cultivate <span className="italic font-normal text-[#4A6B5D]">Pain</span> in{" "}
-              <span className="font-normal border-b-2 border-[#9E7B56]/40 pb-1">Every Movement</span>
+            <h1 className="font-serif text-4xl sm:text-5xl md:text-6xl font-light tracking-tight text-[#171918] leading-[1.15]">
+              Traditional <span className="italic font-normal text-[#243B45]">Chen Family</span>{" "}
+              <span className="font-normal border-b-2 border-[#9B3D2E]/50 pb-1">Taijiquan</span>
             </h1>
 
-            <p className="text-lg sm:text-xl text-[#57625B] max-w-2xl leading-relaxed font-light">
-              Welcome to our local teaching circle. We practice traditional{" "}
-              <strong className="font-medium text-[#1F2421]">Chen Family Taijiquan</strong>—a northern Chinese martial art.
+            <p className="text-lg sm:text-xl text-[#303331] max-w-2xl leading-relaxed font-light">
+              An authentic internal martial art focused on structural mechanics, spiral force generation (<strong className="font-semibold text-[#171918]">Chan Si Jin</strong>), and traditional form training (<strong className="font-semibold text-[#171918]">Gongfu Jia Yilu</strong>).
             </p>
+
+            {/* Philosophy quote callout */}
+            <div className="p-4 sm:p-5 rounded-2xl bg-[#DFD9CC]/90 border border-[#D5CEBF] border-l-4 border-l-[#9B3D2E] space-y-1">
+              <p className="font-serif italic text-base sm:text-lg text-[#171918]">
+                &ldquo;{TAIJI_DATA.hero.philosophyQuote}&rdquo;
+              </p>
+              <p className="text-xs text-[#8A7250] font-semibold tracking-wider uppercase">
+                Traditional Gongfu Core Principle
+              </p>
+            </div>
 
             {/* CTA Action Buttons */}
             <div className="pt-2 flex flex-col sm:flex-row items-stretch sm:items-center space-y-3 sm:space-y-0 sm:space-x-4">
               <button
-                onClick={() => onOpenRSVP(nextClass.id)}
-                className="inline-flex items-center justify-center space-x-2 bg-[#4A6B5D] hover:bg-[#3B574B] text-white px-7 py-3.5 rounded-full font-medium shadow-sm hover:shadow-md transition-all duration-200 cursor-pointer active:scale-98"
+                onClick={() => onNavigateTab("contact")}
+                className="inline-flex items-center justify-center space-x-2 bg-[#171918] hover:bg-[#303331] text-[#E8E4DA] px-7 py-3.5 rounded-full text-sm font-semibold shadow-sm transition-all duration-200 cursor-pointer active:scale-98 border border-[#303331]"
               >
+                <Mail className="w-4 h-4 text-[#8A7250]" />
                 <span>{TAIJI_DATA.hero.ctaPrimary}</span>
-                <ArrowRight className="w-4 h-4" />
               </button>
 
               <button
                 onClick={() => onNavigateTab("what-is-taiji")}
-                className="inline-flex items-center justify-center space-x-2 bg-[#F3EFEA] hover:bg-[#EBE5DD] border border-[#E4DED5] text-[#1F2421] px-6 py-3.5 rounded-full font-medium transition-all duration-200 cursor-pointer"
+                className="inline-flex items-center justify-center space-x-2 bg-[#DFD9CC] hover:bg-[#D5CEBF] border border-[#D5CEBF] text-[#171918] px-6 py-3.5 rounded-full text-sm font-semibold transition-all duration-200 cursor-pointer"
               >
-                <Compass className="w-4 h-4 text-[#4C6275]" />
+                <Compass className="w-4 h-4 text-[#243B45]" />
                 <span>{TAIJI_DATA.hero.ctaSecondary}</span>
               </button>
             </div>
 
             {/* Quick Stats Grid */}
-            <div className="pt-6 grid grid-cols-2 sm:grid-cols-4 gap-4 border-t border-[#E8E2D9]">
+            <div className="pt-6 grid grid-cols-2 sm:grid-cols-4 gap-4 border-t border-[#D5CEBF]">
               {TAIJI_DATA.hero.quickStats.map((stat, idx) => (
                 <div key={idx} className="space-y-1">
-                  <div className="text-sm font-semibold text-[#1F2421] font-serif">
+                  <div className="text-sm font-semibold text-[#171918] font-serif">
                     {stat.value}
                   </div>
-                  <div className="text-xs text-[#808B84]">
+                  <div className="text-xs text-[#5A5E5B]">
                     {stat.label}
                   </div>
                 </div>
@@ -69,69 +90,66 @@ export const HeroSection: React.FC<HeroSectionProps> = ({
             </div>
           </div>
 
-          {/* Hero Snapshot Card & Visual Graphic */}
+          {/* Hero Right Column: Traditional System Card */}
           <div className="lg:col-span-5 space-y-6">
-            {/* Visual Yin-Yang Meditative Card */}
-            <div className="relative p-6 sm:p-8 rounded-3xl bg-gradient-to-b from-[#F3EFEA] to-[#EBE5DD]/60 border border-[#E4DED5] shadow-xs">
-              <div className="flex items-center justify-between mb-6">
+            <div className="p-6 sm:p-8 rounded-3xl bg-gradient-to-b from-[#DFD9CC] to-[#D5CEBF]/60 border border-[#D5CEBF] shadow-xs space-y-6">
+              <div className="flex items-center justify-between">
                 <div className="flex items-center space-x-2">
-                  <span className="w-3 h-3 rounded-full bg-[#4A6B5D] animate-ping opacity-75" />
-                  <span className="text-xs font-semibold uppercase tracking-wider text-[#4A6B5D]">
-                    Upcoming Highlight
+                  <div className="w-2.5 h-2.5 rounded-full bg-[#9B3D2E]" />
+                  <span className="text-xs font-semibold uppercase tracking-wider text-[#243B45]">
+                    Traditional Training Focus
                   </span>
                 </div>
-                <span className="text-xs text-[#808B84] font-serif italic">
+                <span className="text-xs text-[#8A7250] font-serif italic">
                   Chen Village Lineage
                 </span>
               </div>
 
-              {/* Next Class Snapshot */}
-              <div className="bg-[#FBF9F5] p-5 rounded-2xl border border-[#E8E2D9] space-y-3 mb-6 shadow-xs">
+              {/* Main Routine Overview Box */}
+              <div className="bg-[#E8E4DA] p-5 rounded-2xl border border-[#D5CEBF] space-y-3 shadow-xs">
                 <div className="flex justify-between items-start">
                   <div>
-                    <h3 className="font-serif text-lg font-semibold text-[#1F2421]">
-                      {nextClass.title}
+                    <h3 className="font-serif text-lg font-semibold text-[#171918]">
+                      {primaryClass.title}
                     </h3>
-                    <p className="text-xs text-[#4A6B5D] font-medium mt-0.5">
-                      {nextClass.level} • Led by {nextClass.instructor}
+                    <p className="text-xs text-[#243B45] font-semibold mt-0.5">
+                      {primaryClass.level} • Taught by {primaryClass.instructor}
                     </p>
                   </div>
-                  <span className="px-2.5 py-1 bg-[#4A6B5D]/10 text-[#4A6B5D] text-xs rounded-md font-medium border border-[#4A6B5D]/20">
-                    {nextClass.openSpots} spots left
+                  <span className="px-2 py-0.5 bg-[#9B3D2E]/10 text-[#9B3D2E] text-[11px] rounded font-semibold border border-[#9B3D2E]/20">
+                    Traditional Form
                   </span>
                 </div>
 
-                <div className="space-y-1.5 pt-2 text-xs text-[#57625B]">
-                  <div className="flex items-center space-x-2">
-                    <Calendar className="w-3.5 h-3.5 text-[#9E7B56]" />
-                    <span>{nextClass.day}, {nextClass.time}</span>
-                  </div>
-                  <div className="flex items-center space-x-2">
-                    <MapPin className="w-3.5 h-3.5 text-[#4C6275]" />
-                    <span>{nextClass.location}</span>
-                  </div>
+                <p className="text-xs text-[#303331] leading-relaxed font-light">
+                  {primaryClass.description}
+                </p>
+
+                <div className="pt-2 border-t border-[#D5CEBF] text-xs text-[#303331] space-y-1">
+                  <div><strong>Schedule:</strong> {primaryClass.day}, {primaryClass.time}</div>
+                  <div><strong>Location:</strong> {primaryClass.location}</div>
                 </div>
 
                 <button
-                  onClick={() => onOpenRSVP(nextClass.id)}
-                  className="w-full mt-3 py-2 bg-[#1F2421] hover:bg-[#333A3E] text-white text-xs font-medium rounded-xl transition-colors flex items-center justify-center space-x-1.5 cursor-pointer"
+                  onClick={() => onNavigateTab("contact")}
+                  className="w-full mt-3 py-2.5 bg-[#171918] hover:bg-[#303331] text-[#E8E4DA] text-xs font-semibold rounded-xl transition-colors flex items-center justify-center space-x-2 cursor-pointer"
                 >
-                  <span>RSVP For This Class</span>
-                  <ArrowRight className="w-3 h-3 text-[#9E7B56]" />
+                  <Mail className="w-3.5 h-3.5 text-[#8A7250]" />
+                  <span>Inquire via Email for Training</span>
                 </button>
               </div>
 
-              {/* Serene Zen Aesthetic Feature */}
-              <div className="flex items-center space-x-3 p-4 rounded-xl bg-[#4A6B5D]/10 border border-[#4A6B5D]/20">
-                <div className="w-10 h-10 rounded-full bg-[#4A6B5D] text-white flex items-center justify-center font-serif text-lg">
+              {/* Martial Lineage Banner */}
+              <div className="flex items-center space-x-3 p-4 rounded-xl bg-[#243B45]/10 border border-[#243B45]/20">
+                <div className="w-10 h-10 rounded-full bg-[#171918] text-[#E8E4DA] flex items-center justify-center font-serif text-lg">
                   ☯
                 </div>
                 <div>
-                  <h4 className="text-sm font-medium text-[#1F2421]">
-                    Beginners Welcome
+                  <h4 className="text-sm font-semibold text-[#171918]">
+                    Authentic Transmission
                   </h4>
-                  <p className="text-xs text-[#57625B]">
-                    No prior experience required.
+                  <p className="text-xs text-[#303331]">
+                    Trained directly under Marin Spivack (Mo Ling Taiji), senior disciple of Master Chen Yu.
                   </p>
                 </div>
               </div>

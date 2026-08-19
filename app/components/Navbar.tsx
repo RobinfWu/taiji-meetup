@@ -2,18 +2,16 @@
 
 import React, { useState, useEffect } from "react";
 import { TAIJI_DATA } from "../data/taijiData";
-import { Menu, X, CalendarCheck, Sparkles } from "lucide-react";
+import { Menu, X, Mail, ExternalLink } from "lucide-react";
 
 interface NavbarProps {
   activeTab: string;
   setActiveTab: (tab: string) => void;
-  onOpenRSVP: (classId?: string) => void;
 }
 
 export const Navbar: React.FC<NavbarProps> = ({
   activeTab,
   setActiveTab,
-  onOpenRSVP,
 }) => {
   const [isScrolled, setIsScrolled] = useState(false);
   const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
@@ -31,6 +29,7 @@ export const Navbar: React.FC<NavbarProps> = ({
     { id: "what-is-taiji", label: "What is Taiji?" },
     { id: "lineage", label: "Lineage & About" },
     { id: "classes", label: "Classes & Schedule" },
+    { id: "contact", label: "Contact" },
   ];
 
   const handleNavClick = (id: string) => {
@@ -46,46 +45,46 @@ export const Navbar: React.FC<NavbarProps> = ({
     <header
       className={`fixed top-0 left-0 right-0 z-40 transition-all duration-300 ${
         isScrolled
-          ? "bg-[#FBF9F5]/90 backdrop-blur-md shadow-sm border-b border-[#E8E2D9] py-3.5"
-          : "bg-[#FBF9F5]/70 backdrop-blur-xs py-5"
+          ? "bg-[#E8E4DA]/95 backdrop-blur-md shadow-xs border-b border-[#D5CEBF] py-3.5"
+          : "bg-[#E8E4DA]/80 backdrop-blur-xs py-5"
       }`}
     >
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 flex items-center justify-between">
         {/* Brand Logo & Emblem */}
         <button
           onClick={() => handleNavClick("home")}
-          className="flex items-center space-x-3 text-left group focus:outline-none"
+          className="flex items-center space-x-3 text-left group focus:outline-none cursor-pointer"
         >
-          <div className="w-10 h-10 rounded-full bg-[#4A6B5D]/10 border border-[#4A6B5D]/30 flex items-center justify-center text-[#4A6B5D] font-serif text-xl font-bold group-hover:bg-[#4A6B5D] group-hover:text-white transition-all duration-300 shadow-xs">
+          <div className="w-10 h-10 rounded-full bg-[#171918] text-[#E8E4DA] flex items-center justify-center font-serif text-xl font-bold border border-[#303331] group-hover:border-[#9B3D2E] transition-colors shadow-xs">
             ☯
           </div>
           <div>
             <div className="flex items-center space-x-2">
-              <span className="font-serif text-xl font-semibold tracking-wide text-[#1F2421]">
+              <span className="font-serif text-xl font-semibold tracking-wide text-[#171918]">
                 {TAIJI_DATA.groupName}
               </span>
-              <span className="text-xs font-serif px-2 py-0.5 rounded bg-[#4A6B5D]/10 text-[#4A6B5D] hidden sm:inline-block border border-[#4A6B5D]/20">
+              <span className="text-xs font-serif px-2 py-0.5 rounded bg-[#243B45]/10 text-[#243B45] hidden sm:inline-block border border-[#243B45]/20 font-medium">
                 {TAIJI_DATA.chineseTitle}
               </span>
             </div>
-            <p className="text-xs text-[#57625B] font-light hidden md:block">
+            <p className="text-xs text-[#303331] font-light hidden md:block">
               {TAIJI_DATA.tagline}
             </p>
           </div>
         </button>
 
         {/* Desktop Navigation Links */}
-        <nav className="hidden md:flex items-center space-x-1 lg:space-x-2 bg-[#F3EFEA]/80 p-1.5 rounded-full border border-[#E4DED5]">
+        <nav className="hidden md:flex items-center space-x-1 lg:space-x-1.5 bg-[#DFD9CC]/90 p-1.5 rounded-full border border-[#D5CEBF]">
           {navItems.map((item) => {
             const isActive = activeTab === item.id;
             return (
               <button
                 key={item.id}
                 onClick={() => handleNavClick(item.id)}
-                className={`px-4 py-2 rounded-full text-sm font-medium transition-all duration-200 cursor-pointer ${
+                className={`px-4 py-1.5 rounded-full text-xs font-semibold transition-all duration-200 cursor-pointer ${
                   isActive
-                    ? "bg-[#4A6B5D] text-white shadow-xs"
-                    : "text-[#57625B] hover:text-[#1F2421] hover:bg-[#EBE5DD]/60"
+                    ? "bg-[#171918] text-[#E8E4DA] shadow-xs"
+                    : "text-[#303331] hover:text-[#171918] hover:bg-[#D5CEBF]/60"
                 }`}
               >
                 {item.label}
@@ -97,26 +96,26 @@ export const Navbar: React.FC<NavbarProps> = ({
         {/* Action Button */}
         <div className="hidden sm:flex items-center space-x-3">
           <button
-            onClick={() => onOpenRSVP()}
-            className="inline-flex items-center space-x-2 bg-[#1F2421] hover:bg-[#333A3E] text-[#FBF9F5] px-4 py-2.5 rounded-full text-sm font-medium transition-all duration-200 shadow-xs hover:shadow-md cursor-pointer active:scale-98"
+            onClick={() => handleNavClick("contact")}
+            className="inline-flex items-center space-x-2 bg-[#171918] hover:bg-[#303331] text-[#E8E4DA] px-4 py-2 rounded-full text-xs font-semibold transition-all shadow-xs cursor-pointer active:scale-98 border border-[#303331]"
           >
-            <CalendarCheck className="w-4 h-4 text-[#9E7B56]" />
-            <span>Reserve Class</span>
+            <Mail className="w-3.5 h-3.5 text-[#8A7250]" />
+            <span>Contact Instructor</span>
           </button>
         </div>
 
         {/* Mobile menu trigger */}
         <div className="flex md:hidden items-center space-x-2">
           <button
-            onClick={() => onOpenRSVP()}
-            className="p-2 rounded-full bg-[#1F2421] text-white text-xs font-medium"
-            title="RSVP"
+            onClick={() => handleNavClick("contact")}
+            className="p-2 rounded-full bg-[#171918] text-white text-xs font-medium"
+            title="Contact"
           >
-            <CalendarCheck className="w-4 h-4" />
+            <Mail className="w-4 h-4 text-[#8A7250]" />
           </button>
           <button
             onClick={() => setMobileMenuOpen(!mobileMenuOpen)}
-            className="p-2 rounded-lg text-[#1F2421] hover:bg-[#F3EFEA] focus:outline-none"
+            className="p-2 rounded-lg text-[#171918] hover:bg-[#DFD9CC] focus:outline-none"
             aria-label="Toggle menu"
           >
             {mobileMenuOpen ? (
@@ -130,7 +129,7 @@ export const Navbar: React.FC<NavbarProps> = ({
 
       {/* Mobile Drawer Navigation */}
       {mobileMenuOpen && (
-        <div className="md:hidden bg-[#FBF9F5] border-b border-[#E8E2D9] px-4 pt-3 pb-6 shadow-xl animate-in slide-in-from-top duration-200">
+        <div className="md:hidden bg-[#E8E4DA] border-b border-[#D5CEBF] px-4 pt-3 pb-6 shadow-xl animate-in slide-in-from-top duration-200">
           <div className="space-y-1">
             {navItems.map((item) => {
               const isActive = activeTab === item.id;
@@ -138,10 +137,10 @@ export const Navbar: React.FC<NavbarProps> = ({
                 <button
                   key={item.id}
                   onClick={() => handleNavClick(item.id)}
-                  className={`w-full text-left px-4 py-3 rounded-xl text-base font-medium transition-colors ${
+                  className={`w-full text-left px-4 py-3 rounded-xl text-sm font-semibold transition-colors ${
                     isActive
-                      ? "bg-[#4A6B5D] text-white"
-                      : "text-[#1F2421] hover:bg-[#F3EFEA]"
+                      ? "bg-[#171918] text-[#E8E4DA]"
+                      : "text-[#171918] hover:bg-[#DFD9CC]"
                   }`}
                 >
                   {item.label}
@@ -150,16 +149,13 @@ export const Navbar: React.FC<NavbarProps> = ({
             })}
           </div>
 
-          <div className="mt-4 pt-4 border-t border-[#E8E2D9]">
+          <div className="mt-4 pt-4 border-t border-[#D5CEBF]">
             <button
-              onClick={() => {
-                setMobileMenuOpen(false);
-                onOpenRSVP();
-              }}
-              className="w-full flex items-center justify-center space-x-2 bg-[#1F2421] text-white py-3 rounded-xl font-medium"
+              onClick={() => handleNavClick("contact")}
+              className="w-full flex items-center justify-center space-x-2 bg-[#171918] text-[#E8E4DA] py-3 rounded-xl text-sm font-semibold"
             >
-              <CalendarCheck className="w-5 h-5 text-[#9E7B56]" />
-              <span>RSVP For Next Class (Free)</span>
+              <Mail className="w-4 h-4 text-[#8A7250]" />
+              <span>Contact Instructor Email</span>
             </button>
           </div>
         </div>
