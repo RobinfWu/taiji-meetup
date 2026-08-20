@@ -43,7 +43,7 @@ export const HeroSection: React.FC<HeroSectionProps> = ({
             </h1>
 
             <p className="text-lg sm:text-xl text-[#303331] max-w-2xl leading-relaxed font-light">
-              An authentic internal martial art focused on structural mechanics, spiral force generation (<strong className="font-semibold text-[#171918]">Chan Si Jin</strong>), and traditional form training (<strong className="font-semibold text-[#171918]">Gongfu Jia Yilu</strong>).
+              {TAIJI_DATA.hero.subText}
             </p>
 
             {/* Philosophy quote callout */}

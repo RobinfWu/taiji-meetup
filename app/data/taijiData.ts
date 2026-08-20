@@ -21,82 +21,141 @@ export interface FAQItem {
   answer: string;
 }
 
+export interface MythItem {
+  id: string;
+  myth: string;
+  reality: string;
+  badge: string;
+}
+
+export interface ScalableTier {
+  id: string;
+  title: string;
+  subtitle: string;
+  description: string;
+  icon: string;
+}
+
 export const TAIJI_DATA = {
   groupName: "Chen Family Taijiquan Group",
   chineseTitle: "陳氏太極拳",
-  tagline: "Traditional Gongfu Jia",
-  subtitle: "Authentic Chen Style Taijiquan focused on internal mechanics, spiral energy (Chan Si Jin), structural power, and traditional form practice.",
+  tagline: "Methodology-Oriented Gongfu Jia",
+  subtitle: "A concrete, methodology-driven internal discipline rooted in leg foundation, scalable intensity, and authentic Yin/Yang balance for all generations.",
   
   announcement: {
-    badge: "Traditional Training",
-    message: "Outdoor group practice & form refinement sessions forming.",
-    linkText: "View Schedule & Inquire"
+    badge: "Methodology-Driven",
+    message: "Authentic Chen Family Gongfu Jia practice & form refinement.",
+    linkText: "Explore Philosophy & Schedule"
   },
 
   hero: {
-    philosophyQuote: "Rooted in structure, expressed through spiraling force.",
-    subText: "Traditional Chen Style Taijiquan Gongfu Jia—an internal martial discipline combining precise biomechanics, structural integrity (Peng Jin), and spiraling energy.",
+    philosophyQuote: "Methodology contains principles, but principles do not contain methodology.",
+    subText: "We teach the concrete 'how'—not vague abstract slogans. Built on solid leg mechanics and scalable physical exertion, our practice is designed for health-seekers and challenge-seekers of all ages.",
     ctaPrimary: "Inquire via Email",
-    ctaSecondary: "Explore Lineage & Art",
+    ctaSecondary: "Explore Methodology & Myths",
     quickStats: [
-      { label: "Tradition", value: "Chen Family Gongfu" },
-      { label: "System", value: "Gongfu Jia (First Road)" },
-      { label: "Focus", value: "Internal Mechanics" },
-      { label: "Teaching", value: "Direct Lineage" }
+      { label: "Approach", value: "Methodology First" },
+      { label: "Foundation", value: "Leg Stability & Root" },
+      { label: "Audience", value: "Scalable for All Ages" },
+      { label: "System", value: "Gongfu Jia (First Road)" }
     ]
   },
 
   differences: [
     {
-      id: "chansi",
-      title: "Spiral Energy (Chan Si Jin)",
+      id: "methodology",
+      title: "Methodology Over Vague Slogans",
       accentColor: "#243B45",
-      summary: "Continuous whole-body spiral rotations connecting feet, legs, waist, and arms into unified kinetic energy.",
-      description: "Chan Si Jin is the core kinetic foundation of Chen Taijiquan. Through spiraling movement, force travels unbroken through the body structure like twisted silk thread, generating resilient internal elasticity."
+      summary: "We teach the concrete 'how' rather than abstract concepts like 'be like water'. Methodology contains principles, providing a clear progression roadmap.",
+      description: "Mainstream classes often dwell on vague slogans without providing a physical roadmap. Our school focuses on concrete mechanics, posture breakdowns, and clear physical feedback so students know exactly how to progress."
     },
     {
-      id: "pengjin",
-      title: "Structural Elasticity (Peng Jin)",
-      accentColor: "#8A7250",
-      summary: "An expansive, outward-supporting internal framework that maintains balance and deflects incoming force.",
-      description: "Peng Jin is the fundamental quality present in all Taiji movements. Like a fully inflated ball that yields under pressure without collapsing, it provides structural resilience without muscular tension."
-    },
-    {
-      id: "song",
-      title: "Sinking & Grounding (Song & Root)",
-      accentColor: "#303331",
-      summary: "Releasing unnecessary muscular tension so body weight sinks directly into the ground through the feet.",
-      description: "Song is active release. By sinking the hips (Kua) and relaxing postural tension, weight roots deeply into the earth, enabling quiet physical presence and explosive power transmission."
-    },
-    {
-      id: "fajin",
-      title: "Explosive Force (Fajin)",
+      id: "leg-foundation",
+      title: "Leg Foundation as Priority #1",
       accentColor: "#9B3D2E",
-      summary: "Coordinated, lightning-fast release of internal power originating from the heels, guided by the waist, and expressed through the limbs.",
-      description: "Fajin distinguishes Chen Style gongfu. Born from deep relaxation and total body unification, force is released instantly with crisp, whipped momentum."
+      summary: "Grounded leg strength is the root of both health (preventing fall-related injuries) and martial power.",
+      description: "The legs are the fundamental engine of Taijiquan. Health-wise, leg stability is the single most important factor in balance and fall prevention. Martially, structural stability in the legs enables all upper-body movement and force transmission."
+    },
+    {
+      id: "tree-metaphor",
+      title: "Selective Relaxation: The Tree Metaphor",
+      accentColor: "#8A7250",
+      summary: "The lower body is solid and hard like roots and trunk (Yang), allowing the upper body to yield softly like branches in the wind (Yin).",
+      description: "Indiscriminate softness leads to physical collapse. Like a tree, your lower body must remain dense, solid, and rooted (Yang) so that your upper body and arms can remain light, sensitive, and yielding (Yin) without collapsing under pressure."
+    },
+    {
+      id: "reciprocal-yin-yang",
+      title: "Two-Way Reciprocal Partner Work",
+      accentColor: "#303331",
+      summary: "Push Hands is a playful craft where both partners practice initiating and reacting, avoiding scripted roleplay.",
+      description: "Instead of one person acting as defender while the other roleplays an attacker, both practitioners cultivate competent Yin (reacting/yielding) and Yang (initiating/issuing) methods. This creates a supportive, non-ego feedback loop where how you move matters far more than winning or losing."
     }
   ],
+
+  mythsAndRealities: [
+    {
+      id: "elderly-myth",
+      badge: "Age Stereotype",
+      myth: "Tai Chi is only slow exercise for the elderly.",
+      reality: "Traditionally, Taijiquan was taught to children and youth—Chen Yu began training at age 7, Fu Zhongwen at 9, and Chen Fake at 14. The practice is fully scalable with age, offering gentle low-exertion options for seniors and deep physical challenges for adolescents and adults."
+    },
+    {
+      id: "qi-myth",
+      badge: "Linguistic Myth",
+      myth: "Tai 'Chi' means mystical 'Qi' energy manipulation.",
+      reality: "'Tai Chi' (or Taiji) refers to the interplay of Yin and Yang (the ultimate extremes). 'Taijiquan' means 'Yin-Yang Fist'—a martial art based on opposing physical mechanics, not abstract energy manipulation."
+    },
+    {
+      id: "song-myth",
+      badge: "Structure Myth",
+      myth: "Relaxation (Song) means being completely loose and floppy.",
+      reality: "Indiscriminate floppiness causes total structural collapse. True 'Song' is active structure: the lower body remains dense and rooted like a tree trunk (Yang), enabling the upper body to yield softly (Yin)."
+    },
+    {
+      id: "partner-myth",
+      badge: "Push Hands Myth",
+      myth: "One person attacks while the other 'does Tai Chi'.",
+      reality: "Passive roleplay prevents real growth. Genuine partner work requires both partners to be skilled in both initiating and reacting, fostering a playful, non-ego feedback loop."
+    }
+  ] as MythItem[],
+
+  scalableTiers: [
+    {
+      id: "health-tier",
+      title: "Health & Mobility Focus",
+      subtitle: "Comfortable Exertion & Fall Prevention",
+      description: "Focuses on leg foundation, joint alignment, posture improvement, and comfortable movement. Stance height is kept higher to avoid knee strain while building balance and vitality.",
+      icon: "Shield"
+    },
+    {
+      id: "challenge-tier",
+      title: "Martial & Craft Focus",
+      subtitle: "Deep Stances & Structural Mastery",
+      description: "For practitioners seeking a physical challenge. Features deeper stances, rigorous posture precision, kinetic power generation, and cooperative Push Hands partner drills.",
+      icon: "Flame"
+    }
+  ] as ScalableTier[],
 
   benefits: [
     {
       icon: "Shield",
-      title: "Joint Fortification & Alignment",
-      text: "Deep weight-shifting and waist-driven rotation strengthen tendons, open joints, and correct postural imbalances."
-    },
-    {
-      icon: "Feather",
-      title: "Calm Intent & Nervous System Balance",
-      text: "Rigorous focus on internal mechanics quietens the active mind, sharpening focus and physical awareness."
+      title: "Leg Foundation & Fall Prevention",
+      text: "Targeted leg work builds deep lower-body stability—the single most effective defense against balance loss and fall-related injuries."
     },
     {
       icon: "Activity",
-      title: "Rooted Core Strength",
-      text: "Builds deep leg stamina, hip mobility (Kua opening), and resilient core stability."
+      title: "Postural Alignment & Joint Integrity",
+      text: "Rooted hip and waist mechanics open joints, relieve chronic postural tension, and fortify tendon structure."
+    },
+    {
+      icon: "Feather",
+      title: "Selective Relaxation (Song)",
+      text: "Learn to distinguish solid structural support in the legs from upper-body softness, quieting nervous system tension."
     },
     {
       icon: "Sun",
-      title: "Internal Vitality & Circulation",
-      text: "Encourages deep abdominal breath (Dantian breathing) and smooth vascular microcirculation."
+      title: "Scalable Physical Conditioning",
+      text: "Train on a single shared routine adapted seamlessly to your personal physical capacity—from low exertion to high intensity."
     }
   ],
 
@@ -126,7 +185,7 @@ export const TAIJI_DATA = {
       generation: "17th Generation",
       era: "1887–1957",
       figures: ["Chen Fake"],
-      description: "Publicized Chen Family Taijiquan in Beijing in the year 1928."
+      description: "Publicized Chen Family Taijiquan in Beijing in the year 1928; started serious training at age 14."
     },
     {
       generation: "18th Generation",
@@ -138,7 +197,7 @@ export const TAIJI_DATA = {
       generation: "19th Generation",
       era: "1962–Present",
       figures: ["Chen Yu"],
-      description: "Only son of Chen Zhaokui; leading master of traditional Gongfu Jia."
+      description: "Only son of Chen Zhaokui; leading master of traditional Gongfu Jia. Began training under his father at age 7."
     },
     {
       generation: "20th Generation",
@@ -161,8 +220,8 @@ export const TAIJI_DATA = {
       day: "Saturdays",
       time: "10:00 AM - 11:30 AM",
       location: "[Placeholder: City Park Lawn / Outdoor Training Grounds]",
-      level: "Beginner",
-      description: "Detailed instruction in the classic 89-movement routine. Step-by-step posture breakdowns, weight shifting, body mechanics, and application awareness.",
+      level: "All Levels",
+      description: "Detailed instruction in the classic 89-movement routine. Step-by-step posture breakdowns, leg foundation, body mechanics, and scalable exertion.",
       instructor: "Robin Wu"
     },
     {
@@ -171,8 +230,8 @@ export const TAIJI_DATA = {
       day: "Sundays",
       time: "6:30 PM - 7:45 PM",
       location: "[Placeholder: Community Park Lawn / Outdoor Grounds]",
-      level: "Intermediate / Advanced",
-      description: "Exploring structure, yielding, sensitivity drills, and cooperative partner work to test and deepen internal balance.",
+      level: "All Levels",
+      description: "Playful, cooperative partner work exploring structure, yielding, sensitivity, and reciprocal Yin/Yang methods.",
       instructor: "Robin Wu"
     }
   ] as ClassSession[],
@@ -189,19 +248,23 @@ export const TAIJI_DATA = {
   faqs: [
     {
       question: "Is Tai Chi only for the elderly?",
-      answer: "Contrary to modern stereotypes, traditional Taijiquan is a rigorous martial art. Chen Yu, for example, started training at 7 years old. However, the internal principles are scalable for practitioners of all ages and fitness levels."
+      answer: "No. Traditionally, Taijiquan was taught to children and youth (Chen Yu started at age 7, Fu Zhongwen at 9). Because the core routine is built on a scalable skeleton, intensity can be adjusted from gentle low-exertion health practice to rigorous physical conditioning."
+    },
+    {
+      question: "Does Tai Chi involve mystical 'Qi' energy?",
+      answer: "No. 'Tai Chi' (Taiji) refers to the interplay of Yin and Yang physical forces—not mystical energy. Our teaching is strictly methodology-driven, focusing on concrete leg foundation and structural mechanics."
+    },
+    {
+      question: "What is your approach to Push Hands / partner work?",
+      answer: "We treat Push Hands as a playful craft focused on mutual learning. Both partners practice initiating (Yang) and reacting (Yin) methods in a non-ego environment where how you move matters far more than winning or losing."
     },
     {
       question: "What footwear and attire should I wear?",
-      answer: "It is highly advised to wear flat-soled shoes, ideally on the thin and hard side. Wear loose, comfortable clothing allowing unhindered hip and shoulder movement."
+      answer: "It is highly advised to wear flat-soled shoes, ideally thin and hard-soled. Wear loose, comfortable clothing allowing unhindered hip and shoulder movement."
     },
     {
       question: "How do I inquire about joining or asking questions?",
       answer: "Send an email directly to our instructor at [Placeholder: contact@chen-taiji-local.com]. We welcome serious inquiries regarding training focus, locations, and schedule."
-    },
-    {
-      question: "What if weather is unfavorable during outdoor sessions?",
-      answer: "In case of heavy rain or extreme cold, outdoor sessions are rescheduled or moved to a covered area. Inquirers receive direct email notifications beforehand."
     }
   ] as FAQItem[],
 
