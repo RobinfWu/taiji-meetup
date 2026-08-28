@@ -1,18 +1,18 @@
 "use client";
 
 import React, { useState, useEffect } from "react";
+import Link from "next/link";
+import { usePathname } from "next/navigation";
 import { TAIJI_DATA } from "../data/taijiData";
-import { Menu, X, Mail, ExternalLink } from "lucide-react";
+import { Menu, X, ArrowRight } from "lucide-react";
 
 interface NavbarProps {
-  activeTab: string;
-  setActiveTab: (tab: string) => void;
+  activeTab?: string;
+  setActiveTab?: (tab: string) => void;
 }
 
-export const Navbar: React.FC<NavbarProps> = ({
-  activeTab,
-  setActiveTab,
-}) => {
+export const Navbar: React.FC<NavbarProps> = () => {
+  const pathname = usePathname();
   const [isScrolled, setIsScrolled] = useState(false);
   const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
 
@@ -25,21 +25,11 @@ export const Navbar: React.FC<NavbarProps> = ({
   }, []);
 
   const navItems = [
-    { id: "home", label: "Home" },
-    { id: "what-is-taiji", label: "What is Taiji?" },
-    { id: "lineage", label: "Lineage & About" },
-    { id: "classes", label: "Classes & Schedule" },
-    { id: "contact", label: "Contact" },
+    { href: "/", label: "Home" },
+    { href: "/method", label: "Method" },
+    { href: "/about", label: "About" },
+    { href: "/classes", label: "Classes" },
   ];
-
-  const handleNavClick = (id: string) => {
-    setActiveTab(id);
-    setMobileMenuOpen(false);
-    const element = document.getElementById(id);
-    if (element) {
-      element.scrollIntoView({ behavior: "smooth" });
-    }
-  };
 
   return (
     <header
@@ -50,9 +40,9 @@ export const Navbar: React.FC<NavbarProps> = ({
       }`}
     >
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 flex items-center justify-between">
-        {/* Brand Logo & Emblem */}
-        <button
-          onClick={() => handleNavClick("home")}
+        {/* Brand Logo & Emblem (TAIJI LAB) */}
+        <Link
+          href="/"
           className="flex items-center space-x-3 text-left group focus:outline-none cursor-pointer"
         >
           <div className="w-10 h-10 rounded-full bg-[#171918] text-[#E8E4DA] flex items-center justify-center font-serif text-xl font-bold border border-[#303331] group-hover:border-[#9B3D2E] transition-colors shadow-xs">
@@ -60,24 +50,24 @@ export const Navbar: React.FC<NavbarProps> = ({
           </div>
           <div>
             <div className="flex items-center space-x-2">
-              <span className="font-serif text-xl font-semibold tracking-wide text-[#171918]">
-                {TAIJI_DATA.groupName}
+              <span className="font-serif text-xl font-bold tracking-wide text-[#171918]">
+                TAIJI LAB
               </span>
             </div>
             <p className="text-xs text-[#303331] font-light hidden md:block">
-              {TAIJI_DATA.tagline}
+              {TAIJI_DATA.groupName}
             </p>
           </div>
-        </button>
+        </Link>
 
         {/* Desktop Navigation Links */}
         <nav className="hidden md:flex items-center space-x-1 lg:space-x-1.5 bg-[#DFD9CC]/90 p-1.5 rounded-full border border-[#D5CEBF]">
           {navItems.map((item) => {
-            const isActive = activeTab === item.id;
+            const isActive = pathname === item.href;
             return (
-              <button
-                key={item.id}
-                onClick={() => handleNavClick(item.id)}
+              <Link
+                key={item.href}
+                href={item.href}
                 className={`px-4 py-1.5 rounded-full text-xs font-semibold transition-all duration-200 cursor-pointer ${
                   isActive
                     ? "bg-[#171918] text-[#E8E4DA] shadow-xs"
@@ -85,31 +75,30 @@ export const Navbar: React.FC<NavbarProps> = ({
                 }`}
               >
                 {item.label}
-              </button>
+              </Link>
             );
           })}
         </nav>
 
-        {/* Action Button */}
+        {/* Action Button: Start Here */}
         <div className="hidden sm:flex items-center space-x-3">
-          <button
-            onClick={() => handleNavClick("contact")}
-            className="inline-flex items-center space-x-2 bg-[#171918] hover:bg-[#303331] text-[#E8E4DA] px-4 py-2 rounded-full text-xs font-semibold transition-all shadow-xs cursor-pointer active:scale-98 border border-[#303331]"
+          <Link
+            href="/start"
+            className="inline-flex items-center space-x-2 bg-[#9B3D2E] hover:bg-[#7D3024] text-white px-5 py-2.5 rounded-full text-xs font-bold transition-all shadow-md cursor-pointer active:scale-98 border border-[#9B3D2E]"
           >
-            <Mail className="w-3.5 h-3.5 text-[#8A7250]" />
-            <span>Contact Instructor</span>
-          </button>
+            <span>Start Here</span>
+            <ArrowRight className="w-3.5 h-3.5 text-white/90" />
+          </Link>
         </div>
 
         {/* Mobile menu trigger */}
         <div className="flex md:hidden items-center space-x-2">
-          <button
-            onClick={() => handleNavClick("contact")}
-            className="p-2 rounded-full bg-[#171918] text-white text-xs font-medium"
-            title="Contact"
+          <Link
+            href="/start"
+            className="px-3 py-1.5 rounded-full bg-[#9B3D2E] text-white text-xs font-bold flex items-center space-x-1"
           >
-            <Mail className="w-4 h-4 text-[#8A7250]" />
-          </button>
+            <span>Start Here</span>
+          </Link>
           <button
             onClick={() => setMobileMenuOpen(!mobileMenuOpen)}
             className="p-2 rounded-lg text-[#171918] hover:bg-[#DFD9CC] focus:outline-none"
@@ -129,34 +118,37 @@ export const Navbar: React.FC<NavbarProps> = ({
         <div className="md:hidden bg-[#E8E4DA] border-b border-[#D5CEBF] px-4 pt-3 pb-6 shadow-xl animate-in slide-in-from-top duration-200">
           <div className="space-y-1">
             {navItems.map((item) => {
-              const isActive = activeTab === item.id;
+              const isActive = pathname === item.href;
               return (
-                <button
-                  key={item.id}
-                  onClick={() => handleNavClick(item.id)}
-                  className={`w-full text-left px-4 py-3 rounded-xl text-sm font-semibold transition-colors ${
+                <Link
+                  key={item.href}
+                  href={item.href}
+                  onClick={() => setMobileMenuOpen(false)}
+                  className={`block w-full text-left px-4 py-3 rounded-xl text-sm font-semibold transition-colors ${
                     isActive
                       ? "bg-[#171918] text-[#E8E4DA]"
                       : "text-[#171918] hover:bg-[#DFD9CC]"
                   }`}
                 >
                   {item.label}
-                </button>
+                </Link>
               );
             })}
           </div>
 
           <div className="mt-4 pt-4 border-t border-[#D5CEBF]">
-            <button
-              onClick={() => handleNavClick("contact")}
-              className="w-full flex items-center justify-center space-x-2 bg-[#171918] text-[#E8E4DA] py-3 rounded-xl text-sm font-semibold"
+            <Link
+              href="/start"
+              onClick={() => setMobileMenuOpen(false)}
+              className="w-full flex items-center justify-center space-x-2 bg-[#9B3D2E] text-white py-3 rounded-xl text-sm font-bold shadow-md"
             >
-              <Mail className="w-4 h-4 text-[#8A7250]" />
-              <span>Contact Instructor Email</span>
-            </button>
+              <span>Start Here — Your First Class</span>
+              <ArrowRight className="w-4 h-4 text-white" />
+            </Link>
           </div>
         </div>
       )}
     </header>
   );
 };
+

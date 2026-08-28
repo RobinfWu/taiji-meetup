@@ -107,7 +107,7 @@ export const WhatIsTaijiSection: React.FC = () => {
               Clearing Misconceptions
             </span>
             <h3 className="font-serif text-2xl sm:text-3xl font-light text-[#171918]">
-              Common Myths
+              Taijiquan may not be what you think.
             </h3>
           </div>
 
@@ -127,7 +127,7 @@ export const WhatIsTaijiSection: React.FC = () => {
                     <AlertCircle className="w-4 h-4 shrink-0 mt-0.5" />
                     <div>
                       <span className="text-[11px] font-bold uppercase tracking-wider block text-[#9B3D2E]">
-                        Myth / Stereotype:
+                        Misconception:
                       </span>
                       <p className="text-xs font-medium text-[#303331]">
                         "{item.myth}"
@@ -140,7 +140,7 @@ export const WhatIsTaijiSection: React.FC = () => {
                     <CheckCircle2 className="w-4 h-4 shrink-0 mt-0.5 text-[#243B45]" />
                     <div>
                       <span className="text-[11px] font-bold uppercase tracking-wider block text-[#243B45]">
-                        Authentic Methodology:
+                        Our View:
                       </span>
                       <p className="text-xs text-[#303331] leading-relaxed">
                         {item.reality}

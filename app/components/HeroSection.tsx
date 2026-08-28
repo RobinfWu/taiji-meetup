@@ -1,16 +1,15 @@
 "use client";
 
 import React from "react";
+import Link from "next/link";
 import { TAIJI_DATA, ClassSession } from "../data/taijiData";
 import { ArrowRight, Mail, Compass, Shield, Flame, BookOpen } from "lucide-react";
 
 interface HeroSectionProps {
-  onNavigateTab: (tabId: string) => void;
+  onNavigateTab?: (tabId: string) => void;
 }
 
-export const HeroSection: React.FC<HeroSectionProps> = ({
-  onNavigateTab,
-}) => {
+export const HeroSection: React.FC<HeroSectionProps> = () => {
   const primaryClass: ClassSession = TAIJI_DATA.classes[0];
 
   return (
@@ -44,21 +43,21 @@ export const HeroSection: React.FC<HeroSectionProps> = ({
 
             {/* CTA Action Buttons */}
             <div className="pt-2 flex flex-col sm:flex-row items-stretch sm:items-center space-y-3 sm:space-y-0 sm:space-x-4">
-              <button
-                onClick={() => onNavigateTab("contact")}
-                className="inline-flex items-center justify-center space-x-2 bg-[#171918] hover:bg-[#303331] text-[#E8E4DA] px-7 py-3.5 rounded-full text-sm font-semibold shadow-sm transition-all duration-200 cursor-pointer active:scale-98 border border-[#303331]"
+              <Link
+                href="/start"
+                className="inline-flex items-center justify-center space-x-2 bg-[#9B3D2E] hover:bg-[#7D3024] text-white px-7 py-3.5 rounded-full text-sm font-bold shadow-md transition-all duration-200 cursor-pointer active:scale-98 border border-[#9B3D2E]"
               >
-                <Mail className="w-4 h-4 text-[#8A7250]" />
-                <span>{TAIJI_DATA.hero.ctaPrimary}</span>
-              </button>
+                <span>Start Here — Your First Class</span>
+                <ArrowRight className="w-4 h-4 text-white" />
+              </Link>
 
-              <button
-                onClick={() => onNavigateTab("what-is-taiji")}
+              <Link
+                href="/method"
                 className="inline-flex items-center justify-center space-x-2 bg-[#DFD9CC] hover:bg-[#D5CEBF] border border-[#D5CEBF] text-[#171918] px-6 py-3.5 rounded-full text-sm font-semibold transition-all duration-200 cursor-pointer"
               >
                 <Compass className="w-4 h-4 text-[#243B45]" />
                 <span>{TAIJI_DATA.hero.ctaSecondary}</span>
-              </button>
+              </Link>
             </div>
 
             {/* Quick Stats Grid */}
@@ -116,13 +115,13 @@ export const HeroSection: React.FC<HeroSectionProps> = ({
                   <div><strong>Location:</strong> {primaryClass.location}</div>
                 </div>
 
-                <button
-                  onClick={() => onNavigateTab("contact")}
+                <Link
+                  href="/start"
                   className="w-full mt-3 py-2.5 bg-[#171918] hover:bg-[#303331] text-[#E8E4DA] text-xs font-semibold rounded-xl transition-colors flex items-center justify-center space-x-2 cursor-pointer"
                 >
                   <Mail className="w-3.5 h-3.5 text-[#8A7250]" />
                   <span>Inquire via Email for Training</span>
-                </button>
+                </Link>
               </div>
 
               {/* Martial Lineage Banner */}

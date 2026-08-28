@@ -1,14 +1,15 @@
 "use client";
 
 import React from "react";
+import Link from "next/link";
 import { TAIJI_DATA } from "../data/taijiData";
 import { Mail, Phone, ExternalLink } from "lucide-react";
 
 interface FooterProps {
-  onNavigateTab: (tabId: string) => void;
+  onNavigateTab?: (tabId: string) => void;
 }
 
-export const Footer: React.FC<FooterProps> = ({ onNavigateTab }) => {
+export const Footer: React.FC<FooterProps> = () => {
   return (
     <footer className="bg-[#171918] text-[#E8E4DA] pt-16 pb-12 border-t border-[#303331] relative overflow-hidden">
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 relative z-10">
@@ -33,10 +34,6 @@ export const Footer: React.FC<FooterProps> = ({ onNavigateTab }) => {
             <p className="text-xs text-[#DFD9CC] leading-relaxed max-w-sm font-light">
               Dedicated to preserving the structural integrity, spiral mechanics, and traditional martial heritage of Chen Family Taijiquan.
             </p>
-
-            <div className="p-3.5 rounded-xl bg-[#243B45]/20 border border-[#243B45]/40 text-xs text-[#8A7250] italic font-serif">
-              &ldquo;Rooted in structure, expressed through spiraling force.&rdquo;
-            </div>
           </div>
 
           {/* Navigation Links Column */}
@@ -46,44 +43,44 @@ export const Footer: React.FC<FooterProps> = ({ onNavigateTab }) => {
             </h4>
             <ul className="space-y-2 text-xs text-[#DFD9CC]">
               <li>
-                <button
-                  onClick={() => onNavigateTab("home")}
+                <Link
+                  href="/"
                   className="hover:text-[#9B3D2E] transition-colors cursor-pointer"
                 >
                   Home / Welcome
-                </button>
+                </Link>
               </li>
               <li>
-                <button
-                  onClick={() => onNavigateTab("what-is-taiji")}
+                <Link
+                  href="/method"
                   className="hover:text-[#9B3D2E] transition-colors cursor-pointer"
                 >
-                  What is Taiji? (Internal Mechanics)
-                </button>
+                  Method (Internal Training)
+                </Link>
               </li>
               <li>
-                <button
-                  onClick={() => onNavigateTab("lineage")}
+                <Link
+                  href="/about"
                   className="hover:text-[#9B3D2E] transition-colors cursor-pointer"
                 >
-                  Lineage Tree & Instructor Profile
-                </button>
+                  About & Lineage
+                </Link>
               </li>
               <li>
-                <button
-                  onClick={() => onNavigateTab("classes")}
+                <Link
+                  href="/classes"
                   className="hover:text-[#9B3D2E] transition-colors cursor-pointer"
                 >
                   Classes & Location Schedule
-                </button>
+                </Link>
               </li>
               <li>
-                <button
-                  onClick={() => onNavigateTab("contact")}
-                  className="hover:text-[#9B3D2E] transition-colors cursor-pointer font-semibold text-[#E8E4DA]"
+                <Link
+                  href="/start"
+                  className="hover:text-[#9B3D2E] transition-colors cursor-pointer font-bold text-[#9B3D2E]"
                 >
-                  Contact & Inquiries
-                </button>
+                  Start Here (First Class)
+                </Link>
               </li>
             </ul>
           </div>

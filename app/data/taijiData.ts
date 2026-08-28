@@ -38,7 +38,7 @@ export interface ScalableTier {
 
 export const TAIJI_DATA = {
   groupName: "Chen Family Taijiquan Group",
-  tagline: "Methodology-Oriented Gongfu Jia",
+  tagline: "Gongfu Jia (Gongfu Frame)",
   subtitle: "A concrete, methodology-driven internal discipline rooted in leg foundation, scalable intensity, and authentic Yin/Yang balance for all generations.",
 
   hero: {
