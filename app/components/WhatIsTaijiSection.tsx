@@ -41,11 +41,11 @@ export const WhatIsTaijiSection: React.FC = () => {
           </p>
         </div>
 
-        {/* 4 Pillars of Methodology */}
+        {/* 4 Our Approach to Taijiquan */}
         <div className="mb-20">
           <h3 className="font-serif text-2xl text-[#171918] font-normal mb-8 text-center sm:text-left flex items-center justify-center sm:justify-start space-x-3">
             <span className="w-8 h-px bg-[#9B3D2E]" />
-            <span>Four Pillars of Our Teaching Methodology</span>
+            <span>Our Approach to Taijiquan</span>
           </h3>
 
           <div className="grid grid-cols-1 lg:grid-cols-12 gap-8 items-start">
@@ -88,22 +88,13 @@ export const WhatIsTaijiSection: React.FC = () => {
                   <h4 className="font-serif text-2xl font-semibold text-[#1F2421]">
                     {activeDifference.title}
                   </h4>
-                  <p className="text-xs text-[#8A7250] uppercase tracking-wider font-semibold">
-                    Core Teaching Principle
-                  </p>
                 </div>
               </div>
 
               <div className="space-y-4 text-[#303331] text-base leading-relaxed font-light">
-                <p>{activeDifference.description}</p>
-                <div className="p-4 rounded-xl bg-[#DFD9CC] border border-[#D5CEBF] space-y-2">
-                  <span className="text-xs font-semibold uppercase tracking-wider text-[#171918] block">
-                    Practical Application:
-                  </span>
-                  <p className="text-xs text-[#303331]">
-                    {activeDifference.summary}
+                  <p className="whitespace-pre-line">
+                    {activeDifference.description}
                   </p>
-                </div>
               </div>
             </div>
           </div>
@@ -116,11 +107,8 @@ export const WhatIsTaijiSection: React.FC = () => {
               Clearing Misconceptions
             </span>
             <h3 className="font-serif text-2xl sm:text-3xl font-light text-[#171918]">
-              Common Myths vs. Authentic Gongfu Jia
+              Common Myths
             </h3>
-            <p className="text-xs text-[#5A5E5B]">
-              We directly address common stereotypes to present a clear, grounded perspective on Chen Style practice.
-            </p>
           </div>
 
           <div className="grid grid-cols-1 md:grid-cols-2 gap-6">

@@ -25,7 +25,7 @@ export const Footer: React.FC<FooterProps> = ({ onNavigateTab }) => {
                   {TAIJI_DATA.groupName}
                 </h3>
                 <p className="text-xs text-[#8A7250] font-serif">
-                  {TAIJI_DATA.chineseTitle} • Traditional Gongfu Jia
+                  • Gongfu Jia
                 </p>
               </div>
             </div>

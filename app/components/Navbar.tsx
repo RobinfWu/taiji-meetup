@@ -63,9 +63,6 @@ export const Navbar: React.FC<NavbarProps> = ({
               <span className="font-serif text-xl font-semibold tracking-wide text-[#171918]">
                 {TAIJI_DATA.groupName}
               </span>
-              <span className="text-xs font-serif px-2 py-0.5 rounded bg-[#243B45]/10 text-[#243B45] hidden sm:inline-block border border-[#243B45]/20 font-medium">
-                {TAIJI_DATA.chineseTitle}
-              </span>
             </div>
             <p className="text-xs text-[#303331] font-light hidden md:block">
               {TAIJI_DATA.tagline}

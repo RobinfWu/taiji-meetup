@@ -20,20 +20,6 @@ export const HeroSection: React.FC<HeroSectionProps> = ({
       <div className="absolute bottom-10 left-[-8%] w-80 h-80 rounded-full bg-[#8A7250]/5 blur-3xl pointer-events-none" />
 
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 relative">
-        {/* Top Announcement Tag */}
-        <div 
-          className="inline-flex items-center space-x-2 bg-[#DFD9CC] border border-[#D5CEBF] rounded-full px-3.5 py-1.5 text-xs text-[#303331] mb-8 hover:bg-[#D5CEBF] transition-colors cursor-pointer"
-          onClick={() => onNavigateTab("classes")}
-        >
-          <span className="bg-[#171918] text-[#E8E4DA] text-[10px] uppercase font-bold tracking-wider px-2 py-0.5 rounded-full">
-            {TAIJI_DATA.announcement.badge}
-          </span>
-          <span className="font-semibold text-[#171918]">
-            {TAIJI_DATA.announcement.message}
-          </span>
-          <ArrowRight className="w-3.5 h-3.5 text-[#9B3D2E]" />
-        </div>
-
         <div className="grid grid-cols-1 lg:grid-cols-12 gap-12 lg:gap-8 items-center">
           {/* Main Hero Text */}
           <div className="lg:col-span-7 space-y-6">
@@ -52,7 +38,7 @@ export const HeroSection: React.FC<HeroSectionProps> = ({
                 &ldquo;{TAIJI_DATA.hero.philosophyQuote}&rdquo;
               </p>
               <p className="text-xs text-[#8A7250] font-semibold tracking-wider uppercase">
-                Traditional Gongfu Core Principle
+                ~ Robin Wu
               </p>
             </div>
 
@@ -101,7 +87,7 @@ export const HeroSection: React.FC<HeroSectionProps> = ({
                   </span>
                 </div>
                 <span className="text-xs text-[#8A7250] font-serif italic">
-                  Chen Village Lineage
+                  Chen Zhaokui Lineage
                 </span>
               </div>
 

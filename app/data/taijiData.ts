@@ -38,19 +38,12 @@ export interface ScalableTier {
 
 export const TAIJI_DATA = {
   groupName: "Chen Family Taijiquan Group",
-  chineseTitle: "陳氏太極拳",
   tagline: "Methodology-Oriented Gongfu Jia",
   subtitle: "A concrete, methodology-driven internal discipline rooted in leg foundation, scalable intensity, and authentic Yin/Yang balance for all generations.",
-  
-  announcement: {
-    badge: "Methodology-Driven",
-    message: "Authentic Chen Family Gongfu Jia practice & form refinement.",
-    linkText: "Explore Philosophy & Schedule"
-  },
 
   hero: {
     philosophyQuote: "Methodology contains principles, but principles do not contain methodology.",
-    subText: "We teach the concrete 'how'—not vague abstract slogans. Built on solid leg mechanics and scalable physical exertion, our practice is designed for health-seekers and challenge-seekers of all ages.",
+    subText: "We teach the concrete 'how' instead of just vague slogans. Built on solid leg mechanics and scalable physical exertion, this group is designed for health-seekers and challenge-seekers of all ages.",
     ctaPrimary: "Inquire via Email",
     ctaSecondary: "Explore Methodology & Myths",
     quickStats: [
@@ -64,31 +57,46 @@ export const TAIJI_DATA = {
   differences: [
     {
       id: "methodology",
-      title: "Methodology Over Vague Slogans",
+      title: "Methodology Before Principles",
       accentColor: "#243B45",
-      summary: "We teach the concrete 'how' rather than abstract concepts like 'be like water'. Methodology contains principles, providing a clear progression roadmap.",
-      description: "Mainstream classes often dwell on vague slogans without providing a physical roadmap. Our school focuses on concrete mechanics, posture breakdowns, and clear physical feedback so students know exactly how to progress."
+      summary: "Principles describe what should happen; methodology provides the path for developing the ability to make it happen.",
+      description: "There is a common fallacy that the path to learning Taijiquan is through understanding its “principles.” Principles are important, but studying principles by themselves does not provide a viable path for learning the art. A principle may describe what should happen, but it does not necessarily teach you how to make it happen."
+      + "\n\nThere is a methodology to Taijiquan—the actual how of the art. Methodology provides a path of development: what to train, how to train it, what must be developed first, and how one stage of training leads into the next. Without this path, practitioners are left with vagueness."
+      + "\n\nConsider the common saying, “soft overcomes hard.” Treated as a universal principle, softness can easily become the objective of the art. But understood as a tactic within the larger relationship of Yin and Yang, it describes only one side of the relationship: soft (yin) overcomes hard (yang), but hard (yang) can also overcome soft (yin). What seems like a minor confusion between principle and tactic can therefore result in an entire half of the art being neglected."
     },
     {
       id: "leg-foundation",
-      title: "Leg Foundation as Priority #1",
+      title: "The Legs as Foundation",
       accentColor: "#9B3D2E",
-      summary: "Grounded leg strength is the root of both health (preventing fall-related injuries) and martial power.",
-      description: "The legs are the fundamental engine of Taijiquan. Health-wise, leg stability is the single most important factor in balance and fall prevention. Martially, structural stability in the legs enables all upper-body movement and force transmission."
+      summary: "The legs provide the structural and energetic foundation from which the rest of the art is developed.",
+      description: "In this line of practice, the legs are the foundation for everything. The practice is “energetically” bottom-heavy."
+      + "\n\nFrom a health perspective, strength, balance, and stability in the legs become increasingly important with age, particularly in reducing the risk of falls. This parallels the traditional Chinese observation that, as people age, the legs are often the first thing to weaken."
+      + "\n\nFrom a martial perspective, a well-developed lower body provides the structural stability necessary to receive pressure without being easily manipulated, while also providing the foundation from which pressure and force can be expressed."
+      + "\n\nThe architecture and mechanics of the legs are very detailed and specific to this line of practice."
     },
     {
       id: "tree-metaphor",
-      title: "Selective Relaxation: The Tree Metaphor",
+      title: "Yin & Yang in the Body",
       accentColor: "#8A7250",
-      summary: "The lower body is solid and hard like roots and trunk (Yang), allowing the upper body to yield softly like branches in the wind (Yin).",
-      description: "Indiscriminate softness leads to physical collapse. Like a tree, your lower body must remain dense, solid, and rooted (Yang) so that your upper body and arms can remain light, sensitive, and yielding (Yin) without collapsing under pressure."
+      summary: "The goal is not maximum relaxation, but the appropriate distribution of softness and hardness according to function.",
+      description: "A common interpretation is that the goal of sōng (to loosen) is to eliminate muscular tension as completely as possible. Taken far enough, this produces the familiar criticism of some Taijiquan practitioners as being limp or “noodle-like.”"
+      + "\n\nIn this line of practice, sōng is understood more specifically as the removal of unnecessary tension. Necessary tension still exists. Tension is neither indiscriminately removed nor uniformly distributed throughout the body."
+      + "\n\nConsider a tree."
+      + "\n\nThe roots and lower trunk must possess considerable structural integrity relative to the thinner and more flexible branches above. If the entire tree possessed the softness and flexibility of its smallest branches, it could not remain standing when subjected to force."
+      + "\n\nThe same general relationship exists in the body. As a gross oversimplification, this line of practice emphasizes a relatively Yang lower body and a relatively Yin upper body."
     },
     {
       id: "reciprocal-yin-yang",
-      title: "Two-Way Reciprocal Partner Work",
+      title: "Yin & Yang in Partner Work",
       accentColor: "#303331",
-      summary: "Push Hands is a playful craft where both partners practice initiating and reacting, avoiding scripted roleplay.",
-      description: "Instead of one person acting as defender while the other roleplays an attacker, both practitioners cultivate competent Yin (reacting/yielding) and Yang (initiating/issuing) methods. This creates a supportive, non-ego feedback loop where how you move matters far more than winning or losing."
+      summary: "Both partners develop Yin and Yang methods, so each becomes the training ground for improving the other.",
+      description: "In Taijiquan, Yang against Yang (strength against strength) is frowned upon because it's inefficient."
+      + "\n\nYin against Yang (soft overcomes hard) is very respected because it's efficient but also very romanticized."
+      + "\n\nYang against Yin (hard against soft) can also be very efficient, yet there's a common false generalization that because “Yang against Yang” is undesirable, Yang itself is inherently bad."
+      + "\n\nThis creates a problem with the stereotypical image of “Tai Chi” as an exclusively soft (Yin), slow (Yin), defensive (Yin), and reactionary (Yin) art. In that model, the Taijiquan practitioner becomes the embodiment of Yin while the training partner is expected to roleplay as the embodiment of Yang."
+      + "\n\nBut if both people are actually practicing Taijiquan, why should only one of them possess the Taijiquan methods?"
+      + "\n\nIn this line of practice, both partners are assumed to have access to both Yin and Yang methods. Better Yang forces the development of better Yin; better Yin forces the development of better Yang. The result is a positive feedback loop in which both sides improve together. Neither Yin nor Yang is inherently superior to the other."
+      + "\n\nIf an art teaches Yin methods but does not develop equally competent Yang methods, then its practitioners eventually become very skilled at defending against a version of Yang that no competent opponent would actually use."
     }
   ],
 
@@ -102,8 +110,8 @@ export const TAIJI_DATA = {
     {
       id: "qi-myth",
       badge: "Linguistic Myth",
-      myth: "Tai 'Chi' means mystical 'Qi' energy manipulation.",
-      reality: "'Tai Chi' (or Taiji) refers to the interplay of Yin and Yang (the ultimate extremes). 'Taijiquan' means 'Yin-Yang Fist'—a martial art based on opposing physical mechanics, not abstract energy manipulation."
+      myth: "Tai 'Chi' means mystical 'Chi' energy manipulation.",
+      reality: "'Tai Chi' (or Taiji) refers to the interplay of Yin and Yang. 'Taijiquan' means 'Yin-Yang Fist'—a martial art based on opposing physical mechanics, not abstract energy manipulation."
     },
     {
       id: "song-myth",
