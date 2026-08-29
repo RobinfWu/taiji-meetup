@@ -69,7 +69,7 @@ export default function MethodPage() {
           <div className="space-y-8">
             <div className="text-center max-w-2xl mx-auto space-y-2">
               <span className="text-xs font-semibold uppercase tracking-widest text-[#243B45]">
-                Core Pillars of Instruction
+                Philosophy
               </span>
               <h2 className="font-serif text-3xl sm:text-4xl font-light text-[#171918]">
                 Our Approach to Taijiquan
@@ -135,7 +135,7 @@ export default function MethodPage() {
               Gongfu Jia (First Road / Yilu)
             </h2>
             <p className="text-[#303331] leading-relaxed font-light">
-              Gongfu Jia (&ldquo;Gongfu Frame&rdquo;) is the traditional routine preserved through the Chen Zhaokui and Chen Yu line. The primary routine studied is the classic 89-movement First Road (Yilu). It serves as the master vehicle for training leg stability, posture mechanics, spiraling energy pathways, and scalable exertion.
+              Gongfu Jia (&ldquo;Gongfu Frame&rdquo;) is the traditional routine preserved through the Chen Zhaokui and Chen Yu line. The primary routine studied is the First Road (Yilu). It serves as the vehicle for training leg stability, posture mechanics, spiraling energy pathways, and scalable exertion.
             </p>
           </div>
 
@@ -148,9 +148,6 @@ export default function MethodPage() {
               <h2 className="font-serif text-3xl sm:text-4xl font-light text-[#171918]">
                 Common Misconceptions
               </h2>
-              <p className="text-sm text-[#303331]">
-                Addressing widespread myths about age, energy, relaxation, and partner work.
-              </p>
             </div>
 
             <div className="grid grid-cols-1 md:grid-cols-2 gap-6">

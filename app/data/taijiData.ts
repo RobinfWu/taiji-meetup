@@ -43,14 +43,13 @@ export const TAIJI_DATA = {
 
   hero: {
     philosophyQuote: "Methodology contains principles, but principles do not contain methodology.",
-    subText: "We teach the concrete 'how' instead of just vague slogans. Built on solid leg mechanics and scalable physical exertion, this group is designed for health-seekers and challenge-seekers of all ages.",
-    ctaPrimary: "Inquire via Email",
-    ctaSecondary: "Explore Methodology & Myths",
+    subText: "Learn Chen Family Taijiquan through a concrete, progressive training method—developing balance, leg strength, coordination and whole-body movement.",
+    ctaPrimary: "Try a Class",
+    ctaSecondary: "How We Train",
     quickStats: [
-      { label: "Approach", value: "Methodology First" },
-      { label: "Foundation", value: "Leg Stability & Root" },
-      { label: "Audience", value: "Scalable for All Ages" },
-      { label: "System", value: "Gongfu Jia (First Road)" }
+      { label: "Practice", value: "Traditional practice" },
+      { label: "Flexibility", value: "Scalable intensity" },
+      { label: "Audience", value: "All experience levels" }
     ]
   },
 
@@ -61,7 +60,7 @@ export const TAIJI_DATA = {
       accentColor: "#243B45",
       summary: "Principles describe what should happen; methodology provides the path for developing the ability to make it happen.",
       description: "There is a common fallacy that the path to learning Taijiquan is through understanding its “principles.” Principles are important, but studying principles by themselves does not provide a viable path for learning the art. A principle may describe what should happen, but it does not necessarily teach you how to make it happen."
-      + "\n\nThere is a methodology to Taijiquan—the actual how of the art. Methodology provides a path of development: what to train, how to train it, what must be developed first, and how one stage of training leads into the next. Without this path, practitioners are left with vagueness."
+      + "\n\nThere is a methodology to Taijiquan—the actual how of the art. Methodology provides a path of development: what to train, how to train it, what must be developed first, and how one stage of training leads into the next. Methodology provides a structured path for building physical capability step by step."
       + "\n\nConsider the common saying, “soft overcomes hard.” Treated as a universal principle, softness can easily become the objective of the art. But understood as a tactic within the larger relationship of Yin and Yang, it describes only one side of the relationship: soft (yin) overcomes hard (yang), but hard (yang) can also overcome soft (yin). What seems like a minor confusion between principle and tactic can therefore result in an entire half of the art being neglected."
     },
     {
@@ -79,7 +78,7 @@ export const TAIJI_DATA = {
       title: "Yin & Yang in the Body",
       accentColor: "#8A7250",
       summary: "The goal is not maximum relaxation, but the appropriate distribution of softness and hardness according to function.",
-      description: "A common interpretation is that the goal of sōng (to loosen) is to eliminate muscular tension as completely as possible. Taken far enough, this produces the familiar criticism of some Taijiquan practitioners as being limp or “noodle-like.”"
+      description: "A common interpretation is that the goal of sōng (to loosen) is to eliminate muscular tension as completely as possible. Taken far enough, this can be misunderstood as total relaxation without structure."
       + "\n\nIn this line of practice, sōng is understood more specifically as the removal of unnecessary tension. Necessary tension still exists. Tension is neither indiscriminately removed nor uniformly distributed throughout the body."
       + "\n\nConsider a tree."
       + "\n\nThe roots and lower trunk must possess considerable structural integrity relative to the thinner and more flexible branches above. If the entire tree possessed the softness and flexibility of its smallest branches, it could not remain standing when subjected to force."
@@ -90,11 +89,9 @@ export const TAIJI_DATA = {
       title: "Yin & Yang in Partner Work",
       accentColor: "#303331",
       summary: "Both partners develop Yin and Yang methods, so each becomes the training ground for improving the other.",
-      description: "In Taijiquan, Yang against Yang (strength against strength) is frowned upon because it's inefficient."
-      + "\n\nYin against Yang (soft overcomes hard) is very respected because it's efficient but also very romanticized."
-      + "\n\nYang against Yin (hard against soft) can also be very efficient, yet there's a common false generalization that because “Yang against Yang” is undesirable, Yang itself is inherently bad."
-      + "\n\nThis creates a problem with the stereotypical image of “Tai Chi” as an exclusively soft (Yin), slow (Yin), defensive (Yin), and reactionary (Yin) art. In that model, the Taijiquan practitioner becomes the embodiment of Yin while the training partner is expected to roleplay as the embodiment of Yang."
-      + "\n\nBut if both people are actually practicing Taijiquan, why should only one of them possess the Taijiquan methods?"
+      description: "In Taijiquan, Yang against Yang (strength against strength) is inefficient."
+      + "\n\nYin against Yang (soft overcomes hard) is efficient and highly valued."
+      + "\n\nYang against Yin (hard against soft) can also be effective, yet there is sometimes a misconception that because “Yang against Yang” is undesirable, Yang itself is inherently bad."
       + "\n\nIn this line of practice, both partners are assumed to have access to both Yin and Yang methods. Better Yang forces the development of better Yin; better Yin forces the development of better Yang. The result is a positive feedback loop in which both sides improve together. Neither Yin nor Yang is inherently superior to the other."
       + "\n\nIf an art teaches Yin methods but does not develop equally competent Yang methods, then its practitioners eventually become very skilled at defending against a version of Yang that no competent opponent would actually use."
     }
@@ -129,17 +126,17 @@ export const TAIJI_DATA = {
 
   scalableTiers: [
     {
-      id: "health-tier",
-      title: "Health & Mobility Focus",
-      subtitle: "Comfortable Exertion & Fall Prevention",
-      description: "Focuses on leg foundation, joint alignment, posture improvement, and comfortable movement. Stance height is kept higher to avoid knee strain while building balance and vitality.",
+      id: "gentle-practice",
+      title: "Gentle practice",
+      subtitle: "Balance & Coordination",
+      description: "Higher stances and comfortable exertion, with an emphasis on balance, coordination and movement quality.",
       icon: "Shield"
     },
     {
-      id: "challenge-tier",
-      title: "Martial & Craft Focus",
-      subtitle: "Deep Stances & Structural Mastery",
-      description: "For practitioners seeking a physical challenge. Features deeper stances, rigorous posture precision, kinetic power generation, and cooperative Push Hands partner drills.",
+      id: "demanding-practice",
+      title: "More demanding practice",
+      subtitle: "Depth & Physical Challenge",
+      description: "Progressively deeper stances, greater leg loading and increasingly challenging physical mechanics.",
       icon: "Flame"
     }
   ] as ScalableTier[],
@@ -224,12 +221,12 @@ export const TAIJI_DATA = {
   classes: [
     {
       id: "class-1",
-      title: "Chen Style Gongfu Jia Yilu (First Road)",
+      title: "Gongfu Jia Yilu — First Road",
       day: "Saturdays",
       time: "10:00 AM - 11:30 AM",
       location: "[Placeholder: City Park Lawn / Outdoor Training Grounds]",
       level: "All Levels",
-      description: "Detailed instruction in the classic 89-movement routine. Step-by-step posture breakdowns, leg foundation, body mechanics, and scalable exertion.",
+      description: "Learn the traditional form progressively, beginning with foundational stance, weight shifting and body mechanics. Each section builds upon skills developed earlier.",
       instructor: "Robin Wu"
     },
     {

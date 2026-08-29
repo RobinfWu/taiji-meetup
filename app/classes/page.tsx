@@ -120,7 +120,7 @@ export default function ClassesPage() {
               What Training Looks Like
             </h2>
             <p className="text-[#303331] leading-relaxed font-light text-base sm:text-lg">
-              All students learn the same core Gongfu Jia skeleton (First Road / Yilu), but stance depth and exertion level are customized. Health seekers and challenge seekers train in the same supportive environment, learning from one another without force or pressure.
+              All students learn the same core routine progressively, with stance depth and physical exertion adapted to individual comfort and goals. Practitioners of all experience levels train together in the same supportive environment.
             </p>
             <div className="grid grid-cols-1 sm:grid-cols-2 gap-4 pt-2">
               {TAIJI_DATA.scalableTiers.map((tier) => (

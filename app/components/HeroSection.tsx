@@ -23,22 +23,23 @@ export const HeroSection: React.FC<HeroSectionProps> = () => {
           {/* Main Hero Text */}
           <div className="lg:col-span-7 space-y-6">
             <h1 className="font-serif text-4xl sm:text-5xl md:text-6xl font-light tracking-tight text-[#171918] leading-[1.15]">
-              Traditional <span className="italic font-normal text-[#243B45]">Chen Family</span>{" "}
-              <span className="font-normal border-b-2 border-[#9B3D2E]/50 pb-1">Taijiquan</span>
+              Traditional <span className="italic font-normal text-[#243B45]">Taijiquan.</span>{" "}
+              <span className="block font-normal border-b-2 border-[#9B3D2E]/50 pb-1 mt-1 sm:mt-2">
+                Taught as a physical skill.
+              </span>
             </h1>
 
             <p className="text-lg sm:text-xl text-[#303331] max-w-2xl leading-relaxed font-light">
               {TAIJI_DATA.hero.subText}
             </p>
 
-            {/* Philosophy quote callout */}
-            <div className="p-4 sm:p-5 rounded-2xl bg-[#DFD9CC]/90 border border-[#D5CEBF] border-l-4 border-l-[#9B3D2E] space-y-1">
-              <p className="font-serif italic text-base sm:text-lg text-[#171918]">
-                &ldquo;{TAIJI_DATA.hero.philosophyQuote}&rdquo;
-              </p>
-              <p className="text-xs text-[#8A7250] font-semibold tracking-wider uppercase">
-                ~ Robin Wu
-              </p>
+            {/* Tagline banner */}
+            <div className="inline-flex flex-wrap items-center gap-2 px-4 py-2 rounded-full bg-[#DFD9CC]/90 border border-[#D5CEBF] text-xs sm:text-sm font-medium text-[#243B45]">
+              <span>Traditional practice</span>
+              <span className="text-[#9B3D2E]">•</span>
+              <span>Scalable intensity</span>
+              <span className="text-[#9B3D2E]">•</span>
+              <span>All experience levels</span>
             </div>
 
             {/* CTA Action Buttons */}
@@ -47,7 +48,7 @@ export const HeroSection: React.FC<HeroSectionProps> = () => {
                 href="/start"
                 className="inline-flex items-center justify-center space-x-2 bg-[#9B3D2E] hover:bg-[#7D3024] text-white px-7 py-3.5 rounded-full text-sm font-bold shadow-md transition-all duration-200 cursor-pointer active:scale-98 border border-[#9B3D2E]"
               >
-                <span>Start Here — Your First Class</span>
+                <span>Try a Class</span>
                 <ArrowRight className="w-4 h-4 text-white" />
               </Link>
 
@@ -56,37 +57,23 @@ export const HeroSection: React.FC<HeroSectionProps> = () => {
                 className="inline-flex items-center justify-center space-x-2 bg-[#DFD9CC] hover:bg-[#D5CEBF] border border-[#D5CEBF] text-[#171918] px-6 py-3.5 rounded-full text-sm font-semibold transition-all duration-200 cursor-pointer"
               >
                 <Compass className="w-4 h-4 text-[#243B45]" />
-                <span>{TAIJI_DATA.hero.ctaSecondary}</span>
+                <span>How We Train →</span>
               </Link>
-            </div>
-
-            {/* Quick Stats Grid */}
-            <div className="pt-6 grid grid-cols-2 sm:grid-cols-4 gap-4 border-t border-[#D5CEBF]">
-              {TAIJI_DATA.hero.quickStats.map((stat, idx) => (
-                <div key={idx} className="space-y-1">
-                  <div className="text-sm font-semibold text-[#171918] font-serif">
-                    {stat.value}
-                  </div>
-                  <div className="text-xs text-[#5A5E5B]">
-                    {stat.label}
-                  </div>
-                </div>
-              ))}
             </div>
           </div>
 
-          {/* Hero Right Column: Traditional System Card */}
+          {/* Hero Right Column: Class Overview Card */}
           <div className="lg:col-span-5 space-y-6">
             <div className="p-6 sm:p-8 rounded-3xl bg-gradient-to-b from-[#DFD9CC] to-[#D5CEBF]/60 border border-[#D5CEBF] shadow-xs space-y-6">
               <div className="flex items-center justify-between">
                 <div className="flex items-center space-x-2">
                   <div className="w-2.5 h-2.5 rounded-full bg-[#9B3D2E]" />
                   <span className="text-xs font-semibold uppercase tracking-wider text-[#243B45]">
-                    Traditional Training Focus
+                    Weekly Practice Overview
                   </span>
                 </div>
                 <span className="text-xs text-[#8A7250] font-serif italic">
-                  Chen Zhaokui Lineage
+                  All Levels Welcome
                 </span>
               </div>
 
@@ -95,24 +82,24 @@ export const HeroSection: React.FC<HeroSectionProps> = () => {
                 <div className="flex justify-between items-start">
                   <div>
                     <h3 className="font-serif text-lg font-semibold text-[#171918]">
-                      {primaryClass.title}
+                      Weekly Outdoor Classes
                     </h3>
                     <p className="text-xs text-[#243B45] font-semibold mt-0.5">
-                      {primaryClass.level} • Taught by {primaryClass.instructor}
+                      Saturdays &amp; Sundays • Taught by Robin Wu
                     </p>
                   </div>
                   <span className="px-2 py-0.5 bg-[#9B3D2E]/10 text-[#9B3D2E] text-[11px] rounded font-semibold border border-[#9B3D2E]/20">
-                    Traditional Form
+                    Open Group
                   </span>
                 </div>
 
                 <p className="text-xs text-[#303331] leading-relaxed font-light">
-                  {primaryClass.description}
+                  Learn progressive stance stability, weight shifting, upper-body relaxation, and body mechanics in a supportive outdoor environment.
                 </p>
 
                 <div className="pt-2 border-t border-[#D5CEBF] text-xs text-[#303331] space-y-1">
-                  <div><strong>Schedule:</strong> {primaryClass.day}, {primaryClass.time}</div>
-                  <div><strong>Location:</strong> {primaryClass.location}</div>
+                  <div><strong>Saturdays:</strong> 10:00 AM – 11:30 AM (Form &amp; Mechanics)</div>
+                  <div><strong>Sundays:</strong> 6:30 PM – 7:45 PM (Partner &amp; Structure Drills)</div>
                 </div>
 
                 <Link
@@ -120,21 +107,21 @@ export const HeroSection: React.FC<HeroSectionProps> = () => {
                   className="w-full mt-3 py-2.5 bg-[#171918] hover:bg-[#303331] text-[#E8E4DA] text-xs font-semibold rounded-xl transition-colors flex items-center justify-center space-x-2 cursor-pointer"
                 >
                   <Mail className="w-3.5 h-3.5 text-[#8A7250]" />
-                  <span>Inquire via Email for Training</span>
+                  <span>Try a Class — Get Started</span>
                 </Link>
               </div>
 
-              {/* Martial Lineage Banner */}
+              {/* Training Focus Banner */}
               <div className="flex items-center space-x-3 p-4 rounded-xl bg-[#243B45]/10 border border-[#243B45]/20">
                 <div className="w-10 h-10 rounded-full bg-[#171918] text-[#E8E4DA] flex items-center justify-center font-serif text-lg">
                   ☯
                 </div>
                 <div>
                   <h4 className="text-sm font-semibold text-[#171918]">
-                    Authentic Transmission
+                    Structured Physical Skill
                   </h4>
                   <p className="text-xs text-[#303331]">
-                    Trained directly under Marin Spivack (Mo Ling Taiji), senior disciple of Master Chen Yu.
+                    Developing real movement quality, balance, leg strength, and joint coordination through clear instruction.
                   </p>
                 </div>
               </div>

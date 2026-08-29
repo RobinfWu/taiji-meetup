@@ -99,7 +99,7 @@ export default function Home() {
                 </h2>
 
                 <p className="text-base text-[#303331] leading-relaxed font-light">
-                  All students learn the same core Gongfu Jia skeleton (First Road / Yilu), but stance depth and exertion level are customized. Health seekers and challenge seekers train in the same supportive environment, learning from one another without force or pressure.
+                  All students learn the same core routine progressively, with stance depth and physical exertion adapted to individual comfort and goals. Practitioners of all experience levels train together in the same supportive environment.
                 </p>
 
                 <div className="grid grid-cols-1 sm:grid-cols-2 gap-4 pt-2">
@@ -137,7 +137,7 @@ export default function Home() {
                   How We Teach
                 </h2>
                 <p className="text-lg text-[#303331] leading-relaxed font-light">
-                  Taijiquan contains many principles—but principles alone don&apos;t tell someone how to acquire the skill. Our teaching emphasizes a progressive physical methodology: clear stance mechanics, leg root stability, selective relaxation (*sōng*), and reciprocal Yin/Yang partner work.
+                  Principles become useful when you know how to train them. Our teaching emphasizes a progressive physical methodology: clear stance mechanics, lower-body stability, selective upper-body relaxation (*sōng*), and reciprocal Yin/Yang partner work.
                 </p>
                 <div className="pt-2">
                   <Link
@@ -183,7 +183,7 @@ export default function Home() {
                 What Training Looks Like
               </h2>
               <p className="text-[#303331] text-base sm:text-lg leading-relaxed font-light">
-                We train outdoors in small, dedicated groups. Instruction is divided into two primary disciplines: classic 89-movement Gongfu Jia Yilu routine practice and cooperative Push Hands partner drills.
+                We train outdoors in small, dedicated groups. Instruction focuses on progressive traditional form practice (First Road / Yilu) and cooperative Push Hands partner movement drills.
               </p>
             </div>
 
@@ -353,42 +353,6 @@ export default function Home() {
                   <p>{TAIJI_DATA.locations[0].address}</p>
                 </div>
               </div>
-            </div>
-          </div>
-        </section>
-
-        {/* Step 9: FAQ Highlights */}
-        <section className="py-20 bg-[#E8E4DA] relative">
-          <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 space-y-8">
-            <div className="flex flex-col md:flex-row items-start md:items-center justify-between gap-4">
-              <div>
-                <span className="text-xs font-semibold uppercase tracking-widest text-[#9B3D2E]">
-                  Questions & Answers
-                </span>
-                <h2 className="font-serif text-3xl sm:text-4xl font-light text-[#171918]">
-                  FAQ Highlights
-                </h2>
-              </div>
-              <Link
-                href="/classes"
-                className="inline-flex items-center space-x-2 text-xs font-semibold text-[#9B3D2E] hover:underline"
-              >
-                <span>Read all FAQs on our Classes page</span>
-                <ArrowRight className="w-3.5 h-3.5" />
-              </Link>
-            </div>
-
-            <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
-              {TAIJI_DATA.faqs.slice(0, 2).map((faq, idx) => (
-                <div key={idx} className="bg-[#DFD9CC] p-6 rounded-2xl border border-[#D5CEBF] space-y-2 shadow-xs">
-                  <h3 className="font-serif text-base font-semibold text-[#171918]">
-                    {faq.question}
-                  </h3>
-                  <p className="text-xs text-[#303331] leading-relaxed font-light">
-                    {faq.answer}
-                  </p>
-                </div>
-              ))}
             </div>
           </div>
         </section>

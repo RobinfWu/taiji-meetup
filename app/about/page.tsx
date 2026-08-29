@@ -61,24 +61,6 @@ export default function AboutPage() {
                   {lineageInfo.bio}
                 </p>
               </div>
-
-              {/* Why I teach this way */}
-              <div className="space-y-3 pt-2">
-                <h3 className="font-serif text-xl font-semibold text-[#171918]">
-                  Why I Teach This Way
-                </h3>
-                <div className="p-5 rounded-2xl bg-[#E8E4DA] border-l-4 border-l-[#9B3D2E] border border-[#D5CEBF] space-y-2">
-                  <p className="font-serif italic text-lg text-[#171918]">
-                    &ldquo;{TAIJI_DATA.hero.philosophyQuote}&rdquo;
-                  </p>
-                  <p className="text-xs text-[#8A7250] font-semibold tracking-wider uppercase">
-                    ~ Robin Wu
-                  </p>
-                </div>
-                <p className="text-sm text-[#303331] leading-relaxed font-light">
-                  We teach the concrete &ldquo;how&rdquo; instead of vague slogans. Built on solid leg mechanics and scalable physical exertion, our teaching provides clear physical milestones so students understand why they train each movement.
-                </p>
-              </div>
             </div>
 
             {/* Lineage Teacher & Photos */}
