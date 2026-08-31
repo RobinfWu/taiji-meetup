@@ -100,29 +100,30 @@ export const TAIJI_DATA = {
   mythsAndRealities: [
     {
       id: "elderly-myth",
-      badge: "Age Stereotype",
-      myth: "Tai Chi is only slow exercise for the elderly.",
-      reality: "Traditionally, Taijiquan was taught to children and youth—Chen Yu began training at age 7, Fu Zhongwen at 9, and Chen Fake at 14. The practice is fully scalable with age, offering gentle low-exertion options for seniors and deep physical challenges for adolescents and adults."
+      badge: "Only for the Elderly",
+      myth: "Tai Chi is only slow exercise for older people.",
+      reality: "Taijiquan can certainly be practiced well into old age, but it was not historically conceived as an elderly exercise program. Many prominent practitioners began training while young: Chen Yu began at approximately age seven, Fu Zhongwen at nine, and Chen Fake in his youth. The practice is scalable and adaptable with age."
     },
     {
       id: "qi-myth",
       badge: "Linguistic Myth",
-      myth: "Tai 'Chi' means mystical 'Chi' energy manipulation.",
-      reality: "'Tai Chi' (or Taiji) refers to the interplay of Yin and Yang. 'Taijiquan' means 'Yin-Yang Fist'—a martial art based on opposing physical mechanics, not abstract energy manipulation."
+      myth: "The ‘Chi’ in Tai Chi refers to mystical ‘Chi energy.’",
+      reality: "This misconception largely comes from older English romanization. The ji in Taiji (太极) is not the same word or Chinese character as qi (气). Taiji is a classical Chinese philosophical concept associated with the complementary relationship and transformation of yin and yang. Qi is a separate concept entirely. Taijiquan training may include practices concerned with breathing, awareness, relaxation, intention, and other qualities also encountered in qigong, but the word Taiji itself does not mean “qi energy.”"
     },
     {
-      id: "song-myth",
-      badge: "Structure Myth",
-      myth: "Relaxation (Song) means being completely loose and floppy.",
-      reality: "Indiscriminate floppiness causes total structural collapse. True 'Song' is active structure: the lower body remains dense and rooted like a tree trunk (Yang), enabling the upper body to yield softly (Yin)."
+      id: "internal-myth",
+      badge: "Internal vs External",
+      myth: "Because Taijiquan is an ‘internal’ martial art, you need to study an ‘external’ martial art for your training to be complete.",
+      reality: "Within our lineage, the practice is both 'Internal' (Yin) and 'External' (Yang). The 'Internal' should complement the 'External', not replace the 'External'. One would think that an art about Yin and Yang would advocate for having both sides of the coin, not just one."
     },
     {
       id: "partner-myth",
-      badge: "Push Hands Myth",
-      myth: "One person attacks while the other 'does Tai Chi'.",
-      reality: "Passive roleplay prevents real growth. Genuine partner work requires both partners to be skilled in both initiating and reacting, fostering a playful, non-ego feedback loop."
+      badge: "Softness Myth",
+      myth: "Tai Chi is a soft, defensive, reactionary martial art.",
+      reality: "If every student in a Tai Chi school are only taught soft, defensive, and reactionary methods, then they have nobody to give them competent hard, offensive, and initiative methods. For Taijiquan to be a self-contained system, it needs to have both sides of the coin."
     }
   ] as MythItem[],
+
 
   scalableTiers: [
     {
@@ -143,31 +144,31 @@ export const TAIJI_DATA = {
 
   benefits: [
     {
-      icon: "Shield",
-      title: "Leg Foundation & Fall Prevention",
-      text: "Targeted leg work builds deep lower-body stability—the single most effective defense against balance loss and fall-related injuries."
+      icon: "Clock",
+      title: "Built for the Long Term",
+      text: "Traditionally taught to children and practiced into old age. The same form can be trained with physical demand earlier in life and refined into sustainable practice later—serving both health and martial utility."
     },
     {
-      icon: "Activity",
-      title: "Postural Alignment & Joint Integrity",
-      text: "Rooted hip and waist mechanics open joints, relieve chronic postural tension, and fortify tendon structure."
+      icon: "Compass",
+      title: "A Specific Tradition",
+      text: "Chen Family Gongfu Jia is a specific, structured system with its own methodology. It is taught as a concrete physical skill rather than the soft, generalized “Tai Chi” most people encounter."
     },
     {
-      icon: "Feather",
-      title: "Selective Relaxation (Song)",
-      text: "Learn to distinguish solid structural support in the legs from upper-body softness, quieting nervous system tension."
+      icon: "User",
+      title: "Both Solo and Partner",
+      text: "Fully portable—no special equipment or fixed location required. The core form can be practiced alone; partner work (Push Hands) adds another dimension when training with others."
     },
     {
-      icon: "Sun",
-      title: "Scalable Physical Conditioning",
-      text: "Train on a single shared routine adapted seamlessly to your personal physical capacity—from low exertion to high intensity."
+      icon: "Layers",
+      title: "Progressive Layers of Practice",
+      text: "This practice of Taijiquan is built in layers with each stage becoming the foundation for the next. The basics aren't something you leave behind—they become increasingly sophisticated."
     }
   ],
 
   lineageInfo: {
     instructorName: "Robin Wu",
     title: "Chen Family Taijiquan Practitioner",
-    bio: "Trained directly under Marin Spivack as an indoor student/disciple since the year 2020.",
+    bio: "Robin first encountered Chen Family Gongfu Jia in 2019 after a long period of searching for authentic traditional training. What drew him was the school’s reputation for extreme physical demand — a method that challenged even experienced martial artists. He has trained exclusively in this lineage ever since, becoming an indoor student of Marin Spivack.",
     teacherName: "Marin Spivack",
     teacherWebsite: "https://molingtaiji.com/",
     teacherSiteName: "Mo Ling Taiji",

@@ -37,14 +37,14 @@ export default function MethodPage() {
             <div className="max-w-3xl space-y-4">
               <div className="inline-flex items-center space-x-2 px-3.5 py-1 rounded-full bg-[#243B45]/10 text-[#243B45] text-xs font-semibold uppercase tracking-widest border border-[#243B45]/20">
                 <Compass className="w-3.5 h-3.5" />
-                <span>The Intellectual Heart of Our School</span>
+                <span>About Our Method</span>
               </div>
-              <h1 className="font-serif text-4xl sm:text-5xl md:text-6xl font-light text-[#171918]">
-                Training <span className="font-normal italic text-[#243B45]">Methodology</span> & Mechanics
-              </h1>
-              <p className="text-lg text-[#303331] leading-relaxed font-light">
-                Principles describe what should happen—methodology provides the path for developing the physical ability to make it happen. Explore the core mechanics behind Chen Family Gongfu Jia.
-              </p>
+                <h1 className="font-serif text-4xl sm:text-5xl md:text-6xl font-light text-[#171918]">
+                  How We <span className="font-normal italic text-[#243B45]">Train</span>
+                </h1>
+                <p className="text-lg text-[#303331] leading-relaxed font-light">
+                  Let's dive deeper into what this Taijiquan method is about.
+                </p>
             </div>
           </div>
         </section>
@@ -58,10 +58,27 @@ export default function MethodPage() {
               What is Taijiquan?
             </h2>
             <p className="text-[#303331] text-base sm:text-lg leading-relaxed font-light">
-              Chen Family Taijiquan is the original progenitor of &ldquo;Tai Chi&rdquo;—a traditional northern Chinese discipline originating from Chenjiagou in Henan Province.
+              Many Chinese martial arts follow a naming scheme: Taiji<strong className="font-semibold text-[#171918]">quan</strong>, Xingyi<strong className="font-semibold text-[#171918]">quan</strong>, Baiji<strong className="font-semibold text-[#171918]">quan</strong>, Tanglang<strong className="font-semibold text-[#171918]">quan</strong>, Hung Ga <strong className="font-semibold text-[#171918]">Kuen</strong>, etc...
             </p>
             <p className="text-[#303331] text-base sm:text-lg leading-relaxed font-light">
-              Our school advocates for a <strong className="font-semibold text-[#171918]">methodology-oriented practice</strong>. We teach the concrete physical &ldquo;how&rdquo;—providing a clear roadmap built on solid leg foundation and scalable physical intensity for all ages.
+              "Quan" or "Kuen" translates to mean fist which denotes a martial art. Taijiquan therefore means “Taiji Fist” — a martial art named after the concept of Taiji (the interplay of Yin and Yang). It is a Northern Chinese martial art that originated from the Chen Village (Chenjiagou) in Henan Province.
+            </p>
+            <p className="text-[#303331] text-base sm:text-lg leading-relaxed font-light">
+              Taijiquan is a family art. It was commonly passed down from father to son or from “master” to “apprentice”. The Chen family developed it first. The founder of the Yang family learned from the Chen family; the founder of the Wu family later learned from the Yang family.
+            </p>
+            <p className="text-[#303331] text-base sm:text-lg leading-relaxed font-light">
+              This is the historical root of what most people today simply call “Tai Chi.”
+            </p>
+          </div>
+          <div className="bg-[#DFD9CC] p-8 sm:p-12 rounded-3xl border border-[#D5CEBF] shadow-xs space-y-6">
+            <h2 className="font-serif text-3xl font-semibold text-[#171918]">
+              What is Gongfu Jia?
+            </h2>
+            <p className="text-[#303331] text-base sm:text-lg leading-relaxed font-light">
+              If Taijiquan refers to a martial art “style” and Chen Family Taijiquan refers to a “substyle” (hence Chen “Style” Taijiquan), then “Gongfu Jia” (Gongfu Frame) refers to a specific lineage and training approach within the Chen Family.
+            </p>
+            <p className="text-[#303331] text-base sm:text-lg leading-relaxed font-light">
+              That lineage can be traced to Chen Zhaokui (son of Chen Fake).
             </p>
           </div>
 
@@ -125,21 +142,7 @@ export default function MethodPage() {
             </div>
           </div>
 
-          {/* Section 3: Gongfu Jia System */}
-          <div className="bg-gradient-to-r from-[#243B45]/10 via-[#DFD9CC] to-[#8A7250]/10 p-8 sm:p-12 rounded-3xl border border-[#D5CEBF] space-y-6">
-            <div className="inline-flex items-center space-x-2 text-xs font-semibold uppercase tracking-wider text-[#243B45]">
-              <Layers className="w-4 h-4 text-[#9B3D2E]" />
-              <span>System & Routine Structure</span>
-            </div>
-            <h2 className="font-serif text-3xl font-light text-[#171918]">
-              Gongfu Jia (First Road / Yilu)
-            </h2>
-            <p className="text-[#303331] leading-relaxed font-light">
-              Gongfu Jia (&ldquo;Gongfu Frame&rdquo;) is the traditional routine preserved through the Chen Zhaokui and Chen Yu line. The primary routine studied is the First Road (Yilu). It serves as the vehicle for training leg stability, posture mechanics, spiraling energy pathways, and scalable exertion.
-            </p>
-          </div>
-
-          {/* Section 4: Common Misconceptions (Myths vs Reality) */}
+          {/* Section 3: Common Misconceptions (Myths vs Reality) */}
           <div className="space-y-8">
             <div className="text-center max-w-2xl mx-auto space-y-2">
               <span className="text-xs font-semibold uppercase tracking-widest text-[#9B3D2E]">
@@ -177,7 +180,7 @@ export default function MethodPage() {
                       <CheckCircle2 className="w-4 h-4 shrink-0 mt-0.5 text-[#243B45]" />
                       <div>
                         <span className="text-[11px] font-bold uppercase tracking-wider block text-[#243B45]">
-                          Our View:
+                          Our Approach:
                         </span>
                         <p className="text-xs text-[#303331] leading-relaxed">
                           {item.reality}

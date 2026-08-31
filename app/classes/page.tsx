@@ -114,31 +114,6 @@ export default function ClassesPage() {
             </div>
           </div>
 
-          {/* Section 2: What Training is Like & Scalable Exertion */}
-          <div className="bg-[#DFD9CC] p-8 sm:p-12 rounded-3xl border border-[#D5CEBF] shadow-xs space-y-6">
-            <h2 className="font-serif text-3xl font-semibold text-[#171918]">
-              What Training Looks Like
-            </h2>
-            <p className="text-[#303331] leading-relaxed font-light text-base sm:text-lg">
-              All students learn the same core routine progressively, with stance depth and physical exertion adapted to individual comfort and goals. Practitioners of all experience levels train together in the same supportive environment.
-            </p>
-            <div className="grid grid-cols-1 sm:grid-cols-2 gap-4 pt-2">
-              {TAIJI_DATA.scalableTiers.map((tier) => (
-                <div key={tier.id} className="p-5 rounded-2xl bg-[#E8E4DA] border border-[#D5CEBF] space-y-2">
-                  <h4 className="text-sm font-semibold font-serif text-[#171918]">
-                    {tier.title}
-                  </h4>
-                  <p className="text-[11px] font-semibold text-[#8A7250] uppercase tracking-wider">
-                    {tier.subtitle}
-                  </p>
-                  <p className="text-xs text-[#5A5E5B] leading-relaxed">
-                    {tier.description}
-                  </p>
-                </div>
-              ))}
-            </div>
-          </div>
-
           {/* Section 3: Location Details & What to Wear */}
           <div className="space-y-8">
             <div className="text-center max-w-2xl mx-auto space-y-2">
@@ -187,62 +162,6 @@ export default function ClassesPage() {
                   </div>
                 </div>
               ))}
-            </div>
-          </div>
-
-          {/* Section 4: Complete FAQ Accordion */}
-          <div className="bg-[#DFD9CC] p-8 sm:p-12 rounded-3xl border border-[#D5CEBF] shadow-xs space-y-8">
-            <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-4 border-b border-[#D5CEBF] pb-6">
-              <div>
-                <h2 className="font-serif text-3xl font-semibold text-[#171918]">
-                  Frequently Asked Questions
-                </h2>
-                <p className="text-sm text-[#303331] mt-1 font-light">
-                  Common questions on footwear, age stereotypes, Qi energy, and partner work.
-                </p>
-              </div>
-
-              <a
-                href={TAIJI_DATA.contact.teacherWebsite}
-                target="_blank"
-                rel="noopener noreferrer"
-                className="inline-flex items-center space-x-2 bg-[#243B45]/10 hover:bg-[#243B45]/20 text-[#243B45] px-4 py-2.5 rounded-xl text-xs font-semibold border border-[#243B45]/20 transition-colors self-start sm:self-auto"
-              >
-                <span>Teacher&apos;s Site: Mo Ling Taiji</span>
-                <ExternalLink className="w-3.5 h-3.5" />
-              </a>
-            </div>
-
-            <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
-              {TAIJI_DATA.faqs.map((faq, idx) => {
-                const isOpen = openFaqIndex === idx;
-                return (
-                  <div
-                    key={idx}
-                    className="bg-[#E8E4DA] rounded-2xl border border-[#D5CEBF] overflow-hidden transition-all duration-200 self-start"
-                  >
-                    <button
-                      onClick={() => setOpenFaqIndex(isOpen ? null : idx)}
-                      className="w-full text-left p-5 flex items-center justify-between space-x-3 cursor-pointer hover:bg-[#DFD9CC]/50"
-                    >
-                      <span className="font-serif text-base font-semibold text-[#171918]">
-                        {faq.question}
-                      </span>
-                      {isOpen ? (
-                        <ChevronUp className="w-4 h-4 text-[#9B3D2E] shrink-0" />
-                      ) : (
-                        <ChevronDown className="w-4 h-4 text-[#5A5E5B] shrink-0" />
-                      )}
-                    </button>
-
-                    {isOpen && (
-                      <div className="px-5 pb-5 pt-1 text-xs sm:text-sm text-[#303331] leading-relaxed border-t border-[#D5CEBF]/60 font-light">
-                        {faq.answer}
-                      </div>
-                    )}
-                  </div>
-                );
-              })}
             </div>
           </div>
 

@@ -7,10 +7,11 @@ import { HeroSection } from "./components/HeroSection";
 import { Footer } from "./components/Footer";
 import { TAIJI_DATA } from "./data/taijiData";
 import {
+  Clock,
+  Compass,
+  User,
+  Layers,
   Shield,
-  Feather,
-  Activity,
-  Sun,
   Flame,
   ArrowRight,
   Sparkles,
@@ -30,10 +31,11 @@ export default function Home() {
 
   const getBenefitIcon = (iconName: string) => {
     switch (iconName) {
+      case "Clock": return <Clock className="w-5 h-5 text-[#243B45]" />;
+      case "Compass": return <Compass className="w-5 h-5 text-[#8A7250]" />;
+      case "User": return <User className="w-5 h-5 text-[#9B3D2E]" />;
+      case "Layers": return <Layers className="w-5 h-5 text-[#303331]" />;
       case "Shield": return <Shield className="w-5 h-5 text-[#243B45]" />;
-      case "Feather": return <Feather className="w-5 h-5 text-[#8A7250]" />;
-      case "Activity": return <Activity className="w-5 h-5 text-[#9B3D2E]" />;
-      case "Sun": return <Sun className="w-5 h-5 text-[#303331]" />;
       default: return <Sparkles className="w-5 h-5 text-[#243B45]" />;
     }
   };
@@ -53,13 +55,13 @@ export default function Home() {
           <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 space-y-12">
             <div className="text-center max-w-3xl mx-auto space-y-4">
               <div className="inline-flex items-center space-x-2 px-3.5 py-1 rounded-full bg-[#243B45]/10 text-[#243B45] text-xs font-semibold uppercase tracking-widest border border-[#243B45]/20">
-                <span>Concrete Health & Physical Benefits</span>
+                <span>A Different Kind of Practice</span>
               </div>
               <h2 className="font-serif text-3xl sm:text-4xl md:text-5xl font-light text-[#171918]">
-                What <span className="font-normal italic text-[#243B45]">Taijiquan</span> Offers
+                Why This <span className="font-normal italic text-[#243B45]">Matters</span>
               </h2>
-              <p className="text-[#303331] text-base sm:text-lg leading-relaxed font-light">
-                Chen Family Taijiquan is the original progenitor of &ldquo;Tai Chi&rdquo;—a traditional northern Chinese discipline originating from Chenjiagou in Henan Province.
+              <p className="text-sm sm:text-base text-[#303331] font-light leading-relaxed max-w-2xl mx-auto">
+                Many physical pursuits become harder to sustain as we age, depend on equipment or facilities, or require a group of people. Taijiquan is different.
               </p>
             </div>
 
@@ -84,49 +86,8 @@ export default function Home() {
           </div>
         </section>
 
-        {/* Step 3: One Art / Scalable Intensity */}
+        {/* Step 3: How We Teach (Doorway to /method) */}
         <section className="py-20 bg-[#E8E4DA] relative">
-          <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-            <div className="bg-gradient-to-r from-[#243B45]/10 via-[#DFD9CC] to-[#8A7250]/10 p-8 sm:p-12 rounded-3xl border border-[#D5CEBF] relative overflow-hidden">
-              <div className="max-w-3xl mx-auto space-y-6">
-                <div className="inline-flex items-center space-x-2 text-xs font-semibold uppercase tracking-wider text-[#243B45]">
-                  <Flame className="w-4 h-4 text-[#9B3D2E]" />
-                  <span>One Routine • Scalable Intensity for All Goals</span>
-                </div>
-
-                <h2 className="font-serif text-3xl sm:text-4xl font-light text-[#171918]">
-                  One Art / Scalable Intensity
-                </h2>
-
-                <p className="text-base text-[#303331] leading-relaxed font-light">
-                  All students learn the same core routine progressively, with stance depth and physical exertion adapted to individual comfort and goals. Practitioners of all experience levels train together in the same supportive environment.
-                </p>
-
-                <div className="grid grid-cols-1 sm:grid-cols-2 gap-4 pt-2">
-                  {TAIJI_DATA.scalableTiers.map((tier) => (
-                    <div key={tier.id} className="p-5 rounded-2xl bg-[#E8E4DA] border border-[#D5CEBF] space-y-2">
-                      <div className="flex items-center space-x-2 text-[#171918]">
-                        {tier.icon === "Shield" ? <Shield className="w-4 h-4 text-[#243B45]" /> : <Flame className="w-4 h-4 text-[#9B3D2E]" />}
-                        <h3 className="text-sm font-semibold font-serif text-[#171918]">
-                          {tier.title}
-                        </h3>
-                      </div>
-                      <p className="text-[11px] font-semibold text-[#8A7250] uppercase tracking-wider">
-                        {tier.subtitle}
-                      </p>
-                      <p className="text-xs text-[#5A5E5B] leading-relaxed font-light">
-                        {tier.description}
-                      </p>
-                    </div>
-                  ))}
-                </div>
-              </div>
-            </div>
-          </div>
-        </section>
-
-        {/* Step 4: How We Teach (Doorway to /method) */}
-        <section className="py-20 bg-[#DFD9CC]/60 border-y border-[#D5CEBF] relative">
           <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
             <div className="grid grid-cols-1 lg:grid-cols-12 gap-10 items-center">
               <div className="lg:col-span-7 space-y-6">
@@ -137,7 +98,7 @@ export default function Home() {
                   How We Teach
                 </h2>
                 <p className="text-lg text-[#303331] leading-relaxed font-light">
-                  Principles become useful when you know how to train them. Our teaching emphasizes a progressive physical methodology: clear stance mechanics, lower-body stability, selective upper-body relaxation (*sōng*), and reciprocal Yin/Yang partner work.
+                  Principles become useful when you know how to train them. Our teaching emphasizes a progressive physical methodology: clear stance mechanics, lower-body stability, selective upper-body relaxation (sōng), and reciprocal Yin/Yang partner work.
                 </p>
                 <div className="pt-2">
                   <Link
@@ -150,7 +111,7 @@ export default function Home() {
                 </div>
               </div>
 
-              <div className="lg:col-span-5 bg-[#E8E4DA] p-8 rounded-3xl border border-[#D5CEBF] space-y-4 shadow-xs">
+              <div className="lg:col-span-5 bg-[#DFD9CC] p-8 rounded-3xl border border-[#D5CEBF] space-y-4 shadow-xs">
                 <div className="flex items-center space-x-3 text-[#9B3D2E]">
                   <BookOpen className="w-5 h-5" />
                   <span className="text-xs font-bold uppercase tracking-wider">Methodology Preview</span>
@@ -172,8 +133,8 @@ export default function Home() {
           </div>
         </section>
 
-        {/* Step 5: What Training Looks Like */}
-        <section className="py-20 bg-[#E8E4DA] relative">
+        {/* Step 4: What Training Looks Like */}
+        <section className="py-20 bg-[#DFD9CC]/50 border-y border-[#D5CEBF] relative">
           <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 space-y-12">
             <div className="text-center max-w-3xl mx-auto space-y-4">
               <span className="text-xs font-semibold uppercase tracking-widest text-[#243B45]">
@@ -191,7 +152,7 @@ export default function Home() {
               {TAIJI_DATA.classes.map((session) => (
                 <div
                   key={session.id}
-                  className="bg-[#DFD9CC] p-7 rounded-3xl border border-[#D5CEBF] space-y-4 flex flex-col justify-between shadow-xs"
+                  className="bg-[#E8E4DA] p-7 rounded-3xl border border-[#D5CEBF] space-y-4 flex flex-col justify-between shadow-xs"
                 >
                   <div className="space-y-3">
                     <span className="text-xs font-semibold px-2.5 py-0.5 rounded bg-[#243B45]/10 text-[#243B45]">
@@ -220,12 +181,12 @@ export default function Home() {
           </div>
         </section>
 
-        {/* Step 6: Meet Robin (Doorway to /about) */}
-        <section className="py-20 bg-[#DFD9CC]/50 border-y border-[#D5CEBF] relative">
+        {/* Step 5: Meet Robin (Doorway to /about) */}
+        <section className="py-20 bg-[#E8E4DA] relative">
           <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
             <div className="grid grid-cols-1 lg:grid-cols-12 gap-10 items-center">
               <div className="lg:col-span-5 space-y-4">
-                <div className="rounded-3xl overflow-hidden border border-[#D5CEBF] shadow-md bg-[#E8E4DA]">
+                <div className="rounded-3xl overflow-hidden border border-[#D5CEBF] shadow-md bg-[#DFD9CC]">
                   <img
                     src="/IMG_2499.jpg"
                     alt="Marin Spivack and Robin Wu"
@@ -261,10 +222,10 @@ export default function Home() {
           </div>
         </section>
 
-        {/* Step 7: Your First Class (Doorway to /start) */}
-        <section className="py-20 bg-[#E8E4DA] relative">
+        {/* Step 6: Your First Class (Doorway to /start) */}
+        <section className="py-20 bg-[#DFD9CC]/50 border-y border-[#D5CEBF] relative">
           <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-            <div className="bg-[#DFD9CC] p-8 sm:p-12 rounded-3xl border border-[#D5CEBF] shadow-xs space-y-8">
+            <div className="bg-[#E8E4DA] p-8 sm:p-12 rounded-3xl border border-[#D5CEBF] shadow-xs space-y-8">
               <div className="max-w-2xl space-y-3">
                 <span className="text-xs font-bold uppercase tracking-widest text-[#9B3D2E]">
                   No Experience Needed
@@ -278,19 +239,19 @@ export default function Home() {
               </div>
 
               <div className="grid grid-cols-1 sm:grid-cols-3 gap-6">
-                <div className="bg-[#E8E4DA] p-5 rounded-2xl border border-[#D5CEBF] space-y-2">
+                <div className="bg-[#DFD9CC] p-5 rounded-2xl border border-[#D5CEBF] space-y-2">
                   <span className="font-serif text-xl font-bold text-[#9B3D2E]">1. Come as you are</span>
                   <p className="text-xs text-[#303331] leading-relaxed font-light">
                     Comfortable clothes and flat shoes. No uniform required.
                   </p>
                 </div>
-                <div className="bg-[#E8E4DA] p-5 rounded-2xl border border-[#D5CEBF] space-y-2">
+                <div className="bg-[#DFD9CC] p-5 rounded-2xl border border-[#D5CEBF] space-y-2">
                   <span className="font-serif text-xl font-bold text-[#243B45]">2. Step-by-step instruction</span>
                   <p className="text-xs text-[#303331] leading-relaxed font-light">
                     Basic stance, posture, weight shifting, and movement fundamentals.
                   </p>
                 </div>
-                <div className="bg-[#E8E4DA] p-5 rounded-2xl border border-[#D5CEBF] space-y-2">
+                <div className="bg-[#DFD9CC] p-5 rounded-2xl border border-[#D5CEBF] space-y-2">
                   <span className="font-serif text-xl font-bold text-[#8A7250]">3. Scalable exertion</span>
                   <p className="text-xs text-[#303331] leading-relaxed font-light">
                     High or low stance height based on your personal comfort.
@@ -310,8 +271,8 @@ export default function Home() {
           </div>
         </section>
 
-        {/* Step 8: Schedule / Location */}
-        <section className="py-20 bg-[#DFD9CC]/50 border-t border-[#D5CEBF] relative">
+        {/* Step 7: Schedule / Location */}
+        <section className="py-20 bg-[#E8E4DA] relative">
           <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 space-y-8">
             <div className="flex flex-col md:flex-row items-start md:items-center justify-between gap-4">
               <div>
@@ -332,7 +293,7 @@ export default function Home() {
             </div>
 
             <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
-              <div className="bg-[#E8E4DA] p-6 rounded-3xl border border-[#D5CEBF] space-y-3 shadow-xs">
+              <div className="bg-[#DFD9CC] p-6 rounded-3xl border border-[#D5CEBF] space-y-3 shadow-xs">
                 <div className="flex items-center space-x-3 text-[#171918]">
                   <Calendar className="w-5 h-5 text-[#8A7250]" />
                   <h3 className="font-serif text-lg font-semibold">Weekly Schedule</h3>
@@ -343,7 +304,7 @@ export default function Home() {
                 </div>
               </div>
 
-              <div className="bg-[#E8E4DA] p-6 rounded-3xl border border-[#D5CEBF] space-y-3 shadow-xs">
+              <div className="bg-[#DFD9CC] p-6 rounded-3xl border border-[#D5CEBF] space-y-3 shadow-xs">
                 <div className="flex items-center space-x-3 text-[#171918]">
                   <MapPin className="w-5 h-5 text-[#243B45]" />
                   <h3 className="font-serif text-lg font-semibold">Location</h3>
