@@ -51,21 +51,25 @@ export default function ClassesPage() {
           <div className="space-y-8">
             <div className="text-center max-w-2xl mx-auto space-y-2">
               <span className="text-xs font-semibold uppercase tracking-widest text-[#243B45]">
-                Weekly Sessions
+                Weekly Practice
               </span>
               <h2 className="font-serif text-3xl sm:text-4xl font-light text-[#171918]">
-                What Classes Are Offered
+                Our Weekly Training Class
               </h2>
+              <p className="text-sm text-[#57625B] font-light">
+                We offer one unified weekly session combining progressive form mechanics and cooperative Push Hands partner drills.
+              </p>
             </div>
 
-            <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
+            <div className="flex justify-center w-full">
+              <div className="max-w-2xl w-full mx-auto" style={{ marginLeft: "auto", marginRight: "auto" }}>
               {TAIJI_DATA.classes.map((session: ClassSession) => (
                 <div
                   key={session.id}
-                  className="bg-[#DFD9CC] p-8 rounded-3xl border border-[#D5CEBF] space-y-6 flex flex-col justify-between shadow-xs hover:border-[#171918]/40 transition-all duration-200"
+                  className="bg-[#DFD9CC] p-8 sm:p-10 rounded-3xl border border-[#D5CEBF] space-y-6 flex flex-col justify-between items-center text-center shadow-xs hover:border-[#171918]/40 transition-all duration-200"
                 >
-                  <div className="space-y-4">
-                    <div className="flex items-center justify-between">
+                  <div className="space-y-4 w-full flex flex-col items-center">
+                    <div className="flex items-center justify-center space-x-3">
                       <span className="text-xs font-semibold px-3 py-1 rounded-md bg-[#243B45]/10 text-[#243B45] border border-[#243B45]/20">
                         {session.level}
                       </span>
@@ -74,28 +78,28 @@ export default function ClassesPage() {
                       </span>
                     </div>
 
-                    <h3 className="font-serif text-2xl font-semibold text-[#171918] leading-snug">
+                    <h3 className="font-serif text-2xl sm:text-3xl font-semibold text-[#171918] leading-snug max-w-xl mx-auto">
                       {session.title}
                     </h3>
 
-                    <p className="text-sm text-[#303331] leading-relaxed font-light">
+                    <p className="text-sm text-[#303331] leading-relaxed font-light max-w-lg mx-auto">
                       {session.description}
                     </p>
 
-                    <div className="pt-4 border-t border-[#D5CEBF] space-y-2.5 text-xs text-[#303331]">
-                      <div className="flex items-center space-x-2.5">
+                    <div className="pt-4 border-t border-[#D5CEBF] space-y-2.5 text-xs text-[#303331] w-full flex flex-col items-center">
+                      <div className="flex items-center justify-center space-x-2.5">
                         <Calendar className="w-4 h-4 text-[#8A7250]" />
                         <span className="font-semibold text-[#171918]">
                           {session.day}, {session.time}
                         </span>
                       </div>
 
-                      <div className="flex items-center space-x-2.5">
+                      <div className="flex items-center justify-center space-x-2.5">
                         <MapPin className="w-4 h-4 text-[#243B45]" />
                         <span>{session.location}</span>
                       </div>
 
-                      <div className="flex items-center space-x-2.5">
+                      <div className="flex items-center justify-center space-x-2.5">
                         <Users className="w-4 h-4 text-[#303331]" />
                         <span>Taught by {session.instructor}</span>
                       </div>
@@ -104,7 +108,7 @@ export default function ClassesPage() {
 
                   <a
                     href={`mailto:${TAIJI_DATA.contact.email}?subject=Inquiry for ${session.title}`}
-                    className="w-full mt-4 py-3 bg-[#171918] hover:bg-[#303331] text-[#E8E4DA] text-xs font-semibold rounded-2xl transition-colors flex items-center justify-center space-x-2 cursor-pointer shadow-xs border border-[#303331]"
+                    className="w-full max-w-md mx-auto mt-4 py-3 bg-[#171918] hover:bg-[#303331] text-[#E8E4DA] text-xs font-semibold rounded-2xl transition-colors flex items-center justify-center space-x-2 cursor-pointer shadow-xs border border-[#303331]"
                   >
                     <Mail className="w-3.5 h-3.5 text-[#8A7250]" />
                     <span>Inquire via Email for {session.day} Session</span>
@@ -112,6 +116,7 @@ export default function ClassesPage() {
                 </div>
               ))}
             </div>
+          </div>
           </div>
 
           {/* Section 3: Location Details & What to Wear */}

@@ -148,20 +148,20 @@ export default function Home() {
               </p>
             </div>
 
-            <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
+            <div className="max-w-2xl mx-auto w-full">
               {TAIJI_DATA.classes.map((session) => (
                 <div
                   key={session.id}
-                  className="bg-[#E8E4DA] p-7 rounded-3xl border border-[#D5CEBF] space-y-4 flex flex-col justify-between shadow-xs"
+                  className="bg-[#E8E4DA] p-7 sm:p-9 rounded-3xl border border-[#D5CEBF] space-y-4 flex flex-col justify-between items-center text-center shadow-xs"
                 >
-                  <div className="space-y-3">
+                  <div className="space-y-3 flex flex-col items-center">
                     <span className="text-xs font-semibold px-2.5 py-0.5 rounded bg-[#243B45]/10 text-[#243B45]">
                       {session.level}
                     </span>
-                    <h3 className="font-serif text-xl font-semibold text-[#171918]">
+                    <h3 className="font-serif text-xl sm:text-2xl font-semibold text-[#171918]">
                       {session.title}
                     </h3>
-                    <p className="text-xs text-[#303331] leading-relaxed font-light">
+                    <p className="text-xs text-[#303331] leading-relaxed font-light max-w-lg mx-auto">
                       {session.description}
                     </p>
                     <div className="text-xs text-[#8A7250] font-semibold pt-1">
@@ -170,7 +170,7 @@ export default function Home() {
                   </div>
                   <Link
                     href="/classes"
-                    className="inline-flex items-center space-x-1.5 text-xs font-semibold text-[#171918] hover:text-[#9B3D2E] transition-colors pt-2"
+                    className="inline-flex items-center justify-center space-x-1.5 text-xs font-semibold text-[#171918] hover:text-[#9B3D2E] transition-colors pt-2"
                   >
                     <span>View full class & schedule details</span>
                     <ArrowRight className="w-3.5 h-3.5" />

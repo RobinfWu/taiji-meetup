@@ -56,12 +56,11 @@ export const TAIJI_DATA = {
   differences: [
     {
       id: "methodology",
-      title: "Methodology Before Principles",
+      title: "Taijiquan Is a Language of the Body",
       accentColor: "#243B45",
       summary: "Principles describe what should happen; methodology provides the path for developing the ability to make it happen.",
-      description: "There is a common fallacy that the path to learning Taijiquan is through understanding its “principles.” Principles are important, but studying principles by themselves does not provide a viable path for learning the art. A principle may describe what should happen, but it does not necessarily teach you how to make it happen."
+      description: "Learning Taijiquan is like learning a language of the body. Principles are its grammar (the rules). Jins are its vocabulary, the building blocks. Sequences and martial applications are its sentences. Tuishou (Push Hands) is conversation. Just as you cannot learn to speak English by studying grammar alone, you cannot fully learn Taijiquan by studying principles alone."
       + "\n\nThere is a methodology to Taijiquan—the actual how of the art. Methodology provides a path of development: what to train, how to train it, what must be developed first, and how one stage of training leads into the next. Methodology provides a structured path for building physical capability step by step."
-      + "\n\nConsider the common saying, “soft overcomes hard.” Treated as a universal principle, softness can easily become the objective of the art. But understood as a tactic within the larger relationship of Yin and Yang, it describes only one side of the relationship: soft (yin) overcomes hard (yang), but hard (yang) can also overcome soft (yin). What seems like a minor confusion between principle and tactic can therefore result in an entire half of the art being neglected."
     },
     {
       id: "leg-foundation",
@@ -75,11 +74,10 @@ export const TAIJI_DATA = {
     },
     {
       id: "tree-metaphor",
-      title: "Yin & Yang in the Body",
+      title: "Distribution of Tension",
       accentColor: "#8A7250",
       summary: "The goal is not maximum relaxation, but the appropriate distribution of softness and hardness according to function.",
-      description: "A common interpretation is that the goal of sōng (to loosen) is to eliminate muscular tension as completely as possible. Taken far enough, this can be misunderstood as total relaxation without structure."
-      + "\n\nIn this line of practice, sōng is understood more specifically as the removal of unnecessary tension. Necessary tension still exists. Tension is neither indiscriminately removed nor uniformly distributed throughout the body."
+      description: "In this line of practice, sōng (to loosen) is the removal of unnecessary tension, but necessary tension still exists. Tension is neither indiscriminately removed nor uniformly distributed throughout the body."
       + "\n\nConsider a tree."
       + "\n\nThe roots and lower trunk must possess considerable structural integrity relative to the thinner and more flexible branches above. If the entire tree possessed the softness and flexibility of its smallest branches, it could not remain standing when subjected to force."
       + "\n\nThe same general relationship exists in the body. As a gross oversimplification, this line of practice emphasizes a relatively Yang lower body and a relatively Yin upper body."
@@ -108,19 +106,19 @@ export const TAIJI_DATA = {
       id: "qi-myth",
       badge: "Linguistic Myth",
       myth: "The ‘Chi’ in Tai Chi refers to mystical ‘Chi energy.’",
-      reality: "This misconception largely comes from older English romanization. The ji in Taiji (太极) is not the same word or Chinese character as qi (气). Taiji is a classical Chinese philosophical concept associated with the complementary relationship and transformation of yin and yang. Qi is a separate concept entirely. Taijiquan training may include practices concerned with breathing, awareness, relaxation, intention, and other qualities also encountered in qigong, but the word Taiji itself does not mean “qi energy.”"
+      reality: "This misconception largely comes from older romanization. In Wade–Giles, Taiji was written 'T'ai Chi,' but the 'Chi' here represents ji (極/极), not qi (氣/气). They are different words with different Chinese characters. Taiji is a classical Chinese philosophical concept associated with the complementary relationship and transformation of Yin and Yang, while Qi is a separate concept. Taijiquan does contain practices that overlap with Qigong, but the word Taiji itself does not mean 'Qi energy.'"
     },
     {
-      id: "principle-myth",
-      badge: "Principle-Only Myth",
-      myth: "Taijiquan is just a set of principles.",
-      reality: "Learning Taijiquan is like learning a language of the body. Principles are its grammar (the rules). Jins are its vocabulary. Sequences and martial applications are its sentences. Tuishou (Push Hands) is conversation. Just as you cannot learn to speak English by studying grammar alone, you cannot fully learn Taijiquan by studying principles alone."
+      id: "thousand-myth",
+      badge: "1000 Year Myth",
+      myth: "Tai Chi is a 1000-year-old art.",
+      reality: "The concept of Taiji is ancient, but Taijiquan as a distinct martial system was assembled during the Ming–Qing transition in the 17th century. Some of the martial material from which it was assembled can be traced to earlier sources, but the age of those components should not be confused with the age of Taijiquan itself. This is not unusual: many Chinese martial arts practiced today emerged in recognizable form during the late imperial period. Xingyiquan is traditionally associated with Ji Jike (Ji Longfeng) in the 17th century, while Baguazhang is traced to Dong Haichuan in the 19th century."
     },
     {
       id: "internal-myth",
       badge: "Internal vs External",
       myth: "Because Taijiquan is an ‘internal’ martial art, you need to study an ‘external’ martial art for your training to be complete.",
-      reality: "Within our lineage, the practice is both 'Internal' (Yin) and 'External' (Yang). The 'Internal' should complement the 'External', not replace the 'External'. One would think that an art about Yin and Yang would advocate for having both sides of the coin, not just one."
+      reality: "This line of practice is both 'Internal' and 'External'. The 'Internal' should complement the 'External', not replace the 'External'. Our training doesn't pursue 'internal' qualities by eliminating their apparent opposites. They are complementary aspects of one practice, not two halves that require studying separate martial arts. An art named after Taiji should perhaps be expected to resist one-sidedness."
     }
   ] as MythItem[],
 
@@ -208,7 +206,7 @@ export const TAIJI_DATA = {
       generation: "20th Generation",
       era: "1971–Present",
       figures: ["Marin Spivack"],
-      description: "A senior disciple of Chen Yu. Founder of Mo Ling Taiji (https://molingtaiji.com/)."
+      description: "A senior disciple of Chen Yu."
     },
     {
       generation: "Current Local Teaching",
@@ -221,22 +219,12 @@ export const TAIJI_DATA = {
   classes: [
     {
       id: "class-1",
-      title: "Gongfu Jia Yilu — First Road",
+      title: "Traditional Taijiquan — Form (Yilu) & Push Hands (Tuishou)",
       day: "Saturdays",
       time: "10:00 AM - 11:30 AM",
       location: "[Placeholder: City Park Lawn / Outdoor Training Grounds]",
       level: "All Levels",
-      description: "Learn the traditional form progressively, beginning with foundational stance, weight shifting and body mechanics. Each section builds upon skills developed earlier.",
-      instructor: "Robin Wu"
-    },
-    {
-      id: "class-2",
-      title: "Push Hands (Tui Shou) & Structure Drills",
-      day: "Sundays",
-      time: "6:30 PM - 7:45 PM",
-      location: "[Placeholder: Community Park Lawn / Outdoor Grounds]",
-      level: "All Levels",
-      description: "Playful, cooperative partner work exploring structure, yielding, sensitivity, and reciprocal Yin/Yang methods.",
+      description: "A single, comprehensive training session combining both traditional Gongfu Jia Yilu (First Road form practice) and cooperative Tuishou (Push Hands partner drills), integrating solo stance and movement mechanics directly with partner structure and sensitivity.",
       instructor: "Robin Wu"
     }
   ] as ClassSession[],
@@ -245,7 +233,7 @@ export const TAIJI_DATA = {
     {
       name: "Outdoor Park Location",
       address: "[Placeholder: Central Park North Lawn, Gate 4 entrance]",
-      scheduleNote: "Saturdays 10:00 AM - 11:30 AM & Sundays 6:30 PM (Weather Permitting)",
+      scheduleNote: "Saturdays 10:00 AM - 11:30 AM (Weather Permitting)",
       tips: "Wear flat-soled shoes (ideally thin and hard-soled), comfortable pants, and dress in weather-appropriate layers."
     }
   ],

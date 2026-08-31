@@ -5,7 +5,7 @@ import Link from "next/link";
 import { Navbar } from "../components/Navbar";
 import { Footer } from "../components/Footer";
 import { TAIJI_DATA } from "../data/taijiData";
-import { GitCommit, Info, ExternalLink, Award, ArrowRight, ShieldCheck } from "lucide-react";
+import { GitCommit, Info, ExternalLink, Award, ArrowRight, ShieldCheck, Video } from "lucide-react";
 
 export default function AboutPage() {
   const { lineageInfo, lineageTree } = TAIJI_DATA;
@@ -21,13 +21,13 @@ export default function AboutPage() {
             <div className="max-w-3xl space-y-4">
               <div className="inline-flex items-center space-x-2 px-3.5 py-1 rounded-full bg-[#8A7250]/10 text-[#8A7250] text-xs font-semibold uppercase tracking-widest border border-[#8A7250]/20">
                 <ShieldCheck className="w-3.5 h-3.5" />
-                <span>Credibility & Authentic Transmission</span>
+                <span>Credibility</span>
               </div>
               <h1 className="font-serif text-4xl sm:text-5xl md:text-6xl font-light text-[#171918]">
                 About <span className="font-normal italic text-[#243B45]">Robin Wu</span> & Lineage
               </h1>
               <p className="text-lg text-[#303331] leading-relaxed font-light">
-                Traditional Taijiquan relies on direct teacher-to-student transmission. Discover the history, lineage roots, and commitment to authentic Gongfu Jia transmission.
+                Traditional Taijiquan relies on direct teacher-to-student transmission. Learn about the teacher and the lineage.
               </p>
             </div>
           </div>
@@ -114,20 +114,37 @@ export default function AboutPage() {
             </div>
           </div>
 
-          {/* Traditional Chen Zhaokui / Chen Yu Lineage */}
-          <div className="bg-[#DFD9CC] p-8 sm:p-12 rounded-3xl border border-[#D5CEBF] shadow-xs space-y-6">
-            <div className="inline-flex items-center space-x-2 text-xs font-semibold uppercase tracking-wider text-[#9B3D2E]">
-              <Award className="w-4 h-4 text-[#9B3D2E]" />
-              <span>Gongfu Jia Tradition</span>
+          {/* Push Hands Video Demonstration - Tall Vertical Frame */}
+          <div className="bg-[#DFD9CC] p-6 sm:p-10 rounded-3xl border border-[#D5CEBF] shadow-xs space-y-6 max-w-3xl mx-auto w-full text-center">
+            <div className="space-y-2">
+              <div className="inline-flex items-center space-x-2 px-3 py-1 rounded-full bg-[#9B3D2E]/10 text-[#9B3D2E] text-xs font-semibold uppercase tracking-wider border border-[#9B3D2E]/20">
+                <Video className="w-3.5 h-3.5" />
+                <span>Video Demonstration</span>
+              </div>
+              <h3 className="font-serif text-2xl sm:text-3xl font-semibold text-[#171918]">
+                Push Hands (Ding Bu Tuishou) in Action
+              </h3>
+              <p className="text-sm text-[#57625B] max-w-xl mx-auto font-light">
+                Robin Wu engaging in friendly <em>Ding Bu Tuishou</em> (Fixed-Step Push Hands) with the head judge at the Chinese Martial Arts Autumn Invitational.
+              </p>
             </div>
-            <h2 className="font-serif text-3xl font-light text-[#171918]">
-              The Chen Yu / Chen Zhaokui Tradition
-            </h2>
-            <p className="text-[#303331] leading-relaxed font-light">
-              Master Chen Zhaokui (1928–1981), younger son of Chen Fake, preserved the intricate Gongfu Jia (&ldquo;Gongfu Frame&rdquo;) method. His son, Master Chen Yu (1962–Present), began training at age 7 and continues to transmit this precise, highly detailed physical methodology.
+
+            <div
+              className="max-w-xl mx-auto w-full rounded-3xl overflow-hidden border-2 border-[#D5CEBF] bg-[#171918] shadow-lg relative"
+              style={{ height: "650px", minHeight: "480px" }}
+            >
+              <iframe
+                src="https://www.youtube-nocookie.com/embed/mwOf8CldEUM"
+                title="Robin Wu - Push Hands (Ding Bu Tuishou) with Head Judge"
+                allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"
+                allowFullScreen
+                className="w-full h-full border-0"
+              />
+            </div>
+            <p className="text-sm text-[#57625B] max-w-xl mx-auto font-light">
+                Note: Competition Push Hands uses a restricted ruleset. Some methods found in our Fixed-Step Push Hands practice, including head control and joint locks, are therefore absent from this exchange.
             </p>
           </div>
-
           {/* Full Lineage Tree Timeline */}
           <div className="space-y-8">
             <div className="text-center max-w-2xl mx-auto space-y-2">

@@ -69,7 +69,7 @@ export const HeroSection: React.FC<HeroSectionProps> = () => {
                 <div className="flex items-center space-x-2">
                   <div className="w-2.5 h-2.5 rounded-full bg-[#9B3D2E]" />
                   <span className="text-xs font-semibold uppercase tracking-wider text-[#243B45]">
-                    Weekly Practice Overview
+                    Weekly Class Overview
                   </span>
                 </div>
                 <span className="text-xs text-[#8A7250] font-serif italic">
@@ -82,10 +82,10 @@ export const HeroSection: React.FC<HeroSectionProps> = () => {
                 <div className="flex justify-between items-start">
                   <div>
                     <h3 className="font-serif text-lg font-semibold text-[#171918]">
-                      Weekly Outdoor Classes
+                      Weekly Outdoor Class
                     </h3>
                     <p className="text-xs text-[#243B45] font-semibold mt-0.5">
-                      Saturdays &amp; Sundays • Taught by Robin Wu
+                      Saturdays • Taught by Robin Wu
                     </p>
                   </div>
                   <span className="px-2 py-0.5 bg-[#9B3D2E]/10 text-[#9B3D2E] text-[11px] rounded font-semibold border border-[#9B3D2E]/20">
@@ -94,12 +94,11 @@ export const HeroSection: React.FC<HeroSectionProps> = () => {
                 </div>
 
                 <p className="text-xs text-[#303331] leading-relaxed font-light">
-                  Learn progressive stance stability, weight shifting, upper-body relaxation, and body mechanics in a supportive outdoor environment.
+                  A single, comprehensive session combining progressive form mechanics (Gongfu Jia Yilu) and cooperative Push Hands (Tuishou) partner drills.
                 </p>
 
-                <div className="pt-2 border-t border-[#D5CEBF] text-xs text-[#303331] space-y-1">
-                  <div><strong>Saturdays:</strong> 10:00 AM – 11:30 AM (Form &amp; Mechanics)</div>
-                  <div><strong>Sundays:</strong> 6:30 PM – 7:45 PM (Partner &amp; Structure Drills)</div>
+                <div className="pt-2 border-t border-[#D5CEBF] text-xs text-[#303331]">
+                  <div><strong>Saturdays:</strong> 10:00 AM – 11:30 AM (Form &amp; Push Hands)</div>
                 </div>
 
                 <Link
