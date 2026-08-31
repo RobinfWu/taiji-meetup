@@ -58,10 +58,10 @@ export default function MethodPage() {
               What is Taijiquan?
             </h2>
             <p className="text-[#303331] text-base sm:text-lg leading-relaxed font-light">
-              Many Chinese martial arts follow a naming scheme: Taiji<strong className="font-semibold text-[#171918]">quan</strong>, Xingyi<strong className="font-semibold text-[#171918]">quan</strong>, Baiji<strong className="font-semibold text-[#171918]">quan</strong>, Tanglang<strong className="font-semibold text-[#171918]">quan</strong>, Hung Ga <strong className="font-semibold text-[#171918]">Kuen</strong>, etc...
+              Many Chinese martial arts follow a naming scheme: Taiji<strong className="font-semibold text-[#171918]">quan</strong>, Xingyi<strong className="font-semibold text-[#171918]">quan</strong>, Baji<strong className="font-semibold text-[#171918]">quan</strong>, Tanglang<strong className="font-semibold text-[#171918]">quan</strong>, Hung Ga <strong className="font-semibold text-[#171918]">Kuen</strong>, etc...
             </p>
             <p className="text-[#303331] text-base sm:text-lg leading-relaxed font-light">
-              "Quan" or "Kuen" translates to mean fist which denotes a martial art. Taijiquan therefore means “Taiji Fist” — a martial art named after the concept of Taiji (the interplay of Yin and Yang). It is a Northern Chinese martial art that originated from the Chen Village (Chenjiagou) in Henan Province.
+              “Quan”, or “Kuen” in Cantonese, translates to mean fist which denotes a martial art or fighting system. It does not literally mean an art about using fists. Taijiquan therefore means “Taiji Fist” — a martial art named after the concept of Taiji (the interplay of Yin and Yang). It is a Northern Chinese martial art that originated from the Chen Village (Chenjiagou) in Henan Province.
             </p>
             <p className="text-[#303331] text-base sm:text-lg leading-relaxed font-light">
               Taijiquan is a family art. It was commonly passed down from father to son or from “master” to “apprentice”. The Chen family developed it first. The founder of the Yang family learned from the Chen family; the founder of the Wu family later learned from the Yang family.

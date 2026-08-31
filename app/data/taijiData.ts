@@ -111,19 +111,18 @@ export const TAIJI_DATA = {
       reality: "This misconception largely comes from older English romanization. The ji in Taiji (太极) is not the same word or Chinese character as qi (气). Taiji is a classical Chinese philosophical concept associated with the complementary relationship and transformation of yin and yang. Qi is a separate concept entirely. Taijiquan training may include practices concerned with breathing, awareness, relaxation, intention, and other qualities also encountered in qigong, but the word Taiji itself does not mean “qi energy.”"
     },
     {
+      id: "principle-myth",
+      badge: "Principle-Only Myth",
+      myth: "Taijiquan is just a set of principles.",
+      reality: "Learning Taijiquan is like learning a language of the body. Principles are its grammar (the rules). Jins are its vocabulary. Sequences and martial applications are its sentences. Tuishou (Push Hands) is conversation. Just as you cannot learn to speak English by studying grammar alone, you cannot fully learn Taijiquan by studying principles alone."
+    },
+    {
       id: "internal-myth",
       badge: "Internal vs External",
       myth: "Because Taijiquan is an ‘internal’ martial art, you need to study an ‘external’ martial art for your training to be complete.",
       reality: "Within our lineage, the practice is both 'Internal' (Yin) and 'External' (Yang). The 'Internal' should complement the 'External', not replace the 'External'. One would think that an art about Yin and Yang would advocate for having both sides of the coin, not just one."
-    },
-    {
-      id: "partner-myth",
-      badge: "Softness Myth",
-      myth: "Tai Chi is a soft, defensive, reactionary martial art.",
-      reality: "If every student in a Tai Chi school are only taught soft, defensive, and reactionary methods, then they have nobody to give them competent hard, offensive, and initiative methods. For Taijiquan to be a self-contained system, it needs to have both sides of the coin."
     }
   ] as MythItem[],
-
 
   scalableTiers: [
     {
@@ -250,29 +249,6 @@ export const TAIJI_DATA = {
       tips: "Wear flat-soled shoes (ideally thin and hard-soled), comfortable pants, and dress in weather-appropriate layers."
     }
   ],
-
-  faqs: [
-    {
-      question: "Is Tai Chi only for the elderly?",
-      answer: "No. Traditionally, Taijiquan was taught to children and youth (Chen Yu started at age 7, Fu Zhongwen at 9). Because the core routine is built on a scalable skeleton, intensity can be adjusted from gentle low-exertion health practice to rigorous physical conditioning."
-    },
-    {
-      question: "Does Tai Chi involve mystical 'Qi' energy?",
-      answer: "No. 'Tai Chi' (Taiji) refers to the interplay of Yin and Yang physical forces—not mystical energy. Our teaching is strictly methodology-driven, focusing on concrete leg foundation and structural mechanics."
-    },
-    {
-      question: "What is your approach to Push Hands / partner work?",
-      answer: "We treat Push Hands as a playful craft focused on mutual learning. Both partners practice initiating (Yang) and reacting (Yin) methods in a non-ego environment where how you move matters far more than winning or losing."
-    },
-    {
-      question: "What footwear and attire should I wear?",
-      answer: "It is highly advised to wear flat-soled shoes, ideally thin and hard-soled. Wear loose, comfortable clothing allowing unhindered hip and shoulder movement."
-    },
-    {
-      question: "How do I inquire about joining or asking questions?",
-      answer: "Send an email directly to our instructor at [Placeholder: contact@chen-taiji-local.com]. We welcome serious inquiries regarding training focus, locations, and schedule."
-    }
-  ] as FAQItem[],
 
   contact: {
     email: "[Placeholder: contact@chen-taiji-local.com]",
