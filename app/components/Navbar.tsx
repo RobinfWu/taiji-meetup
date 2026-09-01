@@ -26,7 +26,7 @@ export const Navbar: React.FC<NavbarProps> = () => {
 
   const navItems = [
     { href: "/", label: "Home" },
-    { href: "/method", label: "Method" },
+    { href: "/method", label: "How We Train" },
     { href: "/about", label: "About" },
     { href: "/classes", label: "Classes" },
   ];

@@ -82,10 +82,10 @@ export const HeroSection: React.FC<HeroSectionProps> = () => {
                 <div className="flex justify-between items-start">
                   <div>
                     <h3 className="font-serif text-lg font-semibold text-[#171918]">
-                      Weekly Outdoor Class
+                      Kingston Chen Taijiquan Practice Group
                     </h3>
                     <p className="text-xs text-[#243B45] font-semibold mt-0.5">
-                      Saturdays • Taught by Robin Wu
+                      Weekly group practice • Train with Robin
                     </p>
                   </div>
                   <span className="px-2 py-0.5 bg-[#9B3D2E]/10 text-[#9B3D2E] text-[11px] rounded font-semibold border border-[#9B3D2E]/20">
@@ -93,12 +93,23 @@ export const HeroSection: React.FC<HeroSectionProps> = () => {
                   </span>
                 </div>
 
-                <p className="text-xs text-[#303331] leading-relaxed font-light">
-                  A single, comprehensive session combining progressive form mechanics (Gongfu Jia Yilu) and cooperative Push Hands (Tuishou) partner drills.
-                </p>
+                <div className="space-y-1.5 text-xs text-[#303331] font-light pt-1">
+                  <div className="flex items-center space-x-2">
+                    <span className="w-1.5 h-1.5 rounded-full bg-[#9B3D2E]" />
+                    <span>Weekly group practice</span>
+                  </div>
+                  <div className="flex items-center space-x-2">
+                    <span className="w-1.5 h-1.5 rounded-full bg-[#243B45]" />
+                    <span>Traditional Gongfu Jia Yilu + Push Hands</span>
+                  </div>
+                  <div className="flex items-center space-x-2">
+                    <span className="w-1.5 h-1.5 rounded-full bg-[#8A7250]" />
+                    <span>Beginners welcome</span>
+                  </div>
+                </div>
 
                 <div className="pt-2 border-t border-[#D5CEBF] text-xs text-[#303331]">
-                  <div><strong>Saturdays:</strong> 10:00 AM – 11:30 AM (Form &amp; Push Hands)</div>
+                  <div><strong>Saturdays:</strong> 10:00 AM – 11:30 AM</div>
                 </div>
 
                 <Link

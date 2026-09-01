@@ -101,7 +101,7 @@ export default function ClassesPage() {
 
                       <div className="flex items-center justify-center space-x-2.5">
                         <Users className="w-4 h-4 text-[#303331]" />
-                        <span>Taught by {session.instructor}</span>
+                        <span>Train with {session.instructor}</span>
                       </div>
                     </div>
                   </div>

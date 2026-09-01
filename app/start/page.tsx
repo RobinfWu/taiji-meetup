@@ -108,29 +108,8 @@ export default function StartPage() {
             </div>
           </div>
 
-          {/* Action CTA Block */}
-          <div className="bg-[#171918] text-[#E8E4DA] p-10 sm:p-14 rounded-3xl border border-[#303331] text-center space-y-6 shadow-xl mt-12">
-            <h3 className="font-serif text-3xl sm:text-4xl font-light">
-              Ready to Join Us This Saturday?
-            </h3>
-            <p className="text-base text-[#DFD9CC] max-w-lg mx-auto font-light">
-              Send us a quick email to confirm your attendance or ask any remaining questions. We look forward to meeting you!
-            </p>
-            
-            <div className="pt-2">
-              <a
-                href={`mailto:${emailAddress}?subject=Attending First Taijiquan Class Inquiry`}
-                className="inline-flex items-center space-x-3 bg-[#9B3D2E] hover:bg-[#7D3024] text-white px-9 py-4 rounded-full text-base font-bold transition-all shadow-lg cursor-pointer border border-[#9B3D2E] transform hover:-translate-y-0.5"
-              >
-                <Mail className="w-5 h-5 text-white/90" />
-                <span>Try Your First Class →</span>
-              </a>
-            </div>
-
-            <p className="text-xs text-[#8A7250] pt-2">
-              Direct contact email: <strong className="text-[#DFD9CC]">{emailAddress}</strong>
-            </p>
-          </div>
+          {/* Action Contact Form */}
+          <ContactForm className="mt-12" darkVariant={true} />
 
         </section>
       </div>

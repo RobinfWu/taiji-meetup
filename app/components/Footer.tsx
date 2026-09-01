@@ -55,7 +55,7 @@ export const Footer: React.FC<FooterProps> = () => {
                   href="/method"
                   className="hover:text-[#9B3D2E] transition-colors cursor-pointer"
                 >
-                  Method (Internal Training)
+                  How We Train
                 </Link>
               </li>
               <li>
