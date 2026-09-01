@@ -98,7 +98,7 @@ export default function Home() {
                   How We Teach
                 </h2>
                 <p className="text-lg text-[#303331] leading-relaxed font-light">
-                  Principles become useful when you know how to train them. Our teaching emphasizes a progressive physical methodology: clear stance mechanics, lower-body stability, selective upper-body relaxation (sōng), and reciprocal Yin/Yang partner work.
+                  Our training follows a progressive physical methodology that develops the body from the ground up. Each stage builds the specific structure, mechanics, and physical capabilities needed for the next, providing a clear path.
                 </p>
                 <div className="pt-2">
                   <Link
@@ -206,7 +206,7 @@ export default function Home() {
                   Meet Robin
                 </h2>
                 <p className="text-base sm:text-lg text-[#303331] leading-relaxed font-light">
-                  Robin Wu is a Chen Family Taijiquan practitioner who has trained directly under Marin Spivack (Mo Ling Taiji) as an indoor student/disciple since the year 2020. Marin Spivack is a senior disciple of Master Chen Yu, only son of Chen Zhaokui.
+                  Robin Wu is a Chen Family Taijiquan practitioner who has trained directly under Marin Spivack as an indoor student/disciple. Marin Spivack is a senior disciple of Master Chen Yu, only son of Chen Zhaokui.
                 </p>
                 <div className="pt-2">
                   <Link
