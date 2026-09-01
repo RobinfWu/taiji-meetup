@@ -4,6 +4,7 @@ import React from "react";
 import Link from "next/link";
 import { Navbar } from "../components/Navbar";
 import { Footer } from "../components/Footer";
+import { ContactForm } from "../components/ContactForm";
 import { TAIJI_DATA } from "../data/taijiData";
 import {
   Shirt,
