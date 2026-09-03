@@ -39,7 +39,7 @@ export default function ClassesPage() {
                 Classes & <span className="font-normal italic text-[#243B45]">Schedule</span>
               </h1>
               <p className="text-lg text-[#303331] leading-relaxed font-light">
-                Our group practices outdoors with structured instruction in traditional Gongfu Jia Yilu (First Road) and Push Hands. Find everything you need to know about schedule, location, attire, and FAQs.
+                Our group practices outdoors with structured instruction in traditional Gongfu Jia Yilu (First Road) and Push Hands. Find everything you need to know about schedule, location, and attire.
               </p>
             </div>
           </div>
@@ -103,16 +103,32 @@ export default function ClassesPage() {
                         <Users className="w-4 h-4 text-[#303331]" />
                         <span>Train with {session.instructor}</span>
                       </div>
+
+                      {session.openPracticeNote && (() => {
+                        const note = session.openPracticeNote!;
+                        const dashIdx = note.indexOf(".");
+                        const headline = note.slice(0, dashIdx + 1);
+                        const body = note.slice(dashIdx + 1).trim();
+                        return (
+                          <div className="w-full mt-2 pt-3 border-t border-dashed border-[#C8C1B2] text-left space-y-1.5">
+                            <div className="flex items-center space-x-2">
+                              <Clock className="w-3.5 h-3.5 text-[#8A7250] shrink-0" />
+                              <span className="font-semibold text-[#171918] text-xs">{headline}</span>
+                            </div>
+                            <p className="text-xs text-[#57625B] leading-relaxed font-light pl-5">{body}</p>
+                          </div>
+                        );
+                      })()}
                     </div>
                   </div>
 
-                  <a
-                    href={`mailto:${TAIJI_DATA.contact.email}?subject=Inquiry for ${session.title}`}
+                  <Link
+                    href="/start"
                     className="w-full max-w-md mx-auto mt-4 py-3 bg-[#171918] hover:bg-[#303331] text-[#E8E4DA] text-xs font-semibold rounded-2xl transition-colors flex items-center justify-center space-x-2 cursor-pointer shadow-xs border border-[#303331]"
                   >
                     <Mail className="w-3.5 h-3.5 text-[#8A7250]" />
-                    <span>Inquire via Email for {session.day} Session</span>
-                  </a>
+                    <span>Get in Touch for {session.day} Practice</span>
+                  </Link>
                 </div>
               ))}
             </div>
@@ -176,7 +192,7 @@ export default function ClassesPage() {
               Thinking about trying your first class?
             </h3>
             <p className="text-sm text-[#DFD9CC] max-w-xl mx-auto font-light">
-              Visit our Start Here page for a simple, zero-philosophy guide to what to expect on your first day.
+              Visit our Start Here page for a simple guide to what to expect on your first day.
             </p>
             <div className="pt-2">
               <Link

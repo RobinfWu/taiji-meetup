@@ -3,6 +3,7 @@ export interface ClassSession {
   title: string;
   day: string;
   time: string;
+  openPracticeNote?: string;
   location: string;
   level: "All Levels" | "Beginner" | "Intermediate / Advanced";
   description: string;
@@ -176,7 +177,7 @@ export const TAIJI_DATA = {
       generation: "Founder",
       era: "1580–1660",
       figures: ["Chen Wangting"],
-      description: "Accredited as the founder of Chen Family Taijiquan."
+      description: "Accredited as the founder of Chen Family Taijiquan. It was said that Taijiquan used to have 7 bare-handed forms."
     },
     {
       generation: "14th Generation",
@@ -221,10 +222,11 @@ export const TAIJI_DATA = {
       id: "class-1",
       title: "Traditional Taijiquan — Form (Yilu) & Push Hands (Tuishou)",
       day: "Saturdays",
-      time: "10:00 AM - 11:30 AM",
+      time: "10:00 AM – 11:30 AM",
+      openPracticeNote: "11:30 AM onward — Open Practice & Hangout. Class officially ends at 11:30, but there's no need to rush off. You're welcome to stay afterward to practice, ask questions, work with training partners, or simply hang out with the group. Leave whenever you like.",
       location: "[Placeholder: City Park Lawn / Outdoor Training Grounds]",
       level: "All Levels",
-      description: "A single, comprehensive training session combining both traditional Gongfu Jia Yilu (First Road form practice) and cooperative Tuishou (Push Hands partner drills), integrating solo stance and movement mechanics directly with partner structure and sensitivity.",
+      description: "A single, comprehensive training session combining both form practice and Tuishou (Push Hands).",
       instructor: "Robin Wu"
     }
   ] as ClassSession[],
@@ -233,7 +235,7 @@ export const TAIJI_DATA = {
     {
       name: "Outdoor Park Location",
       address: "[Placeholder: Central Park North Lawn, Gate 4 entrance]",
-      scheduleNote: "Saturdays 10:00 AM - 11:30 AM (Weather Permitting)",
+      scheduleNote: "Saturdays 10:00 AM – 11:30 AM (Weather Permitting)",
       tips: "Wear flat-soled shoes (ideally thin and hard-soled), comfortable pants, and dress in weather-appropriate layers."
     }
   ],

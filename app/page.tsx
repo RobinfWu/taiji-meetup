@@ -299,8 +299,7 @@ export default function Home() {
                   <h3 className="font-serif text-lg font-semibold">Weekly Schedule</h3>
                 </div>
                 <div className="text-xs text-[#303331] space-y-1.5 font-light">
-                  <p><strong>Saturdays:</strong> 10:00 AM – 11:30 AM (Gongfu Jia Yilu)</p>
-                  <p><strong>Sundays:</strong> 6:30 PM – 7:45 PM (Push Hands & Drills)</p>
+                  <p><strong>Saturdays:</strong> 10:00 AM – 11:30 AM</p>
                 </div>
               </div>
 
