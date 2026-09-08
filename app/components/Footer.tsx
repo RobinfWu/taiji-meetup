@@ -26,20 +26,16 @@ export const Footer: React.FC<FooterProps> = () => {
                   {TAIJI_DATA.groupName}
                 </h3>
                 <p className="text-xs text-[#8A7250] font-serif">
-                  • Gongfu Jia
+                  • Kingston, Ontario
                 </p>
               </div>
             </div>
-
-            <p className="text-xs text-[#DFD9CC] leading-relaxed max-w-sm font-light">
-              Dedicated to preserving the structural integrity, spiral mechanics, and traditional martial heritage of Chen Family Taijiquan.
-            </p>
           </div>
 
           {/* Navigation Links Column */}
           <div className="md:col-span-3 space-y-3">
             <h4 className="font-serif text-sm font-semibold text-[#8A7250] uppercase tracking-wider">
-              Quick Navigation
+              Navigation
             </h4>
             <ul className="space-y-2 text-xs text-[#DFD9CC]">
               <li>
@@ -88,7 +84,7 @@ export const Footer: React.FC<FooterProps> = () => {
           {/* Contact Details & Placeholders */}
           <div className="md:col-span-4 space-y-3">
             <h4 className="font-serif text-sm font-semibold text-[#8A7250] uppercase tracking-wider">
-              Contact Email & Teacher Site
+              Contact
             </h4>
             <div className="space-y-2 text-xs text-[#DFD9CC]">
               <div className="flex items-center space-x-2">
@@ -117,7 +113,7 @@ export const Footer: React.FC<FooterProps> = () => {
 
         {/* Bottom Credits */}
         <div className="pt-8 flex flex-col sm:flex-row items-center justify-between text-xs text-[#8A7250] gap-4">
-          <p>© {new Date().getFullYear()} {TAIJI_DATA.groupName}. Built with Next.js & Tailwind CSS.</p>
+          <p>© {new Date().getFullYear()} {TAIJI_DATA.groupName}</p>
           <div className="flex items-center space-x-4">
             <a
               href="https://molingtaiji.com/"

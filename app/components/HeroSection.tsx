@@ -84,23 +84,13 @@ export const HeroSection: React.FC<HeroSectionProps> = () => {
                     <h3 className="font-serif text-lg font-semibold text-[#171918]">
                       Kingston Chen Taijiquan Practice Group
                     </h3>
-                    <p className="text-xs text-[#243B45] font-semibold mt-0.5">
-                      Weekly group practice • Train with Robin
-                    </p>
                   </div>
-                  <span className="px-2 py-0.5 bg-[#9B3D2E]/10 text-[#9B3D2E] text-[11px] rounded font-semibold border border-[#9B3D2E]/20">
-                    Open Group
-                  </span>
                 </div>
 
                 <div className="space-y-1.5 text-xs text-[#303331] font-light pt-1">
                   <div className="flex items-center space-x-2">
-                    <span className="w-1.5 h-1.5 rounded-full bg-[#9B3D2E]" />
-                    <span>Weekly group practice</span>
-                  </div>
-                  <div className="flex items-center space-x-2">
                     <span className="w-1.5 h-1.5 rounded-full bg-[#243B45]" />
-                    <span>Traditional Gongfu Jia Yilu + Push Hands</span>
+                    <span>Form (Yilu) + Push Hands</span>
                   </div>
                   <div className="flex items-center space-x-2">
                     <span className="w-1.5 h-1.5 rounded-full bg-[#8A7250]" />

@@ -150,7 +150,7 @@ export default function Home() {
                     🌳
                   </div>
                   <h3 className="font-serif text-xl font-semibold text-[#171918]">
-                    Long-Term Practitioners
+                    Lifelong Practice
                   </h3>
                   <p className="text-xs text-[#303331] leading-relaxed font-light">
                     Build a physical practice that can continue evolving for decades.

@@ -39,11 +39,9 @@ export interface ScalableTier {
 
 export const TAIJI_DATA = {
   groupName: "Kingston Chen Taijiquan Practice Group",
-  tagline: "Gongfu Jia (Gongfu Frame)",
-  subtitle: "A concrete, methodology-driven internal discipline rooted in leg foundation, scalable intensity, and authentic Yin/Yang balance for all generations.",
 
   hero: {
-    subText: "Learn to move with greater stability, strength, coordination, and whole-body connection through a traditional Chen Family Taijiquan training method. No martial arts experience required. All ages and fitness levels welcome.",
+    subText: "Learn to move with greater stability, strength, coordination, and whole-body connection through a traditional Chen Family Taijiquan training method. No experience required. Training intensity can be adapted to your current ability.",
     ctaPrimary: "Try a Class",
     ctaSecondary: "How We Train",
     quickStats: [
@@ -222,7 +220,7 @@ export const TAIJI_DATA = {
       title: "Taijiquan — Form (Yilu) & Push Hands (Tuishou)",
       day: "Saturdays",
       time: "10:00 AM – 11:30 AM",
-      openPracticeNote: "11:30 AM onward — Open Practice & Hangout. Class officially ends at 11:30, but there's no need to rush off. You're welcome to stay afterward to practice, ask questions, work with training partners, or simply hang out with the group. Leave whenever you like.",
+      openPracticeNote: "11:30 AM onward — Open Practice & Hangout. Class officially ends at 11:30, but there's no need to rush off. You're welcome to stay afterward to practice, ask questions, work with training partners, or simply hang out with the group.",
       location: "[Placeholder: City Park Lawn / Outdoor Training Grounds]",
       level: "All Levels",
       description: "A single, comprehensive training session combining both form practice and Tuishou (Push Hands).",
