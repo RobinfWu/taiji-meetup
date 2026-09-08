@@ -5,6 +5,7 @@ import Link from "next/link";
 import { Navbar } from "./components/Navbar";
 import { HeroSection } from "./components/HeroSection";
 import { Footer } from "./components/Footer";
+import { ContactForm } from "./components/ContactForm";
 import { TAIJI_DATA } from "./data/taijiData";
 import {
   Clock,
@@ -85,9 +86,83 @@ export default function Home() {
             </div>
           </div>
         </section>
+        {/* Step 2.5: Who Is This For? */}
+        <section className="py-20 bg-[#E8E4DA] relative">
+          <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 space-y-12">
+            <div className="text-center max-w-3xl mx-auto space-y-4">
+              <div className="inline-flex items-center space-x-2 px-3.5 py-1 rounded-full bg-[#8A7250]/10 text-[#8A7250] text-xs font-semibold uppercase tracking-widest border border-[#8A7250]/20">
+                <span>Self-Identification</span>
+              </div>
+              <h2 className="font-serif text-3xl sm:text-4xl md:text-5xl font-light text-[#171918]">
+                Who Is This <span className="font-normal italic text-[#243B45]">For?</span>
+              </h2>
+              <p className="text-sm sm:text-base text-[#303331] font-light leading-relaxed max-w-2xl mx-auto">
+                Whether you have decades of experience or have never taken a single class, our training is structured to welcome you wherever you are.
+              </p>
+            </div>
+
+            <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6">
+              <div className="bg-[#DFD9CC] p-7 rounded-3xl border border-[#D5CEBF] space-y-3 shadow-xs hover:border-[#9B3D2E]/40 transition-colors flex flex-col justify-between">
+                <div className="space-y-3">
+                  <div className="w-10 h-10 rounded-xl bg-[#9B3D2E]/10 text-[#9B3D2E] border border-[#9B3D2E]/20 flex items-center justify-center font-serif font-bold text-lg">
+                    🌱
+                  </div>
+                  <h3 className="font-serif text-xl font-semibold text-[#171918]">
+                    Complete Beginners
+                  </h3>
+                  <p className="text-xs text-[#303331] leading-relaxed font-light">
+                    Never practiced Tai Chi or martial arts? Perfect. We&apos;ll start with the fundamentals.
+                  </p>
+                </div>
+              </div>
+
+              <div className="bg-[#DFD9CC] p-7 rounded-3xl border border-[#D5CEBF] space-y-3 shadow-xs hover:border-[#243B45]/40 transition-colors flex flex-col justify-between">
+                <div className="space-y-3">
+                  <div className="w-10 h-10 rounded-xl bg-[#243B45]/10 text-[#243B45] border border-[#243B45]/20 flex items-center justify-center font-serif font-bold text-lg">
+                    🥋
+                  </div>
+                  <h3 className="font-serif text-xl font-semibold text-[#171918]">
+                    Curious Martial Artists
+                  </h3>
+                  <p className="text-xs text-[#303331] leading-relaxed font-light">
+                    Explore structure, whole-body movement and cooperative partner training from a Taijiquan perspective.
+                  </p>
+                </div>
+              </div>
+
+              <div className="bg-[#DFD9CC] p-7 rounded-3xl border border-[#D5CEBF] space-y-3 shadow-xs hover:border-[#8A7250]/40 transition-colors flex flex-col justify-between">
+                <div className="space-y-3">
+                  <div className="w-10 h-10 rounded-xl bg-[#8A7250]/10 text-[#8A7250] border border-[#8A7250]/20 flex items-center justify-center font-serif font-bold text-lg">
+                    🏃
+                  </div>
+                  <h3 className="font-serif text-xl font-semibold text-[#171918]">
+                    People Who Want to Move Better
+                  </h3>
+                  <p className="text-xs text-[#303331] leading-relaxed font-light">
+                    Develop balance, leg strength, coordination and mobility without needing to become a gym person.
+                  </p>
+                </div>
+              </div>
+
+              <div className="bg-[#DFD9CC] p-7 rounded-3xl border border-[#D5CEBF] space-y-3 shadow-xs hover:border-[#171918]/40 transition-colors flex flex-col justify-between">
+                <div className="space-y-3">
+                  <div className="w-10 h-10 rounded-xl bg-[#171918]/10 text-[#171918] border border-[#171918]/20 flex items-center justify-center font-serif font-bold text-lg">
+                    🌳
+                  </div>
+                  <h3 className="font-serif text-xl font-semibold text-[#171918]">
+                    Long-Term Practitioners
+                  </h3>
+                  <p className="text-xs text-[#303331] leading-relaxed font-light">
+                    Build a physical practice that can continue evolving for decades.
+                  </p>
+                </div>
+              </div>
+            </div>
+          </div>
+        </section>
 
         {/* Step 3: How We Teach (Doorway to /method) */}
-        <section className="py-20 bg-[#E8E4DA] relative">
+        <section className="py-20 bg-[#DFD9CC]/50 border-t border-[#D5CEBF] relative">
           <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
             <div className="grid grid-cols-1 lg:grid-cols-12 gap-10 items-center">
               <div className="lg:col-span-7 space-y-6">
@@ -144,7 +219,7 @@ export default function Home() {
                 What Training Looks Like
               </h2>
               <p className="text-[#303331] text-base sm:text-lg leading-relaxed font-light">
-                We train outdoors in small, dedicated groups. Instruction focuses on progressive traditional form practice (First Road / Yilu) and cooperative Push Hands partner movement drills.
+                We train outdoors in small, dedicated groups. Instruction focuses on progressive form practice (First Road / Yilu) and cooperative Push Hands partner movement drills.
               </p>
             </div>
 
@@ -199,9 +274,6 @@ export default function Home() {
               </div>
 
               <div className="lg:col-span-7 space-y-6">
-                <div className="inline-flex items-center space-x-2 px-3.5 py-1 rounded-full bg-[#8A7250]/10 text-[#8A7250] text-xs font-semibold uppercase tracking-widest border border-[#8A7250]/20">
-                  <span>Authentic Lineage Transmission</span>
-                </div>
                 <h2 className="font-serif text-3xl sm:text-4xl md:text-5xl font-light text-[#171918]">
                   Meet Robin
                 </h2>
@@ -327,7 +399,7 @@ export default function Home() {
               Try Your First Class
             </h2>
             <p className="text-base text-[#DFD9CC] max-w-xl mx-auto font-light leading-relaxed">
-              No long-term commitment or prior experience required. Come experience traditional Chen Family Taijiquan practice for yourself.
+              No long-term commitment or prior experience required. Come experience Chen Family Taijiquan practice for yourself.
             </p>
             <div className="pt-4 flex flex-col sm:flex-row items-center justify-center gap-4">
               <Link

@@ -18,7 +18,7 @@ const jakarta = Plus_Jakarta_Sans({
 
 export const metadata: Metadata = {
   title: "Chen Family Taijiquan | Gongfu Jia",
-  description: "Experience traditional Chen Style Taijiquan.",
+  description: "Experience Chen Style Taijiquan.",
   keywords: ["Taijiquan", "Chen Style Tai Chi", "Internal Martial Arts", "Push Hands"],
 };
 

@@ -142,14 +142,14 @@ export default function MethodPage() {
             </div>
           </div>
 
-          {/* Section 3: Common Misconceptions (Myths vs Reality) */}
+          {/* Section 3: You May Be Surprised That... */}
           <div className="space-y-8">
             <div className="text-center max-w-2xl mx-auto space-y-2">
-              <span className="text-xs font-semibold uppercase tracking-widest text-[#9B3D2E]">
-                Clearing Misconceptions
+              <span className="text-xs font-semibold uppercase tracking-widest text-[#243B45]">
+                Nuance & Tradition
               </span>
               <h2 className="font-serif text-3xl sm:text-4xl font-light text-[#171918]">
-                Common Misconceptions
+                You May Be Surprised That...
               </h2>
             </div>
 
@@ -157,36 +157,21 @@ export default function MethodPage() {
               {TAIJI_DATA.mythsAndRealities.map((item) => (
                 <div
                   key={item.id}
-                  className="bg-[#DFD9CC] rounded-3xl p-6 border border-[#D5CEBF] shadow-xs space-y-4 flex flex-col justify-between"
+                  className="bg-[#DFD9CC] rounded-3xl p-7 border border-[#D5CEBF] shadow-xs space-y-4 flex flex-col justify-between hover:border-[#243B45]/40 transition-colors"
                 >
                   <div className="space-y-3">
-                    <div className="inline-flex items-center space-x-1.5 px-2.5 py-0.5 rounded-full bg-[#9B3D2E]/10 text-[#9B3D2E] text-[11px] font-semibold border border-[#9B3D2E]/20">
+                    <div className="inline-flex items-center space-x-1.5 px-3 py-1 rounded-full bg-[#243B45]/10 text-[#243B45] text-xs font-semibold border border-[#243B45]/20">
+                      <Sparkles className="w-3 h-3 text-[#8A7250]" />
                       <span>{item.badge}</span>
                     </div>
 
-                    <div className="flex items-start space-x-2.5 text-[#9B3D2E] bg-[#E8E4DA] p-3 rounded-xl border border-[#D5CEBF]">
-                      <AlertCircle className="w-4 h-4 shrink-0 mt-0.5" />
-                      <div>
-                        <span className="text-[11px] font-bold uppercase tracking-wider block text-[#9B3D2E]">
-                          Misconception:
-                        </span>
-                        <p className="text-xs font-medium text-[#303331]">
-                          &ldquo;{item.myth}&rdquo;
-                        </p>
-                      </div>
-                    </div>
+                    <h3 className="font-serif text-xl font-semibold text-[#171918] pt-1">
+                      {item.myth}
+                    </h3>
 
-                    <div className="flex items-start space-x-2.5 text-[#243B45] bg-[#E2DCD0] p-3 rounded-xl border border-[#D5CEBF]">
-                      <CheckCircle2 className="w-4 h-4 shrink-0 mt-0.5 text-[#243B45]" />
-                      <div>
-                        <span className="text-[11px] font-bold uppercase tracking-wider block text-[#243B45]">
-                          Our Approach:
-                        </span>
-                        <p className="text-xs text-[#303331] leading-relaxed">
-                          {item.reality}
-                        </p>
-                      </div>
-                    </div>
+                    <p className="text-xs sm:text-sm text-[#303331] leading-relaxed font-light">
+                      {item.reality}
+                    </p>
                   </div>
                 </div>
               ))}

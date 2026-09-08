@@ -27,7 +27,7 @@ export default function AboutPage() {
                 About <span className="font-normal italic text-[#243B45]">Robin Wu</span> & Lineage
               </h1>
               <p className="text-lg text-[#303331] leading-relaxed font-light">
-                Traditional Taijiquan relies on direct teacher-to-student transmission. Learn about the teacher and the lineage.
+                Taijiquan relies on direct teacher-to-student transmission. Learn about the teacher and the lineage.
               </p>
             </div>
           </div>

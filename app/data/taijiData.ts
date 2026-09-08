@@ -38,13 +38,12 @@ export interface ScalableTier {
 }
 
 export const TAIJI_DATA = {
-  groupName: "Chen Family Taijiquan Group",
+  groupName: "Kingston Chen Taijiquan Practice Group",
   tagline: "Gongfu Jia (Gongfu Frame)",
   subtitle: "A concrete, methodology-driven internal discipline rooted in leg foundation, scalable intensity, and authentic Yin/Yang balance for all generations.",
 
   hero: {
-    philosophyQuote: "Methodology contains principles, but principles do not contain methodology.",
-    subText: "Learn Chen Family Taijiquan through a concrete, progressive training method—developing balance, leg strength, coordination and whole-body movement.",
+    subText: "Learn to move with greater stability, strength, coordination, and whole-body connection through a traditional Chen Family Taijiquan training method. No martial arts experience required. All ages and fitness levels welcome.",
     ctaPrimary: "Try a Class",
     ctaSecondary: "How We Train",
     quickStats: [
@@ -99,27 +98,27 @@ export const TAIJI_DATA = {
   mythsAndRealities: [
     {
       id: "elderly-myth",
-      badge: "Only for the Elderly",
-      myth: "Tai Chi is only slow exercise for older people.",
-      reality: "Taijiquan can certainly be practiced well into old age, but it was not historically conceived as an elderly exercise program. Many prominent practitioners began training while young: Chen Yu began at approximately age seven, Fu Zhongwen at nine, and Chen Fake in his youth. The practice is scalable and adaptable with age."
+      badge: "Practice For All Ages",
+      myth: "You don't need to be elderly—or young and athletic.",
+      reality: "Taijiquan can certainly be practiced well into old age, but it is not restricted to any single demographic. Many prominent historical practitioners began training early, while others start much later in life. The practice is highly scalable and adaptable to your current fitness level."
     },
     {
       id: "qi-myth",
-      badge: "Linguistic Myth",
-      myth: "The ‘Chi’ in Tai Chi refers to mystical ‘Chi energy.’",
-      reality: "This misconception largely comes from older romanization. In Wade–Giles, Taiji was written 'T'ai Chi,' but the 'Chi' here represents ji (極/极), not qi (氣/气). They are different words with different Chinese characters. Taiji is a classical Chinese philosophical concept associated with the complementary relationship and transformation of Yin and Yang, while Qi is a separate concept. Taijiquan does contain practices that overlap with Qigong, but the word Taiji itself does not mean 'Qi energy.'"
+      badge: "Linguistic Origins",
+      myth: "“Chi” isn't what you may think it means.",
+      reality: "This stems from older Wade–Giles romanization: in 'T'ai Chi', the word represents ji (極/极, supreme ultimate / Yin-Yang balance), not qi (氣/气, breath/energy). Taijiquan is a classical physical discipline based on whole-body movement mechanics, structural alignment, and complementary balance."
     },
     {
       id: "thousand-myth",
-      badge: "1000 Year Myth",
-      myth: "Tai Chi is a 1000-year-old art.",
-      reality: "The concept of Taiji is ancient, but Taijiquan as a distinct martial system was assembled during the Ming–Qing transition in the 17th century. Some of the martial material from which it was assembled can be traced to earlier sources, but the age of those components should not be confused with the age of Taijiquan itself. This is not unusual: many Chinese martial arts practiced today emerged in recognizable form during the late imperial period. Xingyiquan is traditionally associated with Ji Jike (Ji Longfeng) in the 17th century, while Baguazhang is traced to Dong Haichuan in the 19th century."
+      badge: "Historical Context",
+      myth: "Taijiquan isn't thousands of years old.",
+      reality: "While the philosophical concepts of Taiji are ancient, Taijiquan as a distinct physical martial art was assembled in the 17th century in Chenjiagou during the Ming–Qing transition. Understanding its clear historical roots keeps training grounded, practical, and honest."
     },
     {
       id: "internal-myth",
-      badge: "Internal vs External",
-      myth: "Because Taijiquan is an ‘internal’ martial art, you need to study an ‘external’ martial art for your training to be complete.",
-      reality: "This line of practice is both 'Internal' and 'External'. The 'Internal' should complement the 'External', not replace the 'External'. Our training doesn't pursue 'internal' qualities by eliminating their apparent opposites. They are complementary aspects of one practice, not two halves that require studying separate martial arts. An art named after Taiji should perhaps be expected to resist one-sidedness."
+      badge: "Unified Mechanics",
+      myth: "Internal and external movement go hand in hand.",
+      reality: "In our line of practice, physical alignment ('external') and refined movement control ('internal') complement each other directly rather than competing. You don't need separate martial arts to train both structural strength and body awareness."
     }
   ] as MythItem[],
 
@@ -143,13 +142,13 @@ export const TAIJI_DATA = {
   benefits: [
     {
       icon: "Clock",
-      title: "Built for the Long Term",
-      text: "Traditionally taught to children and practiced into old age. The same form can be trained with physical demand earlier in life and refined into sustainable practice later—serving both health and martial utility."
+      title: "Build a Body You Can Keep Using",
+      text: "Develop stability, leg strength, coordination, mobility, and whole-body movement through a practice designed to grow with you for decades."
     },
     {
       icon: "Compass",
-      title: "A Specific Tradition",
-      text: "Chen Family Gongfu Jia is a specific, structured system with its own methodology. It is taught as a concrete physical skill rather than the soft, generalized “Tai Chi” most people encounter."
+      title: "Learn Something With Real Depth",
+      text: "Each stage becomes the foundation for the next. The basics aren't something you leave behind—they become increasingly sophisticated."
     },
     {
       icon: "User",
@@ -166,7 +165,7 @@ export const TAIJI_DATA = {
   lineageInfo: {
     instructorName: "Robin Wu",
     title: "Chen Family Taijiquan Practitioner",
-    bio: "Robin first encountered Chen Family Gongfu Jia in 2019 after a long period of searching for authentic traditional training. What drew him was the school’s reputation for extreme physical demand — a method that challenged even experienced martial artists. He has trained exclusively in this lineage ever since, becoming an indoor student of Marin Spivack.",
+    bio: "Robin first encountered Chen Family Gongfu Jia in 2019 after a long period of searching for traditional training. What drew him was the school’s reputation for extreme physical demand — a method that challenged even experienced martial artists. He has trained exclusively in this lineage ever since, becoming an indoor student of Marin Spivack.",
     teacherName: "Marin Spivack",
     teacherWebsite: "https://molingtaiji.com/",
     teacherSiteName: "Mo Ling Taiji",
@@ -174,7 +173,7 @@ export const TAIJI_DATA = {
 
   lineageTree: [
     {
-      generation: "Founder",
+      generation: "9th Generation",
       era: "1580–1660",
       figures: ["Chen Wangting"],
       description: "Accredited as the founder of Chen Family Taijiquan. It was said that Taijiquan used to have 7 bare-handed forms."
@@ -189,7 +188,7 @@ export const TAIJI_DATA = {
       generation: "17th Generation",
       era: "1887–1957",
       figures: ["Chen Fake"],
-      description: "Publicized Chen Family Taijiquan in Beijing in the year 1928; started serious training at age 14."
+      description: "Moved from Chen Village to Beijing in 1928, bringing Chen-family practice into a major public martial-arts community and teaching extensively outside the village."
     },
     {
       generation: "18th Generation",
@@ -201,7 +200,7 @@ export const TAIJI_DATA = {
       generation: "19th Generation",
       era: "1962–Present",
       figures: ["Chen Yu"],
-      description: "Only son of Chen Zhaokui; leading master of traditional Gongfu Jia. Began training under his father at age 7."
+      description: "He was the only son of Chen Zhaokui. Began training under his father at age 7."
     },
     {
       generation: "20th Generation",
@@ -220,7 +219,7 @@ export const TAIJI_DATA = {
   classes: [
     {
       id: "class-1",
-      title: "Traditional Taijiquan — Form (Yilu) & Push Hands (Tuishou)",
+      title: "Taijiquan — Form (Yilu) & Push Hands (Tuishou)",
       day: "Saturdays",
       time: "10:00 AM – 11:30 AM",
       openPracticeNote: "11:30 AM onward — Open Practice & Hangout. Class officially ends at 11:30, but there's no need to rush off. You're welcome to stay afterward to practice, ask questions, work with training partners, or simply hang out with the group. Leave whenever you like.",
