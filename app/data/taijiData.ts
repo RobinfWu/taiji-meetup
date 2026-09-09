@@ -98,25 +98,25 @@ export const TAIJI_DATA = {
       id: "elderly-myth",
       badge: "Practice For All Ages",
       myth: "You don't need to be elderly—or young and athletic.",
-      reality: "Taijiquan can certainly be practiced well into old age, but it is not restricted to any single demographic. Many prominent historical practitioners began training early, while others start much later in life. The practice is highly scalable and adaptable to your current fitness level."
+      reality: "Taijiquan can certainly be practiced well into old age, but it was not historically conceived as an elderly exercise program. Many prominent practitioners began training while young: Chen Yu began at approximately age seven, Fu Zhongwen at nine, and Chen Fake in his youth. The practice is scalable and adaptable with age."
     },
     {
       id: "qi-myth",
-      badge: "Linguistic Origins",
-      myth: "“Chi” isn't what you may think it means.",
-      reality: "This stems from older Wade–Giles romanization: in 'T'ai Chi', the word represents ji (極/极, supreme ultimate / Yin-Yang balance), not qi (氣/气, breath/energy). Taijiquan is a classical physical discipline based on whole-body movement mechanics, structural alignment, and complementary balance."
+      badge: "Linguistic Myth",
+      myth: "The ‘Chi’ in Tai Chi does not refer to ‘Chi energy.’",
+      reality: "This misconception largely comes from older romanization. In Wade–Giles, Taiji was written 'T'ai Chi,' but the 'Chi' here represents ji (極/极), not qi (氣/气). They are different words with different Chinese characters. Taiji is a classical Chinese philosophical concept associated with the complementary relationship and transformation of Yin and Yang, while Qi is a separate concept. Taijiquan does contain practices that overlap with Qigong, but the word Taiji itself does not mean 'Qi energy.'"
     },
     {
       id: "thousand-myth",
       badge: "Historical Context",
       myth: "Taijiquan isn't thousands of years old.",
-      reality: "While the philosophical concepts of Taiji are ancient, Taijiquan as a distinct physical martial art was assembled in the 17th century in Chenjiagou during the Ming–Qing transition. Understanding its clear historical roots keeps training grounded, practical, and honest."
+      reality: "Taijiquan as a distinct physical martial art was assembled in the 17th century in Chenjiagou during the Ming–Qing transition. The cosmological concept of 'Taiji' is much older than the martial art named after it."
     },
     {
       id: "internal-myth",
       badge: "Unified Mechanics",
-      myth: "Internal and external movement go hand in hand.",
-      reality: "In our line of practice, physical alignment ('external') and refined movement control ('internal') complement each other directly rather than competing. You don't need separate martial arts to train both structural strength and body awareness."
+      myth: "This Taijiquan is both 'Internal' and 'External'",
+      reality: "The 'Internal' should complement the 'External', not replace the 'External'. They are complementary aspects of one practice, not two halves that require studying separate martial arts. An art named after Taiji should perhaps be expected to resist one-sidedness."
     }
   ] as MythItem[],
 

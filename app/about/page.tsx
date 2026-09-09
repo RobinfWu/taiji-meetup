@@ -145,6 +145,35 @@ export default function AboutPage() {
                 Note: Competition Push Hands uses a restricted ruleset. Some methods found in our Fixed-Step Push Hands practice, including head control and joint locks, are therefore absent from this exchange.
             </p>
           </div>
+          <div className="bg-[#DFD9CC] p-8 sm:p-12 rounded-3xl border border-[#D5CEBF] shadow-xs space-y-6">
+            <h2 className="font-serif text-3xl font-semibold text-[#171918]">
+              What is Taijiquan?
+            </h2>
+            <p className="text-[#303331] text-base sm:text-lg leading-relaxed font-light">
+              Many Chinese martial arts follow a naming scheme: Taiji<strong className="font-semibold text-[#171918]">quan</strong>, Xingyi<strong className="font-semibold text-[#171918]">quan</strong>, Baji<strong className="font-semibold text-[#171918]">quan</strong>, Tanglang<strong className="font-semibold text-[#171918]">quan</strong>, Hung Ga <strong className="font-semibold text-[#171918]">Kuen</strong>, etc...
+            </p>
+            <p className="text-[#303331] text-base sm:text-lg leading-relaxed font-light">
+              “Quan”, or “Kuen” in Cantonese, translates to mean fist which denotes a martial art or fighting system. It does not literally mean an art about using fists. Taijiquan therefore means “Taiji Fist” — a martial art named after the concept of Taiji (the interplay of Yin and Yang). It is a Northern Chinese martial art that originated from the Chen Village (Chenjiagou) in Henan Province.
+            </p>
+            <p className="text-[#303331] text-base sm:text-lg leading-relaxed font-light">
+              Taijiquan is a family art. It was commonly passed down from father to son or from “master” to “apprentice”. The Chen family developed it first. The founder of the Yang family learned from the Chen family; the founder of the Wu family later learned from the Yang family.
+            </p>
+            <p className="text-[#303331] text-base sm:text-lg leading-relaxed font-light">
+              This is the historical root of what most people today simply call “Tai Chi.”
+            </p>
+          </div>
+          <div className="bg-[#DFD9CC] p-8 sm:p-12 rounded-3xl border border-[#D5CEBF] shadow-xs space-y-6">
+            <h2 className="font-serif text-3xl font-semibold text-[#171918]">
+              What is Gongfu Jia?
+            </h2>
+            <p className="text-[#303331] text-base sm:text-lg leading-relaxed font-light">
+              If Taijiquan refers to a martial art “style” and Chen Family Taijiquan refers to a “substyle” (hence Chen “Style” Taijiquan), then “Gongfu Jia” (Gongfu Frame) refers to a specific lineage and training approach within the Chen Family.
+            </p>
+            <p className="text-[#303331] text-base sm:text-lg leading-relaxed font-light">
+              That lineage can be traced to Chen Zhaokui (son of Chen Fake).
+            </p>
+          </div>
+
           {/* Full Lineage Tree Timeline */}
           <div className="space-y-8">
             <div className="text-center max-w-2xl mx-auto space-y-2">

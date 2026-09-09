@@ -37,13 +37,13 @@ export default function MethodPage() {
             <div className="max-w-3xl space-y-4">
               <div className="inline-flex items-center space-x-2 px-3.5 py-1 rounded-full bg-[#243B45]/10 text-[#243B45] text-xs font-semibold uppercase tracking-widest border border-[#243B45]/20">
                 <Compass className="w-3.5 h-3.5" />
-                <span>About Our Method</span>
+                <span>Our Approach to Taijiquan</span>
               </div>
                 <h1 className="font-serif text-4xl sm:text-5xl md:text-6xl font-light text-[#171918]">
                   How We <span className="font-normal italic text-[#243B45]">Train</span>
                 </h1>
                 <p className="text-lg text-[#303331] leading-relaxed font-light">
-                  Let's dive deeper into what this Taijiquan method is about.
+                  Taijiquan contains forms, partner work, martial applications, body mechanics, and training principles. These can seem like separate subjects at first. They are easier to understand as parts of one system.
                 </p>
             </div>
           </div>
@@ -53,95 +53,104 @@ export default function MethodPage() {
         <section className="py-16 max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 space-y-20">
           
           {/* Section 1: What is Taijiquan & Approach */}
-          <div className="bg-[#DFD9CC] p-8 sm:p-12 rounded-3xl border border-[#D5CEBF] shadow-xs space-y-6">
+        <div className="bg-[#DFD9CC] p-8 sm:p-12 rounded-3xl border border-[#D5CEBF] shadow-xs space-y-8">
+          <div className="space-y-3">
             <h2 className="font-serif text-3xl font-semibold text-[#171918]">
-              What is Taijiquan?
+              Taijiquan as a Language of the Body
             </h2>
+
             <p className="text-[#303331] text-base sm:text-lg leading-relaxed font-light">
-              Many Chinese martial arts follow a naming scheme: Taiji<strong className="font-semibold text-[#171918]">quan</strong>, Xingyi<strong className="font-semibold text-[#171918]">quan</strong>, Baji<strong className="font-semibold text-[#171918]">quan</strong>, Tanglang<strong className="font-semibold text-[#171918]">quan</strong>, Hung Ga <strong className="font-semibold text-[#171918]">Kuen</strong>, etc...
-            </p>
-            <p className="text-[#303331] text-base sm:text-lg leading-relaxed font-light">
-              “Quan”, or “Kuen” in Cantonese, translates to mean fist which denotes a martial art or fighting system. It does not literally mean an art about using fists. Taijiquan therefore means “Taiji Fist” — a martial art named after the concept of Taiji (the interplay of Yin and Yang). It is a Northern Chinese martial art that originated from the Chen Village (Chenjiagou) in Henan Province.
-            </p>
-            <p className="text-[#303331] text-base sm:text-lg leading-relaxed font-light">
-              Taijiquan is a family art. It was commonly passed down from father to son or from “master” to “apprentice”. The Chen family developed it first. The founder of the Yang family learned from the Chen family; the founder of the Wu family later learned from the Yang family.
-            </p>
-            <p className="text-[#303331] text-base sm:text-lg leading-relaxed font-light">
-              This is the historical root of what most people today simply call “Tai Chi.”
-            </p>
-          </div>
-          <div className="bg-[#DFD9CC] p-8 sm:p-12 rounded-3xl border border-[#D5CEBF] shadow-xs space-y-6">
-            <h2 className="font-serif text-3xl font-semibold text-[#171918]">
-              What is Gongfu Jia?
-            </h2>
-            <p className="text-[#303331] text-base sm:text-lg leading-relaxed font-light">
-              If Taijiquan refers to a martial art “style” and Chen Family Taijiquan refers to a “substyle” (hence Chen “Style” Taijiquan), then “Gongfu Jia” (Gongfu Frame) refers to a specific lineage and training approach within the Chen Family.
-            </p>
-            <p className="text-[#303331] text-base sm:text-lg leading-relaxed font-light">
-              That lineage can be traced to Chen Zhaokui (son of Chen Fake).
+              Learning <strong className="font-semibold text-[#171918]">this</strong>{" "}
+              Taijiquan is like learning a language for the body.
             </p>
           </div>
 
-          {/* Section 2: Deep Dive into Differences (Methodology vs Principles, Leg Foundation, Yin/Yang, Push Hands) */}
-          <div className="space-y-8">
-            <div className="text-center max-w-2xl mx-auto space-y-2">
-              <span className="text-xs font-semibold uppercase tracking-widest text-[#243B45]">
-                Philosophy
-              </span>
-              <h2 className="font-serif text-3xl sm:text-4xl font-light text-[#171918]">
-                Our Approach to Taijiquan
-              </h2>
+          <div className="space-y-6">
+            {/* Principles */}
+            <div className="border-l-2 border-[#A94432] pl-5">
+              <h3 className="font-serif text-xl font-semibold text-[#171918]">
+                Principles{" "}
+                <span className="font-sans text-sm font-normal italic text-[#7A6D5A]">
+                  — the grammar
+                </span>
+              </h3>
+              <p className="mt-2 text-[#303331] text-base sm:text-lg leading-relaxed font-light">
+                Principles describe that which is fundamental to the system. Examples include Peng Jin and the interplay of Yin and Yang. They are like the grammar of the art.
+              </p>
             </div>
 
-            <div className="grid grid-cols-1 lg:grid-cols-12 gap-8 items-start">
-              {/* Tab Navigation */}
-              <div className="lg:col-span-4 space-y-3">
-                {TAIJI_DATA.differences.map((diff) => {
-                  const isSelected = diff.id === activeTab;
-                  return (
-                    <button
-                      key={diff.id}
-                      onClick={() => setActiveTab(diff.id)}
-                      className={`w-full text-left p-5 rounded-2xl transition-all duration-200 border cursor-pointer ${
-                        isSelected
-                          ? "bg-[#171918] text-[#E8E4DA] border-[#171918] shadow-md transform translate-x-1"
-                          : "bg-[#DFD9CC]/70 border-[#D5CEBF] text-[#171918] hover:bg-[#E8E4DA]/70"
-                      }`}
-                    >
-                      <div className="font-serif text-lg font-semibold mb-1">
-                        {diff.title}
-                      </div>
-                      <p className={`text-xs ${isSelected ? "text-[#DFD9CC]" : "text-[#57625B]"}`}>
-                        {diff.summary}
-                      </p>
-                    </button>
-                  );
-                })}
-              </div>
+            {/* Jins */}
+            <div className="border-l-2 border-[#A94432] pl-5">
+              <h3 className="font-serif text-xl font-semibold text-[#171918]">
+                Jins{" "}
+                <span className="font-sans text-sm font-normal italic text-[#7A6D5A]">
+                  — the vocabulary
+                </span>
+              </h3>
+              <p className="mt-2 text-[#303331] text-base sm:text-lg leading-relaxed font-light">
+                Jins refer to cultivated energies or forces that Taijiquan categorizes according to their qualities and desired effects. They are the building blocks from which sequences and martial applications are constructed by stringing them together, much like arranging vocabulary to form sentences.
+              </p>
+            </div>
 
-              {/* Active Tab Full Content */}
-              <div className="lg:col-span-8 bg-[#DFD9CC] p-8 sm:p-10 rounded-3xl border border-[#D5CEBF] shadow-xs space-y-6">
-                <div className="flex items-center space-x-4 border-b border-[#D5CEBF] pb-4">
-                  <div className="w-12 h-12 rounded-2xl bg-[#171918] text-[#E8E4DA] flex items-center justify-center font-serif text-2xl font-bold shadow-xs">
-                    ☯
-                  </div>
-                  <div>
-                    <h3 className="font-serif text-2xl font-semibold text-[#171918]">
-                      {activeDifference.title}
-                    </h3>
-                    <p className="text-xs text-[#8A7250] font-semibold">
-                      {activeDifference.summary}
-                    </p>
-                  </div>
-                </div>
+            {/* Sequences */}
+            <div className="border-l-2 border-[#A94432] pl-5">
+              <h3 className="font-serif text-xl font-semibold text-[#171918]">
+                Sequences{" "}
+                <span className="font-sans text-sm font-normal italic text-[#7A6D5A]">
+                  — the sentences
+                </span>
+              </h3>
+              <p className="mt-2 text-[#303331] text-base sm:text-lg leading-relaxed font-light">
+                A sequence of movement strings together several jins.
+                Traditional forms contain many named sequences; for example,
+                Yilu (First Road) is traditionally organized into 83 sequences, while Erlu (Second Road) contains
+                71. By design, sequences train multiple applications at the same time.
+              </p>
+            </div>
 
-                <div className="space-y-4 text-[#303331] text-base leading-relaxed font-light whitespace-pre-line">
-                  {activeDifference.description}
-                </div>
-              </div>
+            {/* Form */}
+            <div className="border-l-2 border-[#A94432] pl-5">
+              <h3 className="font-serif text-xl font-semibold text-[#171918]">
+                Form (Taolu){" "}
+                <span className="font-sans text-sm font-normal italic text-[#7A6D5A]">
+                  — the textbook
+                </span>
+              </h3>
+              <p className="mt-2 text-[#303331] text-base sm:text-lg leading-relaxed font-light">
+                A form is a structured collection of sequences. It preserves the lexicon of the art,
+                mechanics, and relationships in a repeatable training format for cultivation.
+              </p>
+            </div>
+
+            {/* Martial Applications */}
+            <div className="border-l-2 border-[#A94432] pl-5">
+              <h3 className="font-serif text-xl font-semibold text-[#171918]">
+                Martial Applications{" "}
+                <span className="font-sans text-sm font-normal italic text-[#7A6D5A]">
+                  — speaking with the language
+                </span>
+              </h3>
+              <p className="mt-2 text-[#303331] text-base sm:text-lg leading-relaxed font-light">
+                Some applications are traditionally taught, much like a language has established sayings and expressions that are passed down. But those examples do not exhaust what the language can express. The same jins can be recombined to create new applications appropriate to the situation.
+                Asking whether something is "the official application" is therefore a little like asking whether something is "the official English sentence".
+              </p>
+            </div>
+
+            {/* Push Hands */}
+            <div className="border-l-2 border-[#A94432] pl-5">
+              <h3 className="font-serif text-xl font-semibold text-[#171918]">
+                Push Hands (Tuishou){" "}
+                <span className="font-sans text-sm font-normal italic text-[#7A6D5A]">
+                  — the conversation
+                </span>
+              </h3>
+              <p className="mt-2 text-[#303331] text-base sm:text-lg leading-relaxed font-light">
+                Push Hands is like a conversation between two people. It refers to a collection of partnered practices built around sustained physical contact. Some Push Hand drills are patterned, with a prescribed "script" for each player—but mistakes can still be punished.
+                Freestyle Push Hands removes the script, allowing both players to respond freely to each other while remaining within the constraints of the practice.
+              </p>
             </div>
           </div>
-
+        </div>
           {/* Section 3: You May Be Surprised That... */}
           <div className="space-y-8">
             <div className="text-center max-w-2xl mx-auto space-y-2">
