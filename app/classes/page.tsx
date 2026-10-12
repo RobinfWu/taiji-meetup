@@ -39,7 +39,7 @@ export default function ClassesPage() {
                 Classes & <span className="font-normal italic text-[#243B45]">Schedule</span>
               </h1>
               <p className="text-lg text-[#303331] leading-relaxed font-light">
-                Our group practices outdoors with structured instruction in traditional Gongfu Jia Yilu (First Road) and Push Hands. Find everything you need to know about schedule, location, and attire.
+                Our group practices outdoors with structured instruction in traditional form and Push Hands. Find everything you need to know about schedule, location, and attire.
               </p>
             </div>
           </div>

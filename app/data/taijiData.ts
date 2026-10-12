@@ -41,7 +41,7 @@ export const TAIJI_DATA = {
   groupName: "Kingston Chen Taijiquan Practice Group",
 
   hero: {
-    subText: "Learn to move with greater stability, strength, coordination, and whole-body connection through a traditional Chen Family Taijiquan training method. No experience required. Training intensity can be adapted to your current ability.",
+    subText: "Learn a traditional craft that develops stability, strength, coordination, and whole-body connection. Train at an intensity suited to your ability, through structured solo exercises and interactive partner work.",
     ctaPrimary: "Try a Class",
     ctaSecondary: "How We Train",
     quickStats: [
