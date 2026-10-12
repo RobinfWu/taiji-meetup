@@ -1,6 +1,7 @@
 "use client";
 
-import React, { useState } from "react";
+import React from "react";
+import { useForm, ValidationError } from "@formspree/react";
 import { Send, CheckCircle2, Mail, Sparkles } from "lucide-react";
 import { TAIJI_DATA } from "../data/taijiData";
 
@@ -13,24 +14,15 @@ export const ContactForm: React.FC<ContactFormProps> = ({
   className = "",
   darkVariant = false
 }) => {
-  const [formData, setFormData] = useState({
-    name: "",
-    email: "",
-    message: ""
-  });
-  const [submitted, setSubmitted] = useState(false);
+  const [state, handleSubmit] = useForm("xljglank");
 
-  const handleSubmit = (e: React.FormEvent) => {
-    e.preventDefault();
-    if (!formData.name || !formData.email) return;
+  const inputClass = `w-full px-4 py-3 rounded-2xl text-sm transition-colors outline-none border ${
+    darkVariant
+      ? "bg-[#242725] text-[#E8E4DA] border-[#303331] focus:border-[#9B3D2E]"
+      : "bg-[#E8E4DA] text-[#171918] border-[#D5CEBF] focus:border-[#243B45]"
+  }`;
 
-    const subject = encodeURIComponent(`Training Inquiry from ${formData.name}`);
-    const body = encodeURIComponent(
-      `Name: ${formData.name}\nEmail: ${formData.email}\n\nMessage:\n${formData.message}`
-    );
-    window.location.href = `mailto:${TAIJI_DATA.contact.email}?subject=${subject}&body=${body}`;
-    setSubmitted(true);
-  };
+  const errorClass = "text-[#9B3D2E] text-xs mt-1 font-light";
 
   return (
     <div
@@ -41,7 +33,7 @@ export const ContactForm: React.FC<ContactFormProps> = ({
       } ${className}`}
     >
       <div className="max-w-2xl mx-auto space-y-6">
-        {/* Header section */}
+        {/* Header */}
         <div className="text-center space-y-3">
           <div className="inline-flex items-center space-x-2 px-3.5 py-1 rounded-full bg-[#9B3D2E]/10 text-[#9B3D2E] text-xs font-bold uppercase tracking-widest border border-[#9B3D2E]/20">
             <Sparkles className="w-3.5 h-3.5" />
@@ -59,14 +51,15 @@ export const ContactForm: React.FC<ContactFormProps> = ({
           </p>
         </div>
 
-        {submitted ? (
+        {state.succeeded ? (
+          /* Success state */
           <div className="py-10 text-center space-y-4 animate-in fade-in duration-300">
             <div className="w-14 h-14 rounded-full bg-[#243B45]/20 text-[#243B45] flex items-center justify-center mx-auto">
               <CheckCircle2 className="w-8 h-8 text-[#9B3D2E]" />
             </div>
-            <h3 className="font-serif text-2xl font-semibold">Your mail app is open!</h3>
+            <h3 className="font-serif text-2xl font-semibold">Message Sent!</h3>
             <p className="text-sm font-light max-w-md mx-auto">
-              Your message has been pre-filled and is ready to send from your mail app. Hit send there and we&apos;ll be in touch soon.
+              Thanks for reaching out. We&apos;ll be in touch with class details and next steps shortly.
             </p>
             <div className="pt-2">
               <a
@@ -79,68 +72,67 @@ export const ContactForm: React.FC<ContactFormProps> = ({
             </div>
           </div>
         ) : (
+          /* Form */
           <form onSubmit={handleSubmit} className="space-y-4 pt-2">
+            {/* Global Formspree error (e.g. network failure) */}
+            <ValidationError errors={state.errors} className={errorClass} />
+
             <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
+              {/* Name */}
               <div className="space-y-1.5 text-left">
-                <label className="block text-xs font-semibold uppercase tracking-wider text-[#8A7250]">
+                <label htmlFor="name" className="block text-xs font-semibold uppercase tracking-wider text-[#8A7250]">
                   Name
                 </label>
                 <input
+                  id="name"
                   type="text"
+                  name="name"
                   required
                   placeholder="Your Name"
-                  value={formData.name}
-                  onChange={(e) => setFormData({ ...formData, name: e.target.value })}
-                  className={`w-full px-4 py-3 rounded-2xl text-sm transition-colors outline-none border ${
-                    darkVariant
-                      ? "bg-[#242725] text-[#E8E4DA] border-[#303331] focus:border-[#9B3D2E]"
-                      : "bg-[#E8E4DA] text-[#171918] border-[#D5CEBF] focus:border-[#243B45]"
-                  }`}
+                  className={inputClass}
                 />
+                <ValidationError field="name" errors={state.errors} className={errorClass} />
               </div>
 
+              {/* Email */}
               <div className="space-y-1.5 text-left">
-                <label className="block text-xs font-semibold uppercase tracking-wider text-[#8A7250]">
+                <label htmlFor="email" className="block text-xs font-semibold uppercase tracking-wider text-[#8A7250]">
                   Email
                 </label>
                 <input
+                  id="email"
                   type="email"
+                  name="email"
                   required
                   placeholder="you@example.com"
-                  value={formData.email}
-                  onChange={(e) => setFormData({ ...formData, email: e.target.value })}
-                  className={`w-full px-4 py-3 rounded-2xl text-sm transition-colors outline-none border ${
-                    darkVariant
-                      ? "bg-[#242725] text-[#E8E4DA] border-[#303331] focus:border-[#9B3D2E]"
-                      : "bg-[#E8E4DA] text-[#171918] border-[#D5CEBF] focus:border-[#243B45]"
-                  }`}
+                  className={inputClass}
                 />
+                <ValidationError field="email" errors={state.errors} className={errorClass} />
               </div>
             </div>
 
+            {/* Message */}
             <div className="space-y-1.5 text-left">
-              <label className="block text-xs font-semibold uppercase tracking-wider text-[#8A7250]">
+              <label htmlFor="message" className="block text-xs font-semibold uppercase tracking-wider text-[#8A7250]">
                 Message
               </label>
               <textarea
+                id="message"
+                name="message"
                 rows={3}
                 placeholder="Ask a question or let us know when you'd like to drop in..."
-                value={formData.message}
-                onChange={(e) => setFormData({ ...formData, message: e.target.value })}
-                className={`w-full px-4 py-3 rounded-2xl text-sm transition-colors outline-none resize-none border ${
-                  darkVariant
-                    ? "bg-[#242725] text-[#E8E4DA] border-[#303331] focus:border-[#9B3D2E]"
-                    : "bg-[#E8E4DA] text-[#171918] border-[#D5CEBF] focus:border-[#243B45]"
-                }`}
+                className={`${inputClass} resize-none`}
               />
+              <ValidationError field="message" errors={state.errors} className={errorClass} />
             </div>
 
             <div className="pt-2 flex flex-col sm:flex-row items-center justify-between gap-4">
               <button
                 type="submit"
-                className="w-full sm:w-auto inline-flex items-center justify-center space-x-2 bg-[#9B3D2E] hover:bg-[#7D3024] text-white px-8 py-3.5 rounded-full text-sm font-bold shadow-md transition-all cursor-pointer active:scale-98 border border-[#9B3D2E]"
+                disabled={state.submitting}
+                className="w-full sm:w-auto inline-flex items-center justify-center space-x-2 bg-[#9B3D2E] hover:bg-[#7D3024] disabled:opacity-60 disabled:cursor-not-allowed text-white px-8 py-3.5 rounded-full text-sm font-bold shadow-md transition-all cursor-pointer active:scale-98 border border-[#9B3D2E]"
               >
-                <span>Send</span>
+                <span>{state.submitting ? "Sending…" : "Send"}</span>
                 <Send className="w-4 h-4 text-white" />
               </button>
 
