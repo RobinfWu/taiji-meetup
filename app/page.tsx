@@ -8,14 +8,8 @@ import { Footer } from "./components/Footer";
 import { ContactForm } from "./components/ContactForm";
 import { TAIJI_DATA } from "./data/taijiData";
 import {
-  Clock,
   Compass,
-  User,
-  Layers,
-  Shield,
-  Flame,
   ArrowRight,
-  Sparkles,
   BookOpen,
   Calendar,
   MapPin,
@@ -24,22 +18,12 @@ import {
   ChevronUp,
   ExternalLink,
   CheckCircle2,
-  AlertCircle
+  AlertCircle,
+  Image as ImageIcon
 } from "lucide-react";
 
 export default function Home() {
   const [openFaqIndex, setOpenFaqIndex] = useState<number | null>(0);
-
-  const getBenefitIcon = (iconName: string) => {
-    switch (iconName) {
-      case "Clock": return <Clock className="w-5 h-5 text-[#243B45]" />;
-      case "Compass": return <Compass className="w-5 h-5 text-[#8A7250]" />;
-      case "User": return <User className="w-5 h-5 text-[#9B3D2E]" />;
-      case "Layers": return <Layers className="w-5 h-5 text-[#303331]" />;
-      case "Shield": return <Shield className="w-5 h-5 text-[#243B45]" />;
-      default: return <Sparkles className="w-5 h-5 text-[#243B45]" />;
-    }
-  };
 
   const primaryClass = TAIJI_DATA.classes[0];
 
@@ -51,111 +35,77 @@ export default function Home() {
         {/* Step 1: Hero */}
         <HeroSection />
 
-        {/* Step 2: What Taijiquan Offers */}
-        <section className="py-20 bg-[#DFD9CC]/50 border-y border-[#D5CEBF] relative">
-          <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 space-y-12">
-            <div className="text-center max-w-3xl mx-auto space-y-4">
-              <div className="inline-flex items-center space-x-2 px-3.5 py-1 rounded-full bg-[#243B45]/10 text-[#243B45] text-xs font-semibold uppercase tracking-widest border border-[#243B45]/20">
-                <span>A Different Kind of Practice</span>
+        {/* Step 2: What Makes This Practice Different? (Editorial Numbered List) */}
+        <section className="py-20 sm:py-28 bg-[#DFD9CC]/40 border-y border-[#D5CEBF] relative overflow-hidden">
+          <div className="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div className="bg-[#FAF8F5] rounded-3xl border border-[#D5CEBF] p-7 sm:p-10 md:p-12 shadow-xs">
+              <div className="space-y-2 mb-8 sm:mb-10">
+                <span className="text-xs font-semibold uppercase tracking-widest text-[#5A5E5B]">
+                  WHY TAIJIQUAN?
+                </span>
+                <h2 className="font-serif text-3xl sm:text-4xl md:text-5xl font-light text-[#171918]">
+                  With So Many Ways to Move, Why Taijiquan?
+                </h2>
+                <p className="text-sm sm:text-base text-[#5A5E5B] font-light leading-relaxed">
+                  A traditional craft with accessible beginnings and considerable depth.
+                </p>
               </div>
-              <h2 className="font-serif text-3xl sm:text-4xl md:text-5xl font-light text-[#171918]">
-                Why This <span className="font-normal italic text-[#243B45]">Matters</span>
-              </h2>
-              <p className="text-sm sm:text-base text-[#303331] font-light leading-relaxed max-w-2xl mx-auto">
-                Many physical pursuits become harder to sustain as we age, depend on equipment or facilities, or require a group of people. Taijiquan is different.
-              </p>
-            </div>
 
-            <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6">
-              {TAIJI_DATA.benefits.map((benefit, idx) => (
-                <div
-                  key={idx}
-                  className="bg-[#E8E4DA] p-6 rounded-2xl border border-[#D5CEBF] space-y-3 shadow-xs hover:border-[#243B45]/50 transition-colors"
-                >
-                  <div className="w-10 h-10 rounded-xl bg-[#DFD9CC] border border-[#D5CEBF] flex items-center justify-center">
-                    {getBenefitIcon(benefit.icon)}
+              <div className="border-t border-[#D5CEBF] divide-y divide-[#D5CEBF]">
+                {TAIJI_DATA.editorialPractices.map((practice) => (
+                  <div
+                    key={practice.number}
+                    className="py-6 sm:py-7 flex items-start"
+                  >
+                    <span className="w-14 sm:w-16 shrink-0 text-lg sm:text-xl font-normal text-[#8A7250] tabular-nums select-none pt-0.5">
+                      {practice.number}
+                    </span>
+                    <div className="space-y-1.5 flex-1">
+                      <h3 className="text-base sm:text-lg font-semibold text-[#171918]">
+                        {practice.title}
+                      </h3>
+                      <p className="text-sm sm:text-base text-[#5A5E5B] font-light leading-relaxed">
+                        {practice.description}
+                      </p>
+                    </div>
                   </div>
-                  <h3 className="font-serif text-lg font-semibold text-[#171918]">
-                    {benefit.title}
-                  </h3>
-                  <p className="text-xs text-[#303331] leading-relaxed font-light">
-                    {benefit.text}
-                  </p>
-                </div>
-              ))}
+                ))}
+              </div>
             </div>
           </div>
-        </section>
-        {/* Step 2.5: Who Is This For? */}
-        <section className="py-20 bg-[#E8E4DA] relative">
-          <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 space-y-12">
-            <div className="text-center max-w-3xl mx-auto space-y-4">
-              <div className="inline-flex items-center space-x-2 px-3.5 py-1 rounded-full bg-[#8A7250]/10 text-[#8A7250] text-xs font-semibold uppercase tracking-widest border border-[#8A7250]/20">
-                <span>Self-Identification</span>
-              </div>
-              <h2 className="font-serif text-3xl sm:text-4xl md:text-5xl font-light text-[#171918]">
-                Who Is This <span className="font-normal italic text-[#243B45]">For?</span>
-              </h2>
-              <p className="text-sm sm:text-base text-[#303331] font-light leading-relaxed max-w-2xl mx-auto">
-                Whether you have decades of experience or have never taken a single class, our training is structured to welcome you wherever you are.
-              </p>
-            </div>
-
-            <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6">
-              <div className="bg-[#DFD9CC] p-7 rounded-3xl border border-[#D5CEBF] space-y-3 shadow-xs hover:border-[#9B3D2E]/40 transition-colors flex flex-col justify-between">
-                <div className="space-y-3">
-                  <div className="w-10 h-10 rounded-xl bg-[#9B3D2E]/10 text-[#9B3D2E] border border-[#9B3D2E]/20 flex items-center justify-center font-serif font-bold text-lg">
-                    🌱
-                  </div>
-                  <h3 className="font-serif text-xl font-semibold text-[#171918]">
-                    Complete Beginners
-                  </h3>
-                  <p className="text-xs text-[#303331] leading-relaxed font-light">
-                    Never practiced Tai Chi or martial arts? Perfect. We&apos;ll start with the fundamentals.
-                  </p>
-                </div>
+          <div className="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div className="bg-[#FAF8F5] rounded-3xl border border-[#D5CEBF] p-7 sm:p-10 md:p-12 shadow-xs">
+              <div className="space-y-2 mb-8 sm:mb-10">
+                <span className="text-xs font-semibold uppercase tracking-widest text-[#5A5E5B]">
+                  WHY OUR APPROACH?
+                </span>
+                <h2 className="font-serif text-3xl sm:text-4xl md:text-5xl font-light text-[#171918]">
+                  Not All Taijiquan Is the Same.
+                </h2>
+                <p className="text-sm sm:text-base text-[#5A5E5B] font-light leading-relaxed">
+                  Taijiquan encompasses different styles, training methods, and interpretations. Here's what we emphasize in our approach.
+                </p>
               </div>
 
-              <div className="bg-[#DFD9CC] p-7 rounded-3xl border border-[#D5CEBF] space-y-3 shadow-xs hover:border-[#243B45]/40 transition-colors flex flex-col justify-between">
-                <div className="space-y-3">
-                  <div className="w-10 h-10 rounded-xl bg-[#243B45]/10 text-[#243B45] border border-[#243B45]/20 flex items-center justify-center font-serif font-bold text-lg">
-                    🥋
+              <div className="border-t border-[#D5CEBF] divide-y divide-[#D5CEBF]">
+                {TAIJI_DATA.specialPractices.map((practice) => (
+                  <div
+                    key={practice.number}
+                    className="py-6 sm:py-7 flex items-start"
+                  >
+                    <span className="w-14 sm:w-16 shrink-0 text-lg sm:text-xl font-normal text-[#8A7250] tabular-nums select-none pt-0.5">
+                      {practice.number}
+                    </span>
+                    <div className="space-y-1.5 flex-1">
+                      <h3 className="text-base sm:text-lg font-semibold text-[#171918]">
+                        {practice.title}
+                      </h3>
+                      <p className="text-sm sm:text-base text-[#5A5E5B] font-light leading-relaxed">
+                        {practice.description}
+                      </p>
+                    </div>
                   </div>
-                  <h3 className="font-serif text-xl font-semibold text-[#171918]">
-                    Curious Martial Artists
-                  </h3>
-                  <p className="text-xs text-[#303331] leading-relaxed font-light">
-                    Explore structure, whole-body movement and cooperative partner training from a Taijiquan perspective.
-                  </p>
-                </div>
-              </div>
-
-              <div className="bg-[#DFD9CC] p-7 rounded-3xl border border-[#D5CEBF] space-y-3 shadow-xs hover:border-[#8A7250]/40 transition-colors flex flex-col justify-between">
-                <div className="space-y-3">
-                  <div className="w-10 h-10 rounded-xl bg-[#8A7250]/10 text-[#8A7250] border border-[#8A7250]/20 flex items-center justify-center font-serif font-bold text-lg">
-                    🏃
-                  </div>
-                  <h3 className="font-serif text-xl font-semibold text-[#171918]">
-                    People Who Want to Move Better
-                  </h3>
-                  <p className="text-xs text-[#303331] leading-relaxed font-light">
-                    Develop balance, leg strength, coordination and mobility without needing to become a gym person.
-                  </p>
-                </div>
-              </div>
-
-              <div className="bg-[#DFD9CC] p-7 rounded-3xl border border-[#D5CEBF] space-y-3 shadow-xs hover:border-[#171918]/40 transition-colors flex flex-col justify-between">
-                <div className="space-y-3">
-                  <div className="w-10 h-10 rounded-xl bg-[#171918]/10 text-[#171918] border border-[#171918]/20 flex items-center justify-center font-serif font-bold text-lg">
-                    🌳
-                  </div>
-                  <h3 className="font-serif text-xl font-semibold text-[#171918]">
-                    Lifelong Practice
-                  </h3>
-                  <p className="text-xs text-[#303331] leading-relaxed font-light">
-                    Build a physical practice that can continue evolving for decades.
-                  </p>
-                </div>
+                ))}
               </div>
             </div>
           </div>
@@ -198,7 +148,6 @@ export default function Home() {
                   {TAIJI_DATA.differences[0].summary}
                 </p>
                 <div className="pt-2 border-t border-[#D5CEBF] flex justify-between items-center text-xs">
-                  <span className="text-[#8A7250] font-serif italic">Yin & Yang Mechanics</span>
                   <Link href="/method" className="text-[#9B3D2E] font-semibold hover:underline">
                     Read deep dive →
                   </Link>
@@ -277,7 +226,7 @@ export default function Home() {
                 <div className="bg-[#DFD9CC] p-5 rounded-2xl border border-[#D5CEBF] space-y-2">
                   <span className="font-serif text-xl font-bold text-[#8A7250]">3. Scalable exertion</span>
                   <p className="text-xs text-[#303331] leading-relaxed font-light">
-                    High or low stance height based on your personal comfort.
+                    This line of Taijiquan can be practiced light or intense, depending if you want a maintenance practice or a developmental practice.
                   </p>
                 </div>
               </div>

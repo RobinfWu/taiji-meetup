@@ -37,6 +37,18 @@ export interface ScalableTier {
   icon: string;
 }
 
+export interface EditorialPracticeItem {
+  number: string;
+  title: string;
+  description: string;
+}
+
+export interface SpecialPracticeItem {
+  number: string;
+  title: string;
+  description: string;
+}
+
 export const TAIJI_DATA = {
   groupName: "Kingston Chen Taijiquan Practice Group",
 
@@ -160,10 +172,47 @@ export const TAIJI_DATA = {
     }
   ],
 
+  editorialPractices: [
+    {
+      number: "01",
+      title: "Portability",
+      description: "Taijiquan requires no special equipment or dedicated facilities. It is a lifelong practice. You can practice almost anywhere.",
+    },
+    {
+      number: "02",
+      title: "Adaptable Across Ages",
+      description: "Taijiquan can be practiced by people of different ages. Its training can range from gentle, controlled movement to physically demanding exercises that challenge strength, coordination, and endurance.",
+    },
+    {
+      number: "03",
+      title: "Health and Martial Synergies",
+      description: "Taijiquan is both a martial art and a discipline for cultivating physical health. Many of its training methods serve both purposes. For example, the weight-bearing aspect of the practice develops strength and stability in the legs, qualities that are valuable both for managing external pressure in partner practice and for maintaining physical capability as we age.",
+    },
+  ] as EditorialPracticeItem[],
+
+    specialPractices: [
+    {
+      number: "01",
+      title: "Stability Beyond Balance",
+      description: "Balance is often understood as the ability to maintain equilibrium. Our training goes further, emphasizing the ability to preserve one's structure and stability under external pressure. Rather than balancing like a game of Jenga, we seek to develop a root like a sturdy tree. Our line of practice has a uniquely detailed approach to the architecture and mechanics of the lower body that cultivates stability.",
+    },
+    {
+      number: "02",
+      title: "Methodology",
+      description: "Our approach is driven by methodology, meaning there is an actual concrete, step by step, how-to — as opposed to leaving students with vague abstract principles that are open to interpretation. There are many stages of practice, each serving as the foundation for the next stage. Methodology contains principles, but principles do not contain methodology. And that is a big weakness of any principle-only Tai Chi because the 'how' is lacking.",
+    },
+    {
+      number: "03",
+      title: "Yin and Yang",
+      description: "Taijiquan is rooted in the interplay of Yin and Yang. Some practitioners view themselves as the embodiment of Yin (soft, reactive, internal) while viewing the opponent as the embodiment of Yang (hard, proactive, external). This leads to problems. For example, one cannot practice 'soft overcomes hard' if no training partner has learned to express competent hardness. Our approach develops Yin and Yang both within our own bodies and in relation to a partner. Just as soft can overcome hard, hard can also overcome soft. Our Taijiquan is both soft and hard. It's also both internal and external. We believe that the 'internal' should complement the 'external', not replace it.",
+    },
+  ] as SpecialPracticeItem[],
+
+
   lineageInfo: {
     instructorName: "Robin Wu",
     title: "Chen Family Taijiquan Practitioner",
-    bio: "Robin first encountered Chen Family Gongfu Jia in 2019 after a long period of searching for traditional training. What drew him was the school’s reputation for extreme physical demand — a method that challenged even experienced martial artists. He has trained exclusively in this lineage ever since, becoming an indoor student of Marin Spivack.",
+    bio: "Robin began studying Chen Family Taijiquan - Gongfu Jia in 2019, drawn by accounts of its extraordinary physical demands. With no prior martial arts background, he entered the tradition as a blank slate and has trained exclusively within the lineage ever since, becoming an indoor student of Marin Spivack.",
     teacherName: "Marin Spivack",
     teacherWebsite: "https://molingtaiji.com/",
     teacherSiteName: "Mo Ling Taiji",
@@ -204,7 +253,7 @@ export const TAIJI_DATA = {
       generation: "20th Generation",
       era: "1971–Present",
       figures: ["Marin Spivack"],
-      description: "A senior disciple of Chen Yu."
+      description: "Marin learned Chen Family Taijiquan from Chen Jinhong (Gene Chen) and Feng Zhiqiang before becoming a senior disciple of Chen Yu."
     },
     {
       generation: "Current Local Teaching",

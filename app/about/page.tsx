@@ -134,7 +134,7 @@ export default function AboutPage() {
               style={{ height: "650px", minHeight: "480px" }}
             >
               <iframe
-                src="https://www.youtube-nocookie.com/embed/mwOf8CldEUM"
+                src="https://www.youtube-nocookie.com/embed/bVmMfQPc_ls"
                 title="Robin Wu - Push Hands (Ding Bu Tuishou) with Head Judge"
                 allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"
                 allowFullScreen

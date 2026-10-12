@@ -43,7 +43,7 @@ export default function MethodPage() {
                   How We <span className="font-normal italic text-[#243B45]">Train</span>
                 </h1>
                 <p className="text-lg text-[#303331] leading-relaxed font-light">
-                  Taijiquan contains forms, partner work, martial applications, body mechanics, and training principles. These can seem like separate subjects at first. They are easier to understand as parts of one system.
+                  This Taijiquan is a gongfu practice, meaning it cultivates skill through time and hard work. Growth comes from being challenged.
                 </p>
             </div>
           </div>
@@ -151,42 +151,27 @@ export default function MethodPage() {
             </div>
           </div>
         </div>
-          {/* Section 3: You May Be Surprised That... */}
-          <div className="space-y-8">
-            <div className="text-center max-w-2xl mx-auto space-y-2">
-              <span className="text-xs font-semibold uppercase tracking-widest text-[#243B45]">
-                Nuance & Tradition
-              </span>
-              <h2 className="font-serif text-3xl sm:text-4xl font-light text-[#171918]">
-                You May Be Surprised That...
-              </h2>
-            </div>
-
-            <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
-              {TAIJI_DATA.mythsAndRealities.map((item) => (
-                <div
-                  key={item.id}
-                  className="bg-[#DFD9CC] rounded-3xl p-7 border border-[#D5CEBF] shadow-xs space-y-4 flex flex-col justify-between hover:border-[#243B45]/40 transition-colors"
-                >
-                  <div className="space-y-3">
-                    <div className="inline-flex items-center space-x-1.5 px-3 py-1 rounded-full bg-[#243B45]/10 text-[#243B45] text-xs font-semibold border border-[#243B45]/20">
-                      <Sparkles className="w-3 h-3 text-[#8A7250]" />
-                      <span>{item.badge}</span>
-                    </div>
-
-                    <h3 className="font-serif text-xl font-semibold text-[#171918] pt-1">
-                      {item.myth}
-                    </h3>
-
-                    <p className="text-xs sm:text-sm text-[#303331] leading-relaxed font-light">
-                      {item.reality}
-                    </p>
-                  </div>
-                </div>
-              ))}
-            </div>
-          </div>
-
+        <div className="bg-[#DFD9CC] p-8 sm:p-12 rounded-3xl border border-[#D5CEBF] shadow-xs space-y-6">
+            <h2 className="font-serif text-3xl font-semibold text-[#171918]">
+              Depth over Breadth
+            </h2>
+            <p className="text-[#303331] text-base sm:text-lg leading-relaxed font-light">
+                When learning the art, there is an inherent tradeoff between breadth (learning more sequences and methods) and depth (developing the interconnected layers and nuances within the same material).
+            </p>
+            <p className="text-[#303331] text-base sm:text-lg leading-relaxed font-light">
+                Prioritizing breadth can provide the satisfaction of completing an entire form sooner, but much of that material may initially be understood only at a basic level. There is also a lot more "clean-up" work to eradicate errors throughout the entirety of the form.
+            </p>
+            <p className="text-[#303331] text-base sm:text-lg leading-relaxed font-light">
+                Prioritizing depth instead allows more time to explore the details and interconnected layers within a smaller amount of material. The goal is to establish a stronger and more cohesive foundation early, so that the skills developed in earlier sequences carry forward and make later material easier to learn.
+            </p>
+            <p className="text-[#303331] text-base sm:text-lg leading-relaxed font-light">
+                 Every school must find its own balance between these two priorities. Our
+                training deliberately favors depth over breadth. This means progressing
+                through the form more slowly, but it also means that students are not
+                expected to memorize large amounts of choreography before they have had
+                time to explore what they already know.
+            </p>
+        </div>
           {/* Next Step CTA */}
           <div className="bg-[#171918] text-[#E8E4DA] p-8 sm:p-12 rounded-3xl border border-[#303331] text-center space-y-6">
             <h3 className="font-serif text-3xl font-light">

@@ -110,21 +110,6 @@ export const HeroSection: React.FC<HeroSectionProps> = () => {
                   <span>Try a Class — Get Started</span>
                 </Link>
               </div>
-
-              {/* Training Focus Banner */}
-              <div className="flex items-center space-x-3 p-4 rounded-xl bg-[#243B45]/10 border border-[#243B45]/20">
-                <div className="w-10 h-10 rounded-full bg-[#171918] text-[#E8E4DA] flex items-center justify-center font-serif text-lg">
-                  ☯
-                </div>
-                <div>
-                  <h4 className="text-sm font-semibold text-[#171918]">
-                    Structured Physical Skill
-                  </h4>
-                  <p className="text-xs text-[#303331]">
-                    Developing real movement quality, balance, leg strength, and joint coordination through clear instruction.
-                  </p>
-                </div>
-              </div>
             </div>
           </div>
         </div>

@@ -86,7 +86,7 @@ export default function StartPage() {
                 Choose your intensity
               </h2>
               <p className="text-base text-[#303331] leading-relaxed font-light">
-                You can practice in a comfortable higher stance or challenge yourself with deeper positions. You don&apos;t need to &ldquo;keep up&rdquo; with anyone.
+                How intense you want the practice to be is up to you. There is maintenance practice which is light and then there's developmental practice which is intense.
               </p>
             </div>
           </div>
