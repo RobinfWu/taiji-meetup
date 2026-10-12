@@ -207,55 +207,6 @@ export default function Home() {
             </div>
           </div>
         </section>
-
-        {/* Step 4: What Training Looks Like */}
-        <section className="py-20 bg-[#DFD9CC]/50 border-y border-[#D5CEBF] relative">
-          <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 space-y-12">
-            <div className="text-center max-w-3xl mx-auto space-y-4">
-              <span className="text-xs font-semibold uppercase tracking-widest text-[#243B45]">
-                Inside the Class
-              </span>
-              <h2 className="font-serif text-3xl sm:text-4xl md:text-5xl font-light text-[#171918]">
-                What Training Looks Like
-              </h2>
-              <p className="text-[#303331] text-base sm:text-lg leading-relaxed font-light">
-                We train outdoors in small, dedicated groups. Instruction focuses on progressive form practice (First Road / Yilu) and cooperative Push Hands partner movement drills.
-              </p>
-            </div>
-
-            <div className="max-w-2xl mx-auto w-full">
-              {TAIJI_DATA.classes.map((session) => (
-                <div
-                  key={session.id}
-                  className="bg-[#E8E4DA] p-7 sm:p-9 rounded-3xl border border-[#D5CEBF] space-y-4 flex flex-col justify-between items-center text-center shadow-xs"
-                >
-                  <div className="space-y-3 flex flex-col items-center">
-                    <span className="text-xs font-semibold px-2.5 py-0.5 rounded bg-[#243B45]/10 text-[#243B45]">
-                      {session.level}
-                    </span>
-                    <h3 className="font-serif text-xl sm:text-2xl font-semibold text-[#171918]">
-                      {session.title}
-                    </h3>
-                    <p className="text-xs text-[#303331] leading-relaxed font-light max-w-lg mx-auto">
-                      {session.description}
-                    </p>
-                    <div className="text-xs text-[#8A7250] font-semibold pt-1">
-                      {session.day}, {session.time}
-                    </div>
-                  </div>
-                  <Link
-                    href="/classes"
-                    className="inline-flex items-center justify-center space-x-1.5 text-xs font-semibold text-[#171918] hover:text-[#9B3D2E] transition-colors pt-2"
-                  >
-                    <span>View full class & schedule details</span>
-                    <ArrowRight className="w-3.5 h-3.5" />
-                  </Link>
-                </div>
-              ))}
-            </div>
-          </div>
-        </section>
-
         {/* Step 5: Meet Robin (Doorway to /about) */}
         <section className="py-20 bg-[#E8E4DA] relative">
           <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
