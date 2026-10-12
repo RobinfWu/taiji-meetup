@@ -86,7 +86,7 @@ export const Navbar: React.FC<NavbarProps> = () => {
             href="/start"
             className="inline-flex items-center space-x-2 bg-[#9B3D2E] hover:bg-[#7D3024] text-white px-5 py-2.5 rounded-full text-xs font-bold transition-all shadow-md cursor-pointer active:scale-98 border border-[#9B3D2E]"
           >
-            <span>Start Here</span>
+            <span>Try a Class</span>
             <ArrowRight className="w-3.5 h-3.5 text-white/90" />
           </Link>
         </div>
@@ -97,7 +97,7 @@ export const Navbar: React.FC<NavbarProps> = () => {
             href="/start"
             className="px-3 py-1.5 rounded-full bg-[#9B3D2E] text-white text-xs font-bold flex items-center space-x-1"
           >
-            <span>Start Here</span>
+            <span>Try a Class</span>
           </Link>
           <button
             onClick={() => setMobileMenuOpen(!mobileMenuOpen)}
@@ -142,7 +142,7 @@ export const Navbar: React.FC<NavbarProps> = () => {
               onClick={() => setMobileMenuOpen(false)}
               className="w-full flex items-center justify-center space-x-2 bg-[#9B3D2E] text-white py-3 rounded-xl text-sm font-bold shadow-md"
             >
-              <span>Start Here — Your First Class</span>
+              <span>Try a Class</span>
               <ArrowRight className="w-4 h-4 text-white" />
             </Link>
           </div>

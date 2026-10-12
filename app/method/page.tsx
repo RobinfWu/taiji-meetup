@@ -206,7 +206,7 @@ export default function MethodPage() {
                 href="/start"
                 className="px-6 py-3 rounded-full bg-[#9B3D2E] text-white text-xs font-bold hover:bg-[#7D3024] transition-colors flex items-center space-x-2"
               >
-                <span>Start Here — Your First Class</span>
+                <span>Try a Class</span>
                 <ArrowRight className="w-3.5 h-3.5" />
               </Link>
             </div>

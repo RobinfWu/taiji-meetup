@@ -371,7 +371,7 @@ export default function Home() {
                   <h3 className="font-serif text-lg font-semibold">Weekly Schedule</h3>
                 </div>
                 <div className="text-xs text-[#303331] space-y-1.5 font-light">
-                  <p><strong>Saturdays:</strong> 10:00 AM – 11:30 AM</p>
+                  <p><strong>Saturdays:</strong> 10:30 AM – 12:00 PM</p>
                 </div>
               </div>
 
@@ -406,7 +406,7 @@ export default function Home() {
                 href="/start"
                 className="px-9 py-4 rounded-full bg-[#9B3D2E] text-white text-base font-bold hover:bg-[#7D3024] transition-colors shadow-lg flex items-center space-x-2"
               >
-                <span>Start Here — Your First Class</span>
+                <span>Try a Class</span>
                 <ArrowRight className="w-5 h-5" />
               </Link>
             </div>

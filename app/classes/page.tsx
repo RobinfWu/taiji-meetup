@@ -199,7 +199,7 @@ export default function ClassesPage() {
                 href="/start"
                 className="inline-flex items-center space-x-2 px-8 py-4 rounded-full bg-[#9B3D2E] text-white text-sm font-bold hover:bg-[#7D3024] transition-colors shadow-md"
               >
-                <span>Start Here — Your First Class</span>
+                <span>Try a Class</span>
                 <ArrowRight className="w-4 h-4" />
               </Link>
             </div>

@@ -99,7 +99,7 @@ export const HeroSection: React.FC<HeroSectionProps> = () => {
                 </div>
 
                 <div className="pt-2 border-t border-[#D5CEBF] text-xs text-[#303331]">
-                  <div><strong>Saturdays:</strong> 10:00 AM – 11:30 AM</div>
+                  <div><strong>Saturdays:</strong> 10:30 AM – 12:00 PM</div>
                 </div>
 
                 <Link

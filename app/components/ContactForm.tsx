@@ -19,26 +19,17 @@ export const ContactForm: React.FC<ContactFormProps> = ({
     message: ""
   });
   const [submitted, setSubmitted] = useState(false);
-  const [isSubmitting, setIsSubmitting] = useState(false);
 
   const handleSubmit = (e: React.FormEvent) => {
     e.preventDefault();
     if (!formData.name || !formData.email) return;
 
-    setIsSubmitting(true);
-    // Simulate lightweight client submission
-    setTimeout(() => {
-      setIsSubmitting(false);
-      setSubmitted(true);
-    }, 600);
-  };
-
-  const handleMailtoFallback = () => {
-    const subject = encodeURIComponent(`Training Inquiry from ${formData.name || "Website Visitor"}`);
+    const subject = encodeURIComponent(`Training Inquiry from ${formData.name}`);
     const body = encodeURIComponent(
       `Name: ${formData.name}\nEmail: ${formData.email}\n\nMessage:\n${formData.message}`
     );
     window.location.href = `mailto:${TAIJI_DATA.contact.email}?subject=${subject}&body=${body}`;
+    setSubmitted(true);
   };
 
   return (
@@ -73,17 +64,18 @@ export const ContactForm: React.FC<ContactFormProps> = ({
             <div className="w-14 h-14 rounded-full bg-[#243B45]/20 text-[#243B45] flex items-center justify-center mx-auto">
               <CheckCircle2 className="w-8 h-8 text-[#9B3D2E]" />
             </div>
-            <h3 className="font-serif text-2xl font-semibold">Thank You!</h3>
+            <h3 className="font-serif text-2xl font-semibold">Your mail app is open!</h3>
             <p className="text-sm font-light max-w-md mx-auto">
-              We&apos;ve received your message and will reach out to you shortly with class details and location info.
+              Your message has been pre-filled and is ready to send from your mail app. Hit send there and we&apos;ll be in touch soon.
             </p>
             <div className="pt-2">
-              <button
-                onClick={handleMailtoFallback}
-                className="text-xs text-[#8A7250] underline hover:text-[#9B3D2E] transition-colors cursor-pointer"
+              <a
+                href={`mailto:${TAIJI_DATA.contact.email}`}
+                className="text-xs text-[#8A7250] underline hover:text-[#9B3D2E] transition-colors inline-flex items-center space-x-1"
               >
-                Or click here to open in your mail app directly
-              </button>
+                <Mail className="w-3 h-3" />
+                <span>Or email us directly at {TAIJI_DATA.contact.email}</span>
+              </a>
             </div>
           </div>
         ) : (
@@ -146,21 +138,19 @@ export const ContactForm: React.FC<ContactFormProps> = ({
             <div className="pt-2 flex flex-col sm:flex-row items-center justify-between gap-4">
               <button
                 type="submit"
-                disabled={isSubmitting}
                 className="w-full sm:w-auto inline-flex items-center justify-center space-x-2 bg-[#9B3D2E] hover:bg-[#7D3024] text-white px-8 py-3.5 rounded-full text-sm font-bold shadow-md transition-all cursor-pointer active:scale-98 border border-[#9B3D2E]"
               >
-                <span>{isSubmitting ? "Sending..." : "Send"}</span>
+                <span>Send</span>
                 <Send className="w-4 h-4 text-white" />
               </button>
 
-              <button
-                type="button"
-                onClick={handleMailtoFallback}
-                className="text-xs text-[#8A7250] hover:text-[#9B3D2E] transition-colors flex items-center space-x-1.5 cursor-pointer"
+              <a
+                href={`mailto:${TAIJI_DATA.contact.email}`}
+                className="text-xs text-[#8A7250] hover:text-[#9B3D2E] transition-colors flex items-center space-x-1.5"
               >
                 <Mail className="w-3.5 h-3.5" />
-                <span>Prefer standard email? Click here</span>
-              </button>
+                <span>Email us directly</span>
+              </a>
             </div>
           </form>
         )}

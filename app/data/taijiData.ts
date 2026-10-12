@@ -219,8 +219,8 @@ export const TAIJI_DATA = {
       id: "class-1",
       title: "Taijiquan — Form (Yilu) & Push Hands (Tuishou)",
       day: "Saturdays",
-      time: "10:00 AM – 11:30 AM",
-      openPracticeNote: "11:30 AM onward — Open Practice & Hangout. Class officially ends at 11:30, but there's no need to rush off. You're welcome to stay afterward to practice, ask questions, work with training partners, or simply hang out with the group.",
+      time: "10:30 AM – 12:00 PM",
+      openPracticeNote: "12:00 PM onward — Open Practice & Hangout. Class officially ends at 12:00 PM, but there's no need to rush off. You're welcome to stay afterward to practice, ask questions, work with training partners, or simply hang out with the group.",
       location: "[Placeholder: City Park Lawn / Outdoor Training Grounds]",
       level: "All Levels",
       description: "A single, comprehensive training session combining both form practice and Tuishou (Push Hands).",
@@ -232,14 +232,13 @@ export const TAIJI_DATA = {
     {
       name: "Outdoor Park Location",
       address: "[Placeholder: Central Park North Lawn, Gate 4 entrance]",
-      scheduleNote: "Saturdays 10:00 AM – 11:30 AM (Weather Permitting)",
+      scheduleNote: "Saturdays 10:30 AM – 12:00 PM (Weather Permitting)",
       tips: "Wear flat-soled shoes (ideally thin and hard-soled), comfortable pants, and dress in weather-appropriate layers."
     }
   ],
 
   contact: {
-    email: "[Placeholder: contact@chen-taiji-local.com]",
-    phone: "[Placeholder: (555) 019-2831]",
+    email: "chentaijilab@gmail.com",
     note: "For questions about class structure, location details, or joining practice sessions, please send an email directly to the address above.",
     teacherWebsite: "https://molingtaiji.com/",
     teacherSiteName: "Mo Ling Taiji (Marin Spivack)",

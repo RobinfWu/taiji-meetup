@@ -75,7 +75,7 @@ export const Footer: React.FC<FooterProps> = () => {
                   href="/start"
                   className="hover:text-[#9B3D2E] transition-colors cursor-pointer font-bold text-[#9B3D2E]"
                 >
-                  Start Here (First Class)
+                  Try a Class
                 </Link>
               </li>
             </ul>
@@ -90,10 +90,6 @@ export const Footer: React.FC<FooterProps> = () => {
               <div className="flex items-center space-x-2">
                 <Mail className="w-4 h-4 text-[#8A7250]" />
                 <span>{TAIJI_DATA.contact.email}</span>
-              </div>
-              <div className="flex items-center space-x-2">
-                <Phone className="w-4 h-4 text-[#243B45]" />
-                <span>{TAIJI_DATA.contact.phone}</span>
               </div>
             </div>
 
@@ -114,18 +110,6 @@ export const Footer: React.FC<FooterProps> = () => {
         {/* Bottom Credits */}
         <div className="pt-8 flex flex-col sm:flex-row items-center justify-between text-xs text-[#8A7250] gap-4">
           <p>© {new Date().getFullYear()} {TAIJI_DATA.groupName}</p>
-          <div className="flex items-center space-x-4">
-            <a
-              href="https://molingtaiji.com/"
-              target="_blank"
-              rel="noopener noreferrer"
-              className="text-[#DFD9CC] hover:text-white transition-colors underline"
-            >
-              Mo Ling Taiji (molingtaiji.com)
-            </a>
-            <span>•</span>
-            <span className="hover:text-[#DFD9CC] cursor-pointer">Traditional Gongfu Jia</span>
-          </div>
         </div>
 
       </div>
