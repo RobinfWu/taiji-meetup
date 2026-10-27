@@ -1,0 +1,9 @@
+name = "taiji-lab"
+pages_build_output_dir = "out"
+compatibility_date = "2024-09-23"
+
+[[d1_databases]]
+binding = "DB"
+database_name = "taiji-db"
+database_id = "822d3f68-e002-4397-afb1-76e3f78f1be5"
+migrations_dir = "migrations"
