@@ -6,6 +6,7 @@ import type {
 
 export interface Env {
   DB: D1Database;
+  ADMIN_API_TOKEN?: string;
 }
 
 export type AppEventContext<
