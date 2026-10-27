@@ -21,9 +21,16 @@ const UPCOMING_SESSIONS_QUERY = `
     t.end_time AS template_end_time,
     t.timezone AS template_timezone,
     t.location AS template_location,
-    t.capacity AS template_capacity
+    t.capacity AS template_capacity,
+    COALESCE(r.confirmed_count, 0) AS reserved_count
   FROM class_sessions s
   INNER JOIN class_templates t ON s.template_id = t.id
+  LEFT JOIN (
+    SELECT session_id, COUNT(*) AS confirmed_count
+    FROM reservations
+    WHERE status = 'confirmed'
+    GROUP BY session_id
+  ) r ON s.id = r.session_id
   WHERE s.status = 'scheduled'
     AND s.end_at >= ?
   ORDER BY s.start_at ASC
@@ -38,27 +45,34 @@ export const onRequestGet: AppPagesFunction = async (context) => {
     const result = await stmt.all<ClassSessionJoinRow>();
 
     const rows = result.results ?? [];
-    const sessions: UpcomingClassSessionItem[] = rows.map((row) => ({
-      id: row.id,
-      template_id: row.template_id,
-      start_at: row.start_at,
-      end_at: row.end_at,
-      location: row.location,
-      capacity: row.capacity,
-      status: row.status,
-      cancellation_reason: row.cancellation_reason,
-      template: {
-        id: row.template_id,
-        title: row.template_title,
-        description: row.template_description,
-        weekday: row.template_weekday,
-        start_time: row.template_start_time,
-        end_time: row.template_end_time,
-        timezone: row.template_timezone,
-        location: row.template_location,
-        capacity: row.template_capacity,
-      },
-    }));
+    const sessions: UpcomingClassSessionItem[] = rows.map((row) => {
+      const reservedCount = Number(row.reserved_count ?? 0);
+      const availableSpots = Math.max(0, row.capacity - reservedCount);
+
+      return {
+        id: row.id,
+        template_id: row.template_id,
+        start_at: row.start_at,
+        end_at: row.end_at,
+        location: row.location,
+        capacity: row.capacity,
+        status: row.status,
+        cancellation_reason: row.cancellation_reason,
+        reserved_count: reservedCount,
+        available_spots: availableSpots,
+        template: {
+          id: row.template_id,
+          title: row.template_title,
+          description: row.template_description,
+          weekday: row.template_weekday,
+          start_time: row.template_start_time,
+          end_time: row.template_end_time,
+          timezone: row.template_timezone,
+          location: row.template_location,
+          capacity: row.template_capacity,
+        },
+      };
+    });
 
     return Response.json(sessions, {
       status: 200,
