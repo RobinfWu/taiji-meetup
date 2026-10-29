@@ -20,6 +20,9 @@ export const metadata: Metadata = {
   title: "Chen Family Taijiquan | Gongfu Jia",
   description: "Experience Chen Style Taijiquan.",
   keywords: ["Taijiquan", "Chen Style Tai Chi", "Internal Martial Arts", "Push Hands"],
+  icons: {
+    icon: "/icon.png",
+  },
 };
 
 export default function RootLayout({
