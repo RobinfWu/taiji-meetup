@@ -15,6 +15,8 @@ export interface LineageGeneration {
   era: string;
   figures: string[];
   description: string;
+  linkUrl?: string;
+  linkLabel?: string;
 }
 
 export interface FAQItem {
@@ -194,17 +196,47 @@ export const TAIJI_DATA = {
     {
       number: "01",
       title: "Stability Beyond Balance",
-      description: "Balance is often understood as the ability to maintain equilibrium. Our training goes further, emphasizing the ability to preserve one's structure and stability under external pressure. Rather than balancing like a game of Jenga, we seek to develop a root like a sturdy tree. Our line of practice has a uniquely detailed approach to the architecture and mechanics of the lower body that cultivates stability.",
+      description: "Balance is often understood as maintaining equilibrium. Our training goes further, emphasizing the ability to preserve one's structure and stability under external pressure. Rather than balancing like a game of Jenga, we seek to develop a root like a sturdy tree. Our line of practice has a uniquely detailed approach to the lower body that cultivates stability.",
     },
     {
       number: "02",
       title: "Methodology",
-      description: "Our approach is driven by methodology, meaning there is an actual concrete, step by step, how-to — as opposed to leaving students with vague abstract principles that are open to interpretation. There are many stages of practice, each serving as the foundation for the next stage. Methodology contains principles, but principles do not contain methodology. And that is a big weakness of any principle-only Tai Chi because the 'how' is lacking.",
+      description: (
+        <>
+          We teach through a concrete, step-by-step methodology rather than
+          relying on abstract principles alone. Each stage of training builds
+          upon the last, giving students a clear path toward developing their
+          skills. Principles explain <em>what</em> we seek to achieve;
+          methodology teaches <em>how</em> to achieve it.
+        </>
+        ),
     },
     {
       number: "03",
       title: "Yin and Yang",
-      description: "Taijiquan is rooted in the interplay of Yin and Yang. Some practitioners view themselves as the embodiment of Yin (soft, reactive, internal) while viewing the opponent as the embodiment of Yang (hard, proactive, external). This leads to problems. For example, one cannot practice 'soft overcomes hard' if no training partner has learned to express competent hardness. Our approach develops Yin and Yang both within our own bodies and in relation to a partner. Just as soft can overcome hard, hard can also overcome soft. Our Taijiquan is both soft and hard. It's also both internal and external. We believe that the 'internal' should complement the 'external', not replace it.",
+      description: (
+        <>
+          Consider these contrasting qualities:
+          <br />
+          <br />
+          <strong>Yin:</strong> Slow · Internal · Soft · Defensive · Passive · Reactive
+          <br />
+          <strong>Yang:</strong> Fast · External · Hard · Offensive · Active · Proactive
+          <br />
+          <br />
+          Contrary to the common perception of Tai Chi as a slow, soft,
+          passive, and purely internal martial art, our line of practice
+          emphasizes the development of both Yin and Yang.
+          <br />
+          <br />
+          We train both sides of Yin and Yang, recognizing that neither is complete without the other.
+          <br />
+          <br />
+          <strong>
+            After all, Taiji (Tai Chi) itself is defined by the interplay of Yin and Yang.
+          </strong>
+        </>
+      ),
     },
   ] as SpecialPracticeItem[],
 
@@ -247,13 +279,17 @@ export const TAIJI_DATA = {
       generation: "19th Generation",
       era: "1962–Present",
       figures: ["Chen Yu"],
-      description: "He was the only son of Chen Zhaokui. Began training under his father at age 7."
+      description: "He was the only son of Chen Zhaokui. Began training under his father at age 7.",
+      linkUrl: "https://taijigongfu.com/chenyu-%e9%99%88%e7%91%9c/",
+      linkLabel: "Learn more about Chen Yu",
     },
     {
       generation: "20th Generation",
       era: "1971–Present",
       figures: ["Marin Spivack"],
-      description: "Marin learned Chen Family Taijiquan from Chen Jinhong (Gene Chen) and Feng Zhiqiang before becoming a senior disciple of Chen Yu."
+      description: "Marin learned Chen Family Taijiquan from Chen Jinhong (Gene Chen) and Feng Zhiqiang before becoming a senior disciple of Chen Yu.",
+      linkUrl: "https://molingtaiji.com/marinspivack/",
+      linkLabel: "Learn more about Marin Spivack",
     },
     {
       generation: "Current Local Teaching",

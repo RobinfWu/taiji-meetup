@@ -76,7 +76,7 @@ export default function AboutPage() {
                   {lineageInfo.teacherName} (Mo Ling Taiji)
                 </h3>
                 <p className="text-xs text-[#303331] leading-relaxed">
-                  Robin Wu trained directly under <strong>{lineageInfo.teacherName}</strong> as an indoor student/disciple. Marin Spivack is a senior disciple of Master Chen Yu, the only son of Chen Zhaokui.
+                  Robin Wu trained directly under <strong>{lineageInfo.teacherName}</strong> as an indoor student/disciple. Marin Spivack is a senior disciple of Chen Yu, the only son of Chen Zhaokui.
                 </p>
                 <a
                   href={lineageInfo.teacherWebsite}
