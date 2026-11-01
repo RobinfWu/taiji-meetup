@@ -26,29 +26,37 @@ function getSessionLocalDate(utcIsoString: string, timeZone: string = "America/T
 
 const ATOMIC_INSERT_QUERY = `
   INSERT INTO reservations (
-    id,
-    student_id,
-    session_id,
-    source,
-    status,
-    membership_id,
-    cancellation_reason,
-    cancelled_at,
-    created_at,
-    updated_at
+    id, student_id, session_id, source, status, membership_id,
+    cancellation_reason, cancelled_at, created_at, updated_at
   )
-  SELECT
-    ?, ?, ?, ?, 'confirmed', ?, NULL, NULL, ?, ?
-  WHERE (
-    SELECT COUNT(*)
-    FROM reservations
-    WHERE session_id = ?
-      AND status = 'confirmed'
-  ) < (
-    SELECT capacity
-    FROM class_sessions
-    WHERE id = ?
-  )
+  SELECT ?, st.id, s.id, ?, 'confirmed', ?, NULL, NULL, ?, ?
+  FROM class_sessions AS s
+  INNER JOIN students AS st ON st.id = ?
+  INNER JOIN class_templates AS t ON t.id = s.template_id
+  WHERE s.id = ?
+    AND s.status = 'scheduled'
+    AND s.end_at > ?
+    AND s.start_at = ?
+    AND t.timezone = ?
+    AND (
+      SELECT COUNT(*)
+      FROM reservations AS r
+      WHERE r.session_id = s.id AND r.status = 'confirmed'
+    ) < s.capacity
+    AND (
+      (? = 'drop_in' AND ? IS NULL)
+      OR
+      (? = 'membership' AND EXISTS (
+        SELECT 1
+        FROM memberships AS m
+        WHERE m.id = ?
+          AND m.student_id = st.id
+          AND m.template_id = s.template_id
+          AND m.status = 'active'
+          AND m.start_date <= ?
+          AND (m.end_date IS NULL OR m.end_date >= ?)
+      ))
+    )
 `;
 
 export const onRequestPost: AppPagesFunction = async (context) => {
@@ -153,12 +161,12 @@ export const onRequestPost: AppPagesFunction = async (context) => {
     // 4. Verify class session exists, is scheduled, and has not ended
     const session = await db
       .prepare(
-        `SELECT 
-           s.id, 
-           s.template_id, 
-           s.start_at, 
-           s.end_at, 
-           s.capacity, 
+        `SELECT
+           s.id,
+           s.template_id,
+           s.start_at,
+           s.end_at,
+           s.capacity,
            s.status,
            t.timezone AS template_timezone
          FROM class_sessions s
@@ -191,7 +199,7 @@ export const onRequestPost: AppPagesFunction = async (context) => {
     }
 
     const nowIso = new Date().toISOString();
-    if (session.end_at < nowIso) {
+    if (session.end_at <= nowIso) {
       return Response.json(
         { error: "Cannot reserve a past class session." },
         { status: 400, headers: { "Content-Type": "application/json" } }
@@ -259,28 +267,40 @@ export const onRequestPost: AppPagesFunction = async (context) => {
       }
     }
 
-    // 6. Atomic capacity-checked insert
+    // 6. Re-check eligibility and capacity within the same atomic INSERT.
+    // The preflight checks above provide specific error messages; the INSERT
+    // independently enforces eligibility against the latest database state.
+    const sessionTimeZone = session.template_timezone || "America/Toronto";
+    const sessionLocalDate = getSessionLocalDate(session.start_at, sessionTimeZone);
+
     const reservationId = `res_${crypto.randomUUID()}`;
 
     const insertResult = await db
       .prepare(ATOMIC_INSERT_QUERY)
       .bind(
         reservationId,
-        cleanStudentId,
-        cleanSessionId,
         source,
         cleanMembershipId,
         nowIso,
         nowIso,
+        cleanStudentId,
         cleanSessionId,
-        cleanSessionId
+        nowIso,
+        session.start_at,
+        session.template_timezone,
+        source,
+        cleanMembershipId,
+        source,
+        cleanMembershipId,
+        sessionLocalDate,
+        sessionLocalDate
       )
       .run();
 
-    // If changes is 0, session capacity was reached
+    // A zero-row insert can mean capacity or eligibility changed after preflight.
     if (!insertResult.meta.changes || insertResult.meta.changes === 0) {
       return Response.json(
-        { error: "Class session is at full capacity." },
+        { error: "Reservation could not be created. The session may be full, unavailable, or the membership may no longer be eligible." },
         { status: 409, headers: { "Content-Type": "application/json" } }
       );
     }

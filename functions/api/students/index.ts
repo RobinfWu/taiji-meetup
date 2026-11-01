@@ -24,7 +24,7 @@ interface CreateStudentBody {
   [key: string]: unknown;
 }
 
-const IMMUTABLE_OR_UNKNOWN_FIELDS_CREATE = new Set(["id", "created_at", "updated_at"]);
+const ALLOWED_CREATE_FIELDS = new Set(["first_name", "last_name", "email", "phone", "notes"]);
 
 async function handlePost(context: Parameters<AppPagesFunction>[0]): Promise<Response> {
   // 1. Authenticate before any database access
@@ -45,9 +45,9 @@ async function handlePost(context: Parameters<AppPagesFunction>[0]): Promise<Res
 
   // Reject unknown / immutable fields to avoid silent data loss
   for (const key of Object.keys(body)) {
-    if (IMMUTABLE_OR_UNKNOWN_FIELDS_CREATE.has(key)) {
+    if (!ALLOWED_CREATE_FIELDS.has(key)) {
       return Response.json(
-        { error: `Field '${key}' is not allowed in a create request.` },
+        { error: `Unknown or forbidden field '${key}'.` },
         { status: 400 }
       );
     }
