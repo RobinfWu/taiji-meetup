@@ -115,3 +115,22 @@ export interface UpcomingClassSessionItem {
     capacity: number;
   };
 }
+
+export type PaymentMethod = "cash" | "etransfer";
+export type PaymentStatus = "unpaid" | "paid";
+export type PaymentTargetType = "reservation" | "membership";
+
+export interface Payment {
+  id: string;
+  student_id: string;
+  target_type: PaymentTargetType;
+  target_id: string;
+  method: PaymentMethod;
+  amount_cents: number; // CAD cents, never floating-point dollars
+  currency: "CAD";
+  status: PaymentStatus;
+  reference: string;
+  received_at: string | null;
+  created_at: string;
+  updated_at: string;
+}
