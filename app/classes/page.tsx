@@ -4,6 +4,7 @@ import React, { useState } from "react";
 import Link from "next/link";
 import { Navbar } from "../components/Navbar";
 import { Footer } from "../components/Footer";
+import { PublicBookingForm } from "../components/PublicBookingForm";
 import { TAIJI_DATA, ClassSession } from "../data/taijiData";
 import {
   Calendar,
@@ -46,7 +47,7 @@ export default function ClassesPage() {
         </section>
 
         <section className="py-16 max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 space-y-20">
-          
+
           {/* Section 1: Offered Classes */}
           <div className="space-y-8">
             <div className="text-center max-w-2xl mx-auto space-y-2">
@@ -135,6 +136,7 @@ export default function ClassesPage() {
           </div>
           </div>
 
+        <PublicBookingForm />
 
         {/* Fees & Membership */}
         <section aria-labelledby="fees-heading" className="space-y-8">
