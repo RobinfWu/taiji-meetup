@@ -3,7 +3,7 @@ import type { Env } from "../types/env";
 
 export const SESSION_COOKIE_NAME = "taiji_admin_session";
 export const SESSION_MAX_AGE_SECONDS = 12 * 60 * 60; // 12 hours
-export const DEFAULT_PBKDF2_ITERATIONS = 250000;
+export const DEFAULT_PBKDF2_ITERATIONS = 100000;
 
 export interface SessionPayload {
   sub: "instructor";
