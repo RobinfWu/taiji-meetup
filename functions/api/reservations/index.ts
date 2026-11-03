@@ -339,3 +339,87 @@ export const onRequestPost: AppPagesFunction = async (context) => {
     );
   }
 };
+
+export const onRequestGet: AppPagesFunction = async (context) => {
+  const auth = await authenticateAdmin(context.request, context.env);
+  if (!auth.authorized) return auth.response!;
+
+  const url = new URL(context.request.url);
+  const sessionId = url.searchParams.get("session_id")?.trim() || null;
+  const studentId = url.searchParams.get("student_id")?.trim() || null;
+  const status = url.searchParams.get("status")?.trim() || null;
+
+  const rawLimit = url.searchParams.get("limit") ?? "50";
+  const rawOffset = url.searchParams.get("offset") ?? "0";
+  const limit = Math.min(100, Math.max(1, parseInt(rawLimit, 10) || 50));
+  const offset = Math.max(0, parseInt(rawOffset, 10) || 0);
+
+  const conditions: string[] = [];
+  const binds: (string | number)[] = [];
+
+  if (sessionId) {
+    conditions.push("r.session_id = ?");
+    binds.push(sessionId);
+  }
+  if (studentId) {
+    conditions.push("r.student_id = ?");
+    binds.push(studentId);
+  }
+  if (status) {
+    if (status !== "confirmed" && status !== "cancelled") {
+      return Response.json({ error: "Invalid status filter." }, { status: 400 });
+    }
+    conditions.push("r.status = ?");
+    binds.push(status);
+  }
+
+  const whereClause = conditions.length > 0 ? `WHERE ${conditions.join(" AND ")}` : "";
+
+  try {
+    const db = getDb(context);
+    const countQuery = `SELECT COUNT(*) AS total FROM reservations r ${whereClause}`;
+    const countResult = await db.prepare(countQuery).bind(...binds).first<{ total: number }>();
+
+    const query = `
+      SELECT 
+        r.id, r.student_id, r.session_id, r.source, r.status, r.membership_id,
+        r.cancellation_reason, r.cancelled_at, r.created_at, r.updated_at,
+        st.first_name AS student_first_name,
+        st.last_name AS student_last_name,
+        st.email AS student_email,
+        st.phone AS student_phone,
+        s.start_at AS session_start_at,
+        s.location AS session_location,
+        p.id AS payment_id,
+        p.status AS payment_status,
+        p.amount_cents AS payment_amount_cents,
+        p.method AS payment_method
+      FROM reservations r
+      INNER JOIN students st ON r.student_id = st.id
+      INNER JOIN class_sessions s ON r.session_id = s.id
+      LEFT JOIN payments p ON p.target_type = 'reservation' AND p.target_id = r.id
+      ${whereClause}
+      ORDER BY r.created_at DESC
+      LIMIT ? OFFSET ?
+    `;
+
+    const results = await db.prepare(query).bind(...binds, limit, offset).all();
+
+    return Response.json(
+      {
+        reservations: results.results ?? [],
+        total: countResult?.total ?? 0,
+        limit,
+        offset,
+      },
+      {
+        status: 200,
+        headers: { "Content-Type": "application/json", "Cache-Control": "no-store" },
+      }
+    );
+  } catch (err) {
+    console.error("Failed to list reservations:", err);
+    return Response.json({ error: "Internal server error." }, { status: 500 });
+  }
+};
+

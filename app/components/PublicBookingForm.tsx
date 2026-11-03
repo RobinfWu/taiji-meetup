@@ -42,9 +42,14 @@ export function PublicBookingForm() {
   const [submitting, setSubmitting] = useState(false);
   const [error, setError] = useState("");
   const [result, setResult] = useState<BookingResult | null>(null);
-  const [verificationStep, setVerificationStep] = useState<"details" | "code">("details");
+  const [verificationStep, setVerificationStep] = useState<"details" | "code" | "waiver">("details");
   const [verificationCode, setVerificationCode] = useState("");
   const [devCode, setDevCode] = useState("");
+  const [verifiedToken, setVerifiedToken] = useState("");
+  const [waiver, setWaiver] = useState<{version:string;title:string;body:string;already_signed:boolean}|null>(null);
+  const [signature, setSignature] = useState("");
+  const [waiverAcknowledged, setWaiverAcknowledged] = useState(false);
+  const [adultConfirmed, setAdultConfirmed] = useState(false);
 
   async function refreshSessions(signal?: AbortSignal) {
     const response = await fetch("/api/classes", { cache: "no-store", signal });
@@ -132,11 +137,20 @@ export function PublicBookingForm() {
         const data = await postJson("/api/public/verification/request", { email: email.trim() });
         setDevCode(typeof data.dev_code === "string" ? data.dev_code : "");
         setVerificationStep("code");
-      } else {
+      } else if (verificationStep === "code") {
         const verified = await postJson("/api/public/verification/confirm", { email: email.trim(), code: verificationCode.trim() });
         const token = verified.verification_token;
         if (typeof token !== "string") throw new Error("Verification response was invalid.");
-        const booking = await postJson("/api/public/book", { first_name: firstName.trim(), last_name: lastName.trim(), email: email.trim(), ...(phone.trim() ? { phone: phone.trim() } : {}), session_id: sessionId, method, pricing_category: category, website, verification_token: token });
+        setVerifiedToken(token);
+        const status = await postJson("/api/public/waiver/status", { email: email.trim(), verification_token: token });
+        if (typeof status.version !== "string" || typeof status.body !== "string" || typeof status.title !== "string" || typeof status.already_signed !== "boolean") throw new Error("Waiver response was invalid.");
+        setWaiver(status as {version:string;title:string;body:string;already_signed:boolean});
+        setVerificationStep("waiver");
+      }
+      if (verificationStep === "waiver") {
+        if (!waiver || !verifiedToken) throw new Error("Verify your email again.");
+        if (!waiver.already_signed && (!adultConfirmed || !waiverAcknowledged || signature.trim() !== `${firstName.trim()} ${lastName.trim()}`)) throw new Error("Please read and sign the waiver using your full name.");
+        const booking = await postJson("/api/public/book", { first_name: firstName.trim(), last_name: lastName.trim(), email: email.trim(), ...(phone.trim() ? { phone: phone.trim() } : {}), session_id: sessionId, method, pricing_category: category, website, verification_token: verifiedToken, waiver_version: waiver.version, ...(waiver.already_signed ? {} : {waiver_signed_name: signature.trim(), waiver_accepted: true, waiver_adult_confirmed: true}) });
         setResult(booking as BookingResult);
         refreshSessions().catch(() => {});
       }
@@ -146,6 +160,14 @@ export function PublicBookingForm() {
 
   const field = "w-full rounded-xl border border-[#C8C1B2] bg-[#F3EFE7] px-4 py-3 text-sm text-[#171918] outline-none focus:border-[#243B45] focus:ring-2 focus:ring-[#243B45]/15";
   const label = "block text-sm font-semibold text-[#303331] mb-1.5";
+  // Presentation only: keep the original, versioned waiver text unchanged.
+  // Paragraphs and section headings are styled without injecting HTML.
+  const renderWaiver = (body: string) => body.split(/\n\s*\n/).map((paragraph, index) => {
+    const content = paragraph.trim();
+    const heading = /^(?:\d{1,2}\.\s+)?[A-Z][A-Z0-9 ,—–:()/'’-]{5,}$/.test(content) && content.length < 150;
+    const warning = /^(?:IMPORTANT NOTICE|BY SIGNING THIS AGREEMENT|THIS RELEASE IS EXPRESSLY INTENDED)/.test(content);
+    return <p key={index} className={`${heading ? "font-bold tracking-wide text-[#243B45]" : ""} ${warning ? "font-semibold text-[#9B3D2E]" : ""} mb-4 last:mb-0 whitespace-pre-wrap`}>{content}</p>;
+  });
   const selected = sessions.find(s => s.id === sessionId);
 
   return (
@@ -170,11 +192,21 @@ export function PublicBookingForm() {
             {result.payment?.method === "cash" && <p className="text-sm text-[#303331]">Please bring cash to your class. Your seat is reserved while payment is pending.</p>}
             {result.payment === null && <p className="text-sm text-[#303331]">No payment is required for this reservation.</p>}
             <p className="text-xs text-[#57625B]">This page does not send an email confirmation yet. Save your reservation details before leaving.</p>
-            <button type="button" onClick={() => { setResult(null); setError(""); setVerificationStep("details"); setVerificationCode(""); setDevCode(""); }} className="text-sm underline underline-offset-4 text-[#243B45]">Make another reservation</button>
+            <button type="button" onClick={() => { setResult(null); setError(""); setVerificationStep("details"); setVerificationCode(""); setDevCode(""); setVerifiedToken(""); setWaiver(null); setSignature(""); setAdultConfirmed(false); setWaiverAcknowledged(false); }} className="text-sm underline underline-offset-4 text-[#243B45]">Make another reservation</button>
           </div>
         ) : (
           <form onSubmit={submit} className="space-y-5">
-            {verificationStep === "code" ? <div className="space-y-3">
+            {verificationStep === "waiver" && waiver ? <div className="space-y-4">
+              <h3 className="font-serif text-2xl">{waiver.title}</h3>
+              <p className="text-xs text-[#57625B]">Agreement version {waiver.version}</p>
+              {waiver.already_signed ? <p className="text-sm text-[#365F46]">Your signed waiver is on file for this version. No new signature is needed.</p> : <>
+                <p className="font-semibold text-sm text-[#9B3D2E]">Important: this agreement may affect your legal rights, including your right to sue.</p>
+                <div tabIndex={0} className="max-h-96 overflow-y-auto rounded-xl border border-[#C8C1B2] bg-[#F3EFE7] p-4 sm:p-5 text-sm leading-relaxed" aria-label="Full participant waiver">{renderWaiver(waiver.body)}</div>
+                <label className="flex gap-2 text-sm"><input type="checkbox" checked={adultConfirmed} onChange={e=>setAdultConfirmed(e.target.checked)}/>I confirm I am at least 18 years old.</label>
+                <label className="flex gap-2 text-sm"><input type="checkbox" checked={waiverAcknowledged} onChange={e=>setWaiverAcknowledged(e.target.checked)}/>I have read the entire agreement, understand its risks and liability release, and intend to sign electronically.</label>
+                <div><label className={label} htmlFor="booking-signature">Type your full legal name as your electronic signature *</label><input id="booking-signature" className={field} value={signature} onChange={e=>setSignature(e.target.value)} required maxLength={201} autoComplete="name"/></div>
+              </>}
+            </div> : verificationStep === "code" ? <div className="space-y-3">
               <p className="text-sm">We sent a six-digit verification code to <strong>{email}</strong>. Enter it below to confirm your email before reserving your seat. Codes expire after 10 minutes.</p>
               {devCode && <p className="text-sm text-[#365F46]">Local development test code: <strong>{devCode}</strong> (never shown on the live site).</p>}
               <label className={label} htmlFor="booking-code">Verification code *</label>
@@ -190,7 +222,7 @@ export function PublicBookingForm() {
               <div className="absolute -left-[9999px]" aria-hidden="true"><label htmlFor="booking-website">Website</label><input id="booking-website" tabIndex={-1} autoComplete="off" value={website} onChange={e => setWebsite(e.target.value)}/></div>
             </>}
               {error && <p role="alert" className="rounded-xl border border-[#9B3D2E]/30 bg-[#9B3D2E]/10 p-3 text-sm text-[#9B3D2E]">{error}</p>}
-              <button type="submit" disabled={submitting || !sessionId} className="w-full flex items-center justify-center gap-2 rounded-2xl bg-[#171918] hover:bg-[#303331] disabled:opacity-50 text-[#E8E4DA] px-5 py-3.5 text-sm font-semibold transition-colors">{submitting && <LoaderCircle className="w-4 h-4 animate-spin"/>}{submitting ? "Processing…" : verificationStep === "details" ? <><CalendarDays className="w-4 h-4"/>Send verification code</> : "Verify email and reserve seat"}</button>
+              <button type="submit" disabled={submitting || !sessionId} className="w-full flex items-center justify-center gap-2 rounded-2xl bg-[#171918] hover:bg-[#303331] disabled:opacity-50 text-[#E8E4DA] px-5 py-3.5 text-sm font-semibold transition-colors">{submitting && <LoaderCircle className="w-4 h-4 animate-spin"/>}{submitting ? "Processing…" : verificationStep === "waiver" ? "Accept waiver and reserve seat" : verificationStep === "details" ? <><CalendarDays className="w-4 h-4"/>Send verification code</> : "Verify email and reserve seat"}</button>
               <p className="text-xs text-[#57625B] text-center">A confirmed reservation holds your seat. Paid reservations are recorded as unpaid until verified by the instructor.</p>
           </form>
         )}

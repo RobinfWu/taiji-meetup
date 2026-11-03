@@ -51,7 +51,7 @@ export const Navbar: React.FC<NavbarProps> = () => {
           <div>
             <div className="flex items-center space-x-2">
               <span className="font-serif text-xl font-bold tracking-wide text-[#171918]">
-                TAIJI LAB
+                Chen Taijiquan
               </span>
             </div>
             <p className="text-xs text-[#303331] font-light hidden md:block">

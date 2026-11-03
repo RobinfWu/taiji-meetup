@@ -52,7 +52,7 @@ export interface SpecialPracticeItem {
 }
 
 export const TAIJI_DATA = {
-  groupName: "Kingston Chen Taijiquan Practice Group",
+  groupName: "Classes taught by Robin Wu",
 
   hero: {
     subText: "Learn a traditional craft that develops stability, strength, coordination, and whole-body connection. Train at an intensity suited to your ability, through structured solo exercises and interactive partner work.",
