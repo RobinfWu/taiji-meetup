@@ -7,6 +7,10 @@ import type {
 export interface Env {
   DB: D1Database;
   ADMIN_API_TOKEN?: string;
+  PUBLIC_BOOKING_ENABLED?: string;
+  EMAIL_VERIFICATION_DEV_MODE?: string;
+  RESEND_API_KEY?: string;
+  BOOKING_FROM_EMAIL?: string;
 }
 
 export type AppEventContext<
