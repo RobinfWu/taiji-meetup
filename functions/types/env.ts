@@ -11,6 +11,7 @@ export interface Env {
   EMAIL_VERIFICATION_DEV_MODE?: string;
   RESEND_API_KEY?: string;
   BOOKING_FROM_EMAIL?: string;
+  ETRANSFER_RECEIVING_EMAIL?: string;
 }
 
 export type AppEventContext<

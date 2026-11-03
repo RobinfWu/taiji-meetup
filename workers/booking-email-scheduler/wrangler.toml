@@ -1,0 +1,9 @@
+name = "taiji-booking-email-scheduler"
+main = "index.ts"
+compatibility_date = "2024-09-23"
+
+[triggers]
+crons = ["* * * * *"]
+
+[vars]
+BOOKING_PROCESS_URL = "https://taiji-lab.pages.dev/api/admin/booking-emails/process"

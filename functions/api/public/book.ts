@@ -43,6 +43,7 @@ export const onRequestPost: AppPagesFunction = async (ctx) => {
   const studentId = `stu_${crypto.randomUUID()}`;
   const reservationId = `res_${crypto.randomUUID()}`;
   const paymentId = `pay_${crypto.randomUUID()}`;
+  const bookingEmailId = `bem_${crypto.randomUUID()}`;
   const reference = `TJ-${crypto.randomUUID().replace(/-/g, "").slice(0, 16).toUpperCase()}`;
   try {
     // This is only a user-friendly preflight. The INSERT below rechecks capacity.
@@ -89,8 +90,15 @@ export const onRequestPost: AppPagesFunction = async (ctx) => {
         )`)
         .bind(paymentId,body.method,paidAmountCents,reference,now,now,reservationId),
       db.prepare("UPDATE email_verifications SET token_hash=NULL, verified_until=NULL WHERE email=? AND token_hash=? AND verified_until>? AND EXISTS (SELECT 1 FROM reservations WHERE id=?)").bind(email.value,tokenHash,now,reservationId),
+      // Queue the confirmation in the same transaction as the reservation.
+      // A delivery failure later will not roll back the booking.
+      db.prepare(`INSERT INTO booking_emails
+        (id,reservation_id,email_type,recipient_email,status,attempts,next_attempt_at,created_at,updated_at)
+        SELECT ?,r.id,'booking_confirmation',?,'pending',0,?,?,?
+        FROM reservations r WHERE r.id=?`)
+        .bind(bookingEmailId,email.value,now,now,now,reservationId),
     ]);
-    if (results[1].meta.changes !== 1 || results[3].meta.changes !== 1) {
+    if (results[1].meta.changes !== 1 || results[3].meta.changes !== 1 || results[4].meta.changes !== 1) {
       // Rare race: no reservation/payment. A new student may have been created;
       // this does not occupy a seat or charge money.
       return reply("Booking could not be completed. Check your verification code and class availability, then try again.", 409);
