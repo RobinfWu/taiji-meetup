@@ -45,8 +45,8 @@ export const Navbar: React.FC<NavbarProps> = () => {
           href="/"
           className="flex items-center space-x-3 text-left group focus:outline-none cursor-pointer"
         >
-          <div className="w-10 h-10 rounded-full bg-[#171918] text-[#E8E4DA] flex items-center justify-center font-serif text-xl font-bold border border-[#303331] group-hover:border-[#9B3D2E] transition-colors shadow-xs">
-            ☯
+          <div className="w-10 h-10 rounded-full border border-[#303331] group-hover:border-[#9B3D2E] transition-colors shadow-xs overflow-hidden">
+            <img src="/icon.png" alt="Taiji Lab logo" className="w-full h-full object-cover" />
           </div>
           <div>
             <div className="flex items-center space-x-2">

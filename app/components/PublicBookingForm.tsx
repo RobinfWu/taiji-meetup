@@ -160,13 +160,12 @@ export function PublicBookingForm() {
 
   const field = "w-full rounded-xl border border-[#C8C1B2] bg-[#F3EFE7] px-4 py-3 text-sm text-[#171918] outline-none focus:border-[#243B45] focus:ring-2 focus:ring-[#243B45]/15";
   const label = "block text-sm font-semibold text-[#303331] mb-1.5";
-  // Presentation only: keep the original, versioned waiver text unchanged.
-  // Paragraphs and section headings are styled without injecting HTML.
+  // Presentation only. The exact, immutable waiver text is stored in D1.
   const renderWaiver = (body: string) => body.split(/\n\s*\n/).map((paragraph, index) => {
     const content = paragraph.trim();
-    const heading = /^(?:\d{1,2}\.\s+)?[A-Z][A-Z0-9 ,—–:()/'’-]{5,}$/.test(content) && content.length < 150;
-    const warning = /^(?:IMPORTANT NOTICE|BY SIGNING THIS AGREEMENT|THIS RELEASE IS EXPRESSLY INTENDED)/.test(content);
-    return <p key={index} className={`${heading ? "font-bold tracking-wide text-[#243B45]" : ""} ${warning ? "font-semibold text-[#9B3D2E]" : ""} mb-4 last:mb-0 whitespace-pre-wrap`}>{content}</p>;
+    const heading = /^(?:[1-9]|10)\. [A-Z][^\n]{3,90}$/.test(content) && !content.includes("\n");
+    const warning = /^(?:IMPORTANT|BY SIGNING|I KNOWINGLY|PARTNER TRAINING IS VOLUNTARY|THIS RELEASE|I UNDERSTAND THAT THIS AGREEMENT IS INTENDED|THIS AGREEMENT APPLIES)/.test(content);
+    return <p key={index} className={`${heading ? "font-bold text-base text-[#243B45] mt-5" : ""} ${warning ? "font-bold text-[#243B45]" : ""} mb-4 last:mb-0 whitespace-pre-wrap`}>{content}</p>;
   });
   const selected = sessions.find(s => s.id === sessionId);
 
@@ -200,7 +199,10 @@ export function PublicBookingForm() {
               <h3 className="font-serif text-2xl">{waiver.title}</h3>
               <p className="text-xs text-[#57625B]">Agreement version {waiver.version}</p>
               {waiver.already_signed ? <p className="text-sm text-[#365F46]">Your signed waiver is on file for this version. No new signature is needed.</p> : <>
-                <p className="font-semibold text-sm text-[#9B3D2E]">Important: this agreement may affect your legal rights, including your right to sue.</p>
+                <div role="note" className="rounded-xl border border-[#C8C1B2] bg-[#E8E4DA] px-4 py-3 text-[#303331]">
+                  <p className="text-sm font-semibold">Please review before signing</p>
+                  <p className="mt-1 text-sm leading-relaxed">This agreement explains the physical risks of participating in Chen-style Taijiquan and includes a release of liability that may affect your legal rights, including your right to sue.</p>
+                </div>
                 <div tabIndex={0} className="max-h-96 overflow-y-auto rounded-xl border border-[#C8C1B2] bg-[#F3EFE7] p-4 sm:p-5 text-sm leading-relaxed" aria-label="Full participant waiver">{renderWaiver(waiver.body)}</div>
                 <label className="flex gap-2 text-sm"><input type="checkbox" checked={adultConfirmed} onChange={e=>setAdultConfirmed(e.target.checked)}/>I confirm I am at least 18 years old.</label>
                 <label className="flex gap-2 text-sm"><input type="checkbox" checked={waiverAcknowledged} onChange={e=>setWaiverAcknowledged(e.target.checked)}/>I have read the entire agreement, understand its risks and liability release, and intend to sign electronically.</label>
