@@ -78,6 +78,7 @@ export const onRequestGet: AppPagesFunction = async (context) => {
       status: 200,
       headers: {
         "Content-Type": "application/json",
+        "Cache-Control": "no-store",
       },
     });
   } catch (error) {
@@ -89,6 +90,7 @@ export const onRequestGet: AppPagesFunction = async (context) => {
         status: 500,
         headers: {
           "Content-Type": "application/json",
+        "Cache-Control": "no-store",
         },
       }
     );

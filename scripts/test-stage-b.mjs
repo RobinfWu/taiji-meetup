@@ -15,7 +15,7 @@ const password = 'test-only-password';
 const hash = await auth.hashPassword(password);
 check(await auth.verifyPassword(password, hash), 'password verification');
 check(!(await auth.verifyPassword('incorrect', hash)), 'wrong password');
-check(!(await auth.verifyPassword(password, hash.replace(':250000:', ':250000garbage:'))), 'strict iteration validation');
+check(!(await auth.verifyPassword(password, hash.replace(/:(\d+):/, ':250000garbage:'))), 'strict iteration validation');
 check(!(await auth.verifyPassword(password, hash.replace(/:[0-9a-f]{32}:/, ':' + 'z'.repeat(32) + ':'))), 'strict salt validation');
 check(!(await auth.verifyPassword(password, undefined)), 'missing hash fails closed');
 const token = await auth.createSessionToken(secret);

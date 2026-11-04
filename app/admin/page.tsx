@@ -27,6 +27,116 @@ type ClassReservation = {
   student_id: string; first_name: string; last_name: string; email: string; phone: string | null;
 };
 
+type ClassTemplate = { id: string; title: string; location: string; capacity: number };
+
+// Convert between Toronto wall-clock times and UTC, checking for DST gaps/ambiguity.
+function torontoLocal(iso: string): string {
+  if (!iso) return "";
+  const parts = new Intl.DateTimeFormat("en-CA", { timeZone: "America/Toronto", year: "numeric", month: "2-digit", day: "2-digit", hour: "2-digit", minute: "2-digit", hourCycle: "h23" }).formatToParts(new Date(iso));
+  const get = (type: string) => parts.find(p => p.type === type)?.value ?? "";
+  return `${get("year")}-${get("month")}-${get("day")}T${get("hour")}:${get("minute")}`;
+}
+function toUtc(local: string): string {
+  if (!/^\d{4}-\d\d-\d\dT\d\d:\d\d$/.test(local)) throw new Error("Enter a valid local date and time.");
+  const target = Date.parse(`${local}:00Z`);
+  if (Number.isNaN(target)) throw new Error("Invalid date/time.");
+  const matches: string[] = [];
+  // Both standard and daylight offsets are possible around clock changes.
+  for (const hours of [4, 5]) {
+    const candidate = new Date(target + hours * 3600000).toISOString();
+    if (torontoLocal(candidate) === local) matches.push(candidate);
+  }
+  if (matches.length !== 1) throw new Error("This local time is invalid or ambiguous due to daylight saving. Choose another time.");
+  return matches[0];
+}
+function ClassEditor({ existing, onSaved, onUnauthorized, onClose }: {
+  existing?: ClassSession; onSaved: () => void; onUnauthorized: () => void; onClose: () => void;
+}) {
+  const [templates, setTemplates] = useState<ClassTemplate[]>([]);
+  const [templateId, setTemplateId] = useState("");
+  const initialStart = torontoLocal(existing?.start_at ?? "");
+  const initialEnd = torontoLocal(existing?.end_at ?? "");
+  const [startDate, setStartDate] = useState(initialStart.slice(0, 10));
+  const [startTime, setStartTime] = useState(initialStart.slice(11));
+  const [endDate, setEndDate] = useState(initialEnd.slice(0, 10));
+  const [endTime, setEndTime] = useState(initialEnd.slice(11));
+  const [location, setLocation] = useState(existing?.location ?? "");
+  const [capacity, setCapacity] = useState(String(existing?.capacity ?? 15));
+  const [busy, setBusy] = useState(false);
+  const [error, setError] = useState("");
+  const [reason, setReason] = useState("");
+  useEffect(() => {
+    if (existing) return;
+    void fetch("/api/admin/classes/manage", { credentials: "same-origin", cache: "no-store" })
+      .then(async r => { if (r.status === 401 || r.status === 403) { onUnauthorized(); return null; } if (!r.ok) throw new Error("Unable to load class types."); return r.json(); })
+      .then((data: {templates: ClassTemplate[]} | null) => { if (data) setTemplates(data.templates); })
+      .catch(() => setError("Unable to load class types."));
+  }, [existing, onUnauthorized]);
+  const inputClass = "w-full rounded-xl border border-[#B9B1A3] bg-[#E8E4DA] px-3 py-2 text-sm";
+  async function request(action: "edit" | "cancel" | "create") {
+    if (busy) return;
+    if (action === "cancel" && !window.confirm("Cancel this class? It will disappear from public booking. Existing reservations remain recorded. You must notify attendees yourself.")) return;
+    setBusy(true); setError("");
+    try {
+      const body = action === "cancel" ? { id: existing?.id, action, reason } : {
+        ...(existing ? { id: existing.id, action: "edit" } : { template_id: templateId }),
+        start_at: toUtc(`${startDate}T${startTime}`), end_at: toUtc(`${endDate}T${endTime}`), location: location.trim(), capacity: Number(capacity),
+      };
+      const res = await fetch("/api/admin/classes/manage", {
+        method: action === "create" ? "POST" : "PATCH", credentials: "same-origin",
+        headers: { "Content-Type": "application/json", "X-Admin-Action": "1" }, body: JSON.stringify(body),
+      });
+      if (res.status === 401 || res.status === 403) { onUnauthorized(); return; }
+      const result = await res.json() as {error?: string};
+      if (!res.ok) throw new Error(result.error ?? "Unable to save class.");
+      onSaved();
+    } catch (err) { setError(err instanceof Error ? err.message : "Unable to save class."); }
+    finally { setBusy(false); }
+  }
+  return <form onSubmit={e => { e.preventDefault(); void request(existing ? "edit" : "create"); }} className="rounded-2xl border border-[#B9B1A3] bg-[#DFD9CC] p-5 space-y-4">
+    <h2 className="font-serif text-2xl">{existing ? "Edit class" : "Add class"}</h2>
+    {!existing && <label className="block text-sm font-semibold">Class type
+      <select required className={inputClass} value={templateId} onChange={e => {
+        const id = e.target.value; setTemplateId(id);
+        const template = templates.find(t => t.id === id);
+        if (template) { setLocation(template.location); setCapacity(String(template.capacity)); }
+      }}><option value="">Select class type</option>{templates.map(t => <option key={t.id} value={t.id}>{t.title}</option>)}</select>
+    </label>}
+    <p className="text-xs text-[#5A5E5B]">All times are in Kingston (America/Toronto). Daylight-saving transitions are checked.</p>
+    <div className="grid gap-3 sm:grid-cols-2">
+      <fieldset className="space-y-2">
+        <legend className="text-sm font-semibold">Start (Kingston time)</legend>
+        <label className="block text-xs font-medium">Date (YYYY-MM-DD)
+          <input required type="text" inputMode="numeric" autoComplete="off" placeholder="2026-11-07" maxLength={10} pattern="[0-9]{4}-[0-9]{2}-[0-9]{2}" title="Enter a date as YYYY-MM-DD" className={inputClass} value={startDate} onChange={e => setStartDate(e.target.value)} />
+        </label>
+        <label className="block text-xs font-medium">Time (24-hour HH:MM)
+          <input required type="text" inputMode="numeric" autoComplete="off" placeholder="10:30" maxLength={5} pattern="(?:[01][0-9]|2[0-3]):[0-5][0-9]" title="Enter a 24-hour time as HH:MM" className={inputClass} value={startTime} onChange={e => setStartTime(e.target.value)} />
+        </label>
+      </fieldset>
+      <fieldset className="space-y-2">
+        <legend className="text-sm font-semibold">End (Kingston time)</legend>
+        <label className="block text-xs font-medium">Date (YYYY-MM-DD)
+          <input required type="text" inputMode="numeric" autoComplete="off" placeholder="2026-11-07" maxLength={10} pattern="[0-9]{4}-[0-9]{2}-[0-9]{2}" title="Enter a date as YYYY-MM-DD" className={inputClass} value={endDate} onChange={e => setEndDate(e.target.value)} />
+        </label>
+        <label className="block text-xs font-medium">Time (24-hour HH:MM)
+          <input required type="text" inputMode="numeric" autoComplete="off" placeholder="12:00" maxLength={5} pattern="(?:[01][0-9]|2[0-3]):[0-5][0-9]" title="Enter a 24-hour time as HH:MM" className={inputClass} value={endTime} onChange={e => setEndTime(e.target.value)} />
+        </label>
+      </fieldset>
+    </div>
+    <label className="block text-sm font-semibold">Venue / meeting point<input required maxLength={300} className={inputClass} value={location} onChange={e => setLocation(e.target.value)} placeholder="Lake Ontario Park Pavilion (outdoors)" /></label>
+    <label className="block text-sm font-semibold">Capacity<input required type="number" min={1} max={500} step={1} className={inputClass} value={capacity} onChange={e => setCapacity(e.target.value)} /></label>
+    {existing && <p className="text-xs text-[#5A5E5B]">{existing.reserved_count} confirmed reservations. Capacity cannot be reduced below this number.</p>}
+    {error && <p role="alert" className="text-sm text-[#9B3D2E]">{error}</p>}
+    <div className="flex flex-wrap gap-2"><button disabled={busy} type="submit" className="rounded-full bg-[#243B45] text-white px-5 py-2 text-sm font-semibold disabled:opacity-50">{busy ? "Saving…" : existing ? "Save changes" : "Create class"}</button>
+      <button type="button" onClick={onClose} className="rounded-full border border-[#B9B1A3] px-5 py-2 text-sm">Close</button></div>
+    {existing && <div className="border-t border-[#B9B1A3] pt-4 space-y-2">
+      <label className="block text-sm font-semibold">Cancellation reason (optional)<input maxLength={500} className={inputClass} value={reason} onChange={e => setReason(e.target.value)} /></label>
+      <button type="button" disabled={busy} onClick={() => void request("cancel")} className="rounded-full border border-[#9B3D2E] text-[#9B3D2E] px-5 py-2 text-sm font-semibold disabled:opacity-50">Cancel this class</button>
+      <p className="text-xs text-[#5A5E5B]">No automatic notifications are sent. Contact registered students manually.</p>
+    </div>}
+  </form>;
+}
+
 function InstructorClasses({ onUnauthorized, initialSessionId, onSessionOpen }: {
   onUnauthorized: () => void; initialSessionId: string | null; onSessionOpen: (id: string | null) => void;
 }) {
@@ -36,6 +146,7 @@ function InstructorClasses({ onUnauthorized, initialSessionId, onSessionOpen }: 
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState("");
   const [reload, setReload] = useState(0);
+  const [editing, setEditing] = useState<"new" | "current" | null>(null);
   useEffect(() => {
     const controller = new AbortController();
     async function load() {
@@ -70,14 +181,17 @@ function InstructorClasses({ onUnauthorized, initialSessionId, onSessionOpen }: 
       <div>
         <p className="text-xs font-semibold uppercase tracking-[0.18em] text-[#9B3D2E]">Instructor workspace / Classes</p>
         <h1 className="font-serif text-4xl mt-1">{initialSessionId ? "Class Roster" : "Class Management"}</h1>
-        <p className="text-sm text-[#5A5E5B] mt-2">Read-only class schedules and student reservations.</p>
+        <p className="text-sm text-[#5A5E5B] mt-2">Create, edit or cancel individual sessions. Changes appear on the public booking form.</p>
       </div>
       <button type="button" onClick={() => setReload(n => n + 1)} disabled={loading}
         className="inline-flex items-center gap-2 rounded-full border border-[#B9B1A3] px-4 py-2 text-sm font-semibold disabled:opacity-50">
         <RefreshCw className={`w-4 h-4 ${loading ? "animate-spin" : ""}`} /> Refresh
       </button>
     </div>
-    {initialSessionId && <button type="button" onClick={() => onSessionOpen(null)} className="inline-flex items-center gap-2 text-sm font-semibold text-[#243B45] hover:underline"><ArrowLeft className="w-4 h-4"/> All classes</button>}
+    {!initialSessionId && <button type="button" onClick={() => setEditing("new")} className="rounded-full bg-[#243B45] text-white px-5 py-2 text-sm font-semibold">+ Add class</button>}
+    {initialSessionId && session?.status === "scheduled" && <button type="button" onClick={() => setEditing("current")} className="rounded-full bg-[#243B45] text-white px-5 py-2 text-sm font-semibold">Edit / Cancel class</button>}
+    {editing && <ClassEditor key={editing + (session?.id ?? "")} existing={editing === "current" ? session ?? undefined : undefined} onUnauthorized={onUnauthorized} onClose={() => setEditing(null)} onSaved={() => { setEditing(null); setReload(n => n + 1); }} />}
+    {initialSessionId && <button type="button" onClick={() => { setEditing(null); onSessionOpen(null); }} className="inline-flex items-center gap-2 text-sm font-semibold text-[#243B45] hover:underline"><ArrowLeft className="w-4 h-4"/> All classes</button>}
     {error && <p role="alert" className="rounded-xl border border-[#9B3D2E]/40 p-4 text-sm text-[#9B3D2E]">{error}</p>}
     {loading ? <p role="status" className="text-sm text-[#5A5E5B]">Loading class information…</p> : !error && (
       initialSessionId ? (session && <div className="rounded-2xl border border-[#D5CEBF] bg-[#DFD9CC] overflow-hidden">
