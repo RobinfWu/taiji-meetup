@@ -1,0 +1,37 @@
+﻿.page :is(a, button, summary):focus-visible {
+  outline: 2px solid #9b3d2e;
+  outline-offset: 5px;
+}
+
+.page :is(section[id], main[id]) {
+  scroll-margin-top: 7rem;
+}
+
+.disclosure > summary {
+  list-style: none;
+  border-radius: 0.75rem;
+}
+
+.disclosure > summary::-webkit-details-marker {
+  display: none;
+}
+
+.disclosure[open] > summary svg {
+  transform: rotate(180deg);
+}
+
+.skipLink {
+  position: fixed;
+  top: 0.75rem;
+  left: 1rem;
+  z-index: 50;
+  padding: 0.75rem 1rem;
+  background: #faf8f5;
+  color: #171918;
+  border-radius: 0.5rem;
+  transform: translateY(-200%);
+}
+
+.skipLink:focus {
+  transform: translateY(0);
+}

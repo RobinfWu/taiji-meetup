@@ -1,206 +1,194 @@
-"use client";
-
-import React, { useState } from "react";
+﻿import type { Metadata } from "next";
 import Link from "next/link";
+import { ArrowRight, ChevronDown, Compass } from "lucide-react";
 import { Navbar } from "../components/Navbar";
 import { Footer } from "../components/Footer";
-import { TAIJI_DATA } from "../data/taijiData";
 import {
-  Compass,
-  Shield,
-  Feather,
-  Activity,
-  Sparkles,
-  AlertCircle,
-  CheckCircle2,
-  ArrowRight,
-  BookOpen,
-  GitMerge,
-  Layers
-} from "lucide-react";
+  classPractices,
+  languageAnalogy,
+  partnerMethods,
+  publishedCopy,
+  yiluMilestones,
+} from "../data/trainingContent";
+import styles from "./method.module.css";
+
+export const metadata: Metadata = {
+  title: "How We Train | Chen Taiji Lab",
+  description: "Explore Chen Taijiquan training: foundational exercises, Yilu practice routines, and Push Hands. Learn at your own pace in Kingston, Ontario.",
+};
+
+const container = "max-w-7xl mx-auto px-4 sm:px-6 lg:px-8";
+const heading = "font-serif text-3xl sm:text-4xl font-light leading-tight";
+const eyebrow = "text-xs font-semibold uppercase tracking-widest text-[#9B3D2E]";
 
 export default function MethodPage() {
-  const [activeTab, setActiveTab] = useState(TAIJI_DATA.differences[0].id);
-
-  const activeDifference =
-    TAIJI_DATA.differences.find((d) => d.id === activeTab) ||
-    TAIJI_DATA.differences[0];
-
   return (
-    <main className="min-h-screen bg-[#E8E4DA] text-[#171918] relative flex flex-col font-sans selection:bg-[#9B3D2E]/15 selection:text-[#9B3D2E]">
+    <div className={`${styles.page} min-h-screen bg-[#E8E4DA] text-[#171918] font-sans`}>
+      <a href="#training-content" className={styles.skipLink}>Skip to training content</a>
       <Navbar />
-
-      <div className="flex-1 pt-28 pb-20">
-        {/* Page Hero Header */}
-        <section className="py-12 md:py-16 bg-[#DFD9CC]/60 border-b border-[#D5CEBF] relative overflow-hidden">
-          <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 relative">
-            <div className="max-w-3xl space-y-4">
-              <div className="inline-flex items-center space-x-2 px-3.5 py-1 rounded-full bg-[#243B45]/10 text-[#243B45] text-xs font-semibold uppercase tracking-widest border border-[#243B45]/20">
-                <Compass className="w-3.5 h-3.5" />
-                <span>Our Approach to Taijiquan</span>
+      <main id="training-content" className="pt-28 pb-20" tabIndex={-1}>
+        <section aria-labelledby="training-title" className="py-12 md:py-16 bg-[#DFD9CC]/60 border-b border-[#D5CEBF]">
+          <div className={`${container} grid lg:grid-cols-12 gap-10 lg:gap-16 items-center`}>
+            <div className="lg:col-span-8 space-y-5">
+              <div className="inline-flex items-center gap-2 px-3.5 py-1.5 rounded-full bg-[#243B45]/10 text-[#243B45] text-xs font-semibold uppercase tracking-widest border border-[#243B45]/20">
+                <Compass aria-hidden="true" className="w-3.5 h-3.5" />
+                Our approach to Taijiquan
               </div>
-                <h1 className="font-serif text-4xl sm:text-5xl md:text-6xl font-light text-[#171918]">
-                  How We <span className="font-normal italic text-[#243B45]">Train</span>
-                </h1>
-                <p className="text-lg text-[#303331] leading-relaxed font-light">
-                  This Taijiquan is a gongfu practice, meaning it cultivates skill through time and hard work. Growth comes from being challenged.
-                </p>
+              <h1 id="training-title" className="font-serif text-4xl sm:text-5xl md:text-6xl font-light leading-tight">
+                How We <span className="font-normal italic text-[#243B45]">Train</span>
+              </h1>
+              <p className="max-w-2xl text-lg text-[#303331] leading-relaxed font-light">
+                Learn Chen Taijiquan through foundational exercises, form practice,
+                and partner training. Begin with a manageable body of material,
+                with room to explore and refine it over time.
+              </p>
             </div>
+            <nav aria-label="Explore our training" className="lg:col-span-4 border-l-2 border-[#9B3D2E]/50 pl-6">
+              <p className="text-xs uppercase tracking-widest text-[#5A5E5B] mb-3">Explore the practice</p>
+              <ul className="divide-y divide-[#D5CEBF]">
+                {[
+                  { href: "#in-class", label: "Inside a class" },
+                  { href: "#yilu", label: "One form, many milestones" },
+                  { href: "#partner-training", label: "Learning with a partner" },
+                ].map((item) => (
+                  <li key={item.href}>
+                    <a href={item.href} className="flex items-center justify-between gap-4 py-3 text-sm hover:text-[#9B3D2E]">
+                      {item.label}<ArrowRight aria-hidden="true" className="w-4 h-4 shrink-0" />
+                    </a>
+                  </li>
+                ))}
+              </ul>
+            </nav>
           </div>
         </section>
 
-        {/* Core Methodology Sections */}
-        <section className="py-16 max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 space-y-20">
-          
-          {/* Section 1: What is Taijiquan & Approach */}
-        <div className="bg-[#DFD9CC] p-8 sm:p-12 rounded-3xl border border-[#D5CEBF] shadow-xs space-y-8">
-          <div className="space-y-3">
-            <h2 className="font-serif text-3xl font-semibold text-[#171918]">
-              Taijiquan as a Language of the Body
-            </h2>
-
-            <p className="text-[#303331] text-base sm:text-lg leading-relaxed font-light">
-              Learning <strong className="font-semibold text-[#171918]">this</strong>{" "}
-              Taijiquan is like learning a language for the body.
-            </p>
-          </div>
-
-          <div className="space-y-6">
-            {/* Principles */}
-            <div className="border-l-2 border-[#A94432] pl-5">
-              <h3 className="font-serif text-xl font-semibold text-[#171918]">
-                Principles{" "}
-                <span className="font-sans text-sm font-normal italic text-[#7A6D5A]">
-                  — the grammar
-                </span>
-              </h3>
-              <p className="mt-2 text-[#303331] text-base sm:text-lg leading-relaxed font-light">
-                Principles describe that which is fundamental to the system. Examples include Peng Jin and the interplay of Yin and Yang. They are like the grammar of the art.
+        <div className={`${container} pt-14 sm:pt-20 space-y-16 sm:space-y-24`}>
+          <section id="in-class" aria-labelledby="class-heading" className="space-y-8">
+            <div className="max-w-2xl space-y-3">
+              <p className={eyebrow}>The practice</p>
+              <h2 id="class-heading" className={heading}>What to Expect in Class</h2>
+              <p className="text-[#303331] leading-relaxed">
+                These are the main parts of our training, rather than a fixed timetable for every class.
+                You do not need previous Taijiquan experience to begin.
               </p>
             </div>
-
-            {/* Jins */}
-            <div className="border-l-2 border-[#A94432] pl-5">
-              <h3 className="font-serif text-xl font-semibold text-[#171918]">
-                Jins{" "}
-                <span className="font-sans text-sm font-normal italic text-[#7A6D5A]">
-                  — the vocabulary
-                </span>
-              </h3>
-              <p className="mt-2 text-[#303331] text-base sm:text-lg leading-relaxed font-light">
-                Jins refer to cultivated energies or forces that Taijiquan categorizes according to their qualities and desired effects. They are the building blocks from which sequences and martial applications are constructed by stringing them together, much like arranging vocabulary to form sentences.
-              </p>
+            <div className="grid sm:grid-cols-2 lg:grid-cols-4 gap-4">
+              {classPractices.map((practice, index) => (
+                <div key={practice.id} className="p-6 rounded-2xl border border-[#D5CEBF] bg-[#DFD9CC]/50 space-y-4">
+                  <span aria-hidden="true" className="font-serif text-2xl text-[#9B3D2E]">{String(index + 1).padStart(2, "0")}</span>
+                  <h3 className="font-serif text-xl font-semibold leading-snug">{practice.title}</h3>
+                  {publishedCopy(practice.detail) && <p className="text-sm text-[#303331] leading-relaxed">{publishedCopy(practice.detail)}</p>}
+                </div>
+              ))}
             </div>
+          </section>
 
-            {/* Sequences */}
-            <div className="border-l-2 border-[#A94432] pl-5">
-              <h3 className="font-serif text-xl font-semibold text-[#171918]">
-                Sequences{" "}
-                <span className="font-sans text-sm font-normal italic text-[#7A6D5A]">
-                  — the sentences
-                </span>
-              </h3>
-              <p className="mt-2 text-[#303331] text-base sm:text-lg leading-relaxed font-light">
-                A sequence of movement strings together several jins.
-                Traditional forms contain many named sequences; for example,
-                Yilu (First Road) is traditionally organized into 83 sequences, while Erlu (Second Road) contains
-                71. By design, sequences train multiple applications at the same time.
-              </p>
+          <section id="yilu" aria-labelledby="yilu-heading" className="rounded-3xl overflow-hidden border border-[#D5CEBF] bg-[#FAF8F5]">
+            <div className="bg-[#243B45] text-[#E8E4DA] p-6 sm:p-10 lg:p-12 grid lg:grid-cols-12 gap-6 lg:gap-12">
+              <div className="lg:col-span-5 space-y-3">
+                <p className="text-xs font-semibold uppercase tracking-widest text-[#E0C9A2]">The Yilu curriculum</p>
+                <h2 id="yilu-heading" className={heading}>One Form,<br className="hidden sm:block" /> Many Milestones</h2>
+              </div>
+              <div className="lg:col-span-7 space-y-4 leading-relaxed text-[#E8E4DA]">
+                <p>The traditional Chen-style Yilu form can be divided into smaller, self-contained practice routines. Each is a portion of the same Yilu, rather than a separate traditional form.</p>
+                <p>You do not need to learn the entire form to develop a meaningful personal practice. The shorter routines are valid practices in their own right, with room for continued refinement.</p>
+              </div>
             </div>
+            <div className="p-6 sm:p-10 lg:p-12 space-y-8">
+              <div className="grid lg:grid-cols-3 gap-5 items-start">
+                {yiluMilestones.map((milestone) => (
+                  <article key={milestone.id} className="min-w-0 rounded-2xl bg-[#E8E4DA]/60 border border-[#D5CEBF] p-5 sm:p-6 space-y-4">
+                    <div className="w-8 h-0.5 bg-[#9B3D2E]" aria-hidden="true" />
+                    <h3 className="font-serif text-2xl font-semibold">{milestone.title}</h3>
+                    <p className="text-xs font-semibold tracking-wide text-[#243B45]">{milestone.range}</p>
+                    <p className="text-sm leading-relaxed text-[#303331]">{milestone.summary}</p>
+                    {publishedCopy(milestone.detail) && <p className="text-sm leading-relaxed text-[#303331]">{publishedCopy(milestone.detail)}</p>}
+                    {milestone.sequences.length > 0 && (
+                      <details className={`${styles.disclosure} border-t border-[#D5CEBF] pt-1`}>
+                        <summary className="flex justify-between items-center gap-3 py-3 text-sm font-semibold text-[#243B45] cursor-pointer">
+                          Explore {milestone.sequences.length} sequences
+                          <ChevronDown aria-hidden="true" className="w-4 h-4 shrink-0" />
+                        </summary>
+                        <ul className="divide-y divide-[#D5CEBF]">
+                          {milestone.sequences.map((sequence) => (
+                            <li key={sequence.number} className="py-3 text-sm space-y-1">
+                              <p className="font-medium">{publishedCopy(sequence.name) ?? `Sequence ${sequence.number}`}</p>
+                              {publishedCopy(sequence.description) && <p className="text-[#303331] leading-relaxed">{publishedCopy(sequence.description)}</p>}
+                            </li>
+                          ))}
+                        </ul>
+                      </details>
+                    )}
+                  </article>
+                ))}
+              </div>
+            </div>
+          </section>
 
-            {/* Form */}
-            <div className="border-l-2 border-[#A94432] pl-5">
-              <h3 className="font-serif text-xl font-semibold text-[#171918]">
-                Form (Taolu){" "}
-                <span className="font-sans text-sm font-normal italic text-[#7A6D5A]">
-                  — the textbook
-                </span>
-              </h3>
-              <p className="mt-2 text-[#303331] text-base sm:text-lg leading-relaxed font-light">
-                A form is a structured collection of sequences. It preserves the lexicon of the art,
-                mechanics, and relationships in a repeatable training format for cultivation.
-              </p>
+          <section id="partner-training" aria-labelledby="partner-heading" className="grid lg:grid-cols-12 gap-8 lg:gap-12">
+            <div className="lg:col-span-5 space-y-4">
+              <p className={eyebrow}>Learning together</p>
+              <h2 id="partner-heading" className={heading}>Push Hands &amp;<br className="hidden sm:block" /> Partner Training</h2>
+              <p className="text-[#303331] leading-relaxed">Push Hands (Tuishou) is the conversation in our language of the body: a collection of partnered practices built around sustained physical contact.</p>
+              <p className="text-sm text-[#303331] leading-relaxed">These are examples of partner methods, rather than a complete curriculum or a prescribed order.</p>
             </div>
+            <div className="lg:col-span-7 border-t border-[#D5CEBF] divide-y divide-[#D5CEBF]">
+              {partnerMethods.map((method) => (
+                <article key={method.id} className="py-6 space-y-2">
+                  <h3 className="font-serif text-2xl font-semibold">{method.title}</h3>
+                  <p className="text-sm text-[#243B45]">{method.translation}</p>
+                  {publishedCopy(method.detail) && <p className="text-sm text-[#303331] leading-relaxed">{publishedCopy(method.detail)}</p>}
+                </article>
+              ))}
+            </div>
+          </section>
 
-            {/* Martial Applications */}
-            <div className="border-l-2 border-[#A94432] pl-5">
-              <h3 className="font-serif text-xl font-semibold text-[#171918]">
-                Martial Applications{" "}
-                <span className="font-sans text-sm font-normal italic text-[#7A6D5A]">
-                  — speaking with the language
-                </span>
-              </h3>
-              <p className="mt-2 text-[#303331] text-base sm:text-lg leading-relaxed font-light">
-                Some applications are traditionally taught, much like a language has established sayings and expressions that are passed down. But those examples do not exhaust what the language can express. The same jins can be recombined to create new applications appropriate to the situation.
-                Asking whether something is "the official application" is therefore a little like asking whether something is "the official English sentence".
-              </p>
+          <section aria-labelledby="language-heading" className="space-y-8">
+            <div className="max-w-2xl space-y-3">
+              <p className={eyebrow}>Connecting the practice</p>
+              <h2 id="language-heading" className={heading}>Taijiquan as a Language of the Body</h2>
+              <p className="text-[#303331] leading-relaxed">Learning this Taijiquan is like learning a language for the body. Explore each connection below.</p>
             </div>
+            <div className="grid md:grid-cols-2 xl:grid-cols-3 gap-4 items-start">
+              {languageAnalogy.map((item) => (
+                <details key={item.id} className={`${styles.disclosure} bg-[#DFD9CC]/60 rounded-2xl border border-[#D5CEBF]`}>
+                  <summary className="p-6 cursor-pointer">
+                    <span className="flex items-start justify-between gap-3">
+                      <span>
+                        <span className="block text-xs font-semibold text-[#9B3D2E] mb-2">{item.analogy}</span>
+                        <span className="block font-serif text-xl font-semibold">{item.title}</span>
+                      </span>
+                      <ChevronDown aria-hidden="true" className="w-4 h-4 mt-1 shrink-0 text-[#243B45]" />
+                    </span>
+                    <span className="block text-sm text-[#303331] leading-relaxed mt-3">{item.summary}</span>
+                    <span className="block mt-4 text-xs font-semibold text-[#243B45]">Explore the connection</span>
+                  </summary>
+                  <p className="mx-6 pb-6 pt-4 border-t border-[#D5CEBF] text-sm leading-relaxed text-[#303331]">{item.explanation}</p>
+                </details>
+              ))}
+            </div>
+          </section>
 
-            {/* Push Hands */}
-            <div className="border-l-2 border-[#A94432] pl-5">
-              <h3 className="font-serif text-xl font-semibold text-[#171918]">
-                Push Hands (Tuishou){" "}
-                <span className="font-sans text-sm font-normal italic text-[#7A6D5A]">
-                  — the conversation
-                </span>
-              </h3>
-              <p className="mt-2 text-[#303331] text-base sm:text-lg leading-relaxed font-light">
-                Push Hands is like a conversation between two people. It refers to a collection of partnered practices built around sustained physical contact. Some Push Hand drills are patterned, with a prescribed "script" for each player—but mistakes can still be punished.
-                Freestyle Push Hands removes the script, allowing both players to respond freely to each other while remaining within the constraints of the practice.
-              </p>
-            </div>
-          </div>
-        </div>
-        <div className="bg-[#DFD9CC] p-8 sm:p-12 rounded-3xl border border-[#D5CEBF] shadow-xs space-y-6">
-            <h2 className="font-serif text-3xl font-semibold text-[#171918]">
-              Depth over Breadth
-            </h2>
-            <p className="text-[#303331] text-base sm:text-lg leading-relaxed font-light">
-                When learning the art, there is an inherent tradeoff between breadth (learning more sequences and methods) and depth (developing the interconnected layers and nuances within the same material).
-            </p>
-            <p className="text-[#303331] text-base sm:text-lg leading-relaxed font-light">
-                Prioritizing breadth can provide the satisfaction of completing an entire form sooner, but much of that material may initially be understood only at a basic level. There is also a lot more "clean-up" work to eradicate errors throughout the entirety of the form.
-            </p>
-            <p className="text-[#303331] text-base sm:text-lg leading-relaxed font-light">
-                Prioritizing depth instead allows more time to explore the details and interconnected layers within a smaller amount of material. The goal is to establish a stronger and more cohesive foundation early, so that the skills developed in earlier sequences carry forward and make later material easier to learn.
-            </p>
-            <p className="text-[#303331] text-base sm:text-lg leading-relaxed font-light">
-                 Every school must find its own balance between these two priorities. Our
-                training deliberately favors depth over breadth. This means progressing
-                through the form more slowly, but it also means that students are not
-                expected to memorize large amounts of choreography before they have had
-                time to explore what they already know.
-            </p>
-        </div>
-          {/* Next Step CTA */}
-          <div className="bg-[#171918] text-[#E8E4DA] p-8 sm:p-12 rounded-3xl border border-[#303331] text-center space-y-6">
-            <h3 className="font-serif text-3xl font-light">
-              Ready to see how this translates into practice?
-            </h3>
-            <p className="text-sm text-[#DFD9CC] max-w-xl mx-auto font-light">
-              Now that you understand our methodology, learn about our lineage and instructor, or find out what your first class will be like.
-            </p>
-            <div className="flex flex-col sm:flex-row items-center justify-center gap-4 pt-2">
-              <Link
-                href="/about"
-                className="px-6 py-3 rounded-full bg-[#DFD9CC] text-[#171918] text-xs font-semibold hover:bg-[#D5CEBF] transition-colors"
-              >
-                Learn About Robin & Lineage →
+          <section aria-labelledby="pace-heading" className="border-l-2 border-[#9B3D2E]/60 pl-6 sm:pl-8 max-w-3xl space-y-4">
+            <h2 id="pace-heading" className={heading}>Learning at Your Own Pace</h2>
+            <p className="text-[#303331] leading-relaxed">Some students enjoy learning more sequences; others prefer refining a smaller body of material. Your interests can also change over time.</p>
+            <p className="text-[#303331] leading-relaxed">There is room for both approaches. Together with the instructor, choose what to work on while developing appropriate foundations. You do not need to share someone else’s goals or pace.</p>
+          </section>
+
+          <section aria-labelledby="try-heading" className="bg-[#171918] text-[#E8E4DA] p-8 sm:p-12 rounded-3xl border border-[#303331] text-center space-y-5">
+            <h2 id="try-heading" className="font-serif text-3xl sm:text-4xl font-light">Begin with a class.</h2>
+            <p className="text-[#DFD9CC] max-w-xl mx-auto leading-relaxed">You do not need to know the form or the terminology to get started. Come meet the instructor and experience the practice.</p>
+            <div className="flex flex-col sm:flex-row items-stretch sm:items-center justify-center gap-4 pt-2">
+              <Link href="/start" className="inline-flex items-center justify-center gap-2 px-7 py-3.5 rounded-full bg-[#9B3D2E] text-white text-sm font-bold hover:bg-[#7D3024] transition-colors">
+                Try a Class<ArrowRight aria-hidden="true" className="w-4 h-4" />
               </Link>
-              <Link
-                href="/start"
-                className="px-6 py-3 rounded-full bg-[#9B3D2E] text-white text-xs font-bold hover:bg-[#7D3024] transition-colors flex items-center space-x-2"
-              >
-                <span>Try a Class</span>
-                <ArrowRight className="w-3.5 h-3.5" />
-              </Link>
+              <Link href="/classes" className="px-7 py-3.5 rounded-full bg-[#DFD9CC] text-[#171918] text-sm font-semibold hover:bg-[#D5CEBF] transition-colors">View Classes &amp; Schedule</Link>
+              <Link href="/about" className="px-3 py-3.5 text-sm text-[#DFD9CC] underline underline-offset-4 hover:text-white">About Robin &amp; Lineage</Link>
             </div>
-          </div>
-
-        </section>
-      </div>
-
+          </section>
+        </div>
+      </main>
       <Footer />
-    </main>
+    </div>
   );
 }
