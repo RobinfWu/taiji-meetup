@@ -19,8 +19,6 @@ import {
 } from "lucide-react";
 
 export default function StartPage() {
-  const primaryClass = TAIJI_DATA.classes[0];
-  const emailAddress = TAIJI_DATA.contact.email;
 
   return (
     <main className="min-h-screen bg-[#E8E4DA] text-[#171918] relative flex flex-col font-sans selection:bg-[#9B3D2E]/15 selection:text-[#9B3D2E]">
@@ -98,19 +96,34 @@ export default function StartPage() {
             </div>
             <div className="space-y-2 flex-1">
               <h2 className="font-serif text-2xl font-semibold text-[#171918]">
-                Come experience it
+                Reserve your first class
               </h2>
-              <div className="text-base text-[#303331] leading-relaxed font-light space-y-1">
-                <p className="font-semibold text-[#171918]">
-                  {primaryClass.day} · {primaryClass.time}
-                </p>
-                <p className="text-xs text-[#243B45]">{primaryClass.location}</p>
-              </div>
+              <p className="text-base text-[#303331] leading-relaxed font-light">
+                Your first class is free. Choose an available session and reserve your place online.
+                The booking form shows the current date, time, and location.
+              </p>
             </div>
           </div>
 
-          {/* Action Contact Form */}
-          <ContactForm className="mt-12" darkVariant={true} />
+          {/* Primary path: reserve a place using the single booking form. */}
+          <section aria-labelledby="start-booking-heading" className="rounded-3xl bg-[#243B45] px-8 py-12 text-center text-[#E8E4DA] space-y-5">
+            <span className="text-xs font-semibold uppercase tracking-widest text-[#E0C9A2]">Ready to begin?</span>
+            <h2 id="start-booking-heading" className="font-serif text-3xl sm:text-4xl">Experience Your First Class</h2>
+            <p className="mx-auto max-w-xl text-sm leading-relaxed text-[#DFD9CC]">
+              Your first reservation is free. No experience or special equipment needed.
+              Choose an available class and reserve your place.
+            </p>
+            <Link href="/classes#reserve" className="inline-flex items-center justify-center gap-2 rounded-full bg-[#9B3D2E] px-7 py-3.5 text-sm font-semibold text-white hover:bg-[#7D3024]">
+              Reserve Your Free Class <ArrowRight className="h-4 w-4" />
+            </Link>
+          </section>
+
+          {/* Questions remain welcome, but booking is the primary action. */}
+          <section aria-labelledby="start-questions-heading" className="space-y-3 pt-4">
+            <h2 id="start-questions-heading" className="text-center font-serif text-2xl sm:text-3xl">Have Questions Before Your First Class?</h2>
+            <p className="text-center text-sm text-[#57625B]">Not quite ready to reserve? Send us a question below.</p>
+            <ContactForm darkVariant={true} />
+          </section>
 
         </section>
       </div>

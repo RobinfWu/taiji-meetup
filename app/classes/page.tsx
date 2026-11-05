@@ -40,7 +40,7 @@ export default function ClassesPage() {
                 Classes & <span className="font-normal italic text-[#243B45]">Schedule</span>
               </h1>
               <p className="text-lg text-[#303331] leading-relaxed font-light">
-                Our group practices outdoors with structured instruction in traditional form and Push Hands. Find everything you need to know about schedule, location, and attire.
+                Our group practices traditional form and Push Hands. Find information about training, fees, and how to reserve your place. Exact session times and venues are shown in the live booking form.
               </p>
             </div>
           </div>
@@ -97,7 +97,7 @@ export default function ClassesPage() {
 
                       <div className="flex items-center justify-center space-x-2.5">
                         <MapPin className="w-4 h-4 text-[#243B45]" />
-                        <span>{session.location}</span>
+                        <span>Check the booking form for the current session venue</span>
                       </div>
 
                       <div className="flex items-center justify-center space-x-2.5">
@@ -124,19 +124,17 @@ export default function ClassesPage() {
                   </div>
 
                   <Link
-                    href="/start"
+                    href="#reserve"
                     className="w-full max-w-md mx-auto mt-4 py-3 bg-[#171918] hover:bg-[#303331] text-[#E8E4DA] text-xs font-semibold rounded-2xl transition-colors flex items-center justify-center space-x-2 cursor-pointer shadow-xs border border-[#303331]"
                   >
-                    <Mail className="w-3.5 h-3.5 text-[#8A7250]" />
-                    <span>Get in Touch for {session.day} Practice</span>
+                    <Calendar className="w-3.5 h-3.5 text-[#8A7250]" />
+                    <span>See Available Classes &amp; Reserve</span>
                   </Link>
                 </div>
               ))}
             </div>
           </div>
           </div>
-
-        <PublicBookingForm />
 
         {/* Fees & Membership */}
         <section aria-labelledby="fees-heading" className="space-y-8">
@@ -209,6 +207,9 @@ export default function ClassesPage() {
           </div>
         </section>
 
+          {/* Single live reservation form shared by both visitor paths. */}
+          <PublicBookingForm />
+
           {/* Section 3: Location Details & What to Wear */}
           <div className="space-y-8">
             <div className="text-center max-w-2xl mx-auto space-y-2">
@@ -220,43 +221,23 @@ export default function ClassesPage() {
               </h2>
             </div>
 
-            <div className="grid grid-cols-1 gap-6">
-              {TAIJI_DATA.locations.map((loc, idx) => (
-                <div
-                  key={idx}
-                  className="bg-[#DFD9CC] p-8 rounded-3xl border border-[#D5CEBF] space-y-5 shadow-xs"
-                >
-                  <div className="flex items-center space-x-3">
-                    <div className="w-10 h-10 rounded-2xl bg-[#243B45]/10 text-[#243B45] flex items-center justify-center">
-                      <MapPin className="w-5 h-5" />
-                    </div>
-                    <div>
-                      <h3 className="font-serif text-xl font-semibold text-[#171918]">
-                        {loc.name}
-                      </h3>
-                      <p className="text-xs text-[#243B45] font-semibold">
-                        {loc.scheduleNote}
-                      </p>
-                    </div>
-                  </div>
-
-                  <div className="p-4 rounded-xl bg-[#E8E4DA] border border-[#D5CEBF] text-xs space-y-1">
-                    <span className="text-[#5A5E5B] font-semibold block uppercase tracking-wider text-[10px]">
-                      Address Details
-                    </span>
-                    <p className="font-semibold text-[#171918] text-sm">
-                      {loc.address}
-                    </p>
-                  </div>
-
-                  <div className="p-4 rounded-xl bg-[#E8E4DA] border border-[#D5CEBF] text-xs text-[#303331]">
-                    <span className="font-semibold text-[#171918] block mb-1 text-sm">
-                      Attire & Footwear Advice:
-                    </span>
-                    <p className="leading-relaxed font-light">{loc.tips}</p>
-                  </div>
-                </div>
-              ))}
+            <div className="bg-[#DFD9CC] p-8 rounded-3xl border border-[#D5CEBF] space-y-5 shadow-xs">
+              <div className="flex items-center gap-3">
+                <MapPin className="h-5 w-5 text-[#243B45]" />
+                <h3 className="font-serif text-xl font-semibold">Where we meet</h3>
+              </div>
+              <p className="text-sm leading-relaxed text-[#303331]">
+                Our venue may change between indoor and outdoor locations. Select a class in the
+                booking form above to see its current meeting location. Please check the details
+                again before traveling, particularly if the weather is uncertain.
+              </p>
+              <div className="rounded-xl bg-[#E8E4DA] border border-[#D5CEBF] p-4">
+                <h3 className="mb-1 text-sm font-semibold">What to wear</h3>
+                <p className="text-sm leading-relaxed text-[#303331]">
+                  Wear comfortable clothes and flat, flexible shoes. For outdoor sessions,
+                  dress for the weather and bring water. No uniform or special equipment is required.
+                </p>
+              </div>
             </div>
           </div>
 

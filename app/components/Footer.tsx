@@ -18,8 +18,8 @@ export const Footer: React.FC<FooterProps> = () => {
           {/* Brand & Philosophy Column */}
           <div className="md:col-span-5 space-y-4">
             <div className="flex items-center space-x-3">
-              <div className="w-10 h-10 rounded-full bg-[#E8E4DA] text-[#171918] flex items-center justify-center font-serif text-xl font-bold">
-                ☯
+              <div className="w-10 h-10 rounded-full border border-[#303331] group-hover:border-[#9B3D2E] transition-colors shadow-xs overflow-hidden">
+                <img src="/icon.png" alt="Taiji Lab logo" className="w-full h-full object-cover" />
               </div>
               <div>
                 <h3 className="font-serif text-xl font-semibold tracking-wide">
@@ -100,7 +100,7 @@ export const Footer: React.FC<FooterProps> = () => {
                 rel="noopener noreferrer"
                 className="inline-flex items-center space-x-2 bg-[#243B45] hover:bg-[#304B57] text-[#E8E4DA] px-4 py-2 rounded-xl text-xs font-semibold transition-all cursor-pointer border border-[#304B57]"
               >
-                <span>Teacher&apos;s Site: Mo Ling Taiji</span>
+                <span>My Teacher: Mo Ling Taiji</span>
                 <ExternalLink className="w-3.5 h-3.5 text-[#8A7250]" />
               </a>
             </div>
