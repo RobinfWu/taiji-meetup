@@ -61,6 +61,27 @@ export default function AboutPage() {
                   {lineageInfo.bio}
                 </p>
               </div>
+
+              {/* Teaching Motivation — separate from instructor credentials */}
+              <div className="p-5 rounded-2xl bg-[#E8E4DA] border border-[#D5CEBF] space-y-4">
+                <h3 className="font-serif text-xl font-semibold text-[#171918]">
+                  Why I Teach
+                </h3>
+                <div className="space-y-4 text-base text-[#303331] leading-relaxed font-light">
+                  <p>
+                    My motivation for teaching Taijiquan is partly self-interested: I want good training partners.
+                  </p>
+                  <p>
+                    The better my training partners become, the more they can challenge me. So I have a personal interest in helping others become skilled practitioners, just as I hope to continue improving myself.
+                  </p>
+                  <p>
+                    Of course, not everyone needs to pursue Taijiquan with the same intensity. Whether someone is interested in gentle practice or deeper martial development, they&apos;re welcome to train at their own pace.
+                  </p>
+                  <p>
+                    For now, my hope is simply to plant a seed: to bring together people interested in learning and practicing Chen Taijiquan, and gradually cultivate a community where we can help one another grow.
+                  </p>
+                </div>
+              </div>
             </div>
 
             {/* Lineage Teacher & Photos */}
@@ -162,17 +183,6 @@ export default function AboutPage() {
               This is the historical root of what most people today simply call “Tai Chi.”
             </p>
           </div>
-          <div className="bg-[#DFD9CC] p-8 sm:p-12 rounded-3xl border border-[#D5CEBF] shadow-xs space-y-6">
-            <h2 className="font-serif text-3xl font-semibold text-[#171918]">
-              What is Gongfu Jia?
-            </h2>
-            <p className="text-[#303331] text-base sm:text-lg leading-relaxed font-light">
-              If Taijiquan refers to a martial art “style” and Chen Family Taijiquan refers to a “substyle” (hence Chen “Style” Taijiquan), then “Gongfu Jia” (Gongfu Frame) refers to a specific lineage and training approach within the Chen Family.
-            </p>
-            <p className="text-[#303331] text-base sm:text-lg leading-relaxed font-light">
-              That lineage can be traced to Chen Zhaokui (son of Chen Fake).
-            </p>
-          </div>
 
           {/* Full Lineage Tree Timeline */}
           <div className="space-y-8">
@@ -211,6 +221,20 @@ export default function AboutPage() {
                       <p className="text-xs sm:text-sm text-[#303331] leading-relaxed pt-1 font-light">
                         {item.description}
                       </p>
+
+                      {item.linkUrl && (
+                        <div className="pt-1.5">
+                          <a
+                            href={item.linkUrl}
+                            target="_blank"
+                            rel="noopener noreferrer"
+                            className="inline-flex items-center space-x-1.5 text-xs font-semibold text-[#243B45] hover:text-[#9B3D2E] hover:underline transition-colors"
+                          >
+                            <span>{item.linkLabel || "Learn more"}</span>
+                            <ExternalLink className="w-3.5 h-3.5" />
+                          </a>
+                        </div>
+                      )}
                     </div>
                   </div>
                 ))}

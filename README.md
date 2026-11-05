@@ -1,36 +1,52 @@
-This is a [Next.js](https://nextjs.org) project bootstrapped with [`create-next-app`](https://nextjs.org/docs/app/api-reference/cli/create-next-app).
+# Taiji Lab
 
-## Getting Started
+Website and class management platform for a small Chen Family Taijiquan practice group in Kingston, Ontario, Canada.
 
-First, run the development server:
+**Live website:** https://chentaijilab.ca/  
+**Source repository:** https://github.com/RobinfWu/taiji-meetup
 
-```bash
-npm run dev
-# or
-yarn dev
-# or
-pnpm dev
-# or
-bun dev
-```
+## Overview
 
-Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
+Taiji Lab is a full-stack web application built to support the development of a local Chen Taijiquan training community.
 
-You can start editing the page by modifying `app/page.tsx`. The page auto-updates as you edit the file.
+The website introduces prospective students to the training methodology, instructor background, class schedule, and membership options. It also provides an online reservation system for students and administrative tools for managing classes and registrations.
 
-This project uses [`next/font`](https://nextjs.org/docs/app/building-your-application/optimizing/fonts) to automatically optimize and load [Geist](https://vercel.com/font), a new font family for Vercel.
+The application uses a statically generated Next.js frontend, Cloudflare Pages Functions for serverless APIs, and Cloudflare D1 for relational data storage.
 
-## Learn More
+## Technology Stack
 
-To learn more about Next.js, take a look at the following resources:
+| Layer | Technology |
+|---|---|
+| Frontend | Next.js, React, TypeScript |
+| Styling | Tailwind CSS |
+| Hosting | Cloudflare Pages |
+| Backend | Cloudflare Pages Functions |
+| Database | Cloudflare D1 (SQLite) |
+| Bot protection | Cloudflare Turnstile |
 
-- [Next.js Documentation](https://nextjs.org/docs) - learn about Next.js features and API.
-- [Learn Next.js](https://nextjs.org/learn) - an interactive Next.js tutorial.
+## Features
 
-You can check out [the Next.js GitHub repository](https://github.com/vercel/next.js) - your feedback and contributions are welcome!
+- Responsive website introducing Chen Family Taijiquan and its training methodology.
+- Class schedules, locations, and membership pricing.
+- Online class reservations with email verification.
+- Reservation capacity management.
+- Administrative tools for managing class sessions and registrations.
+- Support for manual payment verification through Interac e-Transfer or cash.
+- Cloudflare Turnstile integration for protecting public forms.
 
-## Deploy on Vercel
+## Architecture
 
-The easiest way to deploy your Next.js app is to use the [Vercel Platform](https://vercel.com/new?utm_medium=default-template&filter=next.js&utm_source=create-next-app&utm_campaign=create-next-app-readme) from the creators of Next.js.
+The application separates the statically generated frontend from its serverless backend.
 
-Check out our [Next.js deployment documentation](https://nextjs.org/docs/app/building-your-application/deploying) for more details.
+- **Frontend:** Next.js generates static assets deployed to Cloudflare Pages.
+- **API:** Cloudflare Pages Functions handle dynamic requests, including reservations and administrative operations.
+- **Database:** Cloudflare D1 stores class sessions, reservations, and related application data.
+- **Payments:** Payments are handled outside the application through Interac e-Transfer or cash, with manual confirmation by the instructor.
+
+This architecture keeps infrastructure and operational costs low while supporting dynamic functionality without a continuously running application server.
+
+## Hosting
+
+The application is hosted on Cloudflare Pages, with Pages Functions and D1 providing backend functionality.
+
+Cloudflare was selected for its support for commercial projects on its free tier, integrated serverless infrastructure, and suitability for a small community-operated website.

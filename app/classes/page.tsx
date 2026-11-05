@@ -234,7 +234,7 @@ export default function ClassesPage() {
               <div className="rounded-xl bg-[#E8E4DA] border border-[#D5CEBF] p-4">
                 <h3 className="mb-1 text-sm font-semibold">What to wear</h3>
                 <p className="text-sm leading-relaxed text-[#303331]">
-                  Wear comfortable clothes and flat, flexible shoes. For outdoor sessions,
+                  Wear comfortable clothes and flat-soled shoes. For outdoor sessions,
                   dress for the weather and bring water. No uniform or special equipment is required.
                 </p>
               </div>
