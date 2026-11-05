@@ -1,7 +1,6 @@
 "use client";
 
-import React from "react";
-import { useForm, ValidationError } from "@formspree/react";
+import React, { useEffect, useRef, useState } from "react";
 import { Send, CheckCircle2, Mail, Sparkles } from "lucide-react";
 import { TAIJI_DATA } from "../data/taijiData";
 
@@ -14,7 +13,78 @@ export const ContactForm: React.FC<ContactFormProps> = ({
   className = "",
   darkVariant = false
 }) => {
-  const [state, handleSubmit] = useForm("xljglank");
+  const [status, setStatus] = useState<"idle" | "sending" | "sent">("idle");
+  const [error, setError] = useState("");
+  const [token, setToken] = useState("");
+  const widget = useRef<HTMLDivElement>(null);
+  const widgetId = useRef<string | undefined>(undefined);
+  const siteKey = process.env.NEXT_PUBLIC_TURNSTILE_SITE_KEY;
+
+  useEffect(() => {
+    if (!siteKey) return;
+    let active = true;
+    let poll: ReturnType<typeof setInterval> | undefined;
+    const render = () => {
+      if (!active || !widget.current || widgetId.current !== undefined || !window.turnstile) return;
+      widgetId.current = window.turnstile.render(widget.current, {
+        sitekey: siteKey,
+        callback: (value: string) => setToken(value),
+        "expired-callback": () => setToken(""),
+        "error-callback": () => setToken(""),
+      });
+      if (poll) clearInterval(poll);
+    };
+    let script = document.querySelector<HTMLScriptElement>('script[data-taiji-turnstile]');
+    if (!script) {
+      script = document.createElement("script");
+      script.src = "https://challenges.cloudflare.com/turnstile/v0/api.js?render=explicit";
+      script.async = true;
+      script.defer = true;
+      script.dataset.taijiTurnstile = "true";
+      document.head.appendChild(script);
+    }
+    script.addEventListener("load", render);
+    poll = setInterval(render, 250);
+    render();
+    return () => {
+      active = false;
+      script?.removeEventListener("load", render);
+      if (poll) clearInterval(poll);
+      if (widgetId.current !== undefined) window.turnstile?.remove(widgetId.current);
+      widgetId.current = undefined;
+    };
+  }, [siteKey]);
+
+  async function handleSubmit(event: React.FormEvent<HTMLFormElement>) {
+    event.preventDefault();
+    if (status === "sending") return;
+    setError("");
+    if (!siteKey || !token) {
+      setError("Please complete the verification before sending.");
+      return;
+    }
+    const form = event.currentTarget;
+    const data = new FormData(form);
+    setStatus("sending");
+    try {
+      const response = await fetch("/api/public/contact", {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({
+          name: data.get("name"), email: data.get("email"),
+          message: data.get("message"), website: data.get("website"), turnstileToken: token,
+        }),
+      });
+      const result: { error?: string } = await response.json();
+      if (!response.ok) throw new Error(result.error || "Unable to send your message.");
+      setStatus("sent");
+    } catch (err) {
+      setStatus("idle");
+      setError(err instanceof Error ? err.message : "Unable to send your message.");
+      setToken("");
+      if (widgetId.current !== undefined) window.turnstile?.reset(widgetId.current);
+    }
+  }
 
   const inputClass = `w-full px-4 py-3 rounded-2xl text-sm transition-colors outline-none border ${
     darkVariant
@@ -22,7 +92,7 @@ export const ContactForm: React.FC<ContactFormProps> = ({
       : "bg-[#E8E4DA] text-[#171918] border-[#D5CEBF] focus:border-[#243B45]"
   }`;
 
-  const errorClass = "text-[#9B3D2E] text-xs mt-1 font-light";
+
 
   return (
     <div
@@ -40,18 +110,18 @@ export const ContactForm: React.FC<ContactFormProps> = ({
             <span>Get In Touch</span>
           </div>
           <h2 className="font-serif text-3xl sm:text-4xl font-light">
-            Interested in Training With Us?
+            Have a Question?
           </h2>
           <p
             className={`text-sm sm:text-base font-light max-w-xl mx-auto leading-relaxed ${
               darkVariant ? "text-[#DFD9CC]" : "text-[#303331]"
             }`}
           >
-            Whether you&apos;re ready to try a class or just have a question, feel free to get in touch. No experience is necessary, and there&apos;s no commitment.
+            Ask about training, accessibility, or anything you would like to know before attending. To reserve a place, use the booking form on the Classes page.
           </p>
         </div>
 
-        {state.succeeded ? (
+        {status === "sent" ? (
           /* Success state */
           <div className="py-10 text-center space-y-4 animate-in fade-in duration-300">
             <div className="w-14 h-14 rounded-full bg-[#243B45]/20 text-[#243B45] flex items-center justify-center mx-auto">
@@ -59,7 +129,7 @@ export const ContactForm: React.FC<ContactFormProps> = ({
             </div>
             <h3 className="font-serif text-2xl font-semibold">Message Sent!</h3>
             <p className="text-sm font-light max-w-md mx-auto">
-              Thanks for reaching out. We&apos;ll be in touch with class details and next steps shortly.
+              Thanks for reaching out. Your message has been delivered.
             </p>
             <div className="pt-2">
               <a
@@ -74,8 +144,11 @@ export const ContactForm: React.FC<ContactFormProps> = ({
         ) : (
           /* Form */
           <form onSubmit={handleSubmit} className="space-y-4 pt-2">
-            {/* Global Formspree error (e.g. network failure) */}
-            <ValidationError errors={state.errors} className={errorClass} />
+            {error && <p role="alert" className="text-sm text-[#C87567]">{error}</p>}
+            <div className="absolute -left-[10000px]" aria-hidden="true">
+              <label htmlFor="contact-website">Website</label>
+              <input id="contact-website" name="website" type="text" tabIndex={-1} autoComplete="off" />
+            </div>
 
             <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
               {/* Name */}
@@ -91,7 +164,7 @@ export const ContactForm: React.FC<ContactFormProps> = ({
                   placeholder="Your Name"
                   className={inputClass}
                 />
-                <ValidationError field="name" errors={state.errors} className={errorClass} />
+
               </div>
 
               {/* Email */}
@@ -107,7 +180,7 @@ export const ContactForm: React.FC<ContactFormProps> = ({
                   placeholder="you@example.com"
                   className={inputClass}
                 />
-                <ValidationError field="email" errors={state.errors} className={errorClass} />
+
               </div>
             </div>
 
@@ -120,19 +193,23 @@ export const ContactForm: React.FC<ContactFormProps> = ({
                 id="message"
                 name="message"
                 rows={3}
+                required
+                maxLength={4000}
                 placeholder="Ask a question or let us know when you'd like to drop in..."
                 className={`${inputClass} resize-none`}
               />
-              <ValidationError field="message" errors={state.errors} className={errorClass} />
+
             </div>
 
+            <div ref={widget} aria-label="Spam protection verification" />
+            {!siteKey && <p role="alert" className="text-sm text-[#C87567]">Contact form is not configured yet.</p>}
             <div className="pt-2 flex flex-col sm:flex-row items-center justify-between gap-4">
               <button
                 type="submit"
-                disabled={state.submitting}
+                disabled={status === "sending" || !siteKey || !token}
                 className="w-full sm:w-auto inline-flex items-center justify-center space-x-2 bg-[#9B3D2E] hover:bg-[#7D3024] disabled:opacity-60 disabled:cursor-not-allowed text-white px-8 py-3.5 rounded-full text-sm font-bold shadow-md transition-all cursor-pointer active:scale-98 border border-[#9B3D2E]"
               >
-                <span>{state.submitting ? "Sending…" : "Send"}</span>
+                <span>{status === "sending" ? "Sending…" : "Send"}</span>
                 <Send className="w-4 h-4 text-white" />
               </button>
 
@@ -150,3 +227,14 @@ export const ContactForm: React.FC<ContactFormProps> = ({
     </div>
   );
 };
+
+// Cloudflare Turnstile is loaded at runtime (no additional npm dependency).
+declare global {
+  interface Window {
+    turnstile?: {
+      render: (element: HTMLElement, options: Record<string, unknown>) => string;
+      reset: (id: string) => void;
+      remove: (id: string) => void;
+    };
+  }
+}

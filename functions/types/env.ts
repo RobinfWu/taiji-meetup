@@ -13,6 +13,9 @@ export interface Env {
   WAIVER_APPROVED_VERSION?: string;
   EMAIL_VERIFICATION_DEV_MODE?: string;
   RESEND_API_KEY?: string;
+  TURNSTILE_SECRET_KEY?: string;
+  CONTACT_TO_EMAIL?: string;
+  CONTACT_RATE_LIMIT_SECRET?: string;
   BOOKING_FROM_EMAIL?: string;
   ETRANSFER_RECEIVING_EMAIL?: string;
 }
