@@ -16,7 +16,7 @@ export const homepageFaq: HomepageFaqEntry[] = [
   {
     id: "what-is-taijiquan",
     question: "What is Taijiquan?",
-    answer: { status: "published", text: "Many Chinese martial arts follow a naming scheme: Taijiquan, Xingyiquan, Bajiquan, Tanglangquan, Hung Ga Kuen, etc...\n\n“Quan”, or “Kuen” in Cantonese, translates to mean fist which denotes a martial art or fighting system. It does not literally mean an art about using fists. Taijiquan therefore means “Taiji Fist” — a martial art named after the concept of Taiji (the interplay of Yin and Yang). It is a Northern Chinese martial art that originated from the Chen Village (Chenjiagou) in Henan Province.\n\nTaijiquan is a family art. It was commonly passed down from father to son or from “master” to “apprentice”. The Chen family developed it first. The founder of the Yang family learned from the Chen family; the founder of the Wu family later learned from the Yang family.\n\nThis is the historical root of what most people today simply call “Tai Chi.”" },
+    answer: { status: "published", text: "Many Chinese martial arts have names ending in quan (拳), such as Taijiquan, Xingyiquan, Bajiquan, Tanglangquan, Hung Ga Kuen, etc...\n\n“Quan”, or “Kuen” in Cantonese, translates to mean fist which denotes a martial art or fighting system. It does not literally mean an art about using fists. Taijiquan therefore means “Taiji Fist” — a martial art named after the concept of Taiji (the interplay of Yin and Yang). It is a Northern Chinese martial art that originated from the Chen Village (Chenjiagou) in Henan Province.\n\nTaijiquan is a family art. It was commonly passed down from father to son or from “master” to “apprentice”. The Chen family developed it first. The founder of the Yang family learned from the Chen family; the founder of the Wu family later learned from the Yang family.\n\nThis is the historical root of what most people today simply call “Tai Chi.”" },
   },
   {
     id: "taiji-and-tai-chi",
@@ -26,7 +26,7 @@ export const homepageFaq: HomepageFaqEntry[] = [
   {
     id: "previous-experience",
     question: "Can beginners learn Chen-style Taijiquan?",
-    answer: { status: "published", text: "Yes. There is no prerequisite martial art that one must learn before beginning Chen-style Taijiquan.\n\nHistorically, for many practitioners within the Chen family, Taijiquan was the first and sometimes the only martial art they learned.\n\nBeginners are welcome. Training can be adapted to different levels of experience and physical ability." },
+    answer: { status: "published", text: "Absolutely. No previous Tai Chi experience is necessary. In fact, being a complete beginner can sometimes be an advantage. Sometimes, an empty cup is easier to fill. Beginners often arrive without ingrained habits from other movement disciplines that may need to be unlearned or temporarily set aside."},
   },
   {
     id: "entire-form",

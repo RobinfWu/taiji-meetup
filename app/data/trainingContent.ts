@@ -307,9 +307,9 @@ export const yiluMilestones: YiluMilestone[] = [
 ];
 
 export const partnerMethods = [
-  { id: "dan-tuishou", title: "Dan Tuishou", translation: "Single-Hand Push Hands", detail: draft("[Instructor: Explain the purpose of Dan Tuishou and how you practise and introduce it in this school.]") },
-  { id: "ding-bu-tuishou", title: "Ding Bu Tuishou", translation: "Fixed-Step Push Hands", detail: draft("[Instructor: Explain the purpose of Ding Bu Tuishou and how you practise and introduce it in this school.]") },
-  { id: "da-lun", title: "Da Lun", translation: "Hit/Do the Wheel Tuishou\n", detail: draft("[Instructor: Explain the purpose of Da Lu and how you practise and introduce it in this school.]") },
+  { id: "dan-tuishou", videoId: "K4HODp7daVA", title: "Dan Tuishou", translation: "Single-Hand Push Hands", detail: draft("[Instructor: Explain the purpose of Dan Tuishou and how you practise and introduce it in this school.]") },
+  { id: "da-lun", videoId: "mjpq-0psZt8", title: "Da Lun", translation: "Hit/Do the Wheel Tuishou\n", detail: draft("[Instructor: Explain the purpose of Da Lu and how you practise and introduce it in this school.]") },
+  { id: "ding-bu-tuishou", videoId: "Y1ex4zqk19s", title: "Ding Bu Tuishou", translation: "Fixed-Step Push Hands", detail: draft("[Instructor: Explain the purpose of Ding Bu Tuishou and how you practise and introduce it in this school.]") },
 ];
 
 // The full explanations below preserve the previous page's instructor-authored
@@ -318,12 +318,12 @@ export const languageAnalogy = [
   {
     id: "principles", title: "Principles", analogy: "Grammar",
     summary: "What is fundamental to the system.",
-    explanation: "Principles describe that which is fundamental to the system. They are like the grammar of the art, the rules that govern the structure and arrangement of the art. And just like grammar, there can be exceptions and nuances.",
+    explanation: "Principles describe that which is fundamental to the system. They are like the grammar of the art, the rules that govern the structure and arrangement of the art. Just as languages contain exceptions and nuances, applying these principles requires sensitivity to context rather than rigidly following formulas.",
   },
   {
     id: "jins", title: "Jins", analogy: "Vocabulary",
     summary: "The building blocks of sequences and applications.",
-    explanation: "Jins refer to cultivated energies or forces that Taijiquan categorizes according to their qualities and desired effects. They are the building blocks from which sequences and martial applications are constructed by stringing them together, much like arranging vocabulary to form sentences.",
+    explanation: "Jins refer to trained expressions of energies or forces that Taijiquan categorizes according to their qualities and desired effects. They are the vocabulary of the art from which sequences and martial applications are constructed by stringing them together like sentences. How well a jin has been cultivated is akin to how well a word is pronounced.",
   },
   {
     id: "sequences", title: "Sequences", analogy: "Sentences",
@@ -338,7 +338,7 @@ export const languageAnalogy = [
   {
     id: "applications", title: "Martial Applications", analogy: "Speaking with the Language",
     summary: "Established expressions, with room for new combinations.",
-    explanation: 'Some applications are traditionally taught, much like a language has established sayings and expressions that are passed down. But those examples do not exhaust what the language can express. The same jins can be recombined to create new applications appropriate to the situation. Asking whether something is "the official application" is therefore a little like asking whether something is "the official English sentence".',
+    explanation: 'Some applications are traditionally taught, much like a language has established sayings and expressions that are passed down. But those examples do not exhaust what the language can express. The same jins can be recombined to create new applications appropriate to the situation. Asking whether something is "the official application" is therefore a little like asking for the one correct sentence that can be made from a particular set of words.',
   },
   {
     id: "tuishou", title: "Push Hands (Tuishou)", analogy: "Conversation",

@@ -11,6 +11,7 @@ import {
   yiluMilestones,
 } from "../data/trainingContent";
 import styles from "./method.module.css";
+import { VideoDemonstration } from "../components/VideoDemonstration";
 
 export const metadata: Metadata = {
   title: "How We Train | Chen Taiji Lab",
@@ -138,11 +139,13 @@ export default function MethodPage() {
             </div>
             <div className="lg:col-span-7 border-t border-[#D5CEBF] divide-y divide-[#D5CEBF]">
               {partnerMethods.map((method) => (
-                <article key={method.id} className="py-6 space-y-2">
-                  <h3 className="font-serif text-2xl font-semibold">{method.title}</h3>
-                  <p className="text-sm text-[#243B45]">{method.translation}</p>
-                  {publishedCopy(method.detail) && <p className="text-sm text-[#303331] leading-relaxed">{publishedCopy(method.detail)}</p>}
-                </article>
+                <VideoDemonstration
+                  key={method.id}
+                  videoId={method.videoId}
+                  methodName={method.title}
+                  translation={method.translation}
+                  description={publishedCopy(method.detail)}
+                />
               ))}
             </div>
           </section>
@@ -165,7 +168,7 @@ export default function MethodPage() {
                       <ChevronDown aria-hidden="true" className="w-4 h-4 mt-1 shrink-0 text-[#243B45]" />
                     </span>
                     <span className="block text-sm text-[#303331] leading-relaxed mt-3">{item.summary}</span>
-                    <span className="block mt-4 text-xs font-semibold text-[#243B45]">Explore the connection</span>
+                    <span className="block mt-4 text-xs font-semibold text-[#243B45]">Learn more</span>
                   </summary>
                   <p className="mx-6 pb-6 pt-4 border-t border-[#D5CEBF] text-sm leading-relaxed text-[#303331]">{item.explanation}</p>
                 </details>
