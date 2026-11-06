@@ -131,6 +131,7 @@ export default function MethodPage() {
               <h2 id="partner-heading" className={heading}>Push Hands &amp;<br className="hidden sm:block" /> Partner Training</h2>
               <p className="text-[#303331] leading-relaxed">Push Hands (Tuishou) is the conversation in our language of the body: a collection of partnered practices built around sustained physical contact.</p>
               <p className="text-sm text-[#303331] leading-relaxed">These are examples of partner methods, rather than a complete curriculum or a prescribed order.</p>
+              <Link href="/about#push-hands-demonstration" className="inline-block text-sm text-[#243B45] underline underline-offset-4">Watch Robin’s Push Hands demonstration</Link>
             </div>
             <div className="lg:col-span-7 border-t border-[#D5CEBF] divide-y divide-[#D5CEBF]">
               {partnerMethods.map((method) => (

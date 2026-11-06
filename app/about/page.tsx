@@ -1,17 +1,16 @@
-"use client";
-
-import React from "react";
+import Image from "next/image";
+import styles from "../components/EditorialContent.module.css";
 import Link from "next/link";
 import { Navbar } from "../components/Navbar";
 import { Footer } from "../components/Footer";
 import { TAIJI_DATA } from "../data/taijiData";
-import { GitCommit, Info, ExternalLink, Award, ArrowRight, ShieldCheck, Video } from "lucide-react";
+import { ExternalLink, ArrowRight, ShieldCheck, Video } from "lucide-react";
 
 export default function AboutPage() {
   const { lineageInfo, lineageTree } = TAIJI_DATA;
 
   return (
-    <main className="min-h-screen bg-[#E8E4DA] text-[#171918] relative flex flex-col font-sans selection:bg-[#9B3D2E]/15 selection:text-[#9B3D2E]">
+    <main className={`${styles.content} min-h-screen bg-[#E8E4DA] text-[#171918] relative flex flex-col font-sans selection:bg-[#9B3D2E]/15 selection:text-[#9B3D2E]`}>
       <Navbar />
 
       <div className="flex-1 pt-28 pb-20">
@@ -35,38 +34,33 @@ export default function AboutPage() {
 
         <section className="py-16 max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 space-y-20">
           
-          {/* Robin Wu Bio & Philosophy */}
-          <div className="grid grid-cols-1 lg:grid-cols-12 gap-10 items-start">
-            <div className="lg:col-span-7 bg-[#DFD9CC] p-8 sm:p-10 rounded-3xl border border-[#D5CEBF] shadow-xs space-y-6">
-              <div className="flex items-center space-x-4">
-                <div className="w-16 h-16 rounded-2xl bg-[#171918] text-[#E8E4DA] flex items-center justify-center font-serif text-3xl font-bold border border-[#303331]">
-                  ☯
-                </div>
-                <div>
-                  <h2 className="font-serif text-3xl font-semibold text-[#171918]">
-                    {lineageInfo.instructorName}
-                  </h2>
-                  <p className="text-sm font-semibold text-[#243B45]">
-                    {lineageInfo.title}
-                  </p>
-                </div>
+          <section aria-labelledby="instructor-heading" className="grid lg:grid-cols-12 gap-8 lg:gap-14 items-center">
+            <figure className="lg:col-span-5 space-y-3">
+              <Image src="/IMG_2499.jpg" alt="Marin Spivack and Robin Wu" width={480} height={480} priority className="w-full h-auto rounded-3xl border border-[#D5CEBF]" />
+              <figcaption className="text-sm text-[#5A5E5B] font-serif italic">Marin Spivack and Robin Wu</figcaption>
+            </figure>
+            <div className="lg:col-span-7 space-y-6">
+              <p className="text-xs font-semibold uppercase tracking-widest text-[#9B3D2E]">Your instructor</p>
+              <div className="space-y-2">
+                <h2 id="instructor-heading" className="font-serif text-3xl sm:text-4xl font-light">{lineageInfo.instructorName}</h2>
+                <p className="text-sm font-semibold text-[#243B45]">{lineageInfo.title}</p>
               </div>
-
-              <div className="p-5 rounded-2xl bg-[#E8E4DA] border border-[#D5CEBF] space-y-2">
-                <div className="flex items-center space-x-2 text-xs font-semibold text-[#8A7250] uppercase tracking-wider">
-                  <Info className="w-4 h-4" />
-                  <span>Instructor Training History</span>
-                </div>
-                <p className="text-base text-[#303331] leading-relaxed font-light">
-                  {lineageInfo.bio}
-                </p>
+              <p className="text-base sm:text-lg text-[#303331] leading-relaxed font-light">{lineageInfo.bio}</p>
+              <div className="border-t border-[#D5CEBF] pt-6 space-y-3">
+                <h3 className="font-serif text-2xl">Training with {lineageInfo.teacherName}</h3>
+                <p className="text-sm text-[#303331] leading-relaxed">Robin Wu trained directly under <strong>{lineageInfo.teacherName}</strong> as an indoor student/disciple. Marin Spivack is a senior disciple of Chen Yu, the only son of Chen Zhaokui.</p>
+                <a href={lineageInfo.teacherWebsite} target="_blank" rel="noopener noreferrer" className="inline-flex items-center gap-2 text-sm font-semibold text-[#243B45] underline underline-offset-4">
+                  Visit Mo Ling Taiji Official Website ({lineageInfo.teacherSiteName})<ExternalLink aria-hidden="true" className="w-3.5 h-3.5 shrink-0" />
+                </a>
               </div>
-
-              {/* Teaching Motivation — separate from instructor credentials */}
-              <div className="p-5 rounded-2xl bg-[#E8E4DA] border border-[#D5CEBF] space-y-4">
-                <h3 className="font-serif text-xl font-semibold text-[#171918]">
+            </div>
+          </section>
+          <div className="grid lg:grid-cols-12 gap-10 lg:gap-14 items-start">
+            <div className="lg:col-span-8">{/* Teaching Motivation — separate from instructor credentials */}
+              <section aria-labelledby="why-teach-heading" className="max-w-3xl border-l-2 border-[#9B3D2E]/60 pl-6 sm:pl-10 space-y-6">
+                <h2 id="why-teach-heading" className="font-serif text-3xl sm:text-4xl font-light text-[#171918]">
                   Why I Teach
-                </h3>
+                </h2>
                 <div className="space-y-4 text-base text-[#303331] leading-relaxed font-light">
                   <p>
                     My motivation for teaching Taijiquan is partly self-interested: I want good training partners.
@@ -81,80 +75,74 @@ export default function AboutPage() {
                     For now, my hope is simply to plant a seed: to bring together people interested in learning and practicing Chen Taijiquan, and gradually cultivate a community where we can help one another grow.
                   </p>
                 </div>
-              </div>
+              </section>
+            </div>
+            <figure className="lg:col-span-4 space-y-3 max-w-sm">
+              <Image src="/IMG_2503.jpg" alt="Baishi Ceremony" width={360} height={640} className="w-full h-auto rounded-2xl border border-[#D5CEBF]" />
+              <figcaption className="text-sm font-serif italic text-[#5A5E5B]">Baishi Ceremony</figcaption>
+            </figure>
+          </div>
+
+          {/* Full Lineage Tree Timeline */}
+          <div className="space-y-8">
+            <div className="text-center max-w-2xl mx-auto space-y-2">
+              <span className="text-xs font-semibold uppercase tracking-widest text-[#8A7250]">
+                Historical context & direct transmission
+              </span>
+              <h2 className="font-serif text-3xl sm:text-4xl font-light text-[#171918]">
+                Historical Lineage Tree
+              </h2>
+              <p className="text-sm text-[#303331]">
+                From 17th Century Chenjiagou origin down to local instruction today. Selected generations are shown; gaps between entries do not imply direct personal instruction.
+              </p>
             </div>
 
-            {/* Lineage Teacher & Photos */}
-            <div className="lg:col-span-5 space-y-6">
-              <div className="p-8 rounded-3xl bg-[#243B45]/10 border border-[#243B45]/25 space-y-4">
-                <div className="flex items-center justify-between">
-                  <span className="text-xs font-semibold text-[#243B45] uppercase tracking-wider">
-                    Lineage Teacher & Academy
-                  </span>
-                  <ExternalLink className="w-4 h-4 text-[#243B45]" />
-                </div>
-                <h3 className="font-serif text-xl font-semibold text-[#171918]">
-                  {lineageInfo.teacherName} (Mo Ling Taiji)
-                </h3>
-                <p className="text-xs text-[#303331] leading-relaxed">
-                  Robin Wu trained directly under <strong>{lineageInfo.teacherName}</strong> as an indoor student/disciple. Marin Spivack is a senior disciple of Chen Yu, the only son of Chen Zhaokui.
-                </p>
-                <a
-                  href={lineageInfo.teacherWebsite}
-                  target="_blank"
-                  rel="noopener noreferrer"
-                  className="inline-flex items-center space-x-1.5 text-xs font-semibold text-[#243B45] hover:text-[#171918] hover:underline pt-1"
-                >
-                  <span>Visit Mo Ling Taiji Official Website ({lineageInfo.teacherSiteName})</span>
-                  <ExternalLink className="w-3 h-3" />
-                </a>
-              </div>
-
-              {/* Photo Gallery */}
-              <div className="space-y-3">
-                <h4 className="text-xs font-semibold text-[#5A5E5B] uppercase tracking-wider px-1">
-                  Marin Spivack and Robin Wu
-                </h4>
-                <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
-                  <div className="rounded-2xl overflow-hidden border border-[#D5CEBF] bg-[#DFD9CC] shadow-xs group">
-                    <img
-                      src="/IMG_2499.jpg"
-                      alt="Marin Spivack and Robin Wu"
-                      className="w-full h-48 object-cover group-hover:scale-103 transition-transform duration-300"
-                    />
-                  </div>
-                  <div className="rounded-2xl overflow-hidden border border-[#D5CEBF] bg-[#DFD9CC] shadow-xs group">
-                    <img
-                      src="/IMG_2503.jpg"
-                      alt="Baishi Ceremony"
-                      className="w-full h-48 object-cover group-hover:scale-103 transition-transform duration-300"
-                    />
-                  </div>
-                </div>
-              </div>
+            <div className="space-y-8">
+              {[
+                { title: "Earlier historical generations", entries: lineageTree.slice(0, 2) },
+                { title: "Modern Chen Taijiquan transmission", entries: lineageTree.slice(2, 4) },
+                { title: "Direct teacher–student relationships leading to Robin", entries: lineageTree.slice(4) },
+              ].map((group) => (
+                <section key={group.title} aria-label={group.title} className="bg-[#DFD9CC]/60 p-5 sm:p-8 rounded-3xl border border-[#D5CEBF] space-y-5">
+                  <h3 className="font-serif text-2xl text-[#243B45]">{group.title}</h3>
+                  <ol className="space-y-4">
+                    {group.entries.map((item) => (
+                      <li key={item.generation} className="bg-[#E8E4DA] p-5 sm:p-6 rounded-2xl border border-[#D5CEBF] space-y-3">
+                        <div className="flex flex-wrap items-baseline justify-between gap-2">
+                          <h4 className="font-serif text-xl font-semibold">{item.figures.join(", ")}</h4>
+                          <span className="text-sm text-[#243B45]">{item.era}</span>
+                        </div>
+                        <p className="text-xs font-semibold tracking-wide text-[#9B3D2E]">{item.generation}</p>
+                        <p className="text-sm text-[#303331] leading-relaxed">{item.description}</p>
+                        {item.linkUrl && <a href={item.linkUrl} target="_blank" rel="noopener noreferrer" className="inline-flex items-center gap-2 text-sm text-[#243B45] underline underline-offset-4">{item.linkLabel || "Learn more"}<ExternalLink aria-hidden="true" className="w-3.5 h-3.5 shrink-0" /></a>}
+                      </li>
+                    ))}
+                  </ol>
+                </section>
+              ))}
             </div>
           </div>
 
           {/* Push Hands Video Demonstration - Tall Vertical Frame */}
-          <div className="bg-[#DFD9CC] p-6 sm:p-10 rounded-3xl border border-[#D5CEBF] shadow-xs space-y-6 max-w-3xl mx-auto w-full text-center">
+          <section id="push-hands-demonstration" aria-labelledby="demo-heading" className="scroll-mt-28 bg-[#DFD9CC] p-6 sm:p-10 rounded-3xl border border-[#D5CEBF] shadow-xs space-y-6 max-w-3xl mx-auto w-full text-center">
             <div className="space-y-2">
               <div className="inline-flex items-center space-x-2 px-3 py-1 rounded-full bg-[#9B3D2E]/10 text-[#9B3D2E] text-xs font-semibold uppercase tracking-wider border border-[#9B3D2E]/20">
                 <Video className="w-3.5 h-3.5" />
                 <span>Video Demonstration</span>
               </div>
-              <h3 className="font-serif text-2xl sm:text-3xl font-semibold text-[#171918]">
+              <h2 id="demo-heading" className="font-serif text-2xl sm:text-3xl font-semibold text-[#171918]">
                 Push Hands (Ding Bu Tuishou) in Action
-              </h3>
+              </h2>
               <p className="text-sm text-[#57625B] max-w-xl mx-auto font-light">
                 Robin Wu engaging in friendly <em>Ding Bu Tuishou</em> (Fixed-Step Push Hands) with the head judge at the Chinese Martial Arts Autumn Invitational.
               </p>
             </div>
 
             <div
-              className="max-w-xl mx-auto w-full rounded-3xl overflow-hidden border-2 border-[#D5CEBF] bg-[#171918] shadow-lg relative"
-              style={{ height: "650px", minHeight: "480px" }}
+              className="max-w-sm mx-auto w-full aspect-[9/16] rounded-3xl overflow-hidden border-2 border-[#D5CEBF] bg-[#171918] shadow-lg relative"
             >
               <iframe
+                loading="lazy"
                 src="https://www.youtube-nocookie.com/embed/bVmMfQPc_ls"
                 title="Robin Wu - Push Hands (Ding Bu Tuishou) with Head Judge"
                 allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"
@@ -165,82 +153,8 @@ export default function AboutPage() {
             <p className="text-sm text-[#57625B] max-w-xl mx-auto font-light">
                 Note: Competition Push Hands uses a restricted ruleset. Some methods found in our Fixed-Step Push Hands practice, including head control and joint locks, are therefore absent from this exchange.
             </p>
-          </div>
-          <div className="bg-[#DFD9CC] p-8 sm:p-12 rounded-3xl border border-[#D5CEBF] shadow-xs space-y-6">
-            <h2 className="font-serif text-3xl font-semibold text-[#171918]">
-              What is Taijiquan?
-            </h2>
-            <p className="text-[#303331] text-base sm:text-lg leading-relaxed font-light">
-              Many Chinese martial arts follow a naming scheme: Taiji<strong className="font-semibold text-[#171918]">quan</strong>, Xingyi<strong className="font-semibold text-[#171918]">quan</strong>, Baji<strong className="font-semibold text-[#171918]">quan</strong>, Tanglang<strong className="font-semibold text-[#171918]">quan</strong>, Hung Ga <strong className="font-semibold text-[#171918]">Kuen</strong>, etc...
-            </p>
-            <p className="text-[#303331] text-base sm:text-lg leading-relaxed font-light">
-              “Quan”, or “Kuen” in Cantonese, translates to mean fist which denotes a martial art or fighting system. It does not literally mean an art about using fists. Taijiquan therefore means “Taiji Fist” — a martial art named after the concept of Taiji (the interplay of Yin and Yang). It is a Northern Chinese martial art that originated from the Chen Village (Chenjiagou) in Henan Province.
-            </p>
-            <p className="text-[#303331] text-base sm:text-lg leading-relaxed font-light">
-              Taijiquan is a family art. It was commonly passed down from father to son or from “master” to “apprentice”. The Chen family developed it first. The founder of the Yang family learned from the Chen family; the founder of the Wu family later learned from the Yang family.
-            </p>
-            <p className="text-[#303331] text-base sm:text-lg leading-relaxed font-light">
-              This is the historical root of what most people today simply call “Tai Chi.”
-            </p>
-          </div>
-
-          {/* Full Lineage Tree Timeline */}
-          <div className="space-y-8">
-            <div className="text-center max-w-2xl mx-auto space-y-2">
-              <span className="text-xs font-semibold uppercase tracking-widest text-[#8A7250]">
-                Lineage Lineage Transmission
-              </span>
-              <h2 className="font-serif text-3xl sm:text-4xl font-light text-[#171918]">
-                Historical Lineage Tree
-              </h2>
-              <p className="text-sm text-[#303331]">
-                From 17th Century Chenjiagou origin down to local instruction today.
-              </p>
-            </div>
-
-            <div className="bg-[#DFD9CC] p-6 sm:p-10 rounded-3xl border border-[#D5CEBF] shadow-xs space-y-6">
-              <div className="space-y-6 relative before:absolute before:inset-0 before:left-3.5 before:w-0.5 before:bg-[#B8B0A0]">
-                {lineageTree.map((item, idx) => (
-                  <div key={idx} className="relative flex items-start space-x-4 pl-2">
-                    <div className="w-4 h-4 rounded-full bg-[#171918] border-2 border-[#E8E4DA] shadow-xs shrink-0 mt-1 z-10" />
-                    
-                    <div className="bg-[#E8E4DA] p-5 rounded-2xl border border-[#D5CEBF] space-y-2 flex-1 shadow-xs">
-                      <div className="flex flex-wrap items-center justify-between gap-1">
-                        <span className="font-serif text-lg font-semibold text-[#171918]">
-                          {item.generation}
-                        </span>
-                        <span className="text-xs font-semibold px-2.5 py-0.5 rounded bg-[#243B45]/10 text-[#243B45]">
-                          {item.era}
-                        </span>
-                      </div>
-                      
-                      <div className="text-sm font-semibold text-[#9B3D2E]">
-                        {item.figures.join(", ")}
-                      </div>
-
-                      <p className="text-xs sm:text-sm text-[#303331] leading-relaxed pt-1 font-light">
-                        {item.description}
-                      </p>
-
-                      {item.linkUrl && (
-                        <div className="pt-1.5">
-                          <a
-                            href={item.linkUrl}
-                            target="_blank"
-                            rel="noopener noreferrer"
-                            className="inline-flex items-center space-x-1.5 text-xs font-semibold text-[#243B45] hover:text-[#9B3D2E] hover:underline transition-colors"
-                          >
-                            <span>{item.linkLabel || "Learn more"}</span>
-                            <ExternalLink className="w-3.5 h-3.5" />
-                          </a>
-                        </div>
-                      )}
-                    </div>
-                  </div>
-                ))}
-              </div>
-            </div>
-          </div>
+          <a href="https://www.youtube.com/watch?v=bVmMfQPc_ls" target="_blank" rel="noopener noreferrer" className="inline-block text-sm text-[#243B45] underline underline-offset-4">Watch the demonstration on YouTube</a>
+          </section>
 
           {/* Navigation CTA */}
           <div className="bg-[#171918] text-[#E8E4DA] p-8 sm:p-12 rounded-3xl border border-[#303331] text-center space-y-6">

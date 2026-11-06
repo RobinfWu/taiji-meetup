@@ -1,6 +1,5 @@
-"use client";
-
-import React, { useState } from "react";
+import React from "react";
+import { HomepageFaq } from "./components/HomepageFaq";
 import Link from "next/link";
 import { Navbar } from "./components/Navbar";
 import { HeroSection } from "./components/HeroSection";
@@ -23,8 +22,6 @@ import {
 } from "lucide-react";
 
 export default function Home() {
-  const [openFaqIndex, setOpenFaqIndex] = useState<number | null>(0);
-
   const primaryClass = TAIJI_DATA.classes[0];
 
   return (
@@ -288,6 +285,8 @@ export default function Home() {
             </div>
           </div>
         </section>
+
+        <HomepageFaq />
 
         {/* Step 10: Try a Class CTA */}
         <section className="py-20 bg-[#171918] text-[#E8E4DA] relative">

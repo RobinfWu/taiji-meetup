@@ -1,0 +1,21 @@
+﻿.content :is(a, button, summary):focus-visible {
+  outline: 2px solid #9b3d2e;
+  outline-offset: 4px;
+}
+
+.content :is(section[id], details[id]) {
+  scroll-margin-top: 7rem;
+}
+
+.disclosure > summary {
+  list-style: none;
+  border-radius: 0.75rem;
+}
+
+.disclosure > summary::-webkit-details-marker {
+  display: none;
+}
+
+.disclosure[open] > summary svg {
+  transform: rotate(180deg);
+}
