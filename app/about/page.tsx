@@ -90,18 +90,20 @@ export default function AboutPage() {
                 Historical context & direct transmission
               </span>
               <h2 className="font-serif text-3xl sm:text-4xl font-light text-[#171918]">
-                Historical Lineage Tree
+                Our Taijiquan Lineage
               </h2>
               <p className="text-sm text-[#303331]">
-                From 17th Century Chenjiagou origin down to local instruction today. Selected generations are shown; gaps between entries do not imply direct personal instruction.
+                From 17th Century Chenjiagou origin down to local instruction today.
+              </p>
+              <p className="text-sm text-[#303331] font-medium border-l-2 border-[#9B3D2E]/60 pl-4 py-2 text-left">
+                Selected generations are shown; gaps between entries do not imply direct personal instruction.
               </p>
             </div>
 
             <div className="space-y-8">
               {[
-                { title: "Earlier historical generations", entries: lineageTree.slice(0, 2) },
-                { title: "Modern Chen Taijiquan transmission", entries: lineageTree.slice(2, 4) },
-                { title: "Direct teacher–student relationships leading to Robin", entries: lineageTree.slice(4) },
+                { title: "Historical Foundations", entries: lineageTree.slice(0, 2) },
+                { title: "Our Teaching Lineage", entries: lineageTree.slice(2) },
               ].map((group) => (
                 <section key={group.title} aria-label={group.title} className="bg-[#DFD9CC]/60 p-5 sm:p-8 rounded-3xl border border-[#D5CEBF] space-y-5">
                   <h3 className="font-serif text-2xl text-[#243B45]">{group.title}</h3>
@@ -143,7 +145,7 @@ export default function AboutPage() {
             >
               <iframe
                 loading="lazy"
-                src="https://www.youtube-nocookie.com/embed/bVmMfQPc_ls"
+                src="https://www.youtube-nocookie.com/embed/MXMZOEoV49M"
                 title="Robin Wu - Push Hands (Ding Bu Tuishou) with Head Judge"
                 allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"
                 allowFullScreen
@@ -153,7 +155,7 @@ export default function AboutPage() {
             <p className="text-sm text-[#57625B] max-w-xl mx-auto font-light">
                 Note: Competition Push Hands uses a restricted ruleset. Some methods found in our Fixed-Step Push Hands practice, including head control and joint locks, are therefore absent from this exchange.
             </p>
-          <a href="https://www.youtube.com/watch?v=bVmMfQPc_ls" target="_blank" rel="noopener noreferrer" className="inline-block text-sm text-[#243B45] underline underline-offset-4">Watch the demonstration on YouTube</a>
+          <a href="https://www.youtube.com/watch?v=MXMZOEoV49M" target="_blank" rel="noopener noreferrer" className="inline-block text-sm text-[#243B45] underline underline-offset-4">Watch the demonstration on YouTube</a>
           </section>
 
           {/* Navigation CTA */}

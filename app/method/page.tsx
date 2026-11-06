@@ -48,7 +48,7 @@ export default function MethodPage() {
               <ul className="divide-y divide-[#D5CEBF]">
                 {[
                   { href: "#in-class", label: "Inside a class" },
-                  { href: "#yilu", label: "One form, many milestones" },
+                  { href: "#yilu", label: "A Form Learned in Stages" },
                   { href: "#partner-training", label: "Learning with a partner" },
                 ].map((item) => (
                   <li key={item.href}>
@@ -87,15 +87,14 @@ export default function MethodPage() {
             <div className="bg-[#243B45] text-[#E8E4DA] p-6 sm:p-10 lg:p-12 grid lg:grid-cols-12 gap-6 lg:gap-12">
               <div className="lg:col-span-5 space-y-3">
                 <p className="text-xs font-semibold uppercase tracking-widest text-[#E0C9A2]">The Yilu curriculum</p>
-                <h2 id="yilu-heading" className={heading}>One Form,<br className="hidden sm:block" /> Many Milestones</h2>
+                <h2 id="yilu-heading" className={heading}>Learn in Sections, Grow in Depth</h2>
               </div>
               <div className="lg:col-span-7 space-y-4 leading-relaxed text-[#E8E4DA]">
-                <p>The traditional Chen-style Yilu form can be divided into smaller, self-contained practice routines. Each is a portion of the same Yilu, rather than a separate traditional form.</p>
-                <p>You do not need to learn the entire form to develop a meaningful personal practice. The shorter routines are valid practices in their own right, with room for continued refinement.</p>
+                <p>The traditional Chen-style Yilu can be divided into shorter, self-contained practice routines. Each draws from the same traditional sequence rather than constituting a separate form.</p>
               </div>
             </div>
             <div className="p-6 sm:p-10 lg:p-12 space-y-8">
-              <div className="grid lg:grid-cols-3 gap-5 items-start">
+              <div className="grid lg:grid-cols-2 gap-5 items-start">
                 {yiluMilestones.map((milestone) => (
                   <article key={milestone.id} className="min-w-0 rounded-2xl bg-[#E8E4DA]/60 border border-[#D5CEBF] p-5 sm:p-6 space-y-4">
                     <div className="w-8 h-0.5 bg-[#9B3D2E]" aria-hidden="true" />
@@ -106,7 +105,7 @@ export default function MethodPage() {
                     {milestone.sequences.length > 0 && (
                       <details className={`${styles.disclosure} border-t border-[#D5CEBF] pt-1`}>
                         <summary className="flex justify-between items-center gap-3 py-3 text-sm font-semibold text-[#243B45] cursor-pointer">
-                          Explore {milestone.sequences.length} sequences
+                          {milestone.sequenceListLabel}
                           <ChevronDown aria-hidden="true" className="w-4 h-4 shrink-0" />
                         </summary>
                         <ul className="divide-y divide-[#D5CEBF]">
@@ -122,6 +121,10 @@ export default function MethodPage() {
                   </article>
                 ))}
               </div>
+              <section aria-labelledby="beyond-medium-heading" className="border-t border-[#D5CEBF] pt-6 space-y-2">
+                <h3 id="beyond-medium-heading" className="font-serif text-xl text-[#303331]">Beyond the Medium Form</h3>
+                <p className="text-sm leading-relaxed text-[#303331]">Further exploration of the traditional Yilu may be offered according to student interest and progression.</p>
+              </section>
             </div>
           </section>
 

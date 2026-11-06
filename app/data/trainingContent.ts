@@ -208,7 +208,7 @@ export const yiluSequences: YiluSequence[] = [
     number: 23,
     name: {
       status: "published",
-      text: "23. Dào juǎn hong (3) — Whirling upper arms (3)",
+      text: "23. Dào juǎn hong (3 repetitions) — Whirling upper arms (3 repetitions)",
     },
     description: draft("[Instructor: Optional description for sequence 16; leave as draft for a names-only list.]"),
   },
@@ -284,6 +284,7 @@ interface YiluMilestone {
   range: string;
   summary: string;
   sequences: YiluSequence[];
+  sequenceListLabel: string;
   detail: InstructorCopy;
 }
 
@@ -291,21 +292,17 @@ interface YiluMilestone {
 export const yiluMilestones: YiluMilestone[] = [
   {
     id: "short", title: "Short Form", range: "Sequences 1–6",
-    summary: "A self-contained routine within Yilu. A meaningful practice to return to and refine in its own right.",
+    summary: "A compact, self-contained routine that introduces the foundational movements of Yilu. A meaningful practice in its own right.",
     sequences: yiluSequences.slice(0, 6),
+    sequenceListLabel: "View 6 sequences",
     detail: draft("[Instructor: Describe the Short Form, its ending landmark, and your teaching emphasis. Confirm the relationship to Jingang Dao Dui.]"),
   },
   {
     id: "medium", title: "Medium Form", range: "Sequences 1–16",
-    summary: "The same beginning, extended through sequence 16. Practise this longer routine independently or continue refining the shorter one.",
+    summary: "Builds upon the Short Form with ten additional sequences, expanding the movement vocabulary while continuing to develop the same underlying foundations.",
     sequences: yiluSequences.slice(6, 16),
+    sequenceListLabel: "View 10 additional sequences",
     detail: draft("[Instructor: Describe the Medium Form, its ending landmark, and your teaching emphasis. Confirm the relationship to Jingang Dao Dui.]"),
-  },
-  {
-    id: "further", title: "Further Yilu", range: "Additional sections · The full form",
-    summary: "Explore additional sections and eventually the entire traditional form, according to your interests and the instructor’s guidance.",
-    sequences: yiluSequences.slice(16, 31),
-    detail: draft("[Instructor: Define further Yilu sections, sequence ranges, names, and landmarks when ready. Do not infer additional milestones from the first two.]"),
   },
 ];
 

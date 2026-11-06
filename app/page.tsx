@@ -50,7 +50,7 @@ export default function Home() {
                   <span className="text-xs font-bold uppercase tracking-wider">THE YILU CURRICULUM</span>
                 </div>
                 <h3 className="font-serif text-xl font-semibold text-[#171918]">
-                  One Form, Many Milestones
+                  A Form Learned in Stages
                 </h3>
                 <p className="text-xs text-[#303331] leading-relaxed font-light">
                   The traditional Yilu form can be practiced in shorter, self-contained routines. Begin with a manageable section and build upon it at your own pace.
