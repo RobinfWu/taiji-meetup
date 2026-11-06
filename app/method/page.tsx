@@ -132,8 +132,8 @@ export default function MethodPage() {
           <section id="partner-training" aria-labelledby="partner-heading" className="grid lg:grid-cols-12 gap-8 lg:gap-12">
             <div className="lg:col-span-5 space-y-4">
               <p className={eyebrow}>Learning together</p>
-              <h2 id="partner-heading" className={heading}>Push Hands &amp;<br className="hidden sm:block" /> Partner Training</h2>
-              <p className="text-[#303331] leading-relaxed">Push Hands (Tuishou) is the conversation in our language of the body: a collection of partnered practices built around sustained physical contact.</p>
+              <h2 id="partner-heading" className={heading}>Push Hands</h2>
+              <p className="text-[#303331] leading-relaxed">Push Hands (Tuishou) refers to a collection of partnered practices built around sustained physical contact.</p>
               <p className="text-sm text-[#303331] leading-relaxed">These are examples of partner methods, rather than a complete curriculum or a prescribed order.</p>
               <Link href="/about#push-hands-demonstration" className="inline-block text-sm text-[#243B45] underline underline-offset-4">Watch Robin’s Push Hands demonstration</Link>
             </div>
