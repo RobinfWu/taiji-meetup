@@ -36,7 +36,7 @@ export default function AboutPage() {
           
           <section aria-labelledby="instructor-heading" className="grid lg:grid-cols-12 gap-8 lg:gap-14 items-center">
             <figure className="lg:col-span-5 space-y-3">
-              <Image src="/IMG_2499.jpg" alt="Marin Spivack and Robin Wu" width={480} height={480} priority className="w-full h-auto rounded-3xl border border-[#D5CEBF]" />
+              <Image src="/baishi1.jpg" alt="Marin Spivack and Robin Wu" width={480} height={480} priority className="w-full h-auto rounded-3xl border border-[#D5CEBF]" />
               <figcaption className="text-sm text-[#5A5E5B] font-serif italic">Marin Spivack and Robin Wu</figcaption>
             </figure>
             <div className="lg:col-span-7 space-y-6">
@@ -59,14 +59,14 @@ export default function AboutPage() {
             <div className="lg:col-span-8">{/* Teaching Motivation — separate from instructor credentials */}
               <section aria-labelledby="why-teach-heading" className="max-w-3xl border-l-2 border-[#9B3D2E]/60 pl-6 sm:pl-10 space-y-6">
                 <h2 id="why-teach-heading" className="font-serif text-3xl sm:text-4xl font-light text-[#171918]">
-                  Why I Teach
+                  Why I'm Building This Community
                 </h2>
                 <div className="space-y-4 text-base text-[#303331] leading-relaxed font-light">
                   <p>
-                    My motivation for teaching Taijiquan is partly self-interested: I want good training partners.
+                    My motivation for starting this Taijiquan community is partly self-interested: I want good training partners.
                   </p>
                   <p>
-                    The better my training partners become, the more they can challenge me. So I have a personal interest in helping others become skilled practitioners, just as I hope to continue improving myself.
+                    The better my training partners become, the more they can challenge me. So I have a personal interest in helping others develop their skills, just as I hope to continue improving myself.
                   </p>
                   <p>
                     Of course, not everyone needs to pursue Taijiquan with the same intensity. Whether someone is interested in gentle practice or deeper martial development, they&apos;re welcome to train at their own pace.
@@ -78,7 +78,7 @@ export default function AboutPage() {
               </section>
             </div>
             <figure className="lg:col-span-4 space-y-3 max-w-sm">
-              <Image src="/IMG_2503.jpg" alt="Baishi Ceremony" width={360} height={640} className="w-full h-auto rounded-2xl border border-[#D5CEBF]" />
+              <Image src="/baishi2.jpg" alt="Baishi Ceremony" width={360} height={640} className="w-full h-auto rounded-2xl border border-[#D5CEBF]" />
               <figcaption className="text-sm font-serif italic text-[#5A5E5B]">Baishi Ceremony</figcaption>
             </figure>
           </div>

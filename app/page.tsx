@@ -1,29 +1,14 @@
-import React from "react";
+import Image from "next/image";
+import { PracticeOverview } from "./components/PracticeOverview";
 import { HomepageFaq } from "./components/HomepageFaq";
 import Link from "next/link";
 import { Navbar } from "./components/Navbar";
 import { HeroSection } from "./components/HeroSection";
 import { Footer } from "./components/Footer";
-import { ContactForm } from "./components/ContactForm";
 import { TAIJI_DATA } from "./data/taijiData";
-import {
-  Compass,
-  ArrowRight,
-  BookOpen,
-  Calendar,
-  MapPin,
-  Mail,
-  ChevronDown,
-  ChevronUp,
-  ExternalLink,
-  CheckCircle2,
-  AlertCircle,
-  Image as ImageIcon
-} from "lucide-react";
+import { ArrowRight, BookOpen, Calendar, MapPin } from "lucide-react";
 
 export default function Home() {
-  const primaryClass = TAIJI_DATA.classes[0];
-
   return (
     <main className="min-h-screen bg-[#E8E4DA] text-[#171918] relative flex flex-col font-sans selection:bg-[#9B3D2E]/15 selection:text-[#9B3D2E]">
       <Navbar />
@@ -32,81 +17,7 @@ export default function Home() {
         {/* Step 1: Hero */}
         <HeroSection />
 
-        {/* Step 2: What Makes This Practice Different? (Editorial Numbered List) */}
-        <section className="py-20 sm:py-28 bg-[#DFD9CC]/40 border-y border-[#D5CEBF] relative overflow-hidden">
-          <div className="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8">
-            <div className="bg-[#FAF8F5] rounded-3xl border border-[#D5CEBF] p-7 sm:p-10 md:p-12 shadow-xs">
-              <div className="space-y-2 mb-8 sm:mb-10">
-                <span className="text-xs font-semibold uppercase tracking-widest text-[#5A5E5B]">
-                  WHY TAIJIQUAN?
-                </span>
-                <h2 className="font-serif text-3xl sm:text-4xl md:text-5xl font-light text-[#171918]">
-                  With So Many Ways to Move, Why Taijiquan?
-                </h2>
-                <p className="text-sm sm:text-base text-[#5A5E5B] font-light leading-relaxed">
-                  A traditional craft with accessible beginnings and considerable depth.
-                </p>
-              </div>
-
-              <div className="border-t border-[#D5CEBF] divide-y divide-[#D5CEBF]">
-                {TAIJI_DATA.editorialPractices.map((practice) => (
-                  <div
-                    key={practice.number}
-                    className="py-6 sm:py-7 flex items-start"
-                  >
-                    <span className="w-14 sm:w-16 shrink-0 text-lg sm:text-xl font-normal text-[#8A7250] tabular-nums select-none pt-0.5">
-                      {practice.number}
-                    </span>
-                    <div className="space-y-1.5 flex-1">
-                      <h3 className="text-base sm:text-lg font-semibold text-[#171918]">
-                        {practice.title}
-                      </h3>
-                      <p className="text-sm sm:text-base text-[#5A5E5B] font-light leading-relaxed">
-                        {practice.description}
-                      </p>
-                    </div>
-                  </div>
-                ))}
-              </div>
-            </div>
-          </div>
-          <div className="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8">
-            <div className="bg-[#FAF8F5] rounded-3xl border border-[#D5CEBF] p-7 sm:p-10 md:p-12 shadow-xs">
-              <div className="space-y-2 mb-8 sm:mb-10">
-                <span className="text-xs font-semibold uppercase tracking-widest text-[#5A5E5B]">
-                  WHY OUR APPROACH?
-                </span>
-                <h2 className="font-serif text-3xl sm:text-4xl md:text-5xl font-light text-[#171918]">
-                  Not All Taijiquan Is the Same.
-                </h2>
-                <p className="text-sm sm:text-base text-[#5A5E5B] font-light leading-relaxed">
-                  Taijiquan encompasses different styles, training methods, and interpretations. Here's what we emphasize in our approach.
-                </p>
-              </div>
-
-              <div className="border-t border-[#D5CEBF] divide-y divide-[#D5CEBF]">
-                {TAIJI_DATA.specialPractices.map((practice) => (
-                  <div
-                    key={practice.number}
-                    className="py-6 sm:py-7 flex items-start"
-                  >
-                    <span className="w-14 sm:w-16 shrink-0 text-lg sm:text-xl font-normal text-[#8A7250] tabular-nums select-none pt-0.5">
-                      {practice.number}
-                    </span>
-                    <div className="space-y-1.5 flex-1">
-                      <h3 className="text-base sm:text-lg font-semibold text-[#171918]">
-                        {practice.title}
-                      </h3>
-                      <p className="text-sm sm:text-base text-[#5A5E5B] font-light leading-relaxed">
-                        {practice.description}
-                      </p>
-                    </div>
-                  </div>
-                ))}
-              </div>
-            </div>
-          </div>
-        </section>
+        <PracticeOverview />
 
         {/* Step 3: How We Teach (Doorway to /method) */}
         <section className="py-20 bg-[#DFD9CC]/50 border-t border-[#D5CEBF] relative">
@@ -127,7 +38,7 @@ export default function Home() {
                     href="/method"
                     className="inline-flex items-center space-x-2.5 bg-[#171918] hover:bg-[#303331] text-[#E8E4DA] px-7 py-3.5 rounded-full text-sm font-semibold shadow-md transition-all cursor-pointer border border-[#303331]"
                   >
-                    <span>Explore Our Training Method</span>
+                    <span>Explore How We Train</span>
                     <ArrowRight className="w-4 h-4 text-[#8A7250]" />
                   </Link>
                 </div>
@@ -136,17 +47,17 @@ export default function Home() {
               <div className="lg:col-span-5 bg-[#DFD9CC] p-8 rounded-3xl border border-[#D5CEBF] space-y-4 shadow-xs">
                 <div className="flex items-center space-x-3 text-[#9B3D2E]">
                   <BookOpen className="w-5 h-5" />
-                  <span className="text-xs font-bold uppercase tracking-wider">Methodology Preview</span>
+                  <span className="text-xs font-bold uppercase tracking-wider">THE YILU CURRICULUM</span>
                 </div>
                 <h3 className="font-serif text-xl font-semibold text-[#171918]">
-                  {TAIJI_DATA.differences[0].title}
+                  One Form, Many Milestones
                 </h3>
                 <p className="text-xs text-[#303331] leading-relaxed font-light">
-                  {TAIJI_DATA.differences[0].summary}
+                  The traditional Yilu form can be practiced in shorter, self-contained routines. Begin with a manageable section and build upon it at your own pace.
                 </p>
                 <div className="pt-2 border-t border-[#D5CEBF] flex justify-between items-center text-xs">
-                  <Link href="/method" className="text-[#9B3D2E] font-semibold hover:underline">
-                    Read deep dive →
+                  <Link href="/method#yilu" className="text-[#9B3D2E] font-semibold hover:underline">
+                    Explore the curriculum
                   </Link>
                 </div>
               </div>
@@ -157,12 +68,14 @@ export default function Home() {
         <section className="py-20 bg-[#E8E4DA] relative">
           <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
             <div className="grid grid-cols-1 lg:grid-cols-12 gap-10 items-center">
-              <div className="lg:col-span-5 space-y-4">
+              <div className="lg:col-span-5 space-y-4 w-full max-w-lg mx-auto lg:max-w-none">
                 <div className="rounded-3xl overflow-hidden border border-[#D5CEBF] shadow-md bg-[#DFD9CC]">
-                  <img
-                    src="/IMG_2499.jpg"
+                  <Image
+                    src="/baishi1.jpg"
+                    width={1024}
+                    height={1024}
                     alt="Marin Spivack and Robin Wu"
-                    className="w-full h-72 object-cover"
+                    className="w-full h-auto"
                   />
                 </div>
                 <p className="text-xs text-[#8A7250] italic text-center font-serif">
@@ -175,7 +88,7 @@ export default function Home() {
                   Meet Robin
                 </h2>
                 <p className="text-base sm:text-lg text-[#303331] leading-relaxed font-light">
-                  Robin Wu is a Chen Family Taijiquan practitioner who has trained directly under Marin Spivack as an indoor student/disciple. Marin Spivack is a senior disciple of Master Chen Yu, only son of Chen Zhaokui.
+                  Robin Wu is a Chen Family Taijiquan practitioner and formal disciple of Marin Spivack. His training follows the Gongfu Jia tradition transmitted through Chen Yu, and he hopes to cultivate a community of practitioners who can learn and improve together.
                 </p>
                 <div className="pt-2">
                   <Link
