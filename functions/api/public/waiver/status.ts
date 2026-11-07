@@ -1,3 +1,4 @@
+import { PAID_DROP_IN_RATES } from "../../../lib/publicBookingPricing";
 import { hash } from "../../../lib/emailVerification";
 import { getDb, type AppPagesFunction } from "../../../types/env";
 
@@ -19,5 +20,8 @@ export const onRequestPost: AppPagesFunction = async ({ request, env }) => {
   const waiver = await db.prepare("SELECT title,body FROM waiver_versions WHERE version=?").bind(version).first<{title:string;body:string}>();
   if (!waiver) return Response.json({error:"Waiver configuration unavailable."},{status:503});
   const signed = await db.prepare("SELECT 1 AS ok FROM student_waivers w JOIN students s ON s.id=w.student_id WHERE s.email=? COLLATE NOCASE AND w.version=?").bind(email,version).first();
-  return Response.json({version,title:waiver.title,body:waiver.body,already_signed:!!signed},{headers:{"Cache-Control":"no-store"}});
+  // Match booking eligibility: any earlier reservation counts, even if cancelled.
+  // This information is returned only after validating email ownership above.
+  const prior = await db.prepare("SELECT 1 AS ok FROM reservations r JOIN students s ON s.id=r.student_id WHERE s.email=? COLLATE NOCASE LIMIT 1").bind(email).first();
+  return Response.json({version,title:waiver.title,body:waiver.body,already_signed:!!signed,pricing:{first_reservation_free:!prior,paid_rates:PAID_DROP_IN_RATES,currency:"CAD"}},{headers:{"Cache-Control":"no-store"}});
 };

@@ -11,6 +11,16 @@ type Session = {
   available_spots: number;
   template: { title: string; location: string | null; timezone: string };
 };
+type PricingCategory = "regular" | "senior" | "student";
+type VerifiedPricing = { first_reservation_free: boolean; paid_rates: Record<PricingCategory, number>; currency: "CAD" };
+const isVerifiedPricing = (value: unknown): value is VerifiedPricing => {
+  const quote = value as VerifiedPricing | null;
+  return !(!quote || typeof quote.first_reservation_free !== "boolean" || quote.currency !== "CAD" || !quote.paid_rates || !["regular", "senior", "student"].every(key => Number.isSafeInteger(quote.paid_rates[key as PricingCategory]) && quote.paid_rates[key as PricingCategory] >= 0));
+};
+class BookingRequestError extends Error {
+  constructor(message: string, readonly status: number) { super(message); }
+}
+
 type BookingResult = {
   reservation_id: string;
   session_id: string;
@@ -21,7 +31,7 @@ type BookingResult = {
 
 const currency = (cents: number) => new Intl.NumberFormat("en-CA", { style: "currency", currency: "CAD" }).format(cents / 100);
 const formatSession = (session: Session) => {
-  const timezone = session.template.timezone || "America/Toronto";
+  const timezone = "America/Toronto";
   const day = new Intl.DateTimeFormat("en-CA", { timeZone: timezone, weekday: "long", month: "long", day: "numeric", year: "numeric" }).format(new Date(session.start_at));
   const time = (iso: string) => new Intl.DateTimeFormat("en-CA", { timeZone: timezone, hour: "numeric", minute: "2-digit" }).format(new Date(iso));
   return `${day}, ${time(session.start_at)}–${time(session.end_at)}`;
@@ -36,7 +46,8 @@ export function PublicBookingForm() {
   const [lastName, setLastName] = useState("");
   const [email, setEmail] = useState("");
   const [phone, setPhone] = useState("");
-  const [category, setCategory] = useState("regular");
+  const [category, setCategory] = useState<PricingCategory>("regular");
+  const [pricing, setPricing] = useState<VerifiedPricing | null>(null);
   const [method, setMethod] = useState("etransfer");
   const [website, setWebsite] = useState("");
   const [submitting, setSubmitting] = useState(false);
@@ -58,7 +69,7 @@ export function PublicBookingForm() {
     if (!Array.isArray(data)) throw new Error("Unexpected class schedule response.");
     const upcoming = (data as Session[]).filter(s => s && typeof s.id === "string" && typeof s.available_spots === "number" && new Date(s.end_at).getTime() > Date.now());
     setSessions(upcoming);
-    setSessionId(current => upcoming.some(s => s.id === current) ? current : (upcoming.find(s => s.available_spots > 0)?.id ?? ""));
+    setSessionId(current => upcoming.some(s => s.id === current) ? current : "");
   }
 
   useEffect(() => {
@@ -123,7 +134,7 @@ export function PublicBookingForm() {
     const data: unknown = await response.json();
     if (!response.ok) {
       const message = typeof data === "object" && data !== null && "error" in data && typeof data.error === "string" ? data.error : "Request failed. Please try again.";
-      throw new Error(message);
+      throw new BookingRequestError(message, response.status);
     }
     return data as Record<string, unknown>;
   }
@@ -138,27 +149,42 @@ export function PublicBookingForm() {
         setDevCode(typeof data.dev_code === "string" ? data.dev_code : "");
         setVerificationStep("code");
       } else if (verificationStep === "code") {
-        const verified = await postJson("/api/public/verification/confirm", { email: email.trim(), code: verificationCode.trim() });
+        const verified = verifiedToken ? { verification_token: verifiedToken } : await postJson("/api/public/verification/confirm", { email: email.trim(), code: verificationCode.trim() });
         const token = verified.verification_token;
         if (typeof token !== "string") throw new Error("Verification response was invalid.");
         setVerifiedToken(token);
         const status = await postJson("/api/public/waiver/status", { email: email.trim(), verification_token: token });
         if (typeof status.version !== "string" || typeof status.body !== "string" || typeof status.title !== "string" || typeof status.already_signed !== "boolean") throw new Error("Waiver response was invalid.");
+        const quote = status.pricing as VerifiedPricing | undefined;
+        if (!isVerifiedPricing(quote)) throw new Error("Unable to check your class price. Please try again.");
+        setPricing(quote);
         setWaiver(status as {version:string;title:string;body:string;already_signed:boolean});
         setVerificationStep("waiver");
       }
       if (verificationStep === "waiver") {
-        if (!waiver || !verifiedToken) throw new Error("Verify your email again.");
+        if (!waiver || !verifiedToken || !pricing) throw new Error("Verify your email again.");
         if (!waiver.already_signed && (!adultConfirmed || !waiverAcknowledged || signature.trim() !== `${firstName.trim()} ${lastName.trim()}`)) throw new Error("Please read and sign the waiver using your full name.");
-        const booking = await postJson("/api/public/book", { first_name: firstName.trim(), last_name: lastName.trim(), email: email.trim(), ...(phone.trim() ? { phone: phone.trim() } : {}), session_id: sessionId, method, pricing_category: category, website, verification_token: verifiedToken, waiver_version: waiver.version, ...(waiver.already_signed ? {} : {waiver_signed_name: signature.trim(), waiver_accepted: true, waiver_adult_confirmed: true}) });
+        const booking = await postJson("/api/public/book", { first_name: firstName.trim(), last_name: lastName.trim(), email: email.trim(), ...(phone.trim() ? { phone: phone.trim() } : {}), session_id: sessionId, method, pricing_category: category, expected_amount_cents: pricing.first_reservation_free ? 0 : pricing.paid_rates[category], website, verification_token: verifiedToken, waiver_version: waiver.version, ...(waiver.already_signed ? {} : {waiver_signed_name: signature.trim(), waiver_accepted: true, waiver_adult_confirmed: true}) });
         setResult(booking as BookingResult);
         refreshSessions().catch(() => {});
       }
-    } catch (err) { setError(err instanceof Error ? err.message : "Unable to complete the request."); }
+    } catch (err) {
+      setError(err instanceof Error ? err.message : "Unable to complete the request.");
+      if (err instanceof BookingRequestError && err.status === 409 && verificationStep === "waiver") {
+        try {
+          await refreshSessions();
+          const fresh = await postJson("/api/public/waiver/status", { email: email.trim(), verification_token: verifiedToken });
+          if (isVerifiedPricing(fresh.pricing)) {
+            setPricing(fresh.pricing);
+            if (pricing && fresh.pricing.first_reservation_free !== pricing.first_reservation_free) setError("Your class price has changed. Review the updated amount and payment options before confirming again.");
+          }
+        } catch { /* Keep the original booking error visible; email can be reverified. */ }
+      }
+    }
     finally { setSubmitting(false); }
   }
 
-  const field = "w-full rounded-xl border border-[#C8C1B2] bg-[#F3EFE7] px-4 py-3 text-sm text-[#171918] outline-none focus:border-[#243B45] focus:ring-2 focus:ring-[#243B45]/15";
+  const field = "min-w-0 max-w-full w-full rounded-xl border border-[#C8C1B2] bg-[#F3EFE7] px-4 py-3 text-sm text-[#171918] outline-none focus:border-[#243B45] focus:ring-2 focus:ring-[#243B45]/15";
   const label = "block text-sm font-semibold text-[#303331] mb-1.5";
   // Presentation only. The exact, immutable waiver text is stored in D1.
   const renderWaiver = (body: string) => body.split(/\n\s*\n/).map((paragraph, index) => {
@@ -168,14 +194,24 @@ export function PublicBookingForm() {
     return <p key={index} className={`${heading ? "font-bold text-base text-[#243B45] mt-5" : ""} ${warning ? "font-bold text-[#243B45]" : ""} mb-4 last:mb-0 whitespace-pre-wrap`}>{content}</p>;
   });
   const selected = sessions.find(s => s.id === sessionId);
+  const location = (selected?.location?.trim() || selected?.template.location?.trim()) ?? "";
+  const usableLocation = location && !/placeholder|\[|\btbd\b|to be (?:confirmed|announced)/i.test(location);
+  const hasAddress = usableLocation && /(?:\b\d{1,6}\s+\S+|\b[A-Z]\d[A-Z]\s?\d[A-Z]\d\b)/i.test(location);
+  const canBook = !!selected && selected.available_spots > 0;
+  const date = selected ? new Intl.DateTimeFormat("en-CA", { timeZone: "America/Toronto", weekday: "long", month: "long", day: "numeric", year: "numeric" }).format(new Date(selected.start_at)) : "";
+  const localTime = (iso: string) => new Intl.DateTimeFormat("en-CA", { timeZone: "America/Toronto", hour: "numeric", minute: "2-digit", timeZoneName: "short" }).format(new Date(iso));
+  const editDetails = () => {
+    setVerificationStep("details"); setVerificationCode(""); setDevCode(""); setVerifiedToken("");
+    setWaiver(null); setPricing(null); setSignature(""); setAdultConfirmed(false); setWaiverAcknowledged(false); setError("");
+  };
 
   return (
     <section id="reserve" aria-labelledby="reserve-heading" className="scroll-mt-28 max-w-3xl mx-auto">
       <div className="text-center space-y-3 mb-8">
         <span className="text-xs font-semibold uppercase tracking-widest text-[#243B45]">Reserve a place</span>
         <h2 id="reserve-heading" className="font-serif text-3xl sm:text-4xl font-light">Book a Class</h2>
-        <p className="text-base font-semibold text-[#365F46]">Your first class is free. No payment required.</p>
-        <p className="text-sm text-[#57625B]">No account required. Returning students can choose their pricing category below.</p>
+        <p className="text-base font-semibold text-[#365F46]">Your first class is free.</p>
+        <p className="text-sm text-[#57625B]">No account required. Verify your email to check your first-class eligibility. Returning students choose their rate and payment preference after verification.</p>
       </div>
       <div className="bg-[#DFD9CC] rounded-3xl border border-[#D5CEBF] p-6 sm:p-9 shadow-xs">
         {result ? (
@@ -191,11 +227,41 @@ export function PublicBookingForm() {
             {result.payment?.method === "etransfer" && <p className="text-sm text-[#303331]">Include the reference above when sending your e-Transfer. Contact the instructor for the transfer destination; do not send funds to an unverified address.</p>}
             {result.payment?.method === "cash" && <p className="text-sm text-[#303331]">Please bring cash to your class. Your seat is reserved while payment is pending.</p>}
             {result.payment === null && <p className="text-sm text-[#303331]">No payment is required for this reservation.</p>}
-            <p className="text-xs text-[#57625B]">This page does not send an email confirmation yet. Save your reservation details before leaving.</p>
-            <button type="button" onClick={() => { setResult(null); setError(""); setVerificationStep("details"); setVerificationCode(""); setDevCode(""); setVerifiedToken(""); setWaiver(null); setSignature(""); setAdultConfirmed(false); setWaiverAcknowledged(false); }} className="text-sm underline underline-offset-4 text-[#243B45]">Make another reservation</button>
+            <p className="text-xs text-[#57625B]">A confirmation email is queued for delivery. Save your reservation details before leaving.</p>
+            <button type="button" onClick={() => { setResult(null); editDetails(); }} className="text-sm underline underline-offset-4 text-[#243B45]">Make another reservation</button>
           </div>
         ) : (
           <form onSubmit={submit} className="space-y-5">
+            <fieldset disabled={submitting} className="space-y-5 min-w-0">
+            {!loading && !loadError && sessions.length > 0 && <div>
+              <label className={label} htmlFor="booking-session">Class session *</label>
+              <select className={field} id="booking-session" required value={sessionId} onChange={e => { setSessionId(e.target.value); setError(""); }}>
+                <option value="">Choose a session</option>
+                {sessions.map(s => <option key={s.id} value={s.id} disabled={s.available_spots < 1}>{formatSession(s)} — {s.available_spots < 1 ? "Full" : `${s.available_spots} spots available`}</option>)}
+              </select>
+            </div>}
+            {selected && <div className="rounded-xl border border-[#C8C1B2] bg-[#F3EFE7] p-4 sm:p-5 space-y-4" aria-live="polite">
+              <p className="text-sm font-semibold text-[#243B45]">{selected.template.title}</p>
+              <dl className="grid sm:grid-cols-2 gap-3 text-sm">
+                <div><dt className="text-[#57625B]">Date</dt><dd className="font-medium text-[#171918]">{date}</dd></div>
+                <div><dt className="text-[#57625B]">Local time</dt><dd className="font-medium text-[#171918]">{localTime(selected.start_at)}–{localTime(selected.end_at)}</dd></div>
+                <div><dt className="text-[#57625B]">Available spots</dt><dd className="font-semibold text-[#171918]">{selected.available_spots > 0 ? selected.available_spots : "Full — choose another session"}</dd></div>
+                <div className="sm:col-span-2"><dt className="font-semibold text-[#243B45]">Meeting location</dt><dd className="mt-1 text-base font-medium text-[#171918] break-words">{usableLocation ? location : "Location to be confirmed"}</dd>
+                  {hasAddress && <a href={`https://www.google.com/maps/search/?api=1&query=${encodeURIComponent(location)}`} target="_blank" rel="noopener noreferrer" className="inline-block mt-2 text-sm text-[#243B45] underline underline-offset-4">View meeting location on map</a>}
+                </div>
+              </dl>
+            </div>}
+            {verificationStep === "waiver" && pricing && <div className="space-y-4">
+              <p className="text-lg font-semibold text-[#243B45]" aria-live="polite">{pricing.first_reservation_free ? "First class · $0" : `Drop-in · ${currency(pricing.paid_rates[category])} CAD`}</p>
+              {pricing.first_reservation_free ? <p className="text-sm text-[#303331]">No payment is required for your first reservation.</p> : <>
+                <div><label className={label} htmlFor="booking-category">Pricing category *</label><select className={field} id="booking-category" value={category} onChange={e => setCategory(e.target.value as PricingCategory)}>
+                  <option value="regular">Regular — {currency(pricing.paid_rates.regular)}</option><option value="senior">Senior (65+) — {currency(pricing.paid_rates.senior)}</option><option value="student">Full-time student — {currency(pricing.paid_rates.student)}</option>
+                </select><p className="mt-2 text-xs text-[#57625B]">Discounts are self-declared and may be verified in person.</p></div>
+                <div><label className={label} htmlFor="booking-method">Payment preference *</label><select className={field} id="booking-method" value={method} onChange={e => setMethod(e.target.value)}><option value="etransfer">Interac e-Transfer</option><option value="cash">Cash at class</option></select></div>
+              </>}
+              <button type="button" onClick={editDetails} className="text-sm text-[#243B45] underline underline-offset-4">Edit contact details and verify again</button>
+            </div>}
+
             {verificationStep === "waiver" && waiver ? <div className="space-y-4">
               <h3 className="font-serif text-2xl">{waiver.title}</h3>
               <p className="text-xs text-[#57625B]">Agreement version {waiver.version}</p>
@@ -210,23 +276,22 @@ export function PublicBookingForm() {
                 <div><label className={label} htmlFor="booking-signature">Type your full legal name as your electronic signature *</label><input id="booking-signature" className={field} value={signature} onChange={e=>setSignature(e.target.value)} required maxLength={201} autoComplete="name"/></div>
               </>}
             </div> : verificationStep === "code" ? <div className="space-y-3">
-              <p className="text-sm">We sent a six-digit verification code to <strong>{email}</strong>. Enter it below to confirm your email before reserving your seat. Codes expire after 10 minutes.</p>
+              <p className="text-sm">We sent a six-digit verification code to <strong>{email}</strong>. Enter it below to verify your email, then review the waiver and confirm your place. Your seat is not held yet. Codes expire after 10 minutes.</p>
               {devCode && <p className="text-sm text-[#365F46]">Local development test code: <strong>{devCode}</strong> (never shown on the live site).</p>}
               <label className={label} htmlFor="booking-code">Verification code *</label>
               <input id="booking-code" className={field} inputMode="numeric" autoComplete="one-time-code" pattern="[0-9]{6}" maxLength={6} required value={verificationCode} onChange={e => setVerificationCode(e.target.value)} />
-              <button type="button" className="text-sm underline text-[#243B45]" onClick={() => { setVerificationStep("details"); setVerificationCode(""); setError(""); }}>Edit booking details or request another code</button>
+              <button type="button" className="text-sm underline text-[#243B45]" onClick={editDetails}>Edit booking details or request another code</button>
             </div> : loading ? <p className="text-sm text-[#57625B]">Loading available classes…</p> : loadError ? <p role="alert" className="text-sm text-[#9B3D2E]">{loadError}</p> : sessions.length === 0 ? <p className="text-sm text-[#57625B]">No upcoming sessions are scheduled yet. Please check back later.</p> : <>
-              <div><label className={label} htmlFor="booking-session">Class session *</label><select className={field} id="booking-session" required value={sessionId} onChange={e => setSessionId(e.target.value)}><option value="">Choose a session</option>{sessions.map(s => <option key={s.id} value={s.id} disabled={s.available_spots < 1}>{formatSession(s)} — {s.available_spots < 1 ? "Full" : `${s.available_spots} spots available`}</option>)}</select>{selected && <p className="mt-2 text-xs text-[#57625B]">{selected.template.title}{selected.location || selected.template.location ? ` · ${selected.location || selected.template.location}` : ""}</p>}</div>
+
               <div className="grid grid-cols-1 sm:grid-cols-2 gap-4"><div><label className={label} htmlFor="booking-first">First name *</label><input className={field} id="booking-first" autoComplete="given-name" required maxLength={100} value={firstName} onChange={e => setFirstName(e.target.value)}/></div><div><label className={label} htmlFor="booking-last">Last name *</label><input className={field} id="booking-last" autoComplete="family-name" required maxLength={100} value={lastName} onChange={e => setLastName(e.target.value)}/></div></div>
               <div><label className={label} htmlFor="booking-email">Email *</label><input className={field} id="booking-email" type="email" autoComplete="email" required value={email} onChange={e => setEmail(e.target.value)}/></div>
               <div><label className={label} htmlFor="booking-phone">Phone (optional)</label><input className={field} id="booking-phone" type="tel" autoComplete="tel" value={phone} onChange={e => setPhone(e.target.value)}/></div>
-              <div><label className={label} htmlFor="booking-category">Pricing category *</label><select className={field} id="booking-category" value={category} onChange={e => setCategory(e.target.value)}><option value="regular">Regular — $20 per paid drop-in</option><option value="senior">Senior (65+) — $17 per paid drop-in</option><option value="student">Full-time student — $17 per paid drop-in</option></select><p className="mt-2 text-xs text-[#57625B]">Your first-ever reservation is free regardless of the pricing category selected. This selection helps determine your rate for future paid classes. Discounts are self-declared and may be verified in person.</p></div>
-              <div><label className={label} htmlFor="booking-method">Payment preference *</label><select className={field} id="booking-method" value={method} onChange={e => setMethod(e.target.value)}><option value="etransfer">Interac e-Transfer</option><option value="cash">Cash at class</option></select><p className="mt-2 text-xs text-[#57625B]">Payment is only required for returning students. Your final amount is determined by the server.</p></div>
               <div className="absolute -left-[9999px]" aria-hidden="true"><label htmlFor="booking-website">Website</label><input id="booking-website" tabIndex={-1} autoComplete="off" value={website} onChange={e => setWebsite(e.target.value)}/></div>
             </>}
               {error && <p role="alert" className="rounded-xl border border-[#9B3D2E]/30 bg-[#9B3D2E]/10 p-3 text-sm text-[#9B3D2E]">{error}</p>}
-              <button type="submit" disabled={submitting || !sessionId} className="w-full flex items-center justify-center gap-2 rounded-2xl bg-[#171918] hover:bg-[#303331] disabled:opacity-50 text-[#E8E4DA] px-5 py-3.5 text-sm font-semibold transition-colors">{submitting && <LoaderCircle className="w-4 h-4 animate-spin"/>}{submitting ? "Processing…" : verificationStep === "waiver" ? "Accept waiver and reserve seat" : verificationStep === "details" ? <><CalendarDays className="w-4 h-4"/>Send verification code</> : "Verify email and reserve seat"}</button>
-              <p className="text-xs text-[#57625B] text-center">A confirmed reservation holds your seat. Paid reservations are recorded as unpaid until verified by the instructor.</p>
+              <button type="submit" disabled={submitting || !canBook || loading || !!loadError} className="w-full flex items-center justify-center gap-2 rounded-full bg-[#9B3D2E] hover:bg-[#7D3024] disabled:opacity-50 text-white px-5 py-3.5 text-sm font-semibold transition-colors">{submitting && <LoaderCircle className="w-4 h-4 animate-spin"/>}{submitting ? "Processing…" : verificationStep === "waiver" ? (waiver?.already_signed ? "Confirm your place" : "Accept waiver and confirm your place") : verificationStep === "details" ? <><CalendarDays className="w-4 h-4"/>Send verification code</> : "Verify email"}</button>
+              <p className="text-xs text-[#57625B] text-center">{verificationStep === "details" ? "We will email a six-digit code. Verify your email, review the waiver, then confirm your place. Sending or verifying a code does not hold a seat." : "Your seat is held only after you confirm your place and see Reservation confirmed. Availability is checked at confirmation. Paid reservations remain unpaid until verified by the instructor."}</p>
+            </fieldset>
           </form>
         )}
       </div>

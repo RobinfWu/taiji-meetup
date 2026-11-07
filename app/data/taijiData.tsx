@@ -55,7 +55,7 @@ export const TAIJI_DATA = {
   groupName: "Classes taught by Robin Wu",
 
   hero: {
-    subText: "Learn a traditional craft that develops stability, strength, coordination, and whole-body connection. Train at an intensity suited to your ability, through structured solo exercises and interactive partner work.",
+    subText: "Learn a traditional craft that develops stability, strength, coordination, and whole-body connection. Train at an intensity suited to your ability, through structured solo exercises and optional partner work.",
     ctaPrimary: "Try a Class",
     ctaSecondary: "How We Train",
     quickStats: [
@@ -239,7 +239,7 @@ export const TAIJI_DATA = {
       day: "Saturdays",
       time: "10:30 AM – 12:00 PM",
       openPracticeNote: "12:00 PM onward — Open Practice & Hangout. Class officially ends at 12:00 PM, but there's no need to rush off. You're welcome to stay afterward to practice, ask questions, work with training partners, or simply hang out with the group.",
-      location: "[Placeholder: City Park Lawn / Outdoor Training Grounds]",
+      location: "Kingston, Ontario",
       level: "All Levels",
       description: "A single, comprehensive training session combining both form practice and Tuishou (Push Hands).",
       instructor: "Robin Wu"

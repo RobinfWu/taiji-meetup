@@ -4,7 +4,7 @@ import Link from "next/link";
 import { Navbar } from "../components/Navbar";
 import { Footer } from "../components/Footer";
 import { TAIJI_DATA } from "../data/taijiData";
-import { ExternalLink, ArrowRight, ShieldCheck, Video } from "lucide-react";
+import { ExternalLink, ArrowRight, Video } from "lucide-react";
 
 export default function AboutPage() {
   const { lineageInfo, lineageTree } = TAIJI_DATA;
@@ -18,10 +18,6 @@ export default function AboutPage() {
         <section className="py-12 md:py-16 bg-[#DFD9CC]/60 border-b border-[#D5CEBF] relative overflow-hidden">
           <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 relative">
             <div className="max-w-3xl space-y-4">
-              <div className="inline-flex items-center space-x-2 px-3.5 py-1 rounded-full bg-[#8A7250]/10 text-[#8A7250] text-xs font-semibold uppercase tracking-widest border border-[#8A7250]/20">
-                <ShieldCheck className="w-3.5 h-3.5" />
-                <span>Credibility</span>
-              </div>
               <h1 className="font-serif text-4xl sm:text-5xl md:text-6xl font-light text-[#171918]">
                 About <span className="font-normal italic text-[#243B45]">Robin Wu</span> & Lineage
               </h1>
@@ -48,7 +44,7 @@ export default function AboutPage() {
               <p className="text-base sm:text-lg text-[#303331] leading-relaxed font-light">{lineageInfo.bio}</p>
               <div className="border-t border-[#D5CEBF] pt-6 space-y-3">
                 <h3 className="font-serif text-2xl">Training with {lineageInfo.teacherName}</h3>
-                <p className="text-sm text-[#303331] leading-relaxed">Robin Wu trained directly under <strong>{lineageInfo.teacherName}</strong> as an indoor student/disciple. Marin Spivack is a senior disciple of Chen Yu, the only son of Chen Zhaokui.</p>
+                <p className="text-sm text-[#303331] leading-relaxed">Marin Spivack is a senior disciple of Chen Yu, the only son of Chen Zhaokui.</p>
                 <a href={lineageInfo.teacherWebsite} target="_blank" rel="noopener noreferrer" className="inline-flex items-center gap-2 text-sm font-semibold text-[#243B45] underline underline-offset-4">
                   Visit Mo Ling Taiji Official Website ({lineageInfo.teacherSiteName})<ExternalLink aria-hidden="true" className="w-3.5 h-3.5 shrink-0" />
                 </a>
@@ -59,7 +55,7 @@ export default function AboutPage() {
             <div className="lg:col-span-8">{/* Teaching Motivation — separate from instructor credentials */}
               <section aria-labelledby="why-teach-heading" className="max-w-3xl border-l-2 border-[#9B3D2E]/60 pl-6 sm:pl-10 space-y-6">
                 <h2 id="why-teach-heading" className="font-serif text-3xl sm:text-4xl font-light text-[#171918]">
-                  Why I'm Building This Community
+                  Why I&apos;m Building This Community
                 </h2>
                 <div className="space-y-4 text-base text-[#303331] leading-relaxed font-light">
                   <p>

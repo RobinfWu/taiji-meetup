@@ -30,9 +30,6 @@ export default function Home() {
                 <h2 className="font-serif text-3xl sm:text-4xl md:text-5xl font-light text-[#171918]">
                   How We Teach
                 </h2>
-                <p className="text-lg text-[#303331] leading-relaxed font-light">
-                  Our training follows a progressive physical methodology that develops the body from the ground up. Each stage builds the specific structure, mechanics, and physical capabilities needed for the next, providing a clear path.
-                </p>
                 <div className="pt-2">
                   <Link
                     href="/method"
@@ -53,7 +50,7 @@ export default function Home() {
                   A Form Learned in Stages
                 </h3>
                 <p className="text-xs text-[#303331] leading-relaxed font-light">
-                  The traditional Yilu form can be practiced in shorter, self-contained routines. Begin with a manageable section and build upon it at your own pace.
+                  Students begin with a six-sequence routine that can be practised on its own, with room for continued refinement or additional sequences.
                 </p>
                 <div className="pt-2 border-t border-[#D5CEBF] flex justify-between items-center text-xs">
                   <Link href="/method#yilu" className="text-[#9B3D2E] font-semibold hover:underline">
@@ -136,7 +133,7 @@ export default function Home() {
                 <div className="bg-[#DFD9CC] p-5 rounded-2xl border border-[#D5CEBF] space-y-2">
                   <span className="font-serif text-xl font-bold text-[#8A7250]">3. Scalable exertion</span>
                   <p className="text-xs text-[#303331] leading-relaxed font-light">
-                    This line of Taijiquan can be practiced light or intense, depending if you want a maintenance practice or a developmental practice.
+                    Start gently, or ask how to make the exercises more physically demanding.
                   </p>
                 </div>
               </div>

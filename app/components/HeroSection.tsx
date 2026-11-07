@@ -3,7 +3,7 @@
 import React from "react";
 import Link from "next/link";
 import { TAIJI_DATA, ClassSession } from "../data/taijiData";
-import { ArrowRight, Mail, Compass, Shield, Flame, BookOpen } from "lucide-react";
+import { ArrowRight, Mail, Compass } from "lucide-react";
 
 interface HeroSectionProps {
   onNavigateTab?: (tabId: string) => void;
@@ -32,15 +32,6 @@ export const HeroSection: React.FC<HeroSectionProps> = () => {
             <p className="text-lg sm:text-xl text-[#303331] max-w-2xl leading-relaxed font-light">
               {TAIJI_DATA.hero.subText}
             </p>
-
-            {/* Tagline banner */}
-            <div className="inline-flex flex-wrap items-center gap-2 px-4 py-2 rounded-full bg-[#DFD9CC]/90 border border-[#D5CEBF] text-xs sm:text-sm font-medium text-[#243B45]">
-              <span>Traditional practice</span>
-              <span className="text-[#9B3D2E]">•</span>
-              <span>Scalable intensity</span>
-              <span className="text-[#9B3D2E]">•</span>
-              <span>All experience levels</span>
-            </div>
 
             {/* CTA Action Buttons */}
             <div className="pt-2 flex flex-col sm:flex-row items-stretch sm:items-center space-y-3 sm:space-y-0 sm:space-x-4">
@@ -90,7 +81,7 @@ export const HeroSection: React.FC<HeroSectionProps> = () => {
                 <div className="space-y-1.5 text-xs text-[#303331] font-light pt-1">
                   <div className="flex items-center space-x-2">
                     <span className="w-1.5 h-1.5 rounded-full bg-[#243B45]" />
-                    <span>Form (Yilu) + Push Hands</span>
+                    <span>Form (Yilu) + optional Push Hands</span>
                   </div>
                   <div className="flex items-center space-x-2">
                     <span className="w-1.5 h-1.5 rounded-full bg-[#8A7250]" />
@@ -99,7 +90,7 @@ export const HeroSection: React.FC<HeroSectionProps> = () => {
                 </div>
 
                 <div className="pt-2 border-t border-[#D5CEBF] text-xs text-[#303331]">
-                  <div><strong>Saturdays:</strong> 10:30 AM – 12:00 PM</div>
+                  <div><strong>{primaryClass.day}:</strong> {primaryClass.time}</div>
                 </div>
 
                 <Link

@@ -7,10 +7,16 @@ import { TAIJI_DATA } from "../data/taijiData";
 interface ContactFormProps {
   className?: string;
   darkVariant?: boolean;
+  heading?: string;
+  showEyebrow?: boolean;
+  description?: string;
 }
 
 export const ContactForm: React.FC<ContactFormProps> = ({
   className = "",
+  heading = "Have a Question?",
+  showEyebrow = true,
+  description = "Ask about training, accessibility, or anything you would like to know before attending. To reserve a place, use the booking form on the Classes page.",
   darkVariant = false
 }) => {
   const [status, setStatus] = useState<"idle" | "sending" | "sent">("idle");
@@ -23,7 +29,6 @@ export const ContactForm: React.FC<ContactFormProps> = ({
   useEffect(() => {
     if (!siteKey) return;
     let active = true;
-    let poll: ReturnType<typeof setInterval> | undefined;
     const render = () => {
       if (!active || !widget.current || widgetId.current !== undefined || !window.turnstile) return;
       widgetId.current = window.turnstile.render(widget.current, {
@@ -44,7 +49,7 @@ export const ContactForm: React.FC<ContactFormProps> = ({
       document.head.appendChild(script);
     }
     script.addEventListener("load", render);
-    poll = setInterval(render, 250);
+    const poll = setInterval(render, 250);
     render();
     return () => {
       active = false;
@@ -105,19 +110,19 @@ export const ContactForm: React.FC<ContactFormProps> = ({
       <div className="max-w-2xl mx-auto space-y-6">
         {/* Header */}
         <div className="text-center space-y-3">
-          <div className="inline-flex items-center space-x-2 px-3.5 py-1 rounded-full bg-[#9B3D2E]/10 text-[#9B3D2E] text-xs font-bold uppercase tracking-widest border border-[#9B3D2E]/20">
+          {showEyebrow && <div className="inline-flex items-center space-x-2 px-3.5 py-1 rounded-full bg-[#9B3D2E]/10 text-[#9B3D2E] text-xs font-bold uppercase tracking-widest border border-[#9B3D2E]/20">
             <Sparkles className="w-3.5 h-3.5" />
             <span>Get In Touch</span>
-          </div>
+          </div>}
           <h2 className="font-serif text-3xl sm:text-4xl font-light">
-            Have a Question?
+            {heading}
           </h2>
           <p
             className={`text-sm sm:text-base font-light max-w-xl mx-auto leading-relaxed ${
               darkVariant ? "text-[#DFD9CC]" : "text-[#303331]"
             }`}
           >
-            Ask about training, accessibility, or anything you would like to know before attending. To reserve a place, use the booking form on the Classes page.
+            {description}
           </p>
         </div>
 

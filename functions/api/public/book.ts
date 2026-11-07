@@ -1,3 +1,4 @@
+import { PAID_DROP_IN_RATES } from "../../lib/publicBookingPricing";
 import { hash } from "../../lib/emailVerification";
 import type { AppPagesFunction } from "../../types/env";
 import { getDb } from "../../types/env";
@@ -20,7 +21,7 @@ export const onRequestPost: AppPagesFunction = async (ctx) => {
   try { const raw = await ctx.request.text(); if (raw.length > 4096) return reply("Request too large.", 413); body = JSON.parse(raw); }
   catch { return reply("Invalid JSON.", 400); }
   if (!isObject(body)) return reply("Expected a JSON object.", 400);
-  const allowed = ["first_name", "last_name", "email", "phone", "session_id", "method", "pricing_category", "website", "verification_token", "waiver_version", "waiver_signed_name", "waiver_accepted", "waiver_adult_confirmed"];
+  const allowed = ["first_name", "last_name", "email", "phone", "session_id", "method", "pricing_category", "website", "verification_token", "waiver_version", "waiver_signed_name", "waiver_accepted", "waiver_adult_confirmed", "expected_amount_cents"];
   if (Object.keys(body).some(k => !allowed.includes(k))) return reply("Unknown request field.", 400);
   // Honeypot for basic bot filtering; use Turnstile / Cloudflare rate limiting before launch.
   if (body.website) return reply("Unable to process booking.", 400);
@@ -36,6 +37,7 @@ export const onRequestPost: AppPagesFunction = async (ctx) => {
   if (body.method !== "cash" && body.method !== "etransfer") return reply("Choose cash or e-Transfer.", 400);
   const category = body.pricing_category === undefined ? "regular" : body.pricing_category;
   if (category !== "regular" && category !== "senior" && category !== "student") return reply("Invalid pricing category.", 400);
+  if (body.expected_amount_cents !== undefined && (typeof body.expected_amount_cents !== "number" || !Number.isSafeInteger(body.expected_amount_cents) || body.expected_amount_cents < 0)) return reply("Invalid expected amount.", 400);
   if (typeof body.verification_token !== "string" || !/^[a-f0-9-]{72}$/.test(body.verification_token)) return reply("Verify your email before booking.", 403);
   const waiverVersion = ctx.env.WAIVER_APPROVED_VERSION;
   if (!waiverVersion) return reply("Waiver is not approved for bookings.", 503);
@@ -67,7 +69,7 @@ export const onRequestPost: AppPagesFunction = async (ctx) => {
     // Never trust a price supplied by the browser. The first-ever reservation
     // (including a previously cancelled reservation) is free. Later bookings
     // use the self-declared category; no discounts stack.
-    const paidAmountCents = category === "regular" ? 2000 : 1700;
+    const paidAmountCents = PAID_DROP_IN_RATES[category];
     // D1 batch runs transactionally. The student insert is idempotent for
     // existing emails; existing personal data is not overwritten.
     const results = await db.batch([
@@ -94,6 +96,7 @@ export const onRequestPost: AppPagesFunction = async (ctx) => {
           AND NOT EXISTS (SELECT 1 FROM student_waivers w WHERE w.student_id=st.id AND w.version=?)
         ON CONFLICT(student_id,version) DO NOTHING`)
         .bind(waiverId,waiverVersion,signedName,now,email.value,email.value,body.waiver_accepted === true ? 1 : 0,body.waiver_adult_confirmed === true ? 1 : 0,signedName,tokenHash,now,waiverVersion),
+      // The optional displayed amount is a precondition, never the source of a charge.
       db.prepare(`INSERT INTO reservations(id,student_id,session_id,source,status,membership_id,cancellation_reason,cancelled_at,created_at,updated_at)
         SELECT ?, st.id, s.id, 'drop_in', 'confirmed', NULL,NULL,NULL,?,?
         FROM students st JOIN class_sessions s ON s.id=?
@@ -101,8 +104,11 @@ export const onRequestPost: AppPagesFunction = async (ctx) => {
         WHERE st.email=? COLLATE NOCASE AND s.status='scheduled' AND s.end_at>? AND t.is_active=1
           AND (SELECT COUNT(*) FROM reservations r WHERE r.session_id=s.id AND r.status='confirmed') < s.capacity
           AND EXISTS (SELECT 1 FROM email_verifications ev WHERE ev.email=st.email AND ev.token_hash=? AND ev.verified_until>?)
-          AND EXISTS (SELECT 1 FROM student_waivers w WHERE w.student_id=st.id AND w.version=?)`)
-        .bind(reservationId,now,now,body.session_id,email.value,now,tokenHash,now,waiverVersion),
+          AND EXISTS (SELECT 1 FROM student_waivers w WHERE w.student_id=st.id AND w.version=?)
+          AND (? IS NULL OR ? = CASE WHEN EXISTS (
+            SELECT 1 FROM reservations prior WHERE prior.student_id=st.id
+          ) THEN ? ELSE 0 END)`)
+        .bind(reservationId,now,now,body.session_id,email.value,now,tokenHash,now,waiverVersion,body.expected_amount_cents ?? null,body.expected_amount_cents ?? null,paidAmountCents),
       // Only insert a payment if this student has at least one OTHER reservation.
       // The newly inserted reservation is excluded. This SQL runs within the
       // same D1 transaction as reservation creation, avoiding a preflight race.
@@ -126,7 +132,7 @@ export const onRequestPost: AppPagesFunction = async (ctx) => {
     if (results[2].meta.changes !== 1 || results[4].meta.changes !== 1 || results[5].meta.changes !== 1) {
       // Rare race: no reservation/payment. A new student may have been created;
       // this does not occupy a seat or charge money.
-      return reply("Booking could not be completed. Check your verification code and class availability, then try again.", 409);
+      return reply("Booking details changed. Review your verification, session availability, and price before confirming again.", 409);
     }
     const isPaidBooking = results[3].meta.changes === 1;
     return Response.json({

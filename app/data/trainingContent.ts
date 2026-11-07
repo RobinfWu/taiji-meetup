@@ -15,10 +15,10 @@ export function publishedCopy(copy: InstructorCopy): string | undefined {
 const draft = (prompt: string): InstructorCopy => ({ status: "draft", prompt });
 
 export const classPractices = [
-  { id: "foundations", title: "Foundational exercises & warm-ups", detail: draft("[Instructor: Describe the foundational exercises and warm-ups used, their purpose, and how you introduce them to beginners.]") },
-  { id: "form", title: "Form practice (Yilu)", detail: draft("[Instructor: Describe how students learn, practise, and revisit Yilu in class.]") },
-  { id: "partners", title: "Partner exercises & Push Hands", detail: draft("[Instructor: Describe how partner exercises are introduced and how you guide students working together.]") },
-  { id: "feedback", title: "Individual feedback & questions", detail: draft("[Instructor: Describe how you offer individual feedback and make room for students’ questions.]") },
+  { id: "foundations", title: "Foundational exercises & warm-ups", detail: { status: "published" as const, text: "Warm up, stretch, and practise fundamental basics." } },
+  { id: "form", title: "Form practice (Yilu)", detail: { status: "published" as const, text: "Learn a short section of Yilu and revisit it as your coordination develops." } },
+  { id: "partners", title: "Partner exercises & Push Hands", detail: { status: "published" as const, text: "If interested, explore partner exercises." } },
+  { id: "feedback", title: "Individual feedback & questions", detail: { status: "published" as const, text: "Practise with individual feedback and ask questions." } },
 ];
 
 export interface YiluSequence {
