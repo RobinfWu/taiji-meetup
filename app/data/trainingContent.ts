@@ -17,7 +17,7 @@ const draft = (prompt: string): InstructorCopy => ({ status: "draft", prompt });
 export const classPractices = [
   { id: "foundations", title: "Foundational exercises & warm-ups", detail: { status: "published" as const, text: "Warm up, stretch, and practise fundamental basics." } },
   { id: "form", title: "Form practice (Yilu)", detail: { status: "published" as const, text: "Learn a short section of Yilu and revisit it as your coordination develops." } },
-  { id: "partners", title: "Partner exercises & Push Hands", detail: { status: "published" as const, text: "If interested, explore partner exercises." } },
+  { id: "partners", title: "Partner exercises & Push Hands", detail: { status: "published" as const, text: "Work with a partner to explore balance and how you respond to pressure." } },
   { id: "feedback", title: "Individual feedback & questions", detail: { status: "published" as const, text: "Practise with individual feedback and ask questions." } },
 ];
 

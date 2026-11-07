@@ -14,7 +14,7 @@ interface ContactFormProps {
 
 export const ContactForm: React.FC<ContactFormProps> = ({
   className = "",
-  heading = "Have a Question?",
+  heading = "Ask Robin a question",
   showEyebrow = true,
   description = "Ask about training, accessibility, or anything you would like to know before attending. To reserve a place, use the booking form on the Classes page.",
   darkVariant = false
@@ -110,10 +110,6 @@ export const ContactForm: React.FC<ContactFormProps> = ({
       <div className="max-w-2xl mx-auto space-y-6">
         {/* Header */}
         <div className="text-center space-y-3">
-          {showEyebrow && <div className="inline-flex items-center space-x-2 px-3.5 py-1 rounded-full bg-[#9B3D2E]/10 text-[#9B3D2E] text-xs font-bold uppercase tracking-widest border border-[#9B3D2E]/20">
-            <Sparkles className="w-3.5 h-3.5" />
-            <span>Get In Touch</span>
-          </div>}
           <h2 className="font-serif text-3xl sm:text-4xl font-light">
             {heading}
           </h2>

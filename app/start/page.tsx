@@ -86,7 +86,7 @@ export default function StartPage() {
             <span className="text-xs font-semibold uppercase tracking-widest text-[#E0C9A2]">Ready to begin?</span>
             <h2 id="start-booking-heading" className="font-serif text-3xl sm:text-4xl">Experience Your First Class</h2>
             <p className="mx-auto max-w-xl text-sm leading-relaxed text-[#DFD9CC]">
-              Your first reservation is free. No experience or special equipment needed.
+              Your first class is free. No experience or special equipment needed.
               Choose an available class and reserve your place.
             </p>
             <Link href="/classes#reserve" className="inline-flex items-center justify-center gap-2 rounded-full bg-[#9B3D2E] px-7 py-3.5 text-sm font-semibold text-white hover:bg-[#7D3024]">
@@ -96,8 +96,6 @@ export default function StartPage() {
 
           {/* Questions remain welcome, but booking is the primary action. */}
           <section aria-labelledby="start-questions-heading" className="space-y-3 pt-4">
-            <h2 id="start-questions-heading" className="text-center font-serif text-2xl sm:text-3xl">Have Questions Before Your First Class?</h2>
-            <p className="text-center text-sm text-[#57625B]">Not quite ready to reserve? Send us a question below.</p>
             <ContactForm darkVariant={true} />
           </section>
 

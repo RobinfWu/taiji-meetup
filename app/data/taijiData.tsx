@@ -249,7 +249,7 @@ export const TAIJI_DATA = {
   locations: [
     {
       name: "Outdoor Park Location",
-      address: "[Placeholder: Central Park North Lawn, Gate 4 entrance]",
+      address: "Kingston, Ontario",
       scheduleNote: "Saturdays 10:30 AM – 12:00 PM (Weather Permitting)",
       tips: "Wear flat-soled shoes (ideally thin and hard-soled), comfortable pants, and dress in weather-appropriate layers."
     }
