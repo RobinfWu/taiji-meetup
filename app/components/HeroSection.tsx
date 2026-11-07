@@ -3,7 +3,7 @@
 import React from "react";
 import Link from "next/link";
 import { TAIJI_DATA, ClassSession } from "../data/taijiData";
-import { ArrowRight, Mail, Compass } from "lucide-react";
+import { ArrowRight, Compass } from "lucide-react";
 
 interface HeroSectionProps {
   onNavigateTab?: (tabId: string) => void;
@@ -89,16 +89,17 @@ export const HeroSection: React.FC<HeroSectionProps> = () => {
                   </div>
                 </div>
 
-                <div className="pt-2 border-t border-[#D5CEBF] text-xs text-[#303331]">
+                <div className="pt-2 border-t border-[#D5CEBF] text-xs text-[#303331] flex flex-wrap items-center gap-x-3 gap-y-1">
                   <div><strong>{primaryClass.day}:</strong> {primaryClass.time}</div>
+                  <span className="font-semibold text-[#9B3D2E]">First class free</span>
                 </div>
 
                 <Link
-                  href="/start"
-                  className="w-full mt-3 py-2.5 bg-[#171918] hover:bg-[#303331] text-[#E8E4DA] text-xs font-semibold rounded-xl transition-colors flex items-center justify-center space-x-2 cursor-pointer"
+                  href="/classes#reserve"
+                  className="w-full mt-3 py-2.5 bg-[#9B3D2E] hover:bg-[#7D3024] text-white text-xs font-semibold rounded-xl transition-colors flex items-center justify-center space-x-2 cursor-pointer"
                 >
-                  <Mail className="w-3.5 h-3.5 text-[#8A7250]" />
-                  <span>Try a Class — Get Started</span>
+                  <ArrowRight aria-hidden="true" className="w-3.5 h-3.5" />
+                  <span>Choose a free class</span>
                 </Link>
               </div>
             </div>
