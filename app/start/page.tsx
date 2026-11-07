@@ -1,20 +1,12 @@
-"use client";
+﻿"use client";
 
 import React from "react";
 import Link from "next/link";
 import { Navbar } from "../components/Navbar";
 import { Footer } from "../components/Footer";
 import { ContactForm } from "../components/ContactForm";
-import { TAIJI_DATA } from "../data/taijiData";
 import {
-  Shirt,
-  Compass,
-  Flame,
-  Calendar,
-  MapPin,
-  Mail,
   ArrowRight,
-  CheckCircle2,
   Sparkles
 } from "lucide-react";
 
@@ -43,7 +35,7 @@ export default function StartPage() {
 
         {/* 4 Simple Reassuring Sections */}
         <section className="py-16 max-w-5xl mx-auto px-4 sm:px-6 lg:px-8 space-y-8">
-          
+
           {/* Section 1: Come as you are */}
           <div className="bg-[#DFD9CC] p-8 sm:p-10 rounded-3xl border border-[#D5CEBF] shadow-xs flex flex-col md:flex-row items-start md:items-center space-y-4 md:space-y-0 md:space-x-6">
             <div className="w-14 h-14 rounded-2xl bg-[#9B3D2E] text-white flex items-center justify-center shrink-0 shadow-md font-serif text-xl font-bold">
@@ -84,23 +76,7 @@ export default function StartPage() {
                 Choose your intensity
               </h2>
               <p className="text-base text-[#303331] leading-relaxed font-light">
-                How intense you want the practice to be is up to you. There is maintenance practice which is light and then there's developmental practice which is intense.
-              </p>
-            </div>
-          </div>
-
-          {/* Section 4: Come experience it */}
-          <div className="bg-[#DFD9CC] p-8 sm:p-10 rounded-3xl border border-[#D5CEBF] shadow-xs flex flex-col md:flex-row items-start md:items-center space-y-4 md:space-y-0 md:space-x-6">
-            <div className="w-14 h-14 rounded-2xl bg-[#171918] text-[#E8E4DA] flex items-center justify-center shrink-0 shadow-md font-serif text-xl font-bold">
-              4
-            </div>
-            <div className="space-y-2 flex-1">
-              <h2 className="font-serif text-2xl font-semibold text-[#171918]">
-                Reserve your first class
-              </h2>
-              <p className="text-base text-[#303331] leading-relaxed font-light">
-                Your first class is free. Choose an available session and reserve your place online.
-                The booking form shows the current date, time, and location.
+                You can start gently. If you want more physical challenge, we can show you how to increase the demands of the exercise.
               </p>
             </div>
           </div>
