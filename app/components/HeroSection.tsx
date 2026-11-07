@@ -3,7 +3,7 @@
 import React from "react";
 import Link from "next/link";
 import { TAIJI_DATA, ClassSession } from "../data/taijiData";
-import { ArrowRight, Compass } from "lucide-react";
+import { ArrowRight } from "lucide-react";
 
 interface HeroSectionProps {
   onNavigateTab?: (tabId: string) => void;
@@ -33,22 +33,20 @@ export const HeroSection: React.FC<HeroSectionProps> = () => {
               {TAIJI_DATA.hero.subText}
             </p>
 
-            {/* CTA Action Buttons */}
-            <div className="pt-2 flex flex-col sm:flex-row items-stretch sm:items-center space-y-3 sm:space-y-0 sm:space-x-4">
+            {/* First-class guidance and training information */}
+            <div className="flex flex-col items-start gap-x-6 gap-y-4 sm:flex-row sm:flex-wrap sm:items-center">
               <Link
                 href="/start"
-                className="inline-flex items-center justify-center space-x-2 bg-[#9B3D2E] hover:bg-[#7D3024] text-white px-7 py-3.5 rounded-full text-sm font-bold shadow-md transition-all duration-200 cursor-pointer active:scale-98 border border-[#9B3D2E]"
+                className="text-sm font-semibold text-[#243B45] hover:text-[#9B3D2E] underline decoration-current decoration-1 underline-offset-4 transition-colors focus-visible:outline-2 focus-visible:outline-offset-4 focus-visible:outline-[#243B45]"
               >
-                <span>Try a Class</span>
-                <ArrowRight className="w-4 h-4 text-white" />
+                What to expect at your first class
               </Link>
 
               <Link
                 href="/method"
-                className="inline-flex items-center justify-center space-x-2 bg-[#DFD9CC] hover:bg-[#D5CEBF] border border-[#D5CEBF] text-[#171918] px-6 py-3.5 rounded-full text-sm font-semibold transition-all duration-200 cursor-pointer"
+                className="text-sm font-semibold text-[#243B45] hover:text-[#9B3D2E] underline decoration-current decoration-1 underline-offset-4 transition-colors focus-visible:outline-2 focus-visible:outline-offset-4 focus-visible:outline-[#243B45]"
               >
-                <Compass className="w-4 h-4 text-[#243B45]" />
-                <span>How We Train →</span>
+                How we train
               </Link>
             </div>
           </div>
@@ -99,7 +97,7 @@ export const HeroSection: React.FC<HeroSectionProps> = () => {
                   className="w-full mt-3 py-2.5 bg-[#9B3D2E] hover:bg-[#7D3024] text-white text-xs font-semibold rounded-xl transition-colors flex items-center justify-center space-x-2 cursor-pointer"
                 >
                   <ArrowRight aria-hidden="true" className="w-3.5 h-3.5" />
-                  <span>Choose a free class</span>
+                  <span>Book a class</span>
                 </Link>
               </div>
             </div>

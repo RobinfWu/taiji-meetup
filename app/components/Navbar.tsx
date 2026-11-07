@@ -4,7 +4,7 @@ import React, { useState, useEffect } from "react";
 import Link from "next/link";
 import { usePathname } from "next/navigation";
 import { TAIJI_DATA } from "../data/taijiData";
-import { Menu, X, ArrowRight } from "lucide-react";
+import { Menu, X } from "lucide-react";
 
 interface NavbarProps {
   activeTab?: string;
@@ -29,6 +29,7 @@ export const Navbar: React.FC<NavbarProps> = () => {
     { href: "/method", label: "How We Train" },
     { href: "/about", label: "About" },
     { href: "/classes", label: "Classes" },
+    { href: "/start", label: "Your First Class" },
   ];
 
   return (
@@ -61,13 +62,14 @@ export const Navbar: React.FC<NavbarProps> = () => {
         </Link>
 
         {/* Desktop Navigation Links */}
-        <nav className="hidden md:flex items-center space-x-1 lg:space-x-1.5 bg-[#DFD9CC]/90 p-1.5 rounded-full border border-[#D5CEBF]">
+        <nav className="hidden lg:flex items-center space-x-1 lg:space-x-1.5 bg-[#DFD9CC]/90 p-1.5 rounded-full border border-[#D5CEBF]">
           {navItems.map((item) => {
             const isActive = pathname === item.href;
             return (
               <Link
                 key={item.href}
                 href={item.href}
+                aria-current={isActive ? "page" : undefined}
                 className={`px-4 py-1.5 rounded-full text-xs font-semibold transition-all duration-200 cursor-pointer ${
                   isActive
                     ? "bg-[#171918] text-[#E8E4DA] shadow-xs"
@@ -80,29 +82,14 @@ export const Navbar: React.FC<NavbarProps> = () => {
           })}
         </nav>
 
-        {/* Action Button: Start Here */}
-        <div className="hidden sm:flex items-center space-x-3">
-          <Link
-            href="/start"
-            className="inline-flex items-center space-x-2 bg-[#9B3D2E] hover:bg-[#7D3024] text-white px-5 py-2.5 rounded-full text-xs font-bold transition-all shadow-md cursor-pointer active:scale-98 border border-[#9B3D2E]"
-          >
-            <span>Try a Class</span>
-            <ArrowRight className="w-3.5 h-3.5 text-white/90" />
-          </Link>
-        </div>
-
         {/* Mobile menu trigger */}
-        <div className="flex md:hidden items-center space-x-2">
-          <Link
-            href="/start"
-            className="px-3 py-1.5 rounded-full bg-[#9B3D2E] text-white text-xs font-bold flex items-center space-x-1"
-          >
-            <span>Try a Class</span>
-          </Link>
+        <div className="flex lg:hidden items-center space-x-2">
           <button
             onClick={() => setMobileMenuOpen(!mobileMenuOpen)}
-            className="p-2 rounded-lg text-[#171918] hover:bg-[#DFD9CC] focus:outline-none"
+            className="p-2 rounded-lg text-[#171918] hover:bg-[#DFD9CC] focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-[#243B45]"
             aria-label="Toggle menu"
+            aria-expanded={mobileMenuOpen}
+            aria-controls="mobile-navigation"
           >
             {mobileMenuOpen ? (
               <X className="w-6 h-6" />
@@ -115,7 +102,7 @@ export const Navbar: React.FC<NavbarProps> = () => {
 
       {/* Mobile Drawer Navigation */}
       {mobileMenuOpen && (
-        <div className="md:hidden bg-[#E8E4DA] border-b border-[#D5CEBF] px-4 pt-3 pb-6 shadow-xl animate-in slide-in-from-top duration-200">
+        <nav id="mobile-navigation" className="lg:hidden bg-[#E8E4DA] border-b border-[#D5CEBF] px-4 pt-3 pb-6 shadow-xl animate-in slide-in-from-top duration-200">
           <div className="space-y-1">
             {navItems.map((item) => {
               const isActive = pathname === item.href;
@@ -123,6 +110,7 @@ export const Navbar: React.FC<NavbarProps> = () => {
                 <Link
                   key={item.href}
                   href={item.href}
+                  aria-current={isActive ? "page" : undefined}
                   onClick={() => setMobileMenuOpen(false)}
                   className={`block w-full text-left px-4 py-3 rounded-xl text-sm font-semibold transition-colors ${
                     isActive
@@ -136,17 +124,7 @@ export const Navbar: React.FC<NavbarProps> = () => {
             })}
           </div>
 
-          <div className="mt-4 pt-4 border-t border-[#D5CEBF]">
-            <Link
-              href="/start"
-              onClick={() => setMobileMenuOpen(false)}
-              className="w-full flex items-center justify-center space-x-2 bg-[#9B3D2E] text-white py-3 rounded-xl text-sm font-bold shadow-md"
-            >
-              <span>Try a Class</span>
-              <ArrowRight className="w-4 h-4 text-white" />
-            </Link>
-          </div>
-        </div>
+        </nav>
       )}
     </header>
   );
