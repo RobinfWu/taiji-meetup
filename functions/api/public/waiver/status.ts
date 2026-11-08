@@ -1,9 +1,11 @@
 import { PAID_DROP_IN_RATES } from "../../../lib/publicBookingPricing";
-import { hash } from "../../../lib/emailVerification";
+import { allowRequest, hash } from "../../../lib/emailVerification";
 import { getDb, type AppPagesFunction } from "../../../types/env";
 
-export const onRequestPost: AppPagesFunction = async ({ request, env }) => {
-  if (env.PUBLIC_BOOKING_ENABLED !== "true") return Response.json({error:"Booking is unavailable."},{status:503});
+export const onRequestPost: AppPagesFunction = async ctx => {
+  const denied = allowRequest(ctx);
+  if (denied) return denied;
+  const { request, env } = ctx;
   const origin = request.headers.get("Origin");
   if (origin && origin !== new URL(request.url).origin) return Response.json({error:"Origin not allowed."},{status:403});
   let payload: unknown;

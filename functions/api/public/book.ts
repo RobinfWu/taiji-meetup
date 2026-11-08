@@ -1,5 +1,5 @@
 import { PAID_DROP_IN_RATES } from "../../lib/publicBookingPricing";
-import { hash } from "../../lib/emailVerification";
+import { allowRequest, hash } from "../../lib/emailVerification";
 import type { AppPagesFunction } from "../../types/env";
 import { getDb } from "../../types/env";
 import { validateName, validateEmail, validatePhone, STUDENT_LIMITS } from "../../lib/validation";
@@ -9,9 +9,8 @@ const reply = (message: string, status: number) => Response.json({ error: messag
 const isObject = (v: unknown): v is Record<string, unknown> => !!v && typeof v === "object" && !Array.isArray(v);
 
 export const onRequestPost: AppPagesFunction = async (ctx) => {
-  // Explicit kill switch: do not enable public booking before reviewing the
-  // payment instructions, pricing, and anti-abuse controls.
-  if (ctx.env.PUBLIC_BOOKING_ENABLED !== "true") return reply("Online booking is not available yet.", 503);
+  const denied = allowRequest(ctx);
+  if (denied) return denied;
   const origin = ctx.request.headers.get("Origin");
   const requestOrigin = new URL(ctx.request.url).origin;
   if (origin && origin !== requestOrigin && origin !== "http://localhost:8788") return reply("Origin not allowed.", 403);

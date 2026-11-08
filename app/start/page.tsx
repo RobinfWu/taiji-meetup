@@ -81,20 +81,19 @@ export default function StartPage() {
             </div>
           </div>
 
-          {/* Primary path: reserve a place using the single booking form. */}
+          {/* Collect interest while the first sessions are being arranged. */}
           <section aria-labelledby="start-booking-heading" className="rounded-3xl bg-[#243B45] px-8 py-12 text-center text-[#E8E4DA] space-y-5">
             <span className="text-xs font-semibold uppercase tracking-widest text-[#E0C9A2]">Ready to begin?</span>
             <h2 id="start-booking-heading" className="font-serif text-3xl sm:text-4xl">Experience Your First Class</h2>
             <p className="mx-auto max-w-xl text-sm leading-relaxed text-[#DFD9CC]">
-              Your first class is free. No experience or special equipment needed.
-              Choose an available class and reserve your place.
+              Your first class is free. Weekend classes are planned, with the rental, exact day and time, and first class date still being arranged. Share your availability or ask to hear when booking opens.
             </p>
-            <Link href="/classes#reserve" className="inline-flex items-center justify-center gap-2 rounded-full bg-[#9B3D2E] px-7 py-3.5 text-sm font-semibold text-white hover:bg-[#7D3024]">
-              Reserve Your Free Class <ArrowRight className="h-4 w-4" />
+            <Link href="#ask-robin" className="inline-flex items-center justify-center gap-2 rounded-full bg-[#9B3D2E] px-7 py-3.5 text-sm font-semibold text-white hover:bg-[#7D3024]">
+              Share your weekend availability <ArrowRight className="h-4 w-4" />
             </Link>
           </section>
 
-          {/* Questions remain welcome, but booking is the primary action. */}
+          {/* Availability, notification requests and general questions share this form. */}
           <section id="ask-robin" aria-label="Ask Robin a question" className="scroll-mt-28 space-y-3 pt-4">
             <ContactForm darkVariant={true} />
           </section>

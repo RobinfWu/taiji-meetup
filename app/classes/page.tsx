@@ -4,12 +4,10 @@ import React from "react";
 import Link from "next/link";
 import { Navbar } from "../components/Navbar";
 import { Footer } from "../components/Footer";
-import { PublicBookingForm } from "../components/PublicBookingForm";
 import { TAIJI_DATA, ClassSession } from "../data/taijiData";
 import {
   Calendar,
   MapPin,
-  Clock,
   Users,
   ArrowRight
 } from "lucide-react";
@@ -32,7 +30,7 @@ export default function ClassesPage() {
                 Classes & <span className="font-normal italic text-[#243B45]">Schedule</span>
               </h1>
               <p className="text-lg text-[#303331] leading-relaxed font-light">
-                Our group practices traditional form and Push Hands. Find information about training, fees, and how to reserve your place. Exact session times and venues are shown in the live booking form.
+                Weekend classes are planned for Kingston. The rental, exact day and time, and first class date are still being arranged. Booking will open once the first sessions are confirmed.
               </p>
             </div>
           </div>
@@ -44,10 +42,10 @@ export default function ClassesPage() {
           <div className="space-y-8">
             <div className="text-center max-w-2xl mx-auto space-y-2">
               <span className="text-xs font-semibold uppercase tracking-widest text-[#243B45]">
-                Weekly Practice
+                Opening Planned
               </span>
               <h2 className="font-serif text-3xl sm:text-4xl font-light text-[#171918]">
-                Our Weekly Training Class
+                Planned Weekend Classes
               </h2>
               <p className="text-sm text-[#57625B] font-light">
                 We offer one unified weekly session combining progressive form mechanics and cooperative Push Hands partner drills.
@@ -83,13 +81,13 @@ export default function ClassesPage() {
                       <div className="flex items-center justify-center space-x-2.5">
                         <Calendar className="w-4 h-4 text-[#8A7250]" />
                         <span className="font-semibold text-[#171918]">
-                          {session.day}, {session.time}
+                          Weekend classes planned · Day and time to be confirmed
                         </span>
                       </div>
 
                       <div className="flex items-center justify-center space-x-2.5">
                         <MapPin className="w-4 h-4 text-[#243B45]" />
-                        <span>Check the booking form for the current session venue</span>
+                        <span>Kingston, Ontario · Venue to be confirmed</span>
                       </div>
 
                       <div className="flex items-center justify-center space-x-2.5">
@@ -97,30 +95,16 @@ export default function ClassesPage() {
                         <span>Train with {session.instructor}</span>
                       </div>
 
-                      {session.openPracticeNote && (() => {
-                        const note = session.openPracticeNote!;
-                        const dashIdx = note.indexOf(".");
-                        const headline = note.slice(0, dashIdx + 1);
-                        const body = note.slice(dashIdx + 1).trim();
-                        return (
-                          <div className="w-full mt-2 pt-3 border-t border-dashed border-[#C8C1B2] text-left space-y-1.5">
-                            <div className="flex items-center space-x-2">
-                              <Clock className="w-3.5 h-3.5 text-[#8A7250] shrink-0" />
-                              <span className="font-semibold text-[#171918] text-xs">{headline}</span>
-                            </div>
-                            <p className="text-xs text-[#57625B] leading-relaxed font-light pl-5">{body}</p>
-                          </div>
-                        );
-                      })()}
+
                     </div>
                   </div>
 
                   <Link
-                    href="#reserve"
+                    href="/start#ask-robin"
                     className="w-full max-w-md mx-auto mt-4 py-3 bg-[#171918] hover:bg-[#303331] text-[#E8E4DA] text-xs font-semibold rounded-2xl transition-colors flex items-center justify-center space-x-2 cursor-pointer shadow-xs border border-[#303331]"
                   >
                     <Calendar className="w-3.5 h-3.5 text-[#8A7250]" />
-                    <span>See Available Classes &amp; Reserve</span>
+                    <span>Share your weekend availability</span>
                   </Link>
                 </div>
               ))}
@@ -162,7 +146,7 @@ export default function ClassesPage() {
                 $70<span className="text-base text-[#57625B]"> / month</span>
               </p>
               <p className="text-sm text-[#57625B]">
-                Covers all weekly Saturday classes that month. Members may send me their practice videos between classes for personalized written feedback.
+                Covers all weekly classes that month. Members may send me their practice videos between classes for personalized written feedback.
               </p>
             </div>
 
@@ -199,8 +183,14 @@ export default function ClassesPage() {
           </div>
         </section>
 
-          {/* Single live reservation form shared by both visitor paths. */}
-          <PublicBookingForm />
+          {/* Retain the existing booking anchor while reservations are on hold. */}
+          <section id="reserve" aria-labelledby="reserve-heading" className="scroll-mt-28 max-w-3xl mx-auto rounded-3xl bg-[#DFD9CC] border border-[#D5CEBF] p-6 sm:p-10 space-y-4">
+            <h2 id="reserve-heading" className="font-serif text-3xl sm:text-4xl font-light">Booking opens when sessions are confirmed</h2>
+            <p className="text-sm text-[#303331] leading-relaxed">There are no confirmed sessions available to reserve yet. Share which Saturday or Sunday times generally work for you. If you would like an email when booking opens, please say so in your message. This does not reserve a place.</p>
+            <Link href="/start#ask-robin" className="inline-flex items-center justify-center gap-2 rounded-full bg-[#9B3D2E] px-6 py-3 text-sm font-semibold text-white hover:bg-[#7D3024]">
+              Share your weekend availability <ArrowRight aria-hidden="true" className="h-4 w-4 shrink-0" />
+            </Link>
+          </section>
 
           {/* Section 3: Location Details & What to Wear */}
           <div className="space-y-8">
@@ -219,9 +209,7 @@ export default function ClassesPage() {
                 <h3 className="font-serif text-xl font-semibold">Where we meet</h3>
               </div>
               <p className="text-sm leading-relaxed text-[#303331]">
-                Our venue may change between indoor and outdoor locations. Select a class in the
-                booking form above to see its current meeting location. Please check the details
-                again before traveling, particularly if the weather is uncertain.
+                The Yoga Loft Kingston is a possible venue in Kingston, Ontario. The rental is still being arranged, and the venue is to be confirmed. Meeting details will be provided once confirmed.
               </p>
               <div className="rounded-xl bg-[#E8E4DA] border border-[#D5CEBF] p-4">
                 <h3 className="mb-1 text-sm font-semibold">What to wear</h3>

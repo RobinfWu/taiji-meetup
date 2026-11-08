@@ -212,10 +212,10 @@ export default function Home() {
             </p>
             <div className="pt-4 flex flex-col sm:flex-row items-center justify-center gap-4">
               <Link
-                href="/start"
+                href="/start#ask-robin"
                 className="px-9 py-4 rounded-full bg-[#9B3D2E] text-white text-base font-bold hover:bg-[#7D3024] transition-colors shadow-lg flex items-center space-x-2"
               >
-                <span>Try a Class</span>
+                <span>Share your weekend availability</span>
                 <ArrowRight className="w-5 h-5" />
               </Link>
             </div>

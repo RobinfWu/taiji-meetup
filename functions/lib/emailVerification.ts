@@ -14,7 +14,10 @@ export async function parseBody(request: {
   try { const raw = await request.text(); if (raw.length > 4096) return null; const obj: unknown = JSON.parse(raw); return isRecord(obj) ? obj : null; } catch { return null; }
 }
 export function allowRequest(ctx: AppEventContext): Response | null {
-  if (ctx.env.PUBLIC_BOOKING_ENABLED !== "true") return jsonError("Online booking is not available yet.", 503);
+  // Temporary planning hold: no public dates or venue are confirmed. Keep the
+  // existing flow testable only with explicit dev mode on localhost. Reopening
+  // needs a reviewed code change, not merely an old production environment flag.
+  if (!devMode(ctx) || ctx.env.PUBLIC_BOOKING_ENABLED !== "true") return jsonError("Booking opens once the first sessions are confirmed. Please share your availability using the contact form.", 503);
   const origin = ctx.request.headers.get("Origin");
   if (origin && origin !== new URL(ctx.request.url).origin) return jsonError("Origin not allowed.", 403);
   return null;

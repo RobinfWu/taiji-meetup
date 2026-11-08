@@ -1,5 +1,6 @@
 import type { AppPagesFunction } from "../types/env";
 import { getDb } from "../types/env";
+import { devMode } from "../lib/emailVerification";
 import type { ClassSessionJoinRow, UpcomingClassSessionItem } from "../types/schema";
 
 const UPCOMING_SESSIONS_QUERY = `
@@ -37,6 +38,10 @@ const UPCOMING_SESSIONS_QUERY = `
 `;
 
 export const onRequestGet: AppPagesFunction = async (context) => {
+  // Hide unconfirmed dates, capacity and addresses without modifying any rows.
+  if (!devMode(context) || context.env.PUBLIC_BOOKING_ENABLED !== "true") {
+    return Response.json([], { headers: { "Cache-Control": "no-store" } });
+  }
   try {
     const db = getDb(context);
     const nowIso = new Date().toISOString();
