@@ -11,11 +11,10 @@ type Session = {
   available_spots: number;
   template: { title: string; location: string | null; timezone: string };
 };
-type PricingCategory = "regular" | "senior" | "student";
-type VerifiedPricing = { first_reservation_free: boolean; paid_rates: Record<PricingCategory, number>; currency: "CAD" };
+type VerifiedPricing = { first_reservation_free: boolean; paid_rates: { regular: number }; currency: "CAD" };
 const isVerifiedPricing = (value: unknown): value is VerifiedPricing => {
   const quote = value as VerifiedPricing | null;
-  return !(!quote || typeof quote.first_reservation_free !== "boolean" || quote.currency !== "CAD" || !quote.paid_rates || !["regular", "senior", "student"].every(key => Number.isSafeInteger(quote.paid_rates[key as PricingCategory]) && quote.paid_rates[key as PricingCategory] >= 0));
+  return !(!quote || typeof quote.first_reservation_free !== "boolean" || quote.currency !== "CAD" || !quote.paid_rates || !Number.isSafeInteger(quote.paid_rates.regular) || quote.paid_rates.regular < 0);
 };
 class BookingRequestError extends Error {
   constructor(message: string, readonly status: number) { super(message); }
@@ -46,7 +45,6 @@ export function PublicBookingForm() {
   const [lastName, setLastName] = useState("");
   const [email, setEmail] = useState("");
   const [phone, setPhone] = useState("");
-  const [category, setCategory] = useState<PricingCategory>("regular");
   const [pricing, setPricing] = useState<VerifiedPricing | null>(null);
   const [method, setMethod] = useState("etransfer");
   const [website, setWebsite] = useState("");
@@ -164,7 +162,7 @@ export function PublicBookingForm() {
       if (verificationStep === "waiver") {
         if (!waiver || !verifiedToken || !pricing) throw new Error("Verify your email again.");
         if (!waiver.already_signed && (!adultConfirmed || !waiverAcknowledged || signature.trim() !== `${firstName.trim()} ${lastName.trim()}`)) throw new Error("Please read and sign the waiver using your full name.");
-        const booking = await postJson("/api/public/book", { first_name: firstName.trim(), last_name: lastName.trim(), email: email.trim(), ...(phone.trim() ? { phone: phone.trim() } : {}), session_id: sessionId, method, pricing_category: category, expected_amount_cents: pricing.first_reservation_free ? 0 : pricing.paid_rates[category], website, verification_token: verifiedToken, waiver_version: waiver.version, ...(waiver.already_signed ? {} : {waiver_signed_name: signature.trim(), waiver_accepted: true, waiver_adult_confirmed: true}) });
+        const booking = await postJson("/api/public/book", { first_name: firstName.trim(), last_name: lastName.trim(), email: email.trim(), ...(phone.trim() ? { phone: phone.trim() } : {}), session_id: sessionId, method, pricing_category: "regular", expected_amount_cents: pricing.first_reservation_free ? 0 : pricing.paid_rates.regular, website, verification_token: verifiedToken, waiver_version: waiver.version, ...(waiver.already_signed ? {} : {waiver_signed_name: signature.trim(), waiver_accepted: true, waiver_adult_confirmed: true}) });
         setResult(booking as BookingResult);
         refreshSessions().catch(() => {});
       }
@@ -211,7 +209,7 @@ export function PublicBookingForm() {
         <span className="text-xs font-semibold uppercase tracking-widest text-[#243B45]">Reserve a place</span>
         <h2 id="reserve-heading" className="font-serif text-3xl sm:text-4xl font-light">Book a Class</h2>
         <p className="text-base font-semibold text-[#365F46]">Your first class is free.</p>
-        <p className="text-sm text-[#57625B]">No account required. Verify your email to check your first-class eligibility. Returning students choose their rate and payment preference after verification.</p>
+        <p className="text-sm text-[#57625B]">No account required. Verify your email to check your first-class eligibility. Returning students see their amount and choose their payment preference after verification.</p>
       </div>
       <div className="bg-[#DFD9CC] rounded-3xl border border-[#D5CEBF] p-6 sm:p-9 shadow-xs">
         {result ? (
@@ -252,11 +250,8 @@ export function PublicBookingForm() {
               </dl>
             </div>}
             {verificationStep === "waiver" && pricing && <div className="space-y-4">
-              <p className="text-lg font-semibold text-[#243B45]" aria-live="polite">{pricing.first_reservation_free ? "First class · $0" : `Drop-in · ${currency(pricing.paid_rates[category])} CAD`}</p>
+              <p className="text-lg font-semibold text-[#243B45]" aria-live="polite">{pricing.first_reservation_free ? "First class · $0" : `Drop-in · ${currency(pricing.paid_rates.regular)} CAD`}</p>
               {pricing.first_reservation_free ? <p className="text-sm text-[#303331]">No payment is required for your first reservation.</p> : <>
-                <div><label className={label} htmlFor="booking-category">Pricing category *</label><select className={field} id="booking-category" value={category} onChange={e => setCategory(e.target.value as PricingCategory)}>
-                  <option value="regular">Regular — {currency(pricing.paid_rates.regular)}</option><option value="senior">Senior (65+) — {currency(pricing.paid_rates.senior)}</option><option value="student">Full-time student — {currency(pricing.paid_rates.student)}</option>
-                </select><p className="mt-2 text-xs text-[#57625B]">Discounts are self-declared and may be verified in person.</p></div>
                 <div><label className={label} htmlFor="booking-method">Payment preference *</label><select className={field} id="booking-method" value={method} onChange={e => setMethod(e.target.value)}><option value="etransfer">Interac e-Transfer</option><option value="cash">Cash at class</option></select></div>
               </>}
               <button type="button" onClick={editDetails} className="text-sm text-[#243B45] underline underline-offset-4">Edit contact details and verify again</button>

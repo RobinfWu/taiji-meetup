@@ -154,18 +154,8 @@ export default function ClassesPage() {
 
           <div className="bg-[#DFD9CC] rounded-2xl border border-[#D5CEBF] p-6 sm:p-8 space-y-3 text-sm text-[#303331]">
             <p>
-              <strong className="text-[#171918]">
-                Student & senior discount:
-              </strong>{" "}
-              Full-time students and adults aged 65+ receive 15% off regular
-              drop-in or monthly fees.
-            </p>
-            <p>
               <strong className="text-[#171918]">Payment:</strong>{" "}
               Interac e-Transfer or cash accepted.
-            </p>
-            <p className="text-xs text-[#57625B]">
-              Discounted regular rates: $17 per drop-in class or $59.50 per month.
             </p>
           </div>
         </section>

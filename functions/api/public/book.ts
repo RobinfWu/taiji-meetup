@@ -35,7 +35,7 @@ export const onRequestPost: AppPagesFunction = async (ctx) => {
   if (typeof body.session_id !== "string" || !/^[a-zA-Z0-9_-]{1,100}$/.test(body.session_id)) return reply("Invalid class session.", 400);
   if (body.method !== "cash" && body.method !== "etransfer") return reply("Choose cash or e-Transfer.", 400);
   const category = body.pricing_category === undefined ? "regular" : body.pricing_category;
-  if (category !== "regular" && category !== "senior" && category !== "student") return reply("Invalid pricing category.", 400);
+  if (category !== "regular") return reply("This pricing category is no longer available. Please refresh the booking form.", 400);
   if (body.expected_amount_cents !== undefined && (typeof body.expected_amount_cents !== "number" || !Number.isSafeInteger(body.expected_amount_cents) || body.expected_amount_cents < 0)) return reply("Invalid expected amount.", 400);
   if (typeof body.verification_token !== "string" || !/^[a-f0-9-]{72}$/.test(body.verification_token)) return reply("Verify your email before booking.", 403);
   const waiverVersion = ctx.env.WAIVER_APPROVED_VERSION;
@@ -67,7 +67,7 @@ export const onRequestPost: AppPagesFunction = async (ctx) => {
     if (!versionExists) return reply("Waiver configuration unavailable.", 503);
     // Never trust a price supplied by the browser. The first-ever reservation
     // (including a previously cancelled reservation) is free. Later bookings
-    // use the self-declared category; no discounts stack.
+    // use the regular drop-in rate.
     const paidAmountCents = PAID_DROP_IN_RATES[category];
     // D1 batch runs transactionally. The student insert is idempotent for
     // existing emails; existing personal data is not overwritten.
