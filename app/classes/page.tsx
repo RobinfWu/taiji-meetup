@@ -129,7 +129,7 @@ export default function ClassesPage() {
             </p>
           </div>
 
-          <div className="grid grid-cols-1 md:grid-cols-3 gap-5">
+          <div className="grid grid-cols-1 md:grid-cols-2 gap-5">
             <div className="bg-[#DFD9CC] rounded-3xl border border-[#D5CEBF] p-7 space-y-3">
               <h3 className="font-serif text-xl font-semibold">Drop-in</h3>
               <p className="font-serif text-4xl text-[#171918]">
@@ -150,19 +150,6 @@ export default function ClassesPage() {
               </p>
             </div>
 
-            <div className="bg-[#243B45] text-[#E8E4DA] rounded-3xl border border-[#243B45] p-7 space-y-3">
-              <span className="text-[10px] uppercase tracking-widest font-semibold text-[#E0C9A2]">
-                Early Student Offer
-              </span>
-              <h3 className="font-serif text-xl font-semibold">Founding Members</h3>
-              <p className="font-serif text-4xl">
-                $55<span className="text-base text-[#DFD9CC]"> / month</span>
-              </p>
-              <p className="text-sm text-[#DFD9CC]">
-                All monthly membership benefits at a special introductory rate for our earliest students.
-                $55/month for your first three months, then $70/month.
-              </p>
-            </div>
           </div>
 
           <div className="bg-[#DFD9CC] rounded-2xl border border-[#D5CEBF] p-6 sm:p-8 space-y-3 text-sm text-[#303331]">
@@ -171,7 +158,7 @@ export default function ClassesPage() {
                 Student & senior discount:
               </strong>{" "}
               Full-time students and adults aged 65+ receive 15% off regular
-              drop-in or monthly fees (not combined with the founding-member offer).
+              drop-in or monthly fees.
             </p>
             <p>
               <strong className="text-[#171918]">Payment:</strong>{" "}

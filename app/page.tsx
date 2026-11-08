@@ -205,7 +205,7 @@ export default function Home() {
               <span>Take the First Step</span>
             </div>
             <h2 className="font-serif text-3xl sm:text-4xl md:text-5xl font-light">
-              Try Your First Class
+              Help Choose a Class Time
             </h2>
             <p className="text-base text-[#DFD9CC] max-w-xl mx-auto font-light leading-relaxed">
               No long-term commitment or prior experience required. Come experience Chen Family Taijiquan practice for yourself.
