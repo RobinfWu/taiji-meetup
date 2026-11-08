@@ -46,7 +46,7 @@ export default function StartPage() {
                 Come as you are
               </h2>
               <p className="text-base text-[#303331] leading-relaxed font-light">
-                Comfortable clothes. Flat shoes. No uniform. No special flexibility or martial arts experience required.
+                Comfortable clothes. Flat shoes. No uniform. No special flexibility or prior Tai Chi experience required.
               </p>
             </div>
           </div>

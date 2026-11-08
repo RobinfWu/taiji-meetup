@@ -2,6 +2,7 @@
 
 import React, { useState, useEffect } from "react";
 import Link from "next/link";
+import Image from "next/image";
 import { usePathname } from "next/navigation";
 import { TAIJI_DATA } from "../data/taijiData";
 import { Menu, X } from "lucide-react";
@@ -47,7 +48,7 @@ export const Navbar: React.FC<NavbarProps> = () => {
           className="flex items-center space-x-3 text-left group focus:outline-none cursor-pointer"
         >
           <div className="w-10 h-10 rounded-full border border-[#303331] group-hover:border-[#9B3D2E] transition-colors shadow-xs overflow-hidden">
-            <img src="/icon.png" alt="Taiji Lab logo" className="w-full h-full object-cover" />
+            <Image src="/icon.png" alt="Taiji Lab logo" width={40} height={40} className="w-full h-full object-cover" />
           </div>
           <div>
             <div className="flex items-center space-x-2">

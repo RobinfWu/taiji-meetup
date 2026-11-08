@@ -12,7 +12,7 @@ interface WorkerExecutionContext {
   waitUntil(promise: Promise<unknown>): void;
 }
 
-export default {
+const bookingEmailScheduler = {
   async scheduled(
     _event: CronEvent,
     env: Env,
@@ -21,6 +21,8 @@ export default {
     ctx.waitUntil(processEmails(env));
   },
 };
+
+export default bookingEmailScheduler;
 
 async function processEmails(env: Env): Promise<void> {
   if (!env.BOOKING_PROCESS_URL || !env.ADMIN_API_TOKEN) {

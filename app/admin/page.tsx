@@ -317,8 +317,8 @@ export default function AdminPage() {
   const [checkingSession, setCheckingSession] = useState(true);
   const [adminView, setAdminView] = useState<"overview" | "classes">("overview");
   const [selectedSessionId, setSelectedSessionId] = useState<string | null>(null);
-  const onUnauthorized = React.useCallback(() => setIsAuthenticated(false), []);
   const [isAuthenticated, setIsAuthenticated] = useState(false);
+  const onUnauthorized = React.useCallback(() => setIsAuthenticated(false), []);
   const [password, setPassword] = useState("");
   const [showPassword, setShowPassword] = useState(false);
   const [submitting, setSubmitting] = useState(false);

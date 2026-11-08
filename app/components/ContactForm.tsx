@@ -1,7 +1,7 @@
 "use client";
 
 import React, { useEffect, useRef, useState } from "react";
-import { Send, CheckCircle2, Mail, Sparkles } from "lucide-react";
+import { Send, CheckCircle2, Mail } from "lucide-react";
 import { TAIJI_DATA } from "../data/taijiData";
 
 interface ContactFormProps {
@@ -15,7 +15,6 @@ interface ContactFormProps {
 export const ContactForm: React.FC<ContactFormProps> = ({
   className = "",
   heading = "Ask Robin a question",
-  showEyebrow = true,
   description = "Ask about training, accessibility, or anything you would like to know before attending. To reserve a place, use the booking form on the Classes page.",
   darkVariant = false
 }) => {

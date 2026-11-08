@@ -2,8 +2,9 @@
 
 import React from "react";
 import Link from "next/link";
+import Image from "next/image";
 import { TAIJI_DATA } from "../data/taijiData";
-import { Mail, Phone, ExternalLink } from "lucide-react";
+import { Mail, ExternalLink } from "lucide-react";
 
 interface FooterProps {
   onNavigateTab?: (tabId: string) => void;
@@ -19,7 +20,7 @@ export const Footer: React.FC<FooterProps> = () => {
           <div className="md:col-span-5 space-y-4">
             <div className="flex items-center space-x-3">
               <div className="w-10 h-10 rounded-full border border-[#303331] group-hover:border-[#9B3D2E] transition-colors shadow-xs overflow-hidden">
-                <img src="/icon.png" alt="Taiji Lab logo" className="w-full h-full object-cover" />
+                <Image src="/icon.png" alt="Taiji Lab logo" width={40} height={40} className="w-full h-full object-cover" />
               </div>
               <div>
                 <h3 className="font-serif text-xl font-semibold tracking-wide">

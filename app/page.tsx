@@ -17,90 +17,6 @@ export default function Home() {
         {/* Step 1: Hero */}
         <HeroSection />
 
-        <PracticeOverview />
-
-        {/* Step 3: How We Teach (Doorway to /method) */}
-        <section className="py-20 bg-[#DFD9CC]/50 border-t border-[#D5CEBF] relative">
-          <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-            <div className="grid grid-cols-1 lg:grid-cols-12 gap-10 items-center">
-              <div className="lg:col-span-7 space-y-6">
-                <div className="inline-flex items-center space-x-2 px-3.5 py-1 rounded-full bg-[#9B3D2E]/10 text-[#9B3D2E] text-xs font-semibold uppercase tracking-widest border border-[#9B3D2E]/20">
-                  <span>Physical Methodology</span>
-                </div>
-                <h2 className="font-serif text-3xl sm:text-4xl md:text-5xl font-light text-[#171918]">
-                  How We Teach
-                </h2>
-                <div className="pt-2">
-                  <Link
-                    href="/method"
-                    className="inline-flex items-center space-x-2.5 bg-[#171918] hover:bg-[#303331] text-[#E8E4DA] px-7 py-3.5 rounded-full text-sm font-semibold shadow-md transition-all cursor-pointer border border-[#303331]"
-                  >
-                    <span>Explore How We Train</span>
-                    <ArrowRight className="w-4 h-4 text-[#8A7250]" />
-                  </Link>
-                </div>
-              </div>
-
-              <div className="lg:col-span-5 bg-[#DFD9CC] p-8 rounded-3xl border border-[#D5CEBF] space-y-4 shadow-xs">
-                <div className="flex items-center space-x-3 text-[#9B3D2E]">
-                  <BookOpen className="w-5 h-5" />
-                  <span className="text-xs font-bold uppercase tracking-wider">THE YILU CURRICULUM</span>
-                </div>
-                <h3 className="font-serif text-xl font-semibold text-[#171918]">
-                  A Form Learned in Stages
-                </h3>
-                <p className="text-xs text-[#303331] leading-relaxed font-light">
-                  Students begin with a six-sequence routine that can be practised on its own, with room for continued refinement or additional sequences.
-                </p>
-                <div className="pt-2 border-t border-[#D5CEBF] flex justify-between items-center text-xs">
-                  <Link href="/method#yilu" className="text-[#9B3D2E] font-semibold hover:underline">
-                    Explore the curriculum
-                  </Link>
-                </div>
-              </div>
-            </div>
-          </div>
-        </section>
-        {/* Step 5: Meet Robin (Doorway to /about) */}
-        <section className="py-20 bg-[#E8E4DA] relative">
-          <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-            <div className="grid grid-cols-1 lg:grid-cols-12 gap-10 items-center">
-              <div className="lg:col-span-5 space-y-4 w-full max-w-lg mx-auto lg:max-w-none">
-                <div className="rounded-3xl overflow-hidden border border-[#D5CEBF] shadow-md bg-[#DFD9CC]">
-                  <Image
-                    src="/baishi1.jpg"
-                    width={1024}
-                    height={1024}
-                    alt="Marin Spivack and Robin Wu"
-                    className="w-full h-auto"
-                  />
-                </div>
-                <p className="text-xs text-[#8A7250] italic text-center font-serif">
-                  Marin Spivack & Robin Wu
-                </p>
-              </div>
-
-              <div className="lg:col-span-7 space-y-6">
-                <h2 className="font-serif text-3xl sm:text-4xl md:text-5xl font-light text-[#171918]">
-                  Meet Robin
-                </h2>
-                <p className="text-base sm:text-lg text-[#303331] leading-relaxed font-light">
-                  Robin Wu is a Chen Family Taijiquan practitioner and formal disciple of Marin Spivack. His training follows the Gongfu Jia tradition transmitted through Chen Yu, and he hopes to cultivate a community of practitioners who can learn and improve together.
-                </p>
-                <div className="pt-2">
-                  <Link
-                    href="/about"
-                    className="inline-flex items-center space-x-2.5 bg-[#171918] hover:bg-[#303331] text-[#E8E4DA] px-7 py-3.5 rounded-full text-sm font-semibold shadow-md transition-all cursor-pointer border border-[#303331]"
-                  >
-                    <span>Learn About Robin & Lineage</span>
-                    <ArrowRight className="w-4 h-4 text-[#8A7250]" />
-                  </Link>
-                </div>
-              </div>
-            </div>
-          </div>
-        </section>
-
         {/* Step 6: Your First Class (Doorway to /start) */}
         <section className="py-20 bg-[#DFD9CC]/50 border-y border-[#D5CEBF] relative">
           <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
@@ -150,6 +66,90 @@ export default function Home() {
           </div>
         </section>
 
+        {/* Step 5: Meet Robin (Doorway to /about) */}
+        <section className="py-20 bg-[#E8E4DA] relative">
+          <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div className="grid grid-cols-1 lg:grid-cols-12 gap-10 items-center">
+              <div className="lg:col-span-5 space-y-4 w-full max-w-lg mx-auto lg:max-w-none">
+                <div className="rounded-3xl overflow-hidden border border-[#D5CEBF] shadow-md bg-[#DFD9CC]">
+                  <Image
+                    src="/baishi1.jpg"
+                    width={1024}
+                    height={1024}
+                    alt="Marin Spivack and Robin Wu"
+                    className="w-full h-auto"
+                  />
+                </div>
+                <p className="text-xs text-[#8A7250] italic text-center font-serif">
+                  Marin Spivack & Robin Wu
+                </p>
+              </div>
+
+              <div className="lg:col-span-7 space-y-6">
+                <h2 className="font-serif text-3xl sm:text-4xl md:text-5xl font-light text-[#171918]">
+                  Meet Robin
+                </h2>
+                <p className="text-base sm:text-lg text-[#303331] leading-relaxed font-light">
+                  Robin Wu is a Chen Family Taijiquan practitioner and formal disciple of Marin Spivack. His training follows the Gongfu Jia tradition transmitted through Chen Yu, and he hopes to cultivate a community of practitioners who can learn and improve together.
+                </p>
+                <div className="pt-2">
+                  <Link
+                    href="/about"
+                    className="inline-flex items-center space-x-2.5 bg-[#171918] hover:bg-[#303331] text-[#E8E4DA] px-7 py-3.5 rounded-full text-sm font-semibold shadow-md transition-all cursor-pointer border border-[#303331]"
+                  >
+                    <span>Learn About Robin & Lineage</span>
+                    <ArrowRight className="w-4 h-4 text-[#8A7250]" />
+                  </Link>
+                </div>
+              </div>
+            </div>
+          </div>
+        </section>
+
+        <PracticeOverview />
+
+        {/* Step 3: How We Teach (Doorway to /method) */}
+        <section className="py-20 bg-[#DFD9CC]/50 border-t border-[#D5CEBF] relative">
+          <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div className="grid grid-cols-1 lg:grid-cols-12 gap-10 items-center">
+              <div className="lg:col-span-7 space-y-6">
+                <div className="inline-flex items-center space-x-2 px-3.5 py-1 rounded-full bg-[#9B3D2E]/10 text-[#9B3D2E] text-xs font-semibold uppercase tracking-widest border border-[#9B3D2E]/20">
+                  <span>Physical Methodology</span>
+                </div>
+                <h2 className="font-serif text-3xl sm:text-4xl md:text-5xl font-light text-[#171918]">
+                  How We Teach
+                </h2>
+                <div className="pt-2">
+                  <Link
+                    href="/method"
+                    className="inline-flex items-center space-x-2.5 bg-[#171918] hover:bg-[#303331] text-[#E8E4DA] px-7 py-3.5 rounded-full text-sm font-semibold shadow-md transition-all cursor-pointer border border-[#303331]"
+                  >
+                    <span>Explore How We Train</span>
+                    <ArrowRight className="w-4 h-4 text-[#8A7250]" />
+                  </Link>
+                </div>
+              </div>
+
+              <div className="lg:col-span-5 bg-[#DFD9CC] p-8 rounded-3xl border border-[#D5CEBF] space-y-4 shadow-xs">
+                <div className="flex items-center space-x-3 text-[#9B3D2E]">
+                  <BookOpen className="w-5 h-5" />
+                  <span className="text-xs font-bold uppercase tracking-wider">THE YILU CURRICULUM</span>
+                </div>
+                <h3 className="font-serif text-xl font-semibold text-[#171918]">
+                  A Form Learned in Stages
+                </h3>
+                <p className="text-xs text-[#303331] leading-relaxed font-light">
+                  Students begin with a six-sequence routine that can be practised on its own, with room for continued refinement or additional sequences.
+                </p>
+                <div className="pt-2 border-t border-[#D5CEBF] flex justify-between items-center text-xs">
+                  <Link href="/method#yilu" className="text-[#9B3D2E] font-semibold hover:underline">
+                    Explore the curriculum
+                  </Link>
+                </div>
+              </div>
+            </div>
+          </div>
+        </section>
         {/* Step 7: Schedule / Location */}
         <section className="py-20 bg-[#E8E4DA] relative">
           <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 space-y-8">

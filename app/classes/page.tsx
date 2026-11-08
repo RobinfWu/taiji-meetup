@@ -1,6 +1,6 @@
 "use client";
 
-import React, { useState } from "react";
+import React from "react";
 import Link from "next/link";
 import { Navbar } from "../components/Navbar";
 import { Footer } from "../components/Footer";
@@ -11,18 +11,10 @@ import {
   MapPin,
   Clock,
   Users,
-  ChevronDown,
-  ChevronUp,
-  Mail,
-  Info,
-  ExternalLink,
-  Shield,
   ArrowRight
 } from "lucide-react";
 
 export default function ClassesPage() {
-  const [openFaqIndex, setOpenFaqIndex] = useState<number | null>(0);
-
   return (
     <main className="min-h-screen bg-[#E8E4DA] text-[#171918] relative flex flex-col font-sans selection:bg-[#9B3D2E]/15 selection:text-[#9B3D2E]">
       <Navbar />
