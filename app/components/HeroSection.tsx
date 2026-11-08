@@ -2,7 +2,7 @@
 
 import React from "react";
 import Link from "next/link";
-import { TAIJI_DATA, ClassSession } from "../data/taijiData";
+import { TAIJI_DATA } from "../data/taijiData";
 import { ArrowRight } from "lucide-react";
 
 interface HeroSectionProps {
@@ -10,8 +10,6 @@ interface HeroSectionProps {
 }
 
 export const HeroSection: React.FC<HeroSectionProps> = () => {
-  const primaryClass: ClassSession = TAIJI_DATA.classes[0];
-
   return (
     <section id="home" className="relative pt-28 pb-16 md:pt-36 md:pb-24 overflow-hidden bg-[#E8E4DA]">
       {/* Ink & Iron ambient subtle background shapes */}
@@ -58,7 +56,7 @@ export const HeroSection: React.FC<HeroSectionProps> = () => {
                 <div className="flex items-center space-x-2">
                   <div className="w-2.5 h-2.5 rounded-full bg-[#9B3D2E]" />
                   <span className="text-xs font-semibold uppercase tracking-wider text-[#243B45]">
-                    Weekly Class Overview
+                    Opening Planned
                   </span>
                 </div>
                 <span className="text-xs text-[#8A7250] font-serif italic">
@@ -88,16 +86,16 @@ export const HeroSection: React.FC<HeroSectionProps> = () => {
                 </div>
 
                 <div className="pt-2 border-t border-[#D5CEBF] text-xs text-[#303331] flex flex-wrap items-center gap-x-3 gap-y-1">
-                  <div><strong>{primaryClass.day}:</strong> {primaryClass.time}</div>
+                  <div>Weekend classes planned</div>
                   <span className="font-semibold text-[#9B3D2E]">First class free</span>
                 </div>
 
                 <Link
-                  href="/classes#reserve"
+                  href="/start#ask-robin"
                   className="w-full mt-3 py-2.5 bg-[#9B3D2E] hover:bg-[#7D3024] text-white text-xs font-semibold rounded-xl transition-colors flex items-center justify-center space-x-2 cursor-pointer"
                 >
                   <ArrowRight aria-hidden="true" className="w-3.5 h-3.5" />
-                  <span>Book a class</span>
+                  <span>Share your weekend availability</span>
                 </Link>
               </div>
             </div>

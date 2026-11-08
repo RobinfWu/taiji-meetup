@@ -95,7 +95,7 @@ export default function StartPage() {
           </section>
 
           {/* Questions remain welcome, but booking is the primary action. */}
-          <section aria-labelledby="start-questions-heading" className="space-y-3 pt-4">
+          <section id="ask-robin" aria-label="Ask Robin a question" className="scroll-mt-28 space-y-3 pt-4">
             <ContactForm darkVariant={true} />
           </section>
 

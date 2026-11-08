@@ -5,7 +5,6 @@ import Link from "next/link";
 import { Navbar } from "./components/Navbar";
 import { HeroSection } from "./components/HeroSection";
 import { Footer } from "./components/Footer";
-import { TAIJI_DATA } from "./data/taijiData";
 import { ArrowRight, BookOpen, Calendar, MapPin } from "lucide-react";
 
 export default function Home() {
@@ -159,14 +158,14 @@ export default function Home() {
                   Practice Details
                 </span>
                 <h2 className="font-serif text-3xl sm:text-4xl font-light text-[#171918]">
-                  Schedule & Location
+                  Planned Schedule & Location
                 </h2>
               </div>
               <Link
-                href="/classes"
+                href="/start#ask-robin"
                 className="inline-flex items-center space-x-2 text-xs font-semibold text-[#243B45] hover:underline"
               >
-                <span>See complete class details & footwear advice</span>
+                <span>Share your weekend availability</span>
                 <ArrowRight className="w-3.5 h-3.5" />
               </Link>
             </div>
@@ -175,21 +174,22 @@ export default function Home() {
               <div className="bg-[#DFD9CC] p-6 rounded-3xl border border-[#D5CEBF] space-y-3 shadow-xs">
                 <div className="flex items-center space-x-3 text-[#171918]">
                   <Calendar className="w-5 h-5 text-[#8A7250]" />
-                  <h3 className="font-serif text-lg font-semibold">Weekly Schedule</h3>
+                  <h3 className="font-serif text-lg font-semibold">Weekend Classes</h3>
                 </div>
                 <div className="text-xs text-[#303331] space-y-1.5 font-light">
-                  <p><strong>Saturdays:</strong> 10:30 AM – 12:00 PM</p>
+                  <p>Classes are planned for weekends. I’ll use student feedback and studio availability to choose the day and time.</p>
                 </div>
               </div>
 
               <div className="bg-[#DFD9CC] p-6 rounded-3xl border border-[#D5CEBF] space-y-3 shadow-xs">
                 <div className="flex items-center space-x-3 text-[#171918]">
                   <MapPin className="w-5 h-5 text-[#243B45]" />
-                  <h3 className="font-serif text-lg font-semibold">Location</h3>
+                  <h3 className="font-serif text-lg font-semibold">Possible Venue</h3>
                 </div>
                 <div className="text-xs text-[#303331] space-y-1 font-light">
-                  <p className="font-semibold text-[#171918]">Outdoor Park Location</p>
-                  <p>{TAIJI_DATA.locations[0].address}</p>
+                  <p className="font-semibold text-[#171918]">The Yoga Loft Kingston</p>
+                  <p>Kingston, Ontario</p>
+                  <p>Venue to be confirmed.</p>
                 </div>
               </div>
             </div>
