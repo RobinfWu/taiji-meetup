@@ -9,7 +9,8 @@ export interface HomepageFaqEntry {
 
 /** Reorder or add entries here. Draft entries are entirely hidden from visitors.
  * To publish, replace answer with { status: "published", text: "Your approved answer" }.
- * Separate paragraphs with \n\n. Never publish an instructor prompt. Rebuild/deploy
+ * Separate paragraphs with \n\n; wrap bold text in **double asterisks**.
+ * Never publish an instructor prompt. Rebuild/deploy
  * after editing. The "What is Taijiquan?" answer originated on the About page.
  */
 export const homepageFaq: HomepageFaqEntry[] = [
@@ -70,7 +71,7 @@ export const homepageFaq: HomepageFaqEntry[] = [
     "question": "What is Taijiquan?",
     "answer": {
       "status": "published",
-      "text": "Many Chinese martial arts have names ending in quan (拳), such as Taijiquan, Xingyiquan, Bajiquan, Tanglangquan, Hung Ga Kuen, etc...\n\n“Quan”, or “Kuen” in Cantonese, translates to mean fist which denotes a martial art or fighting system. It does not literally mean an art about using fists. Taijiquan therefore means “Taiji Fist” — a martial art named after the concept of Taiji (the interplay of Yin and Yang). It is a Northern Chinese martial art that originated from the Chen Village (Chenjiagou) in Henan Province.\n\nTaijiquan is a family art. It was commonly passed down from father to son or from “master” to “apprentice”. The Chen family developed it first. The founder of the Yang family learned from the Chen family; the founder of the Wu family later learned from the Yang family.\n\nThis is the historical root of what most people today simply call “Tai Chi.”"
+      "text": "Many Chinese martial arts have names ending in **quan** (拳), such as Taiji**quan**, Xingyi**quan**, Baji**quan**, Tanglang**quan**, Hung Ga **Kuen**, etc...\n\n“Quan”, or “Kuen” in Cantonese, translates to mean fist which denotes a martial art or fighting system. It does not literally mean an art about using fists. Taijiquan therefore means “Taiji Fist” — a martial art named after the concept of Taiji (the interplay of Yin and Yang). It is a Northern Chinese martial art that originated from the Chen Village (Chenjiagou) in Henan Province.\n\nTaijiquan is a family art. It was commonly passed down from father to son or from “master” to “apprentice”. The Chen family developed it first. The founder of the Yang family learned from the Chen family; the founder of the Wu family later learned from the Yang family.\n\nThis is the historical root of what most people today simply call “Tai Chi.”"
     }
   },
   {

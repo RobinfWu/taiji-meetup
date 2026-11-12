@@ -27,7 +27,15 @@ export function HomepageFaq() {
                 <ChevronDown aria-hidden="true" className="w-4 h-4 shrink-0 text-[#243B45]" />
               </summary>
               <div id={`faq-answer-${entry.id}`} className="px-5 sm:px-7 pb-7 space-y-4 text-sm sm:text-base text-[#303331] leading-relaxed">
-                {entry.answer.split(/\n\s*\n/).map((paragraph, index) => <p key={index}>{paragraph}</p>)}
+                {entry.answer.split(/\n\s*\n/).map((paragraph, index) => (
+                  <p key={index}>
+                    {paragraph.split(/(\*\*[^*]+\*\*)/).map((part, partIndex) =>
+                      part.startsWith("**") && part.endsWith("**")
+                        ? <strong key={partIndex}>{part.slice(2, -2)}</strong>
+                        : part
+                    )}
+                  </p>
+                ))}
                 {entry.relatedLink && <Link href={entry.relatedLink.href} className="inline-block text-sm font-semibold text-[#243B45] underline underline-offset-4">{entry.relatedLink.label}</Link>}
               </div>
             </details>

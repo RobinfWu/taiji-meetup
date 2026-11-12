@@ -154,8 +154,8 @@ export default function ClassesPage() {
 
           <div className="bg-[#DFD9CC] rounded-2xl border border-[#D5CEBF] p-6 sm:p-8 space-y-3 text-sm text-[#303331]">
             <p>
-              <strong className="text-[#171918]">Payment:</strong>{" "}
-              Interac e-Transfer or cash accepted.
+              <strong className="text-[#171918]">Payment method:</strong>{" "}
+              Interac e-Transfer to <strong>chentaijilab@gmail.com</strong> or cash in person.
             </p>
           </div>
         </section>
