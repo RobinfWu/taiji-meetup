@@ -1,5 +1,4 @@
-"use client";
-
+import type { Metadata } from "next";
 import React from "react";
 import Link from "next/link";
 import { Navbar } from "../components/Navbar";
@@ -11,6 +10,10 @@ import {
   Users,
   ArrowRight
 } from "lucide-react";
+
+export const metadata: Metadata = {
+  title: "Tai Chi Classes & Schedule in Kingston | Chen Taiji Lab",
+};
 
 export default function ClassesPage() {
   return (

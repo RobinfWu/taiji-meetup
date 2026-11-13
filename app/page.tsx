@@ -1,3 +1,4 @@
+import type { Metadata } from "next";
 import Image from "next/image";
 import { PracticeOverview } from "./components/PracticeOverview";
 import { HomepageFaq } from "./components/HomepageFaq";
@@ -6,6 +7,10 @@ import { Navbar } from "./components/Navbar";
 import { HeroSection } from "./components/HeroSection";
 import { Footer } from "./components/Footer";
 import { ArrowRight, BookOpen, Calendar, MapPin } from "lucide-react";
+
+export const metadata: Metadata = {
+  title: "Chen Style Tai Chi in Kingston, Ontario | Chen Taiji Lab",
+};
 
 export default function Home() {
   return (

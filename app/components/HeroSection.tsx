@@ -27,6 +27,10 @@ export const HeroSection: React.FC<HeroSectionProps> = () => {
               </span>
             </h1>
 
+            <p className="text-lg sm:text-xl text-[#243B45] max-w-2xl leading-relaxed font-light">
+              Beginner-friendly Chen-style Tai Chi in Kingston, Ontario.
+            </p>
+
             <p className="text-lg sm:text-xl text-[#303331] max-w-2xl leading-relaxed font-light">
               {TAIJI_DATA.hero.subText}
             </p>
