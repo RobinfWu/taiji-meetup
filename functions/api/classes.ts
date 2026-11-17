@@ -1,6 +1,5 @@
 import type { AppPagesFunction } from "../types/env";
 import { getDb } from "../types/env";
-import { devMode } from "../lib/emailVerification";
 import type { ClassSessionJoinRow, UpcomingClassSessionItem } from "../types/schema";
 
 const UPCOMING_SESSIONS_QUERY = `
@@ -15,6 +14,7 @@ const UPCOMING_SESSIONS_QUERY = `
     s.cancellation_reason,
     s.created_at,
     s.updated_at,
+    s.price_cents,
     t.title AS template_title,
     t.description AS template_description,
     t.weekday AS template_weekday,
@@ -33,13 +33,12 @@ const UPCOMING_SESSIONS_QUERY = `
     GROUP BY session_id
   ) r ON s.id = r.session_id
   WHERE s.status = 'scheduled'
-    AND s.end_at >= ?
+    AND s.start_at > ? AND s.is_public = 1 AND t.is_active = 1
   ORDER BY s.start_at ASC
 `;
 
 export const onRequestGet: AppPagesFunction = async (context) => {
-  // Hide unconfirmed dates, capacity and addresses without modifying any rows.
-  if (!devMode(context) || context.env.PUBLIC_BOOKING_ENABLED !== "true") {
+  if (context.env.PUBLIC_BOOKING_ENABLED !== "true") {
     return Response.json([], { headers: { "Cache-Control": "no-store" } });
   }
   try {
@@ -65,6 +64,7 @@ export const onRequestGet: AppPagesFunction = async (context) => {
         cancellation_reason: row.cancellation_reason,
         reserved_count: reservedCount,
         available_spots: availableSpots,
+        price_cents: row.price_cents,
         template: {
           id: row.template_id,
           title: row.template_title,

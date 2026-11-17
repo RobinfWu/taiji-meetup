@@ -1,3 +1,5 @@
+import { introClass } from "../../functions/lib/introClass";
+import { IntroClassLocation } from "../components/IntroClassLocation";
 import type { Metadata } from "next";
 import React from "react";
 import Link from "next/link";
@@ -49,7 +51,7 @@ export default function StartPage() {
                 Come as you are
               </h2>
               <p className="text-base text-[#303331] leading-relaxed font-light">
-                Comfortable clothes. Flat shoes. No uniform. No special flexibility or prior Tai Chi experience required.
+                {introClass.preparation}
               </p>
             </div>
           </div>
@@ -89,10 +91,11 @@ export default function StartPage() {
             <span className="text-xs font-semibold uppercase tracking-widest text-[#E0C9A2]">Ready to begin?</span>
             <h2 id="start-booking-heading" className="font-serif text-3xl sm:text-4xl">Experience Your First Class</h2>
             <p className="mx-auto max-w-xl text-sm leading-relaxed text-[#DFD9CC]">
-              Your first class is free. Weekend classes are planned, with the rental, exact day and time, and first class date still being arranged. Share your availability or ask to hear when booking opens.
+              {introClass.date} · {introClass.time}. Free admission; booking required. {introClass.practice}
             </p>
-            <Link href="#ask-robin" className="inline-flex items-center justify-center gap-2 rounded-full bg-[#9B3D2E] px-7 py-3.5 text-sm font-semibold text-white hover:bg-[#7D3024]">
-              Share your weekend availability <ArrowRight className="h-4 w-4" />
+            <div className="mx-auto max-w-xl rounded-2xl bg-[#E8E4DA] p-5 text-left"><IntroClassLocation /><p className="mt-3 text-sm text-[#303331]">{introClass.weather}</p><p className="mt-3 text-sm text-[#303331]">{introClass.future}</p></div>
+            <Link href="/classes#reserve" className="inline-flex items-center justify-center gap-2 rounded-full bg-[#9B3D2E] px-7 py-3.5 text-sm font-semibold text-white hover:bg-[#7D3024]">
+              Reserve Your Free Spot <ArrowRight className="h-4 w-4" />
             </Link>
           </section>
 

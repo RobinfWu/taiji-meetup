@@ -13,7 +13,7 @@ const ts = require('typescript');
 if (!globalThis.crypto) globalThis.crypto = webcrypto;
 const root = resolve(import.meta.dirname, '..');
 const output = join(root, '.test-waiver-dist');
-const sources = ['functions/api/public/book.ts', 'functions/lib/emailVerification.ts', 'functions/lib/validation.ts', 'functions/types/env.ts'];
+const sources = ['functions/api/public/book.ts', 'functions/lib/emailVerification.ts', 'functions/lib/publicBookingPricing.ts', 'functions/lib/validation.ts', 'functions/types/env.ts'];
 mkdirSync(output, { recursive: true });
 try {
   for (const source of sources) {
@@ -28,7 +28,7 @@ try {
   const { hash } = await import(pathToFileURL(join(output, 'functions/lib/emailVerification.mjs')).href);
   const sqlite = new DatabaseSync(':memory:');
   sqlite.exec('PRAGMA foreign_keys=ON');
-  for (const file of ['0001_initial_schema.sql','0002_reservations.sql','0003_membership_overlap_guards.sql','0004_payments.sql','0005_email_verification.sql','0006_booking_emails.sql','0007_admin_rate_limits.sql','0008_student_waivers.sql']) {
+  for (const file of ['0001_initial_schema.sql','0002_reservations.sql','0003_membership_overlap_guards.sql','0004_payments.sql','0005_email_verification.sql','0006_booking_emails.sql','0007_admin_rate_limits.sql','0008_student_waivers.sql','0010_public_session_booking.sql']) {
     sqlite.exec(readFileSync(join(root, 'migrations', file), 'utf8'));
   }
   const now = new Date();
@@ -36,6 +36,7 @@ try {
   const end = new Date(now.getTime() + 7 * 86400000 + 5400000).toISOString();
   sqlite.prepare("INSERT INTO class_templates (id,title,weekday,start_time,end_time,location,capacity) VALUES ('tpl-test','Test class',6,'10:30','12:00','Test venue',10)").run();
   for (const id of ['sess-one','sess-two','sess-three']) sqlite.prepare("INSERT INTO class_sessions(id,template_id,start_at,end_at,location,capacity) VALUES (?,'tpl-test',?,?,'Test venue',10)").run(id,later,end);
+  sqlite.exec('UPDATE class_sessions SET is_public=1');
   sqlite.prepare("INSERT INTO waiver_versions(version,title,body,created_at) VALUES ('v-current','Test','Current test waiver',?)").run(now.toISOString());
   sqlite.prepare("INSERT INTO waiver_versions(version,title,body,created_at) VALUES ('v-old','Test','Old test waiver',?)").run(now.toISOString());
   const db = {
@@ -62,7 +63,7 @@ try {
   const base = {first_name:'Waiver',last_name:'Tester',email,session_id:'sess-one',method:'cash',pricing_category:'regular',website:'',verification_token:token,waiver_version:'v-current'};
   const request = async (data, config={}) => {
     const req = new Request('http://localhost:8788/api/public/book', {method:'POST',headers:{Origin:'http://localhost:8788','Content-Type':'application/json'},body:JSON.stringify(data)});
-    const res = await onRequestPost({request:req,env:{DB:db,PUBLIC_BOOKING_ENABLED:'true',WAIVER_APPROVED_VERSION:'v-current',...config}});
+    const res = await onRequestPost({request:req,env:{DB:db,PUBLIC_BOOKING_ENABLED:'true',EMAIL_VERIFICATION_DEV_MODE:'true',WAIVER_APPROVED_VERSION:'v-current',...config}});
     return {status:res.status,body:await res.json()};
   };
   let tests=0;

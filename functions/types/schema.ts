@@ -70,6 +70,7 @@ export interface Reservation {
 
 // Flat row returned from SQLite JOIN
 export interface ClassSessionJoinRow {
+  price_cents: number | null;
   id: string;
   template_id: string;
   start_at: string;
@@ -93,6 +94,7 @@ export interface ClassSessionJoinRow {
 
 // Structured JSON returned by GET /api/classes
 export interface UpcomingClassSessionItem {
+  price_cents: number | null;
   id: string;
   template_id: string;
   start_at: string;

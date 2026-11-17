@@ -15,7 +15,7 @@ interface ContactFormProps {
 export const ContactForm: React.FC<ContactFormProps> = ({
   className = "",
   heading = "Interested in joining?",
-  description = "Ask about training, accessibility, or anything you would like to know before attending. If you’d like me to email you when booking opens, say so in your message. You can also tell me which Saturday or Sunday times generally work for you.",
+  description = "Ask about training, accessibility, or anything you would like to know before attending. To reserve the free introductory class, use the booking form on the Classes page. You can also tell me which weekend times generally work for you for a possible future group.",
   darkVariant = false
 }) => {
   const [status, setStatus] = useState<"idle" | "sending" | "sent">("idle");
@@ -195,7 +195,7 @@ export const ContactForm: React.FC<ContactFormProps> = ({
                 rows={3}
                 required
                 maxLength={4000}
-                placeholder="Your weekend availability, a launch email request, or a question."
+                placeholder="A question about the introductory class, accessibility, or your availability for future practice."
                 className={`${inputClass} resize-none`}
               />
 

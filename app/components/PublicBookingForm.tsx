@@ -2,6 +2,7 @@
 
 import { useEffect, useState, type FormEvent } from "react";
 import { CalendarDays, CheckCircle2, LoaderCircle } from "lucide-react";
+import { introClass, isIntroClass } from "../../functions/lib/introClass";
 
 type Session = {
   id: string;
@@ -9,12 +10,13 @@ type Session = {
   end_at: string;
   location: string | null;
   available_spots: number;
+  price_cents: number | null;
   template: { title: string; location: string | null; timezone: string };
 };
-type VerifiedPricing = { first_reservation_free: boolean; paid_rates: { regular: number }; currency: "CAD" };
+type VerifiedPricing = { first_reservation_free: boolean; amount_cents: number; paid_rates: { regular: number }; currency: "CAD" };
 const isVerifiedPricing = (value: unknown): value is VerifiedPricing => {
   const quote = value as VerifiedPricing | null;
-  return !(!quote || typeof quote.first_reservation_free !== "boolean" || quote.currency !== "CAD" || !quote.paid_rates || !Number.isSafeInteger(quote.paid_rates.regular) || quote.paid_rates.regular < 0);
+  return !(!quote || typeof quote.first_reservation_free !== "boolean" || quote.currency !== "CAD" || !Number.isSafeInteger(quote.amount_cents) || quote.amount_cents < 0 || !quote.paid_rates || !Number.isSafeInteger(quote.paid_rates.regular) || quote.paid_rates.regular < 0);
 };
 class BookingRequestError extends Error {
   constructor(message: string, readonly status: number) { super(message); }
@@ -23,13 +25,14 @@ class BookingRequestError extends Error {
 type BookingResult = {
   reservation_id: string;
   session_id: string;
+  session: { title: string; start_at: string; end_at: string; location: string };
   status: string;
   pricing: { category: string; first_reservation_free: boolean; amount_cents: number; currency: string };
   payment: null | { method: "cash" | "etransfer"; status: string; amount_cents: number; currency: string; reference: string };
 };
 
 const currency = (cents: number) => new Intl.NumberFormat("en-CA", { style: "currency", currency: "CAD" }).format(cents / 100);
-const formatSession = (session: Session) => {
+const formatSession = (session: { start_at: string; end_at: string }) => {
   const timezone = "America/Toronto";
   const day = new Intl.DateTimeFormat("en-CA", { timeZone: timezone, weekday: "long", month: "long", day: "numeric", year: "numeric" }).format(new Date(session.start_at));
   const time = (iso: string) => new Intl.DateTimeFormat("en-CA", { timeZone: timezone, hour: "numeric", minute: "2-digit" }).format(new Date(iso));
@@ -40,6 +43,7 @@ export function PublicBookingForm() {
   const [sessions, setSessions] = useState<Session[]>([]);
   const [loading, setLoading] = useState(true);
   const [loadError, setLoadError] = useState("");
+  const [loadAttempt, setLoadAttempt] = useState(0);
   const [sessionId, setSessionId] = useState("");
   const [firstName, setFirstName] = useState("");
   const [lastName, setLastName] = useState("");
@@ -65,7 +69,7 @@ export function PublicBookingForm() {
     if (!response.ok) throw new Error("Unable to load upcoming classes right now.");
     const data: unknown = await response.json();
     if (!Array.isArray(data)) throw new Error("Unexpected class schedule response.");
-    const upcoming = (data as Session[]).filter(s => s && typeof s.id === "string" && typeof s.available_spots === "number" && new Date(s.end_at).getTime() > Date.now());
+    const upcoming = (data as Session[]).filter(s => s && typeof s.id === "string" && typeof s.available_spots === "number" && new Date(s.start_at).getTime() > Date.now());
     setSessions(upcoming);
     setSessionId(current => upcoming.some(s => s.id === current) ? current : "");
   }
@@ -74,6 +78,8 @@ export function PublicBookingForm() {
     const controller = new AbortController();
 
     async function loadInitialSessions() {
+      setLoading(true);
+      setLoadError("");
       try {
         const response = await fetch("/api/classes", {
           cache: "no-store",
@@ -95,7 +101,7 @@ export function PublicBookingForm() {
             s &&
             typeof s.id === "string" &&
             typeof s.available_spots === "number" &&
-            new Date(s.end_at).getTime() > Date.now()
+            new Date(s.start_at).getTime() > Date.now()
         );
 
         if (controller.signal.aborted) return;
@@ -125,7 +131,7 @@ export function PublicBookingForm() {
     void loadInitialSessions();
 
     return () => controller.abort();
-  }, []);
+  }, [loadAttempt]);
 
   async function postJson(url: string, payload: Record<string, unknown>) {
     const response = await fetch(url, { method: "POST", headers: { "Content-Type": "application/json" }, body: JSON.stringify(payload) });
@@ -151,7 +157,7 @@ export function PublicBookingForm() {
         const token = verified.verification_token;
         if (typeof token !== "string") throw new Error("Verification response was invalid.");
         setVerifiedToken(token);
-        const status = await postJson("/api/public/waiver/status", { email: email.trim(), verification_token: token });
+        const status = await postJson("/api/public/waiver/status", { email: email.trim(), verification_token: token, session_id: sessionId });
         if (typeof status.version !== "string" || typeof status.body !== "string" || typeof status.title !== "string" || typeof status.already_signed !== "boolean") throw new Error("Waiver response was invalid.");
         const quote = status.pricing as VerifiedPricing | undefined;
         if (!isVerifiedPricing(quote)) throw new Error("Unable to check your class price. Please try again.");
@@ -162,7 +168,7 @@ export function PublicBookingForm() {
       if (verificationStep === "waiver") {
         if (!waiver || !verifiedToken || !pricing) throw new Error("Verify your email again.");
         if (!waiver.already_signed && (!adultConfirmed || !waiverAcknowledged || signature.trim() !== `${firstName.trim()} ${lastName.trim()}`)) throw new Error("Please read and sign the waiver using your full name.");
-        const booking = await postJson("/api/public/book", { first_name: firstName.trim(), last_name: lastName.trim(), email: email.trim(), ...(phone.trim() ? { phone: phone.trim() } : {}), session_id: sessionId, method, pricing_category: "regular", expected_amount_cents: pricing.first_reservation_free ? 0 : pricing.paid_rates.regular, website, verification_token: verifiedToken, waiver_version: waiver.version, ...(waiver.already_signed ? {} : {waiver_signed_name: signature.trim(), waiver_accepted: true, waiver_adult_confirmed: true}) });
+        const booking = await postJson("/api/public/book", { first_name: firstName.trim(), last_name: lastName.trim(), email: email.trim(), ...(phone.trim() ? { phone: phone.trim() } : {}), session_id: sessionId, ...(pricing.amount_cents > 0 ? { method } : {}), pricing_category: "regular", expected_amount_cents: pricing.amount_cents, website, verification_token: verifiedToken, waiver_version: waiver.version, ...(waiver.already_signed ? {} : {waiver_signed_name: signature.trim(), waiver_accepted: true, waiver_adult_confirmed: true}) });
         setResult(booking as BookingResult);
         refreshSessions().catch(() => {});
       }
@@ -171,10 +177,10 @@ export function PublicBookingForm() {
       if (err instanceof BookingRequestError && err.status === 409 && verificationStep === "waiver") {
         try {
           await refreshSessions();
-          const fresh = await postJson("/api/public/waiver/status", { email: email.trim(), verification_token: verifiedToken });
+          const fresh = await postJson("/api/public/waiver/status", { email: email.trim(), verification_token: verifiedToken, session_id: sessionId });
           if (isVerifiedPricing(fresh.pricing)) {
             setPricing(fresh.pricing);
-            if (pricing && fresh.pricing.first_reservation_free !== pricing.first_reservation_free) setError("Your class price has changed. Review the updated amount and payment options before confirming again.");
+            if (pricing && fresh.pricing.amount_cents !== pricing.amount_cents) setError("Your class price has changed. Review the updated amount and payment options before confirming again.");
           }
         } catch { /* Keep the original booking error visible; email can be reverified. */ }
       }
@@ -192,6 +198,7 @@ export function PublicBookingForm() {
     return <p key={index} className={`${heading ? "font-bold text-base text-[#243B45] mt-5" : ""} ${warning ? "font-bold text-[#243B45]" : ""} mb-4 last:mb-0 whitespace-pre-wrap`}>{content}</p>;
   });
   const selected = sessions.find(s => s.id === sessionId);
+  const freeSession = selected?.price_cents === 0;
   const location = (selected?.location?.trim() || selected?.template.location?.trim()) ?? "";
   const usableLocation = location && !/placeholder|\[|\btbd\b|to be (?:confirmed|announced)/i.test(location);
   const hasAddress = usableLocation && /(?:\b\d{1,6}\s+\S+|\b[A-Z]\d[A-Z]\s?\d[A-Z]\d\b)/i.test(location);
@@ -208,8 +215,8 @@ export function PublicBookingForm() {
       <div className="text-center space-y-3 mb-8">
         <span className="text-xs font-semibold uppercase tracking-widest text-[#243B45]">Reserve a place</span>
         <h2 id="reserve-heading" className="font-serif text-3xl sm:text-4xl font-light">Book a Class</h2>
-        <p className="text-base font-semibold text-[#365F46]">Your first class is free.</p>
-        <p className="text-sm text-[#57625B]">No account required. Verify your email to check your first-class eligibility. Returning students see their amount and choose their payment preference after verification.</p>
+        <p className="text-base font-semibold text-[#365F46]">Free introductory class · CAD $0. No payment information required.</p>
+        <p className="text-sm text-[#57625B]">Booking is required. Verify your email, review the waiver, then confirm your place. No account or commitment to future classes is required.</p>
       </div>
       <div className="bg-[#DFD9CC] rounded-3xl border border-[#D5CEBF] p-6 sm:p-9 shadow-xs">
         {result ? (
@@ -218,8 +225,11 @@ export function PublicBookingForm() {
             <p className="text-sm text-[#303331]">Your place has been reserved. Keep the reservation number below for your records.</p>
             <div className="rounded-xl bg-[#F3EFE7] border border-[#D5CEBF] p-4 space-y-2 text-sm break-words">
               <p><strong>Reservation:</strong> {result.reservation_id}</p>
-              <p><strong>Class:</strong> {sessions.find(s => s.id === result.session_id)?.template.title ?? result.session_id}</p>
-              <p><strong>Amount:</strong> {currency(result.pricing.amount_cents)} {result.pricing.first_reservation_free ? "(first reservation free)" : ""}</p>
+              <p><strong>Class:</strong> {result.session.title}</p>
+              <p><strong>Date and time:</strong> {formatSession(result.session)} (America/Toronto)</p>
+              <p><strong>Meeting location:</strong> {result.session.location}</p>
+              {isIntroClass(result.session) && <><p>{introClass.meeting}</p><p>{introClass.practice}</p><p>{introClass.weather}</p><a href={introClass.mapsUrl} target="_blank" rel="noopener noreferrer" className="inline-block text-[#243B45] underline underline-offset-4">Directions to Lake Ontario Park</a></>}
+              <p><strong>Amount:</strong> {currency(result.pricing.amount_cents)} CAD</p>
               {result.payment && <><p><strong>Payment:</strong> {result.payment.method === "cash" ? "Cash at class" : "Interac e-Transfer"} — awaiting payment</p><p><strong>Reference:</strong> {result.payment.reference}</p></>}
             </div>
             {result.payment?.method === "etransfer" && <p className="text-sm text-[#303331]">Include the reference above when sending your e-Transfer. Contact the instructor for the transfer destination; do not send funds to an unverified address.</p>}
@@ -233,7 +243,7 @@ export function PublicBookingForm() {
             <fieldset disabled={submitting} className="space-y-5 min-w-0">
             {!loading && !loadError && sessions.length > 0 && <div>
               <label className={label} htmlFor="booking-session">Class session *</label>
-              <select className={field} id="booking-session" required value={sessionId} onChange={e => { setSessionId(e.target.value); setError(""); }}>
+              <select className={field} id="booking-session" required value={sessionId} onChange={e => { setSessionId(e.target.value); editDetails(); }}>
                 <option value="">Choose a session</option>
                 {sessions.map(s => <option key={s.id} value={s.id} disabled={s.available_spots < 1}>{formatSession(s)} — {s.available_spots < 1 ? "Full" : `${s.available_spots} spots available`}</option>)}
               </select>
@@ -246,12 +256,13 @@ export function PublicBookingForm() {
                 <div><dt className="text-[#57625B]">Available spots</dt><dd className="font-semibold text-[#171918]">{selected.available_spots > 0 ? selected.available_spots : "Full — choose another session"}</dd></div>
                 <div className="sm:col-span-2"><dt className="font-semibold text-[#243B45]">Meeting location</dt><dd className="mt-1 text-base font-medium text-[#171918] break-words">{usableLocation ? location : "Location to be confirmed"}</dd>
                   {hasAddress && <a href={`https://www.google.com/maps/search/?api=1&query=${encodeURIComponent(location)}`} target="_blank" rel="noopener noreferrer" className="inline-block mt-2 text-sm text-[#243B45] underline underline-offset-4">View meeting location on map</a>}
+                  {isIntroClass(selected) && <p className="mt-2 leading-relaxed">{introClass.meeting}</p>}
                 </div>
               </dl>
             </div>}
             {verificationStep === "waiver" && pricing && <div className="space-y-4">
-              <p className="text-lg font-semibold text-[#243B45]" aria-live="polite">{pricing.first_reservation_free ? "First class · $0" : `Drop-in · ${currency(pricing.paid_rates.regular)} CAD`}</p>
-              {pricing.first_reservation_free ? <p className="text-sm text-[#303331]">No payment is required for your first reservation.</p> : <>
+              <p className="text-lg font-semibold text-[#243B45]" aria-live="polite">{pricing.amount_cents === 0 ? (freeSession ? "Free introductory class · $0 CAD" : "First class · $0 CAD") : `Drop-in · ${currency(pricing.amount_cents)} CAD`}</p>
+              {pricing.amount_cents === 0 ? <p className="text-sm text-[#303331]">No payment is required for this reservation.</p> : <>
                 <div><label className={label} htmlFor="booking-method">Payment preference *</label><select className={field} id="booking-method" value={method} onChange={e => setMethod(e.target.value)}><option value="etransfer">Interac e-Transfer</option><option value="cash">Cash at class</option></select></div>
               </>}
               <button type="button" onClick={editDetails} className="text-sm text-[#243B45] underline underline-offset-4">Edit contact details and verify again</button>
@@ -276,7 +287,10 @@ export function PublicBookingForm() {
               <label className={label} htmlFor="booking-code">Verification code *</label>
               <input id="booking-code" className={field} inputMode="numeric" autoComplete="one-time-code" pattern="[0-9]{6}" maxLength={6} required value={verificationCode} onChange={e => setVerificationCode(e.target.value)} />
               <button type="button" className="text-sm underline text-[#243B45]" onClick={editDetails}>Edit booking details or request another code</button>
-            </div> : loading ? <p className="text-sm text-[#57625B]">Loading available classes…</p> : loadError ? <p role="alert" className="text-sm text-[#9B3D2E]">{loadError}</p> : sessions.length === 0 ? <p className="text-sm text-[#57625B]">No upcoming sessions are scheduled yet. Please check back later.</p> : <>
+            </div> : loading ? <p className="text-sm text-[#57625B]" role="status">Loading available classes…</p> : loadError ? <div role="alert" className="space-y-3 text-sm">
+              <p className="text-[#9B3D2E]">{loadError}</p>
+              <button type="button" onClick={() => setLoadAttempt(attempt => attempt + 1)} className="text-[#243B45] underline underline-offset-4 focus-visible:outline-2 focus-visible:outline-offset-4 focus-visible:outline-[#243B45]">Try loading classes again</button>
+            </div> : sessions.length === 0 ? <p className="text-sm text-[#57625B]">No upcoming sessions are scheduled yet. Please check back later.</p> : <>
 
               <div className="grid grid-cols-1 sm:grid-cols-2 gap-4"><div><label className={label} htmlFor="booking-first">First name *</label><input className={field} id="booking-first" autoComplete="given-name" required maxLength={100} value={firstName} onChange={e => setFirstName(e.target.value)}/></div><div><label className={label} htmlFor="booking-last">Last name *</label><input className={field} id="booking-last" autoComplete="family-name" required maxLength={100} value={lastName} onChange={e => setLastName(e.target.value)}/></div></div>
               <div><label className={label} htmlFor="booking-email">Email *</label><input className={field} id="booking-email" type="email" autoComplete="email" required value={email} onChange={e => setEmail(e.target.value)}/></div>
@@ -284,8 +298,8 @@ export function PublicBookingForm() {
               <div className="absolute -left-[9999px]" aria-hidden="true"><label htmlFor="booking-website">Website</label><input id="booking-website" tabIndex={-1} autoComplete="off" value={website} onChange={e => setWebsite(e.target.value)}/></div>
             </>}
               {error && <p role="alert" className="rounded-xl border border-[#9B3D2E]/30 bg-[#9B3D2E]/10 p-3 text-sm text-[#9B3D2E]">{error}</p>}
-              <button type="submit" disabled={submitting || !canBook || loading || !!loadError} className="w-full flex items-center justify-center gap-2 rounded-full bg-[#9B3D2E] hover:bg-[#7D3024] disabled:opacity-50 text-white px-5 py-3.5 text-sm font-semibold transition-colors">{submitting && <LoaderCircle className="w-4 h-4 animate-spin"/>}{submitting ? "Processing…" : verificationStep === "waiver" ? (waiver?.already_signed ? "Confirm your place" : "Accept waiver and confirm your place") : verificationStep === "details" ? <><CalendarDays className="w-4 h-4"/>Send verification code</> : "Verify email"}</button>
-              <p className="text-xs text-[#57625B] text-center">{verificationStep === "details" ? "We will email a six-digit code. Verify your email, review the waiver, then confirm your place. Sending or verifying a code does not hold a seat." : "Your seat is held only after you confirm your place and see Reservation confirmed. Availability is checked at confirmation. Paid reservations remain unpaid until verified by the instructor."}</p>
+              {!loadError && <button type="submit" disabled={submitting || !canBook || loading} className="w-full flex items-center justify-center gap-2 rounded-full bg-[#9B3D2E] hover:bg-[#7D3024] disabled:opacity-50 text-white px-5 py-3.5 text-sm font-semibold transition-colors">{submitting && <LoaderCircle className="w-4 h-4 animate-spin"/>}{submitting ? "Processing…" : verificationStep === "waiver" ? (waiver?.already_signed ? "Confirm your place" : "Accept waiver and confirm your place") : verificationStep === "details" ? <><CalendarDays className="w-4 h-4"/>Send verification code</> : "Verify email"}</button>}
+              <p className="text-xs text-[#57625B] text-center">{verificationStep === "details" ? "We will email a six-digit code. Verify your email, review the waiver, then confirm your place. Sending or verifying a code does not hold a seat." : "Your seat is held only after you confirm your place and see Reservation confirmed. Availability is checked at confirmation."}</p>
             </fieldset>
           </form>
         )}

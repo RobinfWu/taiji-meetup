@@ -33,7 +33,7 @@ export const onRequestPost: AppPagesFunction = async (ctx) => {
   if ("error" in email) return reply(email.error.message, 400);
   if ("error" in phone) return reply(phone.error.message, 400);
   if (typeof body.session_id !== "string" || !/^[a-zA-Z0-9_-]{1,100}$/.test(body.session_id)) return reply("Invalid class session.", 400);
-  if (body.method !== "cash" && body.method !== "etransfer") return reply("Choose cash or e-Transfer.", 400);
+  if (body.method !== undefined && body.method !== "cash" && body.method !== "etransfer") return reply("Choose cash or e-Transfer.", 400);
   const category = body.pricing_category === undefined ? "regular" : body.pricing_category;
   if (category !== "regular") return reply("This pricing category is no longer available. Please refresh the booking form.", 400);
   if (body.expected_amount_cents !== undefined && (typeof body.expected_amount_cents !== "number" || !Number.isSafeInteger(body.expected_amount_cents) || body.expected_amount_cents < 0)) return reply("Invalid expected amount.", 400);
@@ -56,11 +56,11 @@ export const onRequestPost: AppPagesFunction = async (ctx) => {
   const reference = `TJ-${crypto.randomUUID().replace(/-/g, "").slice(0, 16).toUpperCase()}`;
   try {
     // This is only a user-friendly preflight. The INSERT below rechecks capacity.
-    const session = await db.prepare(`SELECT s.id, s.status, s.end_at, s.start_at, s.capacity,
+    const session = await db.prepare(`SELECT s.id, s.status, s.end_at, s.start_at, s.capacity, s.price_cents, s.location, t.title,
       (SELECT COUNT(*) FROM reservations r WHERE r.session_id=s.id AND r.status='confirmed') AS booked
       FROM class_sessions s JOIN class_templates t ON t.id=s.template_id
-      WHERE s.id=? AND t.is_active=1`).bind(body.session_id).first<{id:string;status:string;end_at:string;start_at:string;capacity:number;booked:number}>();
-    if (!session || session.status !== "scheduled" || session.end_at <= now) return reply("This class is unavailable.", 409);
+      WHERE s.id=? AND s.is_public=1 AND t.is_active=1`).bind(body.session_id).first<{id:string;status:string;end_at:string;start_at:string;capacity:number;booked:number;price_cents:number|null;location:string;title:string}>();
+    if (!session || session.status !== "scheduled" || session.start_at <= now) return reply("This class is unavailable.", 409);
     if (session.booked >= session.capacity) return reply("This class is full.", 409);
 
     const versionExists = await db.prepare("SELECT 1 AS ok FROM waiver_versions WHERE version=?").bind(waiverVersion).first();
@@ -68,7 +68,7 @@ export const onRequestPost: AppPagesFunction = async (ctx) => {
     // Never trust a price supplied by the browser. The first-ever reservation
     // (including a previously cancelled reservation) is free. Later bookings
     // use the regular drop-in rate.
-    const paidAmountCents = PAID_DROP_IN_RATES[category];
+    const paidAmountCents = session.price_cents ?? PAID_DROP_IN_RATES[category];
     // D1 batch runs transactionally. The student insert is idempotent for
     // existing emails; existing personal data is not overwritten.
     const results = await db.batch([
@@ -100,25 +100,27 @@ export const onRequestPost: AppPagesFunction = async (ctx) => {
         SELECT ?, st.id, s.id, 'drop_in', 'confirmed', NULL,NULL,NULL,?,?
         FROM students st JOIN class_sessions s ON s.id=?
         JOIN class_templates t ON t.id=s.template_id
-        WHERE st.email=? COLLATE NOCASE AND s.status='scheduled' AND s.end_at>? AND t.is_active=1
+        WHERE st.email=? COLLATE NOCASE AND s.status='scheduled' AND s.start_at>? AND t.is_active=1 AND s.is_public=1
+          AND COALESCE(s.price_cents, ?) = ?
+          AND (s.price_cents=0 OR NOT EXISTS (SELECT 1 FROM reservations prior WHERE prior.student_id=st.id) OR ? IN ('cash','etransfer'))
           AND (SELECT COUNT(*) FROM reservations r WHERE r.session_id=s.id AND r.status='confirmed') < s.capacity
           AND EXISTS (SELECT 1 FROM email_verifications ev WHERE ev.email=st.email AND ev.token_hash=? AND ev.verified_until>?)
           AND EXISTS (SELECT 1 FROM student_waivers w WHERE w.student_id=st.id AND w.version=?)
-          AND (? IS NULL OR ? = CASE WHEN EXISTS (
+          AND (? IS NULL OR ? = CASE WHEN s.price_cents IS NOT NULL THEN s.price_cents WHEN EXISTS (
             SELECT 1 FROM reservations prior WHERE prior.student_id=st.id
           ) THEN ? ELSE 0 END)`)
-        .bind(reservationId,now,now,body.session_id,email.value,now,tokenHash,now,waiverVersion,body.expected_amount_cents ?? null,body.expected_amount_cents ?? null,paidAmountCents),
+        .bind(reservationId,now,now,body.session_id,email.value,now,PAID_DROP_IN_RATES[category],paidAmountCents,body.method ?? null,tokenHash,now,waiverVersion,body.expected_amount_cents ?? null,body.expected_amount_cents ?? null,paidAmountCents),
       // Only insert a payment if this student has at least one OTHER reservation.
       // The newly inserted reservation is excluded. This SQL runs within the
       // same D1 transaction as reservation creation, avoiding a preflight race.
       db.prepare(`INSERT INTO payments(id,student_id,target_type,target_id,method,amount_cents,reference,created_at,updated_at)
         SELECT ?,r.student_id,'reservation',r.id,?,?,?, ?,?
         FROM reservations r
-        WHERE r.id=? AND EXISTS (
+        WHERE r.id=? AND ?>0 AND EXISTS (
           SELECT 1 FROM reservations prior
           WHERE prior.student_id=r.student_id AND prior.id<>r.id
         )`)
-        .bind(paymentId,body.method,paidAmountCents,reference,now,now,reservationId),
+        .bind(paymentId,body.method ?? "cash",paidAmountCents,reference,now,now,reservationId,paidAmountCents),
       db.prepare("UPDATE email_verifications SET token_hash=NULL, verified_until=NULL WHERE email=? AND token_hash=? AND verified_until>? AND EXISTS (SELECT 1 FROM reservations WHERE id=?)").bind(email.value,tokenHash,now,reservationId),
       // Queue the confirmation in the same transaction as the reservation.
       // A delivery failure later will not roll back the booking.
@@ -134,13 +136,15 @@ export const onRequestPost: AppPagesFunction = async (ctx) => {
       return reply("Booking details changed. Review your verification, session availability, and price before confirming again.", 409);
     }
     const isPaidBooking = results[3].meta.changes === 1;
+    const priorReservation = await db.prepare("SELECT 1 AS ok FROM reservations r JOIN students st ON st.id=r.student_id WHERE st.email=? COLLATE NOCASE AND r.id<>? LIMIT 1").bind(email.value,reservationId).first();
     return Response.json({
       reservation_id: reservationId,
       session_id: body.session_id,
+      session: { title: session.title, start_at: session.start_at, end_at: session.end_at, location: session.location },
       status: "confirmed",
       pricing: {
         category,
-        first_reservation_free: !isPaidBooking,
+        first_reservation_free: !priorReservation,
         amount_cents: isPaidBooking ? paidAmountCents : 0,
         currency: "CAD",
       },

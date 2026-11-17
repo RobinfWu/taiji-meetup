@@ -1,4 +1,6 @@
 
+import { introClass, isIntroClass } from "./introClass";
+
 type Confirmation = {
   first_name: string;
   session_title: string;
@@ -38,8 +40,8 @@ export function confirmationText(
 
   let payment: string;
 
-  if (info.amount_cents === null) {
-    payment = "Your first class is free. No payment is required.";
+  if (info.amount_cents === null || info.amount_cents === 0) {
+    payment = "Amount due: $0 CAD. No payment is required.";
   } else {
     const amount = (info.amount_cents / 100).toFixed(2);
 
@@ -81,6 +83,7 @@ export function confirmationText(
       `Class: ${info.session_title}`,
       `When: ${start} – ${end} (Kingston local time)`,
       `Location: ${info.location}`,
+      ...(isIntroClass(info) ? [introClass.meeting, `Directions: ${introClass.mapsUrl}`, introClass.practice, introClass.weather, introClass.preparation] : []),
       "",
       payment,
       "",
