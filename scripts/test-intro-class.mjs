@@ -62,7 +62,7 @@ try {
   const last = await Promise.all([book('intro-last-a@example.test'),book('intro-last-b@example.test')]);
   check(last.filter(r=>r.response.status===201).length===1 && last.filter(r=>r.response.status===409).length===1, 'concurrent final-place bookings respect capacity');
   const message=f.confirmationText({first_name:'Test',session_title:listing.body[0].template.title,...session,amount_cents:null,method:null,reference:null}).text;
-  for (const fragment of ['November 21, 2026','11:00','12:30','EST','920 King St. W.','pavilion','nearby grassy area','https://www.google.com/maps/dir/','weather-dependent','$0 CAD','1:00 PM']) check(message.includes(fragment), 'email contains '+fragment);
+  for (const fragment of ['November 21, 2026','11:00','12:30','EST','920 King St. W.','pavilion','nearby grassy area','https://www.google.com/maps/dir/','weather-dependent','$0 CAD','Optional additional practice and questions afterward.']) check(message.includes(fragment), 'email contains '+fragment);
   check(!message.includes('Send payment to:'), 'free confirmation has no payment instructions');
   f.sqlite.prepare('UPDATE class_sessions SET capacity=10 WHERE id=?').run(introId);
   const originalBatch=f.env.DB.batch;

@@ -12,7 +12,7 @@ const root = resolve(import.meta.dirname, '../..');
 
 export async function createBookingFixture() {
   const output = mkdtempSync(join(tmpdir(), 'taiji-booking-fixture-'));
-  const sources = ['api/classes', 'api/public/book', 'api/public/verification/request', 'api/public/verification/confirm', 'api/public/waiver/status', 'lib/emailVerification', 'lib/bookingConfirmation', 'lib/introClass', 'lib/validation', 'lib/publicBookingPricing', 'types/env'];
+  const sources = ['api/classes', 'api/public/book', 'api/public/verification/request', 'api/public/verification/confirm', 'api/public/waiver/status', 'api/reservations/[id]/cancel', 'api/reservations/index', 'api/admin/classes/index', 'api/admin/auth/session', 'api/admin/overview/index', 'api/admin/booking-emails/process', 'lib/auth', 'lib/instructorBookingNotification', 'lib/emailVerification', 'lib/bookingConfirmation', 'lib/introClass', 'lib/validation', 'lib/publicBookingPricing', 'types/env'];
   for (const source of sources) {
     const dest = join(output, source + '.mjs');
     mkdirSync(dirname(dest), { recursive: true });
@@ -24,7 +24,12 @@ export async function createBookingFixture() {
   const handlers = new Map();
   for (const source of sources.filter(s => s.startsWith('api/'))) {
     const endpointModule = await import(pathToFileURL(join(output, source + '.mjs')).href);
-    handlers.set('/' + source, endpointModule.onRequestPost || endpointModule.onRequestGet);
+    const handler = endpointModule.onRequest || (ctx => {
+      const fn = ctx.request.method === 'GET' ? endpointModule.onRequestGet : ctx.request.method === 'POST' ? endpointModule.onRequestPost : null;
+      return fn ? fn(ctx) : Response.json({error:'Method not allowed'},{status:405});
+    });
+    handlers.set('/' + source, handler);
+    if (source.endsWith('/index')) handlers.set('/'+source.slice(0,-6),handler);
   }
   const sqlite = new DatabaseSync(':memory:');
   sqlite.exec('PRAGMA foreign_keys=ON');
@@ -59,11 +64,15 @@ export async function createBookingFixture() {
   sqlite.prepare("INSERT INTO reservations(id,student_id,session_id,source,status,created_at,updated_at) VALUES ('full-seat',?,'sess-full','drop_in','confirmed',?,?)").run(fullStudent,now,now);
   let queue = Promise.resolve();
   const db = {
-    prepare(sql) { return { bind(...args) { return {
-      async first() { return sqlite.prepare(sql).get(...args) ?? null; },
-      async all() { return { results: sqlite.prepare(sql).all(...args) }; },
-      async run() { return { meta: { changes: Number(sqlite.prepare(sql).run(...args).changes) } }; },
-    }; } }; },
+    prepare(sql) {
+      const statement = (args=[]) => ({
+        bind(...values) { return statement(values); },
+        async first() { return sqlite.prepare(sql).get(...args) ?? null; },
+        async all() { return { results: sqlite.prepare(sql).all(...args) }; },
+        async run() { return { meta: { changes: Number(sqlite.prepare(sql).run(...args).changes) } }; },
+      });
+      return statement();
+    },
     batch(statements) {
       const next = queue.then(async () => {
         sqlite.exec('BEGIN IMMEDIATE');
@@ -74,12 +83,15 @@ export async function createBookingFixture() {
       return next;
     },
   };
-  const env = { DB: db, PUBLIC_BOOKING_ENABLED: 'true', EMAIL_VERIFICATION_DEV_MODE: 'true', WAIVER_APPROVED_VERSION: 'fixture-v1' };
+  const env = { DB: db, PUBLIC_BOOKING_ENABLED: 'true', EMAIL_VERIFICATION_DEV_MODE: 'true', WAIVER_APPROVED_VERSION: 'fixture-v1', ADMIN_API_TOKEN: 'fixture-admin-only', INSTRUCTOR_SESSION_SECRET: 'fixture-session-secret-not-production', CONTACT_TO_EMAIL: 'instructor@example.test', RESEND_API_KEY: 'fixture-no-real-mail', BOOKING_FROM_EMAIL: 'fixture@example.test' };
   async function request(path, body, options={}) {
-    const handler=handlers.get(path);
+    const cancellation=path.match(/^\/api\/reservations\/([^/]+)\/cancel$/);
+    const handler=handlers.get(cancellation ? '/api/reservations/[id]/cancel' : path.split('?')[0]);
     if (!handler) throw Error('Unknown fixture endpoint: '+path);
-    const method=body===undefined?'GET':'POST';
-    return handler({request:new Request(options.url || 'http://localhost:4192'+path,{method,headers:{'Content-Type':'application/json',Origin:'http://localhost:4192',...options.headers},...(body===undefined?{}:{body:JSON.stringify(body)})}),env:{...env,...options.env}});
+    const method=options.method || (body===undefined?'GET':'POST');
+    const headers=new Headers({'Content-Type':'application/json',Origin:'http://localhost:4192'});
+    for(const [key,value] of Object.entries(options.headers||{})) headers.set(key,value);
+    return handler({request:new Request(options.url || 'http://localhost:4192'+path,{method,headers,...(body===undefined?{}:{body:JSON.stringify(body)})}),env:{...env,...options.env},params:cancellation?{id:cancellation[1]}:{}});
   }
   async function json(path, body, options) { const response=await request(path,body,options);return {status:response.status,body:await response.json()}; }
   async function verify(email) {
@@ -91,7 +103,7 @@ export async function createBookingFixture() {
     if(verified.status!==200) throw Error(JSON.stringify(verified));
     return verified.body.verification_token;
   }
-  return { sqlite, env, request, json, verify, returning, confirmationText: (await import(pathToFileURL(join(output, 'lib/bookingConfirmation.mjs')).href)).confirmationText,
+  return { sqlite, env, request, json, verify, returning, auth: await import(pathToFileURL(join(output, 'lib/auth.mjs')).href), confirmationText: (await import(pathToFileURL(join(output, 'lib/bookingConfirmation.mjs')).href)).confirmationText,
     close() { sqlite.close(); const absolute=resolve(output); if(!absolute.startsWith(resolve(tmpdir())+sep)||!basename(absolute).startsWith('taiji-booking-fixture-')) throw Error('Unexpected fixture cleanup path');rmSync(absolute,{recursive:true,force:true}); },
   };
 }

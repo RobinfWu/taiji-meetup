@@ -2,6 +2,7 @@
 
 import React, { useState, useEffect } from "react";
 import Link from "next/link";
+import { CancelReservationDialog } from "../components/CancelReservationDialog";
 import { Lock, Eye, EyeOff, LoaderCircle, AlertCircle, LogOut, CalendarDays, Users, CreditCard, RefreshCw, ChevronRight, ArrowLeft } from "lucide-react";
 
 type UpcomingClass = {
@@ -147,6 +148,35 @@ function InstructorClasses({ onUnauthorized, initialSessionId, onSessionOpen }: 
   const [error, setError] = useState("");
   const [reload, setReload] = useState(0);
   const [editing, setEditing] = useState<"new" | "current" | null>(null);
+  const [cancelTarget, setCancelTarget] = useState<ClassReservation | null>(null);
+  const [cancelBusy, setCancelBusy] = useState(false);
+  const [cancelError, setCancelError] = useState("");
+  const [notice, setNotice] = useState("");
+  const noticeRef = React.useRef<HTMLParagraphElement>(null);
+  useEffect(() => { if (notice) noticeRef.current?.focus(); }, [notice]);
+  const cancellationInFlight = React.useRef(false);
+  async function cancelReservation() {
+    if (!cancelTarget || !session || cancellationInFlight.current) return;
+    cancellationInFlight.current = true;
+    setCancelBusy(true); setCancelError(""); setNotice("");
+    try {
+      const response = await fetch(`/api/reservations/${encodeURIComponent(cancelTarget.id)}/cancel`, {
+        method: "POST", credentials: "same-origin",
+        headers: { "Content-Type": "application/json", "X-Admin-Action": "1" },
+        body: JSON.stringify({ cancellation_reason: "Cancelled by instructor" }),
+      });
+      if (response.status === 401 || response.status === 403) { onUnauthorized(); return; }
+      const result = await response.json() as { id?: string; status?: string; cancelled_at?: string; reserved_count?: number; error?: string };
+      if (!response.ok) throw new Error(result.error ?? "Unable to cancel reservation.");
+      if (result.id !== cancelTarget.id || result.status !== "cancelled" || !Number.isSafeInteger(result.reserved_count)) throw new Error("Unable to confirm cancellation. Refresh the roster before retrying.");
+      setReservations(current => current.map(r => r.id === cancelTarget.id ? { ...r, status: "cancelled", cancelled_at: result.cancelled_at ?? r.cancelled_at } : r));
+      setSession(current => current ? { ...current, reserved_count: result.reserved_count! } : current);
+      setNotice(`Reservation cancelled for ${cancelTarget.first_name} ${cancelTarget.last_name}. Their seat has been released. No cancellation email was sent.`);
+      setCancelTarget(null);
+      setReload(n => n + 1);
+    } catch (error) { setCancelError(error instanceof Error ? error.message : "Unable to cancel reservation."); }
+    finally { cancellationInFlight.current = false; setCancelBusy(false); }
+  }
   useEffect(() => {
     const controller = new AbortController();
     async function load() {
@@ -177,6 +207,8 @@ function InstructorClasses({ onUnauthorized, initialSessionId, onSessionOpen }: 
     hour: "numeric", minute: "2-digit",
   }).format(new Date(iso));
   return <section className="w-full max-w-5xl space-y-6" aria-label="Class management">
+    {cancelTarget && session && <CancelReservationDialog student={`${cancelTarget.first_name} ${cancelTarget.last_name}`} className={session.title} date={formatDate(session.start_at)} busy={cancelBusy} error={cancelError} onConfirm={() => void cancelReservation()} onKeep={() => { if (!cancelBusy) { setCancelTarget(null); setCancelError(""); } }} />}
+    {notice && <p ref={noticeRef} tabIndex={-1} role="status" className="rounded-xl border border-[#365F46]/40 p-4 text-sm text-[#365F46]">{notice}</p>}
     <div className="flex flex-wrap items-center justify-between gap-4">
       <div>
         <p className="text-xs font-semibold uppercase tracking-[0.18em] text-[#9B3D2E]">Instructor workspace / Classes</p>
@@ -211,7 +243,11 @@ function InstructorClasses({ onUnauthorized, initialSessionId, onSessionOpen }: 
               <p className="text-xs text-[#5A5E5B] break-all">{r.email}{r.phone ? ` · ${r.phone}` : ""}</p>
               <p className="text-xs text-[#5A5E5B]">{r.source === "membership" ? "Membership" : "Drop-in"} · Booked {formatDate(r.created_at)}</p>
             </div>
-            <span className="self-start rounded-full bg-[#E8E4DA] border border-[#D5CEBF] px-3 py-1 text-xs font-semibold capitalize">{r.status}</span>
+            <div className="flex flex-wrap items-center gap-3 self-start">
+              <span className="rounded-full bg-[#E8E4DA] border border-[#D5CEBF] px-3 py-1 text-xs font-semibold capitalize">{r.status}</span>
+              {r.status === "confirmed" && <button type="button" aria-label={`Cancel Reservation for ${r.first_name} ${r.last_name}`} disabled={cancelBusy} onClick={() => { setCancelTarget(r); setCancelError(""); setNotice(""); }} className="rounded-full border border-[#9B3D2E] px-3 py-1.5 text-xs font-semibold text-[#9B3D2E] disabled:opacity-50 focus-visible:outline-2 focus-visible:outline-offset-4 focus-visible:outline-[#243B45]">Cancel Reservation</button>}
+              {r.status === "cancelled" && r.cancelled_at && <span className="text-xs text-[#5A5E5B]">Cancelled {formatDate(r.cancelled_at)}</span>}
+            </div>
           </li>)}</ul>}
       </div>) : <div className="rounded-2xl border border-[#D5CEBF] bg-[#DFD9CC] overflow-hidden">
         <div className="px-5 sm:px-6 py-5 border-b border-[#D5CEBF]">

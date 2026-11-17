@@ -13,7 +13,7 @@ const ts = require('typescript');
 if (!globalThis.crypto) globalThis.crypto = webcrypto;
 const root = resolve(import.meta.dirname, '..');
 const output = join(root, '.test-waiver-dist');
-const sources = ['functions/api/public/book.ts', 'functions/lib/emailVerification.ts', 'functions/lib/publicBookingPricing.ts', 'functions/lib/validation.ts', 'functions/types/env.ts'];
+const sources = ['functions/api/public/book.ts', 'functions/lib/instructorBookingNotification.ts', 'functions/lib/emailVerification.ts', 'functions/lib/publicBookingPricing.ts', 'functions/lib/validation.ts', 'functions/types/env.ts'];
 mkdirSync(output, { recursive: true });
 try {
   for (const source of sources) {
@@ -28,7 +28,7 @@ try {
   const { hash } = await import(pathToFileURL(join(output, 'functions/lib/emailVerification.mjs')).href);
   const sqlite = new DatabaseSync(':memory:');
   sqlite.exec('PRAGMA foreign_keys=ON');
-  for (const file of ['0001_initial_schema.sql','0002_reservations.sql','0003_membership_overlap_guards.sql','0004_payments.sql','0005_email_verification.sql','0006_booking_emails.sql','0007_admin_rate_limits.sql','0008_student_waivers.sql','0010_public_session_booking.sql']) {
+  for (const file of ['0001_initial_schema.sql','0002_reservations.sql','0003_membership_overlap_guards.sql','0004_payments.sql','0005_email_verification.sql','0006_booking_emails.sql','0007_admin_rate_limits.sql','0008_student_waivers.sql','0010_public_session_booking.sql','0011_booking_notification_outbox.sql']) {
     sqlite.exec(readFileSync(join(root, 'migrations', file), 'utf8'));
   }
   const now = new Date();
@@ -63,7 +63,7 @@ try {
   const base = {first_name:'Waiver',last_name:'Tester',email,session_id:'sess-one',method:'cash',pricing_category:'regular',website:'',verification_token:token,waiver_version:'v-current'};
   const request = async (data, config={}) => {
     const req = new Request('http://localhost:8788/api/public/book', {method:'POST',headers:{Origin:'http://localhost:8788','Content-Type':'application/json'},body:JSON.stringify(data)});
-    const res = await onRequestPost({request:req,env:{DB:db,PUBLIC_BOOKING_ENABLED:'true',EMAIL_VERIFICATION_DEV_MODE:'true',WAIVER_APPROVED_VERSION:'v-current',...config}});
+    const res = await onRequestPost({request:req,env:{DB:db,PUBLIC_BOOKING_ENABLED:'true',EMAIL_VERIFICATION_DEV_MODE:'true',CONTACT_TO_EMAIL:'instructor@example.test',WAIVER_APPROVED_VERSION:'v-current',...config}});
     return {status:res.status,body:await res.json()};
   };
   let tests=0;

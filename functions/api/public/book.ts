@@ -1,4 +1,5 @@
 import { PAID_DROP_IN_RATES } from "../../lib/publicBookingPricing";
+import { instructorBookingJob } from "../../lib/instructorBookingNotification";
 import { allowRequest, hash } from "../../lib/emailVerification";
 import type { AppPagesFunction } from "../../types/env";
 import { getDb } from "../../types/env";
@@ -129,6 +130,7 @@ export const onRequestPost: AppPagesFunction = async (ctx) => {
         SELECT ?,r.id,'booking_confirmation',?,'pending',0,?,?,?
         FROM reservations r WHERE r.id=?`)
         .bind(bookingEmailId,email.value,now,now,now,reservationId),
+      instructorBookingJob(db,reservationId,now,ctx.env.CONTACT_TO_EMAIL),
     ]);
     if (results[2].meta.changes !== 1 || results[4].meta.changes !== 1 || results[5].meta.changes !== 1) {
       // Rare race: no reservation/payment. A new student may have been created;
@@ -136,6 +138,7 @@ export const onRequestPost: AppPagesFunction = async (ctx) => {
       return reply("Booking details changed. Review your verification, session availability, and price before confirming again.", 409);
     }
     const isPaidBooking = results[3].meta.changes === 1;
+    if (results[6].meta.changes !== 1) console.error("Instructor booking notification not queued: check CONTACT_TO_EMAIL.", reservationId);
     const priorReservation = await db.prepare("SELECT 1 AS ok FROM reservations r JOIN students st ON st.id=r.student_id WHERE st.email=? COLLATE NOCASE AND r.id<>? LIMIT 1").bind(email.value,reservationId).first();
     return Response.json({
       reservation_id: reservationId,

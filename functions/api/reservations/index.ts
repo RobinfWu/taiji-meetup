@@ -1,6 +1,7 @@
 import type { AppPagesFunction } from "../../types/env";
 import { getDb } from "../../types/env";
 import { authenticateAdmin } from "../../lib/auth";
+import { instructorBookingJob } from "../../lib/instructorBookingNotification";
 import type { Reservation, ReservationSource } from "../../types/schema";
 
 interface CreateReservationBody {
@@ -275,7 +276,7 @@ export const onRequestPost: AppPagesFunction = async (context) => {
 
     const reservationId = `res_${crypto.randomUUID()}`;
 
-    const insertResult = await db
+    const insertStatement = db
       .prepare(ATOMIC_INSERT_QUERY)
       .bind(
         reservationId,
@@ -294,8 +295,12 @@ export const onRequestPost: AppPagesFunction = async (context) => {
         cleanMembershipId,
         sessionLocalDate,
         sessionLocalDate
-      )
-      .run();
+      );
+
+    const [insertResult, notificationResult] = await db.batch([
+      insertStatement,
+      instructorBookingJob(db,reservationId,nowIso,context.env.CONTACT_TO_EMAIL),
+    ]);
 
     // A zero-row insert can mean capacity or eligibility changed after preflight.
     if (!insertResult.meta.changes || insertResult.meta.changes === 0) {
@@ -306,6 +311,7 @@ export const onRequestPost: AppPagesFunction = async (context) => {
     }
 
     // Fetch the created reservation record
+    if (notificationResult.meta.changes !== 1) console.error("Instructor booking notification not queued: check CONTACT_TO_EMAIL.", reservationId);
     const created = await db
       .prepare("SELECT * FROM reservations WHERE id = ?")
       .bind(reservationId)

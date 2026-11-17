@@ -2,12 +2,13 @@ import type { AppPagesFunction } from "../../../types/env";
 import { getDb } from "../../../types/env";
 import { authenticateAdmin } from "../../../lib/auth";
 import { confirmationText } from "../../../lib/bookingConfirmation";
+import { instructorNotificationText } from "../../../lib/instructorBookingNotification";
 
 const MAX_ATTEMPTS = 5;
 const respond = (body: object, status = 200) => Response.json(body, { status, headers: { "Cache-Control": "no-store" } });
 
-type Job = { id: string; reservation_id: string; recipient_email: string; attempts: number };
-type Details = { first_name: string; session_title: string; start_at: string; end_at: string; location: string; amount_cents: number | null; method: string | null; reference: string | null };
+type Job = { id: string; reservation_id: string; email_type: "booking_confirmation" | "instructor_notification"; recipient_email: string; attempts: number };
+type Details = { first_name: string; last_name: string; session_title: string; start_at: string; end_at: string; location: string; amount_cents: number | null; method: string | null; reference: string | null };
 
 // Manual admin-only processor. A scheduled Worker can invoke the same authenticated endpoint later.
 export const onRequestPost: AppPagesFunction = async ctx => {
@@ -18,10 +19,10 @@ export const onRequestPost: AppPagesFunction = async ctx => {
   const now = new Date();
   const nowIso = now.toISOString();
   // The claim is atomic: a concurrent request cannot claim the same unlocked row.
-  const candidate = await db.prepare(`SELECT id, reservation_id, recipient_email, attempts FROM booking_emails
+  const candidate = await db.prepare(`SELECT id, reservation_id, email_type, recipient_email, attempts FROM booking_emails
     WHERE attempts < ? AND next_attempt_at <= ?
       AND (status IN ('pending','failed') OR (status='sending' AND locked_until <= ?))
-    ORDER BY next_attempt_at, created_at LIMIT 1`).bind(MAX_ATTEMPTS, nowIso, nowIso).first<Job>();
+    ORDER BY next_attempt_at, created_at, CASE WHEN email_type='booking_confirmation' THEN 0 ELSE 1 END, id LIMIT 1`).bind(MAX_ATTEMPTS, nowIso, nowIso).first<Job>();
   if (!candidate) return respond({ processed: 0, message: "No eligible emails." });
   const lockUntil = new Date(now.getTime() + 120_000).toISOString();
   const claim = await db.prepare(`UPDATE booking_emails SET status='sending', locked_until=?, attempts=attempts+1, updated_at=?
@@ -30,20 +31,20 @@ export const onRequestPost: AppPagesFunction = async ctx => {
     .bind(lockUntil, nowIso, candidate.id, candidate.attempts, nowIso, nowIso).run();
   if (claim.meta.changes !== 1) return respond({ processed: 0, message: "Another worker claimed this job." });
 
-  const details = await db.prepare(`SELECT st.first_name, t.title AS session_title, s.start_at, s.end_at, s.location,
+  const details = await db.prepare(`SELECT st.first_name, st.last_name, t.title AS session_title, s.start_at, s.end_at, s.location,
       p.amount_cents, p.method, p.reference
     FROM reservations r JOIN students st ON st.id=r.student_id
     JOIN class_sessions s ON s.id=r.session_id JOIN class_templates t ON t.id=s.template_id
     LEFT JOIN payments p ON p.target_type='reservation' AND p.target_id=r.id
     WHERE r.id=? AND r.status='confirmed'`).bind(candidate.reservation_id).first<Details>();
   if (!details) {
-    await db.prepare(`UPDATE booking_emails SET status='failed', locked_until=NULL, next_attempt_at=?, last_error='Reservation not found or not confirmed', updated_at=? WHERE id=? AND status='sending' AND locked_until=?`)
+    await db.prepare(`UPDATE booking_emails SET status='failed', attempts=5, locked_until=NULL, next_attempt_at=?, last_error='Reservation not found or not confirmed', updated_at=? WHERE id=? AND status='sending' AND locked_until=?`)
       .bind(new Date(now.getTime() + 86400000).toISOString(), nowIso, candidate.id, lockUntil).run();
     return respond({ processed: 1, status: "failed", reason: "Reservation not found or not confirmed" });
   }
 const receivingEmail = ctx.env.ETRANSFER_RECEIVING_EMAIL?.trim();
 
-if (details.amount_cents !== null && details.method === "etransfer") {
+if (candidate.email_type === "booking_confirmation" && details.amount_cents !== null && details.method === "etransfer") {
   if (!receivingEmail) {
     const attempts = candidate.attempts + 1;
     const next = new Date(Date.now() + 60 * 60_000).toISOString();
@@ -79,14 +80,17 @@ if (details.amount_cents !== null && details.method === "etransfer") {
   }
 }
 
-const content = confirmationText(details, receivingEmail);
+const content = candidate.email_type === "instructor_notification"
+  ? instructorNotificationText(details)
+  : confirmationText(details, receivingEmail);
   try {
     const response = await fetch("https://api.resend.com/emails", {
       method: "POST",
       headers: {
         Authorization: `Bearer ${ctx.env.RESEND_API_KEY}`,
         "Content-Type": "application/json",
-        "Idempotency-Key": `booking-confirmation-${candidate.reservation_id}`,
+        "Idempotency-Key": candidate.email_type === "instructor_notification"
+          ? `instructor-booking-${candidate.reservation_id}` : `booking-confirmation-${candidate.reservation_id}`,
       },
       body: JSON.stringify({ from: ctx.env.BOOKING_FROM_EMAIL, to: [candidate.recipient_email], ...content }),
     });
@@ -105,7 +109,7 @@ const content = confirmationText(details, receivingEmail);
     await db.prepare(`UPDATE booking_emails SET status='failed', locked_until=NULL, next_attempt_at=?, last_error=?, updated_at=?
       WHERE id=? AND status='sending' AND locked_until=?`)
       .bind(next, reason, new Date().toISOString(), candidate.id, lockUntil).run();
-    console.error('Booking confirmation delivery failed', candidate.id, reason);
+    console.error('Booking email delivery failed', candidate.email_type, candidate.id, reason);
     return respond({ processed: 1, status: "failed", attempts, retry_eligible: attempts < MAX_ATTEMPTS });
   }
 };
