@@ -18,3 +18,26 @@ export const introClass = {
 export function isIntroClass(session: { start_at: string; location?: string | null }) {
   return session.start_at === introClass.startAt && !!session.location?.includes("Lake Ontario Park");
 }
+
+// Keep the original introductory event above intact for historical confirmations.
+export const upcomingClass = {
+  title: "Chen Taijiquan with Robin Wu",
+  date: "Saturday, November 28, 2026",
+  time: "1:00–2:00 PM EST",
+  startAt: "2026-11-28T18:00:00.000Z",
+  endAt: "2026-11-28T19:00:00.000Z",
+  location: introClass.location,
+  meeting: introClass.meeting,
+  mapsUrl: introClass.mapsUrl,
+  weather: introClass.weather,
+  preparation: introClass.preparation,
+  description: introClass.description,
+  future: "The next session is confirmed for November 28. Additional class dates will be announced separately.",
+  priceNote: "First visit free · Returning students $20 CAD",
+} as const;
+
+export function parkClassDetails(session: { start_at: string; location?: string | null }) {
+  if (isIntroClass(session)) return introClass;
+  if (session.start_at === upcomingClass.startAt && session.location?.includes("Lake Ontario Park")) return upcomingClass;
+  return undefined;
+}

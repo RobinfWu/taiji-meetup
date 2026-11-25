@@ -1,4 +1,4 @@
-import { introClass } from "../functions/lib/introClass";
+import { upcomingClass } from "../functions/lib/introClass";
 import { IntroClassLocation } from "./components/IntroClassLocation";
 import type { Metadata } from "next";
 import Image from "next/image";
@@ -165,14 +165,14 @@ export default function Home() {
                   Practice Details
                 </span>
                 <h2 className="font-serif text-3xl sm:text-4xl font-light text-[#171918]">
-                  Introductory Class Schedule & Location
+                  Upcoming Class Schedule & Location
                 </h2>
               </div>
               <Link
                 href="/classes#reserve"
                 className="inline-flex items-center space-x-2 text-xs font-semibold text-[#243B45] hover:underline"
               >
-                <span>Reserve Your Free Spot</span>
+                <span>Reserve Your Spot</span>
                 <ArrowRight className="w-3.5 h-3.5" />
               </Link>
             </div>
@@ -181,10 +181,10 @@ export default function Home() {
               <div className="bg-[#DFD9CC] p-6 rounded-3xl border border-[#D5CEBF] space-y-3 shadow-xs">
                 <div className="flex items-center space-x-3 text-[#171918]">
                   <Calendar className="w-5 h-5 text-[#8A7250]" />
-                  <h3 className="font-serif text-lg font-semibold">First Free Introductory Class</h3>
+                  <h3 className="font-serif text-lg font-semibold">Next Class</h3>
                 </div>
                 <div className="text-xs text-[#303331] space-y-1.5 font-light">
-                  <p className="font-semibold">{introClass.date}</p><p>{introClass.time}</p><p>{introClass.practice}</p><p>{introClass.weather}</p><p>{introClass.future}</p>
+                  <p className="font-semibold">{upcomingClass.date}</p><p>{upcomingClass.time}</p><p>{upcomingClass.weather}</p><p>{upcomingClass.future}</p>
                 </div>
               </div>
 
@@ -210,7 +210,7 @@ export default function Home() {
               <span>Take the First Step</span>
             </div>
             <h2 className="font-serif text-3xl sm:text-4xl md:text-5xl font-light">
-              Join Our First Free Introductory Class
+              Join Our Next Class
             </h2>
             <p className="text-base text-[#DFD9CC] max-w-xl mx-auto font-light leading-relaxed">
               No long-term commitment or prior experience required. Come experience Chen Family Taijiquan practice for yourself.
@@ -220,7 +220,7 @@ export default function Home() {
                 href="/classes#reserve"
                 className="px-9 py-4 rounded-full bg-[#9B3D2E] text-white text-base font-bold hover:bg-[#7D3024] transition-colors shadow-lg flex items-center space-x-2"
               >
-                <span>Reserve Your Free Spot</span>
+                <span>Reserve Your Spot</span>
                 <ArrowRight className="w-5 h-5" />
               </Link>
             </div>

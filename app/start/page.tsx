@@ -1,4 +1,4 @@
-import { introClass } from "../../functions/lib/introClass";
+import { upcomingClass } from "../../functions/lib/introClass";
 import { IntroClassLocation } from "../components/IntroClassLocation";
 import type { Metadata } from "next";
 import React from "react";
@@ -51,7 +51,7 @@ export default function StartPage() {
                 Come as you are
               </h2>
               <p className="text-base text-[#303331] leading-relaxed font-light">
-                {introClass.preparation}
+                {upcomingClass.preparation}
               </p>
             </div>
           </div>
@@ -91,11 +91,11 @@ export default function StartPage() {
             <span className="text-xs font-semibold uppercase tracking-widest text-[#E0C9A2]">Ready to begin?</span>
             <h2 id="start-booking-heading" className="font-serif text-3xl sm:text-4xl">Experience Your First Class</h2>
             <p className="mx-auto max-w-xl text-sm leading-relaxed text-[#DFD9CC]">
-              {introClass.date} · {introClass.time}. Free admission; booking required. {introClass.practice}
+              {upcomingClass.date} · {upcomingClass.time}. {upcomingClass.priceNote}. Booking required.
             </p>
-            <div className="mx-auto max-w-xl rounded-2xl bg-[#E8E4DA] p-5 text-left"><IntroClassLocation /><p className="mt-3 text-sm text-[#303331]">{introClass.weather}</p><p className="mt-3 text-sm text-[#303331]">{introClass.future}</p></div>
+            <div className="mx-auto max-w-xl rounded-2xl bg-[#E8E4DA] p-5 text-left"><IntroClassLocation /><p className="mt-3 text-sm text-[#303331]">{upcomingClass.weather}</p><p className="mt-3 text-sm text-[#303331]">{upcomingClass.future}</p></div>
             <Link href="/classes#reserve" className="inline-flex items-center justify-center gap-2 rounded-full bg-[#9B3D2E] px-7 py-3.5 text-sm font-semibold text-white hover:bg-[#7D3024]">
-              Reserve Your Free Spot <ArrowRight className="h-4 w-4" />
+              Reserve Your Spot <ArrowRight className="h-4 w-4" />
             </Link>
           </section>
 

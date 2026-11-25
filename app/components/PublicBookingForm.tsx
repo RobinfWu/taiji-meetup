@@ -2,7 +2,7 @@
 
 import { useEffect, useState, type FormEvent } from "react";
 import { CalendarDays, CheckCircle2, LoaderCircle } from "lucide-react";
-import { introClass, isIntroClass } from "../../functions/lib/introClass";
+import { parkClassDetails } from "../../functions/lib/introClass";
 
 type Session = {
   id: string;
@@ -199,6 +199,8 @@ export function PublicBookingForm() {
   });
   const selected = sessions.find(s => s.id === sessionId);
   const freeSession = selected?.price_cents === 0;
+  const parkDetails = selected ? parkClassDetails(selected) : undefined;
+  const resultParkDetails = result ? parkClassDetails(result.session) : undefined;
   const location = (selected?.location?.trim() || selected?.template.location?.trim()) ?? "";
   const usableLocation = location && !/placeholder|\[|\btbd\b|to be (?:confirmed|announced)/i.test(location);
   const hasAddress = usableLocation && /(?:\b\d{1,6}\s+\S+|\b[A-Z]\d[A-Z]\s?\d[A-Z]\d\b)/i.test(location);
@@ -215,7 +217,7 @@ export function PublicBookingForm() {
       <div className="text-center space-y-3 mb-8">
         <span className="text-xs font-semibold uppercase tracking-widest text-[#243B45]">Reserve a place</span>
         <h2 id="reserve-heading" className="font-serif text-3xl sm:text-4xl font-light">Book a Class</h2>
-        <p className="text-base font-semibold text-[#365F46]">Free introductory class · CAD $0. No payment information required.</p>
+        <p className="text-base font-semibold text-[#365F46]">{freeSession ? "Free class · CAD $0. No payment information required." : "Your first class is free. Returning drop-in students pay $20 CAD."}</p>
         <p className="text-sm text-[#57625B]">Booking is required. Verify your email, review the waiver, then confirm your place. No account or commitment to future classes is required.</p>
       </div>
       <div className="bg-[#DFD9CC] rounded-3xl border border-[#D5CEBF] p-6 sm:p-9 shadow-xs">
@@ -228,11 +230,11 @@ export function PublicBookingForm() {
               <p><strong>Class:</strong> {result.session.title}</p>
               <p><strong>Date and time:</strong> {formatSession(result.session)} (America/Toronto)</p>
               <p><strong>Meeting location:</strong> {result.session.location}</p>
-              {isIntroClass(result.session) && <><p>{introClass.meeting}</p><p>{introClass.practice}</p><p>{introClass.weather}</p><a href={introClass.mapsUrl} target="_blank" rel="noopener noreferrer" className="inline-block text-[#243B45] underline underline-offset-4">Directions to Lake Ontario Park</a></>}
+              {resultParkDetails && <><p>{resultParkDetails.meeting}</p>{"practice" in resultParkDetails && <p>{resultParkDetails.practice}</p>}<p>{resultParkDetails.weather}</p><a href={resultParkDetails.mapsUrl} target="_blank" rel="noopener noreferrer" className="inline-block text-[#243B45] underline underline-offset-4">Directions to Lake Ontario Park</a></>}
               <p><strong>Amount:</strong> {currency(result.pricing.amount_cents)} CAD</p>
               {result.payment && <><p><strong>Payment:</strong> {result.payment.method === "cash" ? "Cash at class" : "Interac e-Transfer"} — awaiting payment</p><p><strong>Reference:</strong> {result.payment.reference}</p></>}
             </div>
-            {result.payment?.method === "etransfer" && <p className="text-sm text-[#303331]">Include the reference above when sending your e-Transfer. Contact the instructor for the transfer destination; do not send funds to an unverified address.</p>}
+            {result.payment?.method === "etransfer" && <p className="text-sm text-[#303331]">Send your Interac e-Transfer to chentaijilab@gmail.com and include the reference above. Your financial institution may charge a sending fee.</p>}
             {result.payment?.method === "cash" && <p className="text-sm text-[#303331]">Please bring cash to your class. Your seat is reserved while payment is pending.</p>}
             {result.payment === null && <p className="text-sm text-[#303331]">No payment is required for this reservation.</p>}
             <p className="text-xs text-[#57625B]">A confirmation email is queued for delivery. Save your reservation details before leaving.</p>
@@ -256,12 +258,12 @@ export function PublicBookingForm() {
                 <div><dt className="text-[#57625B]">Available spots</dt><dd className="font-semibold text-[#171918]">{selected.available_spots > 0 ? selected.available_spots : "Full — choose another session"}</dd></div>
                 <div className="sm:col-span-2"><dt className="font-semibold text-[#243B45]">Meeting location</dt><dd className="mt-1 text-base font-medium text-[#171918] break-words">{usableLocation ? location : "Location to be confirmed"}</dd>
                   {hasAddress && <a href={`https://www.google.com/maps/search/?api=1&query=${encodeURIComponent(location)}`} target="_blank" rel="noopener noreferrer" className="inline-block mt-2 text-sm text-[#243B45] underline underline-offset-4">View meeting location on map</a>}
-                  {isIntroClass(selected) && <p className="mt-2 leading-relaxed">{introClass.meeting}</p>}
+                  {parkDetails && <p className="mt-2 leading-relaxed">{parkDetails?.meeting}</p>}
                 </div>
               </dl>
             </div>}
             {verificationStep === "waiver" && pricing && <div className="space-y-4">
-              <p className="text-lg font-semibold text-[#243B45]" aria-live="polite">{pricing.amount_cents === 0 ? (freeSession ? "Free introductory class · $0 CAD" : "First class · $0 CAD") : `Drop-in · ${currency(pricing.amount_cents)} CAD`}</p>
+              <p className="text-lg font-semibold text-[#243B45]" aria-live="polite">{pricing.amount_cents === 0 ? (freeSession ? "Free class · $0 CAD" : "First class · $0 CAD") : `Drop-in · ${currency(pricing.amount_cents)} CAD`}</p>
               {pricing.amount_cents === 0 ? <p className="text-sm text-[#303331]">No payment is required for this reservation.</p> : <>
                 <div><label className={label} htmlFor="booking-method">Payment preference *</label><select className={field} id="booking-method" value={method} onChange={e => setMethod(e.target.value)}><option value="etransfer">Interac e-Transfer</option><option value="cash">Cash at class</option></select></div>
               </>}

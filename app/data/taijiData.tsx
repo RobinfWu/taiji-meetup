@@ -236,8 +236,8 @@ export const TAIJI_DATA = {
     {
       id: "class-1",
       title: "Taijiquan — Form (Yilu) & Push Hands (Tuishou)",
-      day: "Saturday, November 21, 2026",
-      time: "11:00 AM–12:30 PM EST",
+      day: "Saturday, November 28, 2026",
+      time: "1:00–2:00 PM EST",
       openPracticeNote: "Optional additional practice and questions afterward.",
       location: "Kingston, Ontario",
       level: "All Levels",
@@ -250,7 +250,7 @@ export const TAIJI_DATA = {
     {
       name: "Lake Ontario Park",
       address: "920 King St. W., Kingston, Ontario",
-      scheduleNote: "One-time introductory class: November 21, 2026, 11:00 AM–12:30 PM EST (weather-dependent)",
+      scheduleNote: "Next class: November 28, 2026, 1:00–2:00 PM EST (weather-dependent)",
       tips: "Wear flat-soled shoes (ideally thin and hard-soled), comfortable pants, and dress in weather-appropriate layers."
     }
   ],

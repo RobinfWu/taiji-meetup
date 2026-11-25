@@ -1,5 +1,5 @@
 
-import { introClass, isIntroClass } from "./introClass";
+import { parkClassDetails } from "./introClass";
 
 type Confirmation = {
   first_name: string;
@@ -35,6 +35,7 @@ export function confirmationText(
     hour12: true,
   });
 
+  const park = parkClassDetails(info);
   const start = fmt.format(new Date(info.start_at));
   const end = endFmt.format(new Date(info.end_at));
 
@@ -83,7 +84,7 @@ export function confirmationText(
       `Class: ${info.session_title}`,
       `When: ${start} – ${end} (Kingston local time)`,
       `Location: ${info.location}`,
-      ...(isIntroClass(info) ? [introClass.meeting, `Directions: ${introClass.mapsUrl}`, introClass.practice, introClass.weather, introClass.preparation] : []),
+      ...(park ? [park.meeting, `Directions: ${park.mapsUrl}`, ...("practice" in park ? [park.practice] : []), park.weather, park.preparation] : []),
       "",
       payment,
       "",

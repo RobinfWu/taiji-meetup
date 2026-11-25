@@ -3,7 +3,7 @@
 import React from "react";
 import Link from "next/link";
 import { TAIJI_DATA } from "../data/taijiData";
-import { introClass } from "../../functions/lib/introClass";
+import { upcomingClass } from "../../functions/lib/introClass";
 import { ArrowRight } from "lucide-react";
 
 interface HeroSectionProps {
@@ -61,7 +61,7 @@ export const HeroSection: React.FC<HeroSectionProps> = () => {
                 <div className="flex items-center space-x-2">
                   <div className="w-2.5 h-2.5 rounded-full bg-[#9B3D2E]" />
                   <span className="text-xs font-semibold uppercase tracking-wider text-[#243B45]">
-                    First Free Introductory Class
+                    Next Class
                   </span>
                 </div>
                 <span className="text-xs text-[#8A7250] font-serif italic">
@@ -91,8 +91,8 @@ export const HeroSection: React.FC<HeroSectionProps> = () => {
                 </div>
 
                 <div className="pt-2 border-t border-[#D5CEBF] text-xs text-[#303331] flex flex-wrap items-center gap-x-3 gap-y-1">
-                  <div className="w-full">{introClass.date}</div><div className="w-full">{introClass.time}</div><div className="w-full">Lake Ontario Park, Kingston</div>
-                  <span className="font-semibold text-[#9B3D2E]">Free — Beginners Welcome</span>
+                  <div className="w-full">{upcomingClass.date}</div><div className="w-full">{upcomingClass.time}</div><div className="w-full">Lake Ontario Park, Kingston</div>
+                  <span className="font-semibold text-[#9B3D2E]">First class free</span>
                 </div>
 
                 <Link
@@ -100,7 +100,7 @@ export const HeroSection: React.FC<HeroSectionProps> = () => {
                   className="w-full mt-3 py-2.5 bg-[#9B3D2E] hover:bg-[#7D3024] text-white text-xs font-semibold rounded-xl transition-colors flex items-center justify-center space-x-2 cursor-pointer"
                 >
                   <ArrowRight aria-hidden="true" className="w-3.5 h-3.5" />
-                  <span>Reserve Your Free Spot</span>
+                  <span>Reserve Your Spot</span>
                 </Link>
               </div>
             </div>
