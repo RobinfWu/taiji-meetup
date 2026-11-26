@@ -1,4 +1,4 @@
-import { upcomingClass } from "../functions/lib/introClass";
+import { UpcomingClassInfo } from "./components/UpcomingClassInfo";
 import { IntroClassLocation } from "./components/IntroClassLocation";
 import type { Metadata } from "next";
 import Image from "next/image";
@@ -184,14 +184,14 @@ export default function Home() {
                   <h3 className="font-serif text-lg font-semibold">Next Class</h3>
                 </div>
                 <div className="text-xs text-[#303331] space-y-1.5 font-light">
-                  <p className="font-semibold">{upcomingClass.date}</p><p>{upcomingClass.time}</p><p>{upcomingClass.weather}</p><p>{upcomingClass.future}</p>
+                  <UpcomingClassInfo variant="schedule" />
                 </div>
               </div>
 
               <div className="bg-[#DFD9CC] p-6 rounded-3xl border border-[#D5CEBF] space-y-3 shadow-xs">
                 <div className="flex items-center space-x-3 text-[#171918]">
                   <MapPin className="w-5 h-5 text-[#243B45]" />
-                  <h3 className="font-serif text-lg font-semibold">Lake Ontario Park</h3>
+                  <h3 className="font-serif text-lg font-semibold">Meeting location</h3>
                 </div>
                 <div className="text-xs text-[#303331] space-y-1 font-light">
                   <IntroClassLocation />

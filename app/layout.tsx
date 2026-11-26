@@ -1,6 +1,7 @@
 import type { Metadata } from "next";
 import { Cormorant_Garamond, Plus_Jakarta_Sans } from "next/font/google";
 import "./globals.css";
+import { PublicClassesProvider } from "./components/PublicClassesProvider";
 
 const cormorant = Cormorant_Garamond({
   variable: "--font-serif",
@@ -39,7 +40,7 @@ export default function RootLayout({
       className={`${cormorant.variable} ${jakarta.variable} scroll-smooth antialiased h-full`}
     >
       <body className="min-h-full flex flex-col font-sans bg-[#E8E4DA] text-[#171918] selection:bg-[#9B3D2E]/15 selection:text-[#9B3D2E]">
-        {children}
+        <PublicClassesProvider>{children}</PublicClassesProvider>
       </body>
     </html>
   );

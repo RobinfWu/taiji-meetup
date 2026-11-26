@@ -1,18 +1,10 @@
 "use client";
 
-import { useEffect, useState, type FormEvent } from "react";
+import { useState, type FormEvent } from "react";
 import { CalendarDays, CheckCircle2, LoaderCircle } from "lucide-react";
+import { usePublicClasses } from "./PublicClassesProvider";
 import { parkClassDetails } from "../../functions/lib/introClass";
 
-type Session = {
-  id: string;
-  start_at: string;
-  end_at: string;
-  location: string | null;
-  available_spots: number;
-  price_cents: number | null;
-  template: { title: string; location: string | null; timezone: string };
-};
 type VerifiedPricing = { first_reservation_free: boolean; amount_cents: number; paid_rates: { regular: number }; currency: "CAD" };
 const isVerifiedPricing = (value: unknown): value is VerifiedPricing => {
   const quote = value as VerifiedPricing | null;
@@ -40,11 +32,9 @@ const formatSession = (session: { start_at: string; end_at: string }) => {
 };
 
 export function PublicBookingForm() {
-  const [sessions, setSessions] = useState<Session[]>([]);
-  const [loading, setLoading] = useState(true);
-  const [loadError, setLoadError] = useState("");
-  const [loadAttempt, setLoadAttempt] = useState(0);
-  const [sessionId, setSessionId] = useState("");
+  const { sessions, loading, error: loadError, refresh: refreshSessions } = usePublicClasses();
+  const [chosenSessionId, setSessionId] = useState("");
+  const sessionId = chosenSessionId || sessions.find(s => s.available_spots > 0)?.id || "";
   const [firstName, setFirstName] = useState("");
   const [lastName, setLastName] = useState("");
   const [email, setEmail] = useState("");
@@ -64,75 +54,6 @@ export function PublicBookingForm() {
   const [waiverAcknowledged, setWaiverAcknowledged] = useState(false);
   const [adultConfirmed, setAdultConfirmed] = useState(false);
 
-  async function refreshSessions(signal?: AbortSignal) {
-    const response = await fetch("/api/classes", { cache: "no-store", signal });
-    if (!response.ok) throw new Error("Unable to load upcoming classes right now.");
-    const data: unknown = await response.json();
-    if (!Array.isArray(data)) throw new Error("Unexpected class schedule response.");
-    const upcoming = (data as Session[]).filter(s => s && typeof s.id === "string" && typeof s.available_spots === "number" && new Date(s.start_at).getTime() > Date.now());
-    setSessions(upcoming);
-    setSessionId(current => upcoming.some(s => s.id === current) ? current : "");
-  }
-
-  useEffect(() => {
-    const controller = new AbortController();
-
-    async function loadInitialSessions() {
-      setLoading(true);
-      setLoadError("");
-      try {
-        const response = await fetch("/api/classes", {
-          cache: "no-store",
-          signal: controller.signal,
-        });
-
-        if (!response.ok) {
-          throw new Error("Unable to load upcoming classes right now.");
-        }
-
-        const data: unknown = await response.json();
-
-        if (!Array.isArray(data)) {
-          throw new Error("Unexpected class schedule response.");
-        }
-
-        const upcoming = (data as Session[]).filter(
-          s =>
-            s &&
-            typeof s.id === "string" &&
-            typeof s.available_spots === "number" &&
-            new Date(s.start_at).getTime() > Date.now()
-        );
-
-        if (controller.signal.aborted) return;
-
-        setSessions(upcoming);
-        setSessionId(current =>
-          upcoming.some(s => s.id === current)
-            ? current
-            : (upcoming.find(s => s.available_spots > 0)?.id ?? "")
-        );
-        setLoadError("");
-      } catch (err) {
-        if (!controller.signal.aborted) {
-          setLoadError(
-            err instanceof Error
-              ? err.message
-              : "Unable to load classes."
-          );
-        }
-      } finally {
-        if (!controller.signal.aborted) {
-          setLoading(false);
-        }
-      }
-    }
-
-    void loadInitialSessions();
-
-    return () => controller.abort();
-  }, [loadAttempt]);
-
   async function postJson(url: string, payload: Record<string, unknown>) {
     const response = await fetch(url, { method: "POST", headers: { "Content-Type": "application/json" }, body: JSON.stringify(payload) });
     const data: unknown = await response.json();
@@ -149,6 +70,7 @@ export function PublicBookingForm() {
     setError(""); setSubmitting(true);
     try {
       if (verificationStep === "details") {
+        setSessionId(sessionId);
         const data = await postJson("/api/public/verification/request", { email: email.trim() });
         setDevCode(typeof data.dev_code === "string" ? data.dev_code : "");
         setVerificationStep("code");
@@ -291,7 +213,7 @@ export function PublicBookingForm() {
               <button type="button" className="text-sm underline text-[#243B45]" onClick={editDetails}>Edit booking details or request another code</button>
             </div> : loading ? <p className="text-sm text-[#57625B]" role="status">Loading available classes…</p> : loadError ? <div role="alert" className="space-y-3 text-sm">
               <p className="text-[#9B3D2E]">{loadError}</p>
-              <button type="button" onClick={() => setLoadAttempt(attempt => attempt + 1)} className="text-[#243B45] underline underline-offset-4 focus-visible:outline-2 focus-visible:outline-offset-4 focus-visible:outline-[#243B45]">Try loading classes again</button>
+              <button type="button" onClick={() => void refreshSessions()} className="text-[#243B45] underline underline-offset-4 focus-visible:outline-2 focus-visible:outline-offset-4 focus-visible:outline-[#243B45]">Try loading classes again</button>
             </div> : sessions.length === 0 ? <p className="text-sm text-[#57625B]">No upcoming sessions are scheduled yet. Please check back later.</p> : <>
 
               <div className="grid grid-cols-1 sm:grid-cols-2 gap-4"><div><label className={label} htmlFor="booking-first">First name *</label><input className={field} id="booking-first" autoComplete="given-name" required maxLength={100} value={firstName} onChange={e => setFirstName(e.target.value)}/></div><div><label className={label} htmlFor="booking-last">Last name *</label><input className={field} id="booking-last" autoComplete="family-name" required maxLength={100} value={lastName} onChange={e => setLastName(e.target.value)}/></div></div>

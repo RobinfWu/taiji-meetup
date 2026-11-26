@@ -12,7 +12,7 @@ const root = resolve(import.meta.dirname, '../..');
 
 export async function createBookingFixture() {
   const output = mkdtempSync(join(tmpdir(), 'taiji-booking-fixture-'));
-  const sources = ['api/classes', 'api/public/book', 'api/public/verification/request', 'api/public/verification/confirm', 'api/public/waiver/status', 'api/reservations/[id]/cancel', 'api/reservations/index', 'api/admin/classes/index', 'api/admin/auth/session', 'api/admin/overview/index', 'api/admin/booking-emails/process', 'lib/auth', 'lib/instructorBookingNotification', 'lib/emailVerification', 'lib/bookingConfirmation', 'lib/introClass', 'lib/validation', 'lib/publicBookingPricing', 'types/env'];
+  const sources = ['api/classes', 'api/public/book', 'api/public/verification/request', 'api/public/verification/confirm', 'api/public/waiver/status', 'api/reservations/[id]/cancel', 'api/reservations/index', 'api/admin/classes/index', 'api/admin/classes/manage', 'api/admin/auth/session', 'api/admin/overview/index', 'api/admin/booking-emails/process', 'lib/auth', 'lib/instructorBookingNotification', 'lib/emailVerification', 'lib/bookingConfirmation', 'lib/introClass', 'lib/validation', 'lib/publicBookingPricing', 'types/env'];
   for (const source of sources) {
     const dest = join(output, source + '.mjs');
     mkdirSync(dirname(dest), { recursive: true });

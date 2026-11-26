@@ -3,8 +3,8 @@
 import React from "react";
 import Link from "next/link";
 import { TAIJI_DATA } from "../data/taijiData";
-import { upcomingClass } from "../../functions/lib/introClass";
-import { ArrowRight } from "lucide-react";
+import { UpcomingClassInfo } from "./UpcomingClassInfo";
+
 
 interface HeroSectionProps {
   onNavigateTab?: (tabId: string) => void;
@@ -70,39 +70,7 @@ export const HeroSection: React.FC<HeroSectionProps> = () => {
               </div>
 
               {/* Main Routine Overview Box */}
-              <div className="bg-[#E8E4DA] p-5 rounded-2xl border border-[#D5CEBF] space-y-3 shadow-xs">
-                <div className="flex justify-between items-start">
-                  <div>
-                    <h3 className="font-serif text-lg font-semibold text-[#171918]">
-                      Chen Taijiquan with Robin Wu
-                    </h3>
-                  </div>
-                </div>
-
-                <div className="space-y-1.5 text-xs text-[#303331] font-light pt-1">
-                  <div className="flex items-center space-x-2">
-                    <span className="w-1.5 h-1.5 rounded-full bg-[#243B45]" />
-                    <span>Form (Yilu) + optional Push Hands</span>
-                  </div>
-                  <div className="flex items-center space-x-2">
-                    <span className="w-1.5 h-1.5 rounded-full bg-[#8A7250]" />
-                    <span>Beginners welcome</span>
-                  </div>
-                </div>
-
-                <div className="pt-2 border-t border-[#D5CEBF] text-xs text-[#303331] flex flex-wrap items-center gap-x-3 gap-y-1">
-                  <div className="w-full">{upcomingClass.date}</div><div className="w-full">{upcomingClass.time}</div><div className="w-full">Lake Ontario Park, Kingston</div>
-                  <span className="font-semibold text-[#9B3D2E]">First class free</span>
-                </div>
-
-                <Link
-                  href="/classes#reserve"
-                  className="w-full mt-3 py-2.5 bg-[#9B3D2E] hover:bg-[#7D3024] text-white text-xs font-semibold rounded-xl transition-colors flex items-center justify-center space-x-2 cursor-pointer"
-                >
-                  <ArrowRight aria-hidden="true" className="w-3.5 h-3.5" />
-                  <span>Reserve Your Spot</span>
-                </Link>
-              </div>
+              <div className="bg-[#E8E4DA] p-5 rounded-2xl border border-[#D5CEBF] shadow-xs"><UpcomingClassInfo variant="hero" /></div>
             </div>
           </div>
         </div>
